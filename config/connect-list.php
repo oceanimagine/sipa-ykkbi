@@ -19,11 +19,11 @@ $list_server = array(
         "port" => "5431"
     ),
     "200.60.4.93" => array(
-        "host" => "localhost",
-        "user" => "root",
+        "host" => "200.60.4.93",
+        "user" => "postgres",
         "pass" => "Ykkbi@2021",
-        "data" => "project_helpdesk",
-        "base" => "/ykkbidesk/",
+        "data" => "dbsiang_dev",
+        "base" => "/project-ykkbi-sipa/",
         "port" => "5431"
     ),
     "ykkbidesk.appazzura.net" => array(
