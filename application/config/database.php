@@ -50,11 +50,13 @@
 $active_group = 'default';
 $active_record = TRUE;
 
+// $db['default']['dsn'] = 'pgsql:host='.$GLOBALS['host'].';port='.$GLOBALS['port'].';dbname='.$GLOBALS['data'];
 $db['default']['hostname'] = $GLOBALS['host'];
 $db['default']['username'] = $GLOBALS['user'];
 $db['default']['password'] = $GLOBALS['pass'];
 $db['default']['database'] = $GLOBALS['data'];
-$db['default']['dbdriver'] = 'mysqli';
+$db['default']['port'] = (int) $GLOBALS['port'];
+$db['default']['dbdriver'] = 'postgre';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
 $db['default']['db_debug'] = TRUE;

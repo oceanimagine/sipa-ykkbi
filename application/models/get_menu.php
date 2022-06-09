@@ -35,7 +35,7 @@ class get_menu extends CI_Model {
         $query_total = $this->db->query($sql_total);
         $total = $query_total->num_rows();
 
-        $sql = "select ".$GLOBALS['kolom_menu']." from tbl_menu where parent_id = '0'".$clouse." order by id asc limit $iDisplayStart , $iDisplayLength";
+        $sql = "select ".$GLOBALS['kolom_menu']." from tbl_menu where parent_id = '0'".$clouse." order by id asc offset $iDisplayStart limit $iDisplayLength";
         //echo $sql;
         $page = ($iDisplayStart / $iDisplayLength);
 
