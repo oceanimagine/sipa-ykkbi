@@ -1,0 +1,2 @@
+[08-May-2017 05:02:10 America/Chicago] PHP Warning:  mysqli_connect(): (28000/1045): Access denied for user 'phplayer_manik'@'localhost' (using password: YES) in /home/phplayerlab/public_html/project_manik/connect.php on line 49
+[08-May-2017 05:02:18 America/Chicago] PHP Warning:  mysqli_connect(): (28000/1045): Access denied for user 'phplayer_manik'@'localhost' (using password: YES) in /home/phplayerlab/public_html/project_manik/connect.php on line 49

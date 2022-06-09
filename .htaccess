@@ -1,0 +1,9 @@
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteRule ^pdfview.asp$ application/libraries/pdfview/web/view.php [L]
+    RewriteRule ^pdflibrary.asp$ application/libraries/pdfview/web/viewer.php [L]
+</IfModule>

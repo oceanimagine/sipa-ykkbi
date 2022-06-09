@@ -1,0 +1,66 @@
+input {
+    font-family: consolas, monospace;
+    width: 100%;
+    -moz-box-sizing: border-box;
+    box-sizing:border-box;
+    font-family: monospace;
+}
+select {
+    font-family: consolas, monospace;
+    width: 100%;
+    height: 30px;
+    -moz-box-sizing: border-box;
+    box-sizing:border-box;
+    font-family: monospace;
+}
+td {
+    vertical-align: top;
+}
+textarea {
+    width: 100%;
+    height: 40px;
+    resize: none;
+    -moz-box-sizing: border-box;
+    box-sizing:border-box;
+    font-family: monospace;
+}
+hr {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+#tampil_data {
+    border: 1px solid #d0d0d0;
+    border-spacing: 4px;
+    border-collapse: separate;
+}
+#tampil_data > tbody > tr > td {
+    border: 1px solid #d0d0d0;
+    padding: 5px;
+}
+
+.tampil_data {
+    border: 1px solid #d0d0d0;
+    border-spacing: 4px;
+    border-collapse: separate;
+}
+.tampil_data > tbody > tr > td {
+    border: 1px solid #d0d0d0;
+    padding: 5px;
+}
+.tabel_paket > tbody > tr > td {
+    padding: 4px;
+}
+.tabel_umum > tbody > tr > td {
+    padding: 2px;
+}
+
+#menu_coba { 
+    overflow: hidden;
+    height: 435px;
+}
+#menu_coba:hover { 
+    overflow-y: auto; 
+}
