@@ -15,7 +15,7 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         
         <ul class="sidebar-menu">
-            <li class="header">Helpdesk YKKBI</li>
+            <li class="header">SIPA YKKBI</li>
             <li class='treeview<?php /* echo $this->get_active(); */  echo $this->CI->uri->segment(1) == "home" || $this->CI->uri->segment(1) == '' ? " active" : ""; ?>'>
                 <a href="<?php echo get_url("home"); ?>"><i class="fa fa-home"></i> <span>Home</span></a>
             </li>

@@ -23,7 +23,7 @@ $list_server = array(
         "user" => "postgres",
         "pass" => "Ykkbi@2021",
         "data" => "dbsiang_dev",
-        "base" => "/project-ykkbi-sipa/",
+        "base" => "/sipa/",
         "port" => "5431"
     ),
     "ykkbidesk.appazzura.net" => array(
