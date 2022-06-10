@@ -51,6 +51,10 @@ $GLOBALS['prioritas_status'] = array(
     "pending"
 );
 
+/* Layout Replace */
+$GLOBALS['left_menu_under_logo'] = true;
+$GLOBALS['function_process'] = "";
+
 /* Additional Function */
 function check_url_index_php(){
     $request_uri = is_array($_SERVER) && isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : "";

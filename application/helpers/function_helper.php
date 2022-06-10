@@ -155,3 +155,9 @@ function show_photo($name_active, $file_name){
     </div>
     <?php
 }
+
+function get_project(){
+    $CI =& get_instance();
+    $CI->load->model('get_tarif');
+    return "Dari Fungsi.";
+}

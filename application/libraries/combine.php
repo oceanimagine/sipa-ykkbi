@@ -151,8 +151,46 @@ class combine {
                 $js_collect = $js_collect . $get_script[$getjs[$i]]['script_tag'] . "\n";
             }
         }
-
+        
         $isi_body = $js_collect . $this->get_inside_body_tag($html);
+        
+        /* Layout Replace */
+        $left_menu_under_logo_search = "{REPLACE_WITH_FUNCTION}";
+        $left_menu_under_logo_replace = "";
+        if(isset($GLOBALS['left_menu_under_logo']) && $GLOBALS['left_menu_under_logo']){
+            if(isset($GLOBALS['function_process']) && $GLOBALS['function_process'] != ""){
+                if(function_exists($GLOBALS['function_process'])){
+                    eval('$return_function = '.$GLOBALS['function_process'].'();');
+                    $return_function = isset($return_function) ? $return_function : "";
+                    $left_menu_under_logo_replace = $return_function;
+                    $replace_concate = "";
+                    $address_body = 0;
+                    while(isset($layout_content{$address_body})){
+                        if(substr($layout_content, $address_body, strlen($left_menu_under_logo_search . '{{DEFAULT:"')) == $left_menu_under_logo_search . '{{DEFAULT:"'){
+                            while(isset($layout_content{$address_body})){
+                                $replace_concate = $replace_concate . $layout_content{$address_body};
+                                if($layout_content{$address_body} == "}" && $layout_content{$address_body - 1} == "}"){
+                                    break;
+                                }
+                                $address_body++;
+                            }
+                            break;
+                        }
+                        $address_body++;
+                    }
+                    $left_menu_under_logo_search = $replace_concate; 
+                }
+            }
+        }
+        if($left_menu_under_logo_replace == ""){
+            $explode_start = explode('{REPLACE_WITH_FUNCTION}{{DEFAULT:"', $layout_content);
+            if(isset($explode_start[1]) && $explode_start[1] != ""){
+                $explode_end = explode('"}}', $explode_start[1]);
+                $left_menu_under_logo_search = '{REPLACE_WITH_FUNCTION}{{DEFAULT:"'.$explode_end[0].'"}}';
+                $left_menu_under_logo_replace = $explode_end[0];
+            }
+        }
+        
         $title = $this->get_title($html);
         if (sizeof($search) > 0) {
             $isi_body = str_replace($search, $replace, $isi_body);
@@ -163,14 +201,16 @@ class combine {
             "{user}", 
             "{priviledge}", 
             "{title}", 
-            "<!-- {MENU_REPLACE} -->"
+            "<!-- {MENU_REPLACE} -->",
+            $left_menu_under_logo_search
         );
         $array_replace = array(
             $isi_body, 
             (user == "SUPERADMIN" ? user : (isset($_SESSION['username']) ? substr($_SESSION['username'], 0, 20) : "")), 
             (priviledge == "SUPERADMIN" ? priviledge : (isset($_SESSION['username']) ? substr($_SESSION['username'], 0, 20) : "")), 
             $title, 
-            $menu_li[0]
+            $menu_li[0],
+            $left_menu_under_logo_replace
         );
         
         $keys_add = array_keys($array_view);
