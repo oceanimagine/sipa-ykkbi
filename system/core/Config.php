@@ -109,7 +109,6 @@ class CI_Config {
 			foreach ($check_locations as $location)
 			{
 				$file_path = $path.'config/'.$location.'.php';
-
 				if (in_array($file_path, $this->is_loaded, TRUE))
 				{
 					$loaded = TRUE;

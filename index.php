@@ -1,5 +1,7 @@
 <?php
-
+// https://stackoverflow.com/questions/2687730/how-can-i-make-php-display-the-error-instead-of-giving-me-500-internal-server-er
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
 include_once __DIR__ . "/config/connect-list.php";
 include_once __DIR__ . "/config/connect.php";
 

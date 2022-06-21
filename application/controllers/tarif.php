@@ -64,6 +64,17 @@ class tarif extends CI_Controller {
         
         $this->get_tarif->process(array(
             'action' => 'select',
+            'table' => 'tblmastersatker',
+            'column_value' => array(
+                'satkerid',
+                'nama1',
+                'nama2'
+            )
+        ));
+        $data_satker = $this->all;
+        
+        $this->get_tarif->process(array(
+            'action' => 'select',
             'table' => 'tblmastertarif',
             'column_value' => array(
                 'kode',
@@ -82,7 +93,8 @@ class tarif extends CI_Controller {
             'tarifid' => $this->row->{'tarifid'},
             'tarifnama' => $this->row->{'tarifnama'},
             'tarifnom' => $this->row->{'tarifnom'},
-            'tarifdesc' => $this->row->{'tarifdesc'}
+            'tarifdesc' => $this->row->{'tarifdesc'},
+            "data_satker" => $data_satker
         ));
     }
     
@@ -97,7 +109,7 @@ class tarif extends CI_Controller {
             $tarifdesc = $this->input->post('tarifdesc');
             $this->get_tarif->process(array(
                 'action' => 'insert',
-                'table' => 'hdcasedaftar',
+                'table' => 'tblmastertarif',
                 'column_value' => array(
                     
                     'kode' => $kode,
@@ -111,7 +123,19 @@ class tarif extends CI_Controller {
             redirect('tarif/add');
         }
         
-        $this->layout->loadView('tarif_form');
+        $this->get_tarif->process(array(
+            'action' => 'select',
+            'table' => 'tblmastersatker',
+            'column_value' => array(
+                'satkerid',
+                'nama1',
+                'nama2'
+            )
+        ));
+        $data_satker = $this->all;
+        $this->layout->loadView('tarif_form', array(
+            "data_satker" => $data_satker
+        ));
     }
     
     public function index() {

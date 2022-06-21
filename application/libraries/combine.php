@@ -139,6 +139,7 @@ class combine {
             $html = $html['html'];
         }
         $get_script = $this->get_all_script_tag($html);
+        
         // $layout_content = file_get_contents(base_url . str_replace("{layout_active}", layout_use, layout_active) . "?base_url=" . base_url_get_param);
         
         ob_start();
@@ -165,11 +166,11 @@ class combine {
                     $left_menu_under_logo_replace = $return_function;
                     $replace_concate = "";
                     $address_body = 0;
-                    while(isset($layout_content{$address_body})){
+                    while(isset($layout_content[$address_body])){
                         if(substr($layout_content, $address_body, strlen($left_menu_under_logo_search . '{{DEFAULT:"')) == $left_menu_under_logo_search . '{{DEFAULT:"'){
-                            while(isset($layout_content{$address_body})){
-                                $replace_concate = $replace_concate . $layout_content{$address_body};
-                                if($layout_content{$address_body} == "}" && $layout_content{$address_body - 1} == "}"){
+                            while(isset($layout_content[$address_body])){
+                                $replace_concate = $replace_concate . $layout_content[$address_body];
+                                if($layout_content[$address_body] == "}" && $layout_content[$address_body - 1] == "}"){
                                     break;
                                 }
                                 $address_body++;
@@ -182,6 +183,7 @@ class combine {
                 }
             }
         }
+        
         if($left_menu_under_logo_replace == ""){
             $explode_start = explode('{REPLACE_WITH_FUNCTION}{{DEFAULT:"', $layout_content);
             if(isset($explode_start[1]) && $explode_start[1] != ""){
@@ -191,7 +193,20 @@ class combine {
             }
         }
         
+        $replace_more_dialog = "";
+        $replace_search_more_dialog = array();
+        $replace_replace_more_dialog = array();
+        if(isset($GLOBALS['add_more_dialog']) && is_array($GLOBALS['add_more_dialog'])){
+            for($i = 0; $i < sizeof($GLOBALS['add_more_dialog']); $i++){
+                eval('$return_function = '.$GLOBALS['add_more_dialog'][$i].'();');
+                $replace_more_dialog = $replace_more_dialog . $return_function . "\n";
+                $replace_search_more_dialog[$i] = "{replace_".$GLOBALS['add_more_dialog'][$i]."}";
+                $replace_replace_more_dialog[$i] = $this->CI->{$GLOBALS['add_more_dialog'][$i]};
+            }
+        }
+        
         $title = $this->get_title($html);
+        $isi_body = str_replace($replace_search_more_dialog, $replace_replace_more_dialog, $isi_body);
         if (sizeof($search) > 0) {
             $isi_body = str_replace($search, $replace, $isi_body);
         }
@@ -202,7 +217,8 @@ class combine {
             "{priviledge}", 
             "{title}", 
             "<!-- {MENU_REPLACE} -->",
-            $left_menu_under_logo_search
+            $left_menu_under_logo_search,
+            "<!-- </add_more_dialog> -->"
         );
         $array_replace = array(
             $isi_body, 
@@ -210,7 +226,8 @@ class combine {
             (priviledge == "SUPERADMIN" ? priviledge : (isset($_SESSION['username']) ? substr($_SESSION['username'], 0, 20) : "")), 
             $title, 
             $menu_li[0],
-            $left_menu_under_logo_replace
+            $left_menu_under_logo_replace,
+            $replace_more_dialog
         );
         
         $keys_add = array_keys($array_view);

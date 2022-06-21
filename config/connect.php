@@ -51,9 +51,12 @@ $GLOBALS['prioritas_status'] = array(
     "pending"
 );
 
-/* Layout Replace */
+/* Layout Replace Left Menu Under Logo */
 $GLOBALS['left_menu_under_logo'] = true;
-$GLOBALS['function_process'] = "";
+$GLOBALS['function_process'] = "get_project";
+
+/* Layout Replace Add More Dialog */
+$GLOBALS['add_more_dialog'] = array("project_modal");
 
 /* Additional Function */
 function check_url_index_php(){

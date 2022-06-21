@@ -1,6 +1,6 @@
 <?php 
 
-class get_tarif extends CI_Model {
+class get_mata_anggaran_individual_benchmarks extends CI_Model {
 
     function __construct(){
         $this->param = new process_param();
@@ -24,21 +24,21 @@ class get_tarif extends CI_Model {
         $clouse = "";
 
         if ($sSearch != '') {
-            $clouse = " where tarifdesc like '%" . $sSearch . "%' ";
+            $clouse = " where rekmanama like '%" . $sSearch . "%' ";
         }
 
         /* select id, harga, tanggal_harus_bayar, case status when '1' then 'Aktif' when '2' then 'Tidak Aktif' else 'Tidak Aktif' end as status from tbl_atur_bayar */
 
-        $sql_total = "select kode, satkerid, tarifid, tarifnama, tarifnom, tarifdesc from tblmastertarif" . $clouse . $this->where_project($clouse) . "";
+        $sql_total = "select kode, rekmakode, rekmanama, rekmainduk, benchmarkang, benchmarkprog from tblmastermaindividual" . $clouse . $this->where_project($clouse) . "";
 
         $query_total = $this->db->query($sql_total);
         $total = $query_total->num_rows();
 
-        $sql = "select b.satkerid as id, kode, (select a.nama1 from tblmastersatker a where a.satkerid = b.satkerid) satkerid, b.tarifnama, b.tarifnom, b.tarifdesc from tblmastertarif b".$clouse.$this->where_project($clouse)." order by id asc offset $iDisplayStart limit $iDisplayLength";
+        $sql = "select b.rekmakode as id, b.kode, b.rekmakode, b.rekmanama, b.rekmainduk, (select a.rekmainduknama from tblmastermainduk a where a.rekmainduk = b.rekmainduk) rekmainduknama, b.benchmarkang, b.benchmarkprog from tblmastermaindividual b ".$clouse.$this->where_project($clouse)." order by id asc offset $iDisplayStart limit $iDisplayLength";
 
         $page = ($iDisplayStart / $iDisplayLength);
 
-        $resuld = $process_table->coba_db($sql, $page, $iDisplayLength, true, "../../../index.php/tarif/edit", "../../../index.php/tarif/hapus");
+        $resuld = $process_table->coba_db($sql, $page, $iDisplayLength, true, "../../../index.php/mata-anggaran-individual-benchmarks/edit", "../../../index.php/mata-anggaran-individual-benchmarks/hapus");
 
         $output = array(
             'sEcho' => $sEcho,

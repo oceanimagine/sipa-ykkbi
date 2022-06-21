@@ -133,13 +133,20 @@ class layout {
                 $this->process_regular_view("home_404", array_merge($variable, $this->variable_return));
             }
         } else {
-            $this->process_private_var_view($view_file, $setting_use);
-            $this->combinecall = new combine();
-
-            if(is_array($view_file)){
-                $this->process_array_view($view_file, array_merge($variable, $this->variable_return));
+            if(is_array($view_file) && isset($view_file['set_ob_view'])){
+                $this->combinecall = new combine();
+                ob_start();
+                $this->process_only_view($view_file['set_ob_view'], array_merge($variable, $this->variable_return));
+                return ob_get_clean();
             } else {
-                $this->process_regular_view($view_file, array_merge($variable, $this->variable_return));
+                $this->process_private_var_view($view_file, $setting_use);
+                $this->combinecall = new combine();
+
+                if(is_array($view_file)){
+                    $this->process_array_view($view_file, array_merge($variable, $this->variable_return));
+                } else {
+                    $this->process_regular_view($view_file, array_merge($variable, $this->variable_return));
+                }
             }
         }
     }
@@ -221,6 +228,10 @@ class layout {
             $html = ob_get_clean();
             echo $html;
         }
+    }
+    
+    public function process_only_view($view_file, $variable){
+        $this->CI->load->view($view_file, $variable);
     }
     
     public function process_regular_view($view_file, $variable){

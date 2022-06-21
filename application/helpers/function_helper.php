@@ -156,8 +156,55 @@ function show_photo($name_active, $file_name){
     <?php
 }
 
+// Project Modal
+function project_modal(){
+    $CI =& get_instance();
+    $CI->layout = new layout('lite');
+    $CI->load->model('get_project');
+    $CI->get_project->process(array(
+        'action' => 'select',
+        'table' => 'tblproject',
+        'column_value' => array(
+            'kode'
+        ),
+        'order' => ' tahunanggaran desc'
+    ));
+    $data = $CI->all;
+    $CI->project_modal = "UNDEFINED";
+    if(sizeof($data) > 0){
+        $CI->project_modal = $data[0]->kode;
+    }
+    return $CI->layout->loadView(array(
+        "set_ob_view" => "dialog/dialog-project"
+    ), array(
+        "data_project" => $data
+    ));
+}
+
+function project_test(){
+    $CI =& get_instance();
+    $CI->layout = new layout('lite');
+    return $CI->layout->loadView(array(
+        "set_ob_view" => "dialog/dialog-test"
+    ));
+}
+
 function get_project(){
     $CI =& get_instance();
-    $CI->load->model('get_tarif');
-    return "Dari Fungsi.";
+    $CI->load->model('get_project');
+    $CI->get_project->process(array(
+        'action' => 'select',
+        'table' => 'tblproject',
+        'column_value' => array(
+            'kode'
+        ),
+        'order' => ' tahunanggaran asc'
+    ));
+    $data = $CI->all;
+    if(sizeof($data) > 0){
+        $GLOBALS['kode_project'] = $data[0]->kode;
+        return "<div id='button-project' style='cursor: pointer;'>Project " . $data[0]->kode . "</div>";
+    } else {
+        return "No Project.";
+    }
 }

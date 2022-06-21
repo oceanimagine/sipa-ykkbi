@@ -78,6 +78,7 @@ class CI_Router {
 	 * @access public
 	 */
 	var $default_controller;
+        var $translate_uri_dashes = FALSE;
 
 	/**
 	 * Constructor
@@ -141,7 +142,10 @@ class CI_Router {
 
 		$this->routes = ( ! isset($route) OR ! is_array($route)) ? array() : $route;
 		unset($route);
-
+                
+                if(isset($this->routes['translate_uri_dashes'])){
+                    $this->translate_uri_dashes = $this->routes['translate_uri_dashes'];
+                }
 		// Set the default controller so we can display it in the event
 		// the URI doesn't correlated to a valid controller.
 		$this->default_controller = ( ! isset($this->routes['default_controller']) OR $this->routes['default_controller'] == '') ? FALSE : strtolower($this->routes['default_controller']);
@@ -225,6 +229,9 @@ class CI_Router {
 	 */
 	function _set_request($segments = array())
 	{
+                if($this->translate_uri_dashes){
+                    $segments = str_replace('-', '_', $segments);
+                }
 		$segments = $this->_validate_request($segments);
 
 		if (count($segments) == 0)

@@ -163,6 +163,36 @@ $(function () {
             checker(get_src, iframe_all, i);
         }
     }
+    $( "#button-project" ).click(function(){
+        $('#modal-project').modal('show');
+    }); 
+    
+    // https://www.c-sharpcorner.com/blogs/only-allowed-number-in-textbox-using-jquery
+    $('.numberonly').keypress(function (e) {    
+        var charCode = (e.which) ? e.which : event.keyCode;  
+        if(String.fromCharCode(charCode).match(/[^0-9]/g))   { 
+            return false;                        
+        }
+    });   
+    $('.numberonly').focus(function () {
+        this.value = this.value.substr(0,this.value.length - 3);
+    });
+    $('.numberonly').blur(function () {    
+        this.value = (this.value === "" ? "0" : this.value) + ".00";
+    });
+    $('.numberonly-no-comma').keypress(function (e) {    
+        var charCode = (e.which) ? e.which : event.keyCode;  
+        if(String.fromCharCode(charCode).match(/[^0-9]/g))   { 
+            return false;                        
+        }
+    });
+    $('.numberonly-no-comma').blur(function () {    
+        this.value = (this.value === "" ? "0" : this.value);
+    });
+    $("#tarifid").change(function(){
+        // https://stackoverflow.com/questions/1643227/get-selected-text-from-a-drop-down-list-select-box-using-jquery
+        $("#tarifnama").val($("#tarifid option:selected").text());
+    });
 });
 
 function checker(get_src, iframe_all, urutan){

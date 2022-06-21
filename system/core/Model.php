@@ -32,10 +32,19 @@ class CI_Model {
 	 *
 	 * @access public
 	 */
-	function __construct()
+        protected $where_project = "";
+        function __construct()
 	{
 		log_message('debug', "Model Class Initialized");
 	}
+        
+        function where_project($clouse){
+            if(isset($GLOBALS['kode_project']) && $GLOBALS['kode_project'] != ""){
+                return (!$clouse ? " where kode = '".$GLOBALS['kode_project']."' " : " and kode = '".$GLOBALS['kode_project']."' ");
+            } else {
+                return "";
+            }
+        }
 
 	/**
 	 * __get

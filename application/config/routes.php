@@ -40,7 +40,7 @@
 
 $route['default_controller'] = "home";
 $route['404_override'] = 'custom_404';
-
+$route['translate_uri_dashes'] = TRUE;
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
