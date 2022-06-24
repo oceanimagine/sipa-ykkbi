@@ -168,17 +168,24 @@ $(function () {
     }); 
     
     // https://www.c-sharpcorner.com/blogs/only-allowed-number-in-textbox-using-jquery
+    // https://stackoverflow.com/questions/6178332/force-decimal-point-instead-of-comma-in-html5-number-input-client-side
+    // https://stackoverflow.com/questions/9799505/allow-only-numbers-and-dot-in-script
     $('.numberonly').keypress(function (e) {    
         var charCode = (e.which) ? e.which : event.keyCode;  
+        if(String.fromCharCode(charCode) === "."){
+            if(this.value !== ""){
+                return true;     
+            }
+        }
         if(String.fromCharCode(charCode).match(/[^0-9]/g))   { 
             return false;                        
         }
     });   
     $('.numberonly').focus(function () {
-        this.value = this.value.substr(0,this.value.length - 3);
+        this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "00" ? this.value : (this.value.split(".").length > 1 && this.value.split(".")[1] === "00" ? (this.value.substr(0,this.value.length - 3) === "0" ? "" : this.value.substr(0,this.value.length - 3)) : this.value);
     });
     $('.numberonly').blur(function () {    
-        this.value = (this.value === "" ? "0" : this.value) + ".00";
+        this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "" ? this.value : (this.value !== "" ? this.value + ".00" : ((this.value === "" ? "0" : this.value) + ".00"));
     });
     $('.numberonly-no-comma').keypress(function (e) {    
         var charCode = (e.which) ? e.which : event.keyCode;  
