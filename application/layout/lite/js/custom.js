@@ -123,6 +123,47 @@ function readURL(input) {
     }
 }
 
+function re_trigger_numberonly_input(){
+    /* https://stackoverflow.com/questions/38797697/remove-keydown-event-from-jquery-element-not-working */
+    /* remove keydown event jquery */
+    /* https://stackoverflow.com/questions/21401175/keycode-for-tab-is-not-working */
+    /* javascript tab keycode not working */
+    $(".numberonly").off('keydown');
+    $('.numberonly').keydown(function (e) {
+        var charCode = (e.which) ? e.which : event.keyCode; 
+        // console.log(charCode);
+        if(charCode === 9 && typeof detect_address_input === "function"){
+            detect_address_input(this);
+        }
+        if(charCode === 27 && typeof detect_address_input_delete === "function"){
+            detect_address_input_delete(this);
+        }
+    });
+    $(".numberonly").off('keypress');
+    $('.numberonly').keypress(function (e) {    
+        var charCode = (e.which) ? e.which : event.keyCode;  
+        if(String.fromCharCode(charCode) === "."){
+            if(this.value !== ""){
+                return true;     
+            }
+        }
+        if(String.fromCharCode(charCode).match(/[^0-9]/g))   { 
+            return false;                        
+        }
+    });   
+    $(".numberonly").off('focus');
+    $('.numberonly').focus(function () {
+        this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "00" ? this.value : (this.value.split(".").length > 1 && this.value.split(".")[1] === "00" ? (this.value.substr(0,this.value.length - 3) === "0" ? "" : this.value.substr(0,this.value.length - 3)) : this.value);
+        this.setAttribute("type", "text");
+        this.setSelectionRange(0, this.value.length);
+        this.setAttribute("type", "number");
+    });
+    $(".numberonly").off('blur');
+    $('.numberonly').blur(function () {    
+        this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "" ? this.value : (this.value !== "" ? this.value + ".00" : ((this.value === "" ? "0" : this.value) + ".00"));
+    });
+}
+
 $(function () {
     $(".select2").select2();
     if(document.getElementById("campaign")){
@@ -181,6 +222,16 @@ $(function () {
     // https://www.c-sharpcorner.com/blogs/only-allowed-number-in-textbox-using-jquery
     // https://stackoverflow.com/questions/6178332/force-decimal-point-instead-of-comma-in-html5-number-input-client-side
     // https://stackoverflow.com/questions/9799505/allow-only-numbers-and-dot-in-script
+    $('.numberonly').keydown(function (e) {
+        var charCode = (e.which) ? e.which : event.keyCode; 
+        // console.log(charCode);
+        if(charCode === 9 && typeof detect_address_input === "function"){
+            detect_address_input(this);
+        }
+        if(charCode === 27 && typeof detect_address_input_delete === "function"){
+            detect_address_input_delete(this);
+        }
+    });
     $('.numberonly').keypress(function (e) {    
         var charCode = (e.which) ? e.which : event.keyCode;  
         if(String.fromCharCode(charCode) === "."){
@@ -194,6 +245,9 @@ $(function () {
     });   
     $('.numberonly').focus(function () {
         this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "00" ? this.value : (this.value.split(".").length > 1 && this.value.split(".")[1] === "00" ? (this.value.substr(0,this.value.length - 3) === "0" ? "" : this.value.substr(0,this.value.length - 3)) : this.value);
+        this.setAttribute("type", "text");
+        this.setSelectionRange(0, this.value.length);
+        this.setAttribute("type", "number");
     });
     $('.numberonly').blur(function () {    
         this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "" ? this.value : (this.value !== "" ? this.value + ".00" : ((this.value === "" ? "0" : this.value) + ".00"));
