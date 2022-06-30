@@ -11,6 +11,7 @@ define("base_url_get_param", base_url() . APPPATH);
 
 class combine {
     private $menu;
+    private $folder_body_custom = "";
     public $contain_custom_config = false;
     function layout($html, $getjs = array(), $search = array(), $replace = array(), $array_view = array()) {
         $this->menu = new process_menu();
@@ -141,6 +142,11 @@ class combine {
         $get_script = $this->get_all_script_tag($html);
         
         // $layout_content = file_get_contents(base_url . str_replace("{layout_active}", layout_use, layout_active) . "?base_url=" . base_url_get_param);
+        
+        $class_name = $this->CI->uri->segment(1);
+        if(isset($GLOBALS['body_custom']) && is_array($GLOBALS['body_custom']) && isset($GLOBALS['body_custom'][$class_name])){
+            $this->folder_body_custom = $GLOBALS['body_custom'][$class_name] . "/";
+        }
         
         ob_start();
         include "application/layout/".layout_use."/index.php";

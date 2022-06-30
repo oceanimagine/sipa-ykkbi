@@ -80,6 +80,17 @@ function tambah_input(container_label_, name, variable_name){
     }
 }
 
+function resize_wrapper(){
+    if(document.getElementById("div_box_info")){
+        document.body.style.overflow = "hidden";
+        document.body.classList.add("sidebar-collapse");
+        setTimeout(function(){
+            console.log(window.getComputedStyle(document.querySelector("#wrapper_div")).minHeight);
+            document.getElementById("div_box_info").style.height = window.getComputedStyle(document.querySelector("#wrapper_div")).minHeight;
+        }, 100);
+    }
+}
+
 var google = typeof google !== "undefined" ? google : {};
 var FileReader = typeof FileReader !== "undefined" ? FileReader : {};
 function readURL(input) {
@@ -200,6 +211,12 @@ $(function () {
         // https://stackoverflow.com/questions/1643227/get-selected-text-from-a-drop-down-list-select-box-using-jquery
         $("#tarifnama").val($("#tarifid option:selected").text());
     });
+    resize_wrapper();
+});
+
+$(window).resize(function(){
+    console.log("COBA");
+    resize_wrapper();
 });
 
 function checker(get_src, iframe_all, urutan){

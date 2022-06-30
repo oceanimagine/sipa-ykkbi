@@ -51,6 +51,10 @@ $GLOBALS['prioritas_status'] = array(
     "pending"
 );
 
+$GLOBALS['body_custom'] = array(
+    "add-anggaran" => "custom"
+);
+
 /* Layout Replace Left Menu Under Logo */
 $GLOBALS['left_menu_under_logo'] = true;
 $GLOBALS['function_process'] = "get_project";
