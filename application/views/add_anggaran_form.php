@@ -96,13 +96,41 @@
         function detect_address_input_delete(object_input){
             var get_td = object_input.parentNode;
             var get_tr = get_td.parentNode;
+            get_tr.setAttribute("active_delete_esc", "delete_esc");
             
             var get_name = object_input.getAttribute("name");
             var get_split = get_name.split("_");
             var get_split_b = get_split[get_split.length-1].split("[]");
             
-            
             var inisial = "_" + get_split_b[0];
+            
+            var get_tbody = get_tr.parentNode;
+            var get_tr_tbody = get_tbody.getElementsByTagName("tr");
+            var get_tr_after = {};
+            if(get_tr.getAttribute("style") === "border-bottom: rgb(242,220,219) 2px solid;" || get_tr.getAttribute("style") === "border-bottom: 2px solid rgb(242, 220, 219);"){
+                for(var i = 0; i < get_tr_tbody.length; i++){
+                    if(get_tr_tbody[i].getAttribute("class") === "anakan_group" + inisial){
+                        get_tr_after = get_tr_tbody[i - 1];
+                    }
+                }
+            } else {
+                var after_found = 0;
+                for(var i = 0; i < get_tr_tbody.length; i++){
+                    if(get_tr_tbody[i].getAttribute("class") === "anakan_group" + inisial){
+                        if(after_found){
+                            get_tr_after = get_tr_tbody[i];
+                            break;
+                        }
+                        if(get_tr_tbody[i].getAttribute("active_delete_esc") === "delete_esc"){
+                            after_found = 1;
+                        }
+                    }
+                }
+            }
+            get_tr.removeAttribute("active_delete_esc");
+            console.log("TR AFTER");
+            console.log(get_tr_after);
+            
             var get_i_tr = get_tr.getElementsByTagName("i");
             if(get_i_tr[0].getAttribute("class") === "fa fa-minus"){
                 var fungsi = get_i_tr[0].getAttribute("onclick");
