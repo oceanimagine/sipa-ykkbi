@@ -1,5 +1,7 @@
 .styled-table {
-    border-collapse: collapse;
+    /* https://stackoverflow.com/questions/18848369/how-to-freeze-thead-section-of-the-table */
+    /* https://stackoverflow.com/questions/50361698/border-style-do-not-work-with-sticky-position-element */
+    border-collapse: separate;
     margin: 0px 0;
     font-size: 0.9em;
     font-family: sans-serif;

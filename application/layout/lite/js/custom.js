@@ -243,6 +243,8 @@ $(function () {
     // https://www.c-sharpcorner.com/blogs/only-allowed-number-in-textbox-using-jquery
     // https://stackoverflow.com/questions/6178332/force-decimal-point-instead-of-comma-in-html5-number-input-client-side
     // https://stackoverflow.com/questions/9799505/allow-only-numbers-and-dot-in-script
+    // https://www.outsystems.com/forums/discussion/53459/prevent-keyboard-arrow-key-up-and-down-using-javascript/
+    // https://stackoverflow.com/questions/21177489/selectionstart-selectionend-on-input-type-number-no-longer-allowed-in-chrome
     $('.numberonly').keydown(function (e) {
         var charCode = (e.which) ? e.which : event.keyCode; 
         console.log(charCode);

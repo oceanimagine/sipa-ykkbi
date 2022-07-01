@@ -53,6 +53,7 @@
                     <label for="mata_anggaran" class="col-md-2 control-label">Mata Anggaran</label>
                     <div class="col-md-8">
                         <input required type="text" id="satuan_kerja" class="form-control tambah-margin-bawah" name="mata_anggaran" placeholder="Mata Anggaran" value="<?php echo isset($mata_anggaran) ? $mata_anggaran : ""; ?>">
+                        <input type="hidden" name="inisial_all" id="inisial_all" value="_1" />
                     </div>
                     <div class="col-md-2">
                         <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="search" value="Search">Search</button>
@@ -61,10 +62,10 @@
                 <div class="form-group">
                     <div class="col-md-12">
                         <table class="styled-table" style="border: #f1f1f1 1px solid; ">
-                            <thead>
+                            <thead style="position: sticky; top: 0px; z-index: 10;">
                                 <tr>
-                                    <th colspan="7" style="text-align: center; border-right: #f1f1f1 1px solid; border-bottom: #f1f1f1 1px solid; white-space: nowrap;">Rincian Mata Anggaran</th>
-                                    <th colspan="10" style="text-align: center; border-bottom: #f1f1f1 1px solid; white-space: nowrap;">RPPT</th>
+                                    <th colspan="8" style="text-align: center; border-right: #f1f1f1 1px solid; border-bottom: #f1f1f1 1px solid; white-space: nowrap;">Rincian Mata Anggaran</th>
+                                    <th colspan="9" style="text-align: center; border-bottom: #f1f1f1 1px solid; white-space: nowrap;">RPPT</th>
                                 </tr>
                                 <tr>
                                     <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;" rowspan="2" colspan="2">Nomor</th>
@@ -121,7 +122,7 @@
                                     <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 6.25%;"><input autocomplete="off" name="tw4_1[]" class="numberonly" type="number" style="box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="0.00"></td>
                                     <td style="border-right: #f1f1f1 1px solid; text-align: center; width: 40px; padding: 0px; vertical-align: middle; width: 4.25%;"><i class="fa fa-minus" onclick="kurangi_anak_grup(this,'_1',1);" style="cursor: pointer;"></i></td>
                                 </tr>
-                                <tr class="jumlah_anakan_1">
+                                <tr class="jumlah_anakan_1" style="border-bottom: rgb(220,230,241) 2px solid; box-shadow: inset 0 1px 0 rgb(242 220 219), inset 0 -1px 0 rgb(220 230 241);">
                                     <td style="text-align: right; border-right: #f0f0f0 1px solid;" colspan="7">Total</td>
                                     <td style="text-align: center; border-right: #f0f0f0 1px solid; background-color: rgb(242,220,219);">&nbsp;</td>
                                     <td style="text-align: center; border-right: #f0f0f0 1px solid;">&nbsp;</td>

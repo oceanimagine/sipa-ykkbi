@@ -1,143 +1,152 @@
 function detect_address_left(object_input){
-    var get_td = object_input.parentNode;
-    var get_tr = get_td.parentNode;
-    var get_name = object_input.getAttribute("name");
-    
-    var get_input_ = get_tr.getElementsByTagName("input");
-    var get_focus = 0;
-    for(var i = 0; i < get_input_.length; i++){
-        if(get_input_[i].getAttribute("type") === "number"){
-            if(get_input_[i].getAttribute("name") === get_name){
-                break;
-            }
-            get_input_[i].focus();
-            get_focus = 1;
-        }
-    }
-    if(!get_focus){
+    setTimeout(function(){
+        var get_td = object_input.parentNode;
+        var get_tr = get_td.parentNode;
+        var get_name = object_input.getAttribute("name");
+
+        var get_input_ = get_tr.getElementsByTagName("input");
+        var get_focus = 0;
         for(var i = 0; i < get_input_.length; i++){
             if(get_input_[i].getAttribute("type") === "number"){
+                if(get_input_[i].getAttribute("name") === get_name){
+                    break;
+                }
                 get_input_[i].focus();
+                get_focus = 1;
             }
         }
-    }
+        if(!get_focus){
+            for(var i = 0; i < get_input_.length; i++){
+                if(get_input_[i].getAttribute("type") === "number"){
+                    get_input_[i].focus();
+                }
+            }
+        }
+    },100);
+    
 }
 
 function detect_address_right(object_input){
-    var get_td = object_input.parentNode;
-    var get_tr = get_td.parentNode;
-    var get_name = object_input.getAttribute("name");
-    
-    var get_input_ = get_tr.getElementsByTagName("input");
-    var after = 0;
-    var get_focus = 0;
-    for(var i = 0; i < get_input_.length; i++){
-        if(get_input_[i].getAttribute("type") === "number"){
-            if(!after){
-                if(get_input_[i].getAttribute("name") === get_name){
-                    after = 1;
-                }
-            } else {
-                get_input_[i].focus();
-                get_focus = 1; 
-                break;
-            }
-        }
-    }
-    if(!get_focus){
+    setTimeout(function(){
+        var get_td = object_input.parentNode;
+        var get_tr = get_td.parentNode;
+        var get_name = object_input.getAttribute("name");
+
+        var get_input_ = get_tr.getElementsByTagName("input");
+        var after = 0;
+        var get_focus = 0;
         for(var i = 0; i < get_input_.length; i++){
             if(get_input_[i].getAttribute("type") === "number"){
-                get_input_[i].focus();
-                break;
+                if(!after){
+                    if(get_input_[i].getAttribute("name") === get_name){
+                        after = 1;
+                    }
+                } else {
+                    get_input_[i].focus();
+                    get_focus = 1; 
+                    break;
+                }
             }
         }
-    }
+        if(!get_focus){
+            for(var i = 0; i < get_input_.length; i++){
+                if(get_input_[i].getAttribute("type") === "number"){
+                    get_input_[i].focus();
+                    break;
+                }
+            }
+        }
+    },100);
 }
 
 function detect_address_down(object_input){
-    var get_td = object_input.parentNode;
-    var get_tr = get_td.parentNode;
-    get_tr.setAttribute("active_down", "down_row");
-    
-    var get_name = object_input.getAttribute("name");
-    var get_split = get_name.split("_");
-    var get_split_b = get_split[get_split.length-1].split("[]");
-    var inisial = "_" + get_split_b[0];
-    
-    var get_tbody = get_tr.parentNode;
-    var get_tr_tbody = get_tbody.getElementsByTagName("tr");
-    var get_tr_active = false;
-    var after_tr = 0;
-    for(var i = 0; i < get_tr_tbody.length; i++){
-        if(get_tr_tbody[i].getAttribute("class") === "anakan_group" + inisial){
-            if(!after_tr){
-                if(get_tr_tbody[i].getAttribute("active_down") === "down_row"){
-                    after_tr = 1;
-                }
-            } else {
-                get_tr_active = get_tr_tbody[i];
-                break;
-            }
-        }
-    }
-    if(!get_tr_active){
+    setTimeout(function(){
+        var get_td = object_input.parentNode;
+        var get_tr = get_td.parentNode;
+        get_tr.setAttribute("active_down", "down_row");
+
+        var get_name = object_input.getAttribute("name");
+        var get_split = get_name.split("_");
+        var get_split_b = get_split[get_split.length-1].split("[]");
+        var inisial = "_" + get_split_b[0];
+
+        var get_tbody = get_tr.parentNode;
+        var get_tr_tbody = get_tbody.getElementsByTagName("tr");
+        var get_tr_active = false;
+        var after_tr = 0;
         for(var i = 0; i < get_tr_tbody.length; i++){
             if(get_tr_tbody[i].getAttribute("class") === "anakan_group" + inisial){
-                get_tr_active = get_tr_tbody[i];
-                break;
+                if(!after_tr){
+                    if(get_tr_tbody[i].getAttribute("active_down") === "down_row"){
+                        after_tr = 1;
+                    }
+                } else {
+                    get_tr_active = get_tr_tbody[i];
+                    break;
+                }
             }
         }
-    }
-    var get_input_ = get_tr_active.getElementsByTagName("input");
-    for(var i = 0; i < get_input_.length; i++){
-        if(get_input_[i].getAttribute("type") === "number"){
-            if(get_input_[i].getAttribute("name") === get_name){
-                get_input_[i].focus();
-                break;
+        if(!get_tr_active){
+            for(var i = 0; i < get_tr_tbody.length; i++){
+                if(get_tr_tbody[i].getAttribute("class") === "anakan_group" + inisial){
+                    get_tr_active = get_tr_tbody[i];
+                    break;
+                }
             }
         }
-    }
-    get_tr.removeAttribute("active_down");
+        var get_input_ = get_tr_active.getElementsByTagName("input");
+        for(var i = 0; i < get_input_.length; i++){
+            if(get_input_[i].getAttribute("type") === "number"){
+                if(get_input_[i].getAttribute("name") === get_name){
+                    get_input_[i].focus();
+                    break;
+                }
+            }
+        }
+        get_tr.removeAttribute("active_down");
+    },100);
 }
 
 function detect_address_up(object_input){
-    var get_td = object_input.parentNode;
-    var get_tr = get_td.parentNode;
-    get_tr.setAttribute("active_up", "up_row");
-    
-    var get_name = object_input.getAttribute("name");
-    var get_split = get_name.split("_");
-    var get_split_b = get_split[get_split.length-1].split("[]");
-    var inisial = "_" + get_split_b[0];
-    
-    var get_tbody = get_tr.parentNode;
-    var get_tr_tbody = get_tbody.getElementsByTagName("tr");
-    var get_tr_active = false;
-    for(var i = 0; i < get_tr_tbody.length; i++){
-        if(get_tr_tbody[i].getAttribute("class") === "anakan_group" + inisial){
-            if(get_tr_tbody[i].getAttribute("active_up") === "up_row"){
-                break;
-            }
-            get_tr_active = get_tr_tbody[i];
-        }
-    }
-    if(!get_tr_active){
+    setTimeout(function(){
+        var get_td = object_input.parentNode;
+        var get_tr = get_td.parentNode;
+        get_tr.setAttribute("active_up", "up_row");
+
+        var get_name = object_input.getAttribute("name");
+        var get_split = get_name.split("_");
+        var get_split_b = get_split[get_split.length-1].split("[]");
+        var inisial = "_" + get_split_b[0];
+
+        var get_tbody = get_tr.parentNode;
+        var get_tr_tbody = get_tbody.getElementsByTagName("tr");
+        var get_tr_active = false;
         for(var i = 0; i < get_tr_tbody.length; i++){
             if(get_tr_tbody[i].getAttribute("class") === "anakan_group" + inisial){
+                if(get_tr_tbody[i].getAttribute("active_up") === "up_row"){
+                    break;
+                }
                 get_tr_active = get_tr_tbody[i];
             }
         }
-    }
-    var get_input_ = get_tr_active.getElementsByTagName("input");
-    for(var i = 0; i < get_input_.length; i++){
-        if(get_input_[i].getAttribute("type") === "number"){
-            if(get_input_[i].getAttribute("name") === get_name){
-                get_input_[i].focus();
-                break;
+        if(!get_tr_active){
+            for(var i = 0; i < get_tr_tbody.length; i++){
+                if(get_tr_tbody[i].getAttribute("class") === "anakan_group" + inisial){
+                    get_tr_active = get_tr_tbody[i];
+                }
             }
         }
-    }
-    get_tr.removeAttribute("active_up");
+        var get_input_ = get_tr_active.getElementsByTagName("input");
+        for(var i = 0; i < get_input_.length; i++){
+            if(get_input_[i].getAttribute("type") === "number"){
+                if(get_input_[i].getAttribute("name") === get_name){
+                    get_input_[i].focus();
+                    break;
+                }
+            }
+        }
+        get_tr.removeAttribute("active_up");
+    },100);
 }
 
 function detect_address_input_delete(object_input){
@@ -397,8 +406,70 @@ function tambah_anak_grup(object_button, inisial, jumlah_anakan){
     re_trigger_numberonly_input();
 }
 
-function min_group(){
+function min_group(object_button, inisial, jumlah_group){
+    var get_td = object_button.parentNode;
+    var get_tr = get_td.parentNode;
+    var get_tbody = get_tr.parentNode;
+    var get_all_tr = get_tbody.getElementsByTagName("tr");
+    var all_tr = [];
+    var address = 0;
+    var jumlah_induk_group = 0;
+    for(var i = 0; i < get_all_tr.length; i++){
+        if(get_all_tr[i].getAttribute("class") === "induk_group" + inisial){
+            all_tr[address] = get_all_tr[i];
+            address++;
+        }
+        if(get_all_tr[i].getAttribute("class") === "anakan_group" + inisial){
+            all_tr[address] = get_all_tr[i];
+            address++;
+        }
+        if(get_all_tr[i].getAttribute("class") === "jumlah_anakan" + inisial){
+            all_tr[address] = get_all_tr[i];
+            address++;
+        }
+    }
+    for(var i = 0; i < get_all_tr.length; i++){
+        if(get_all_tr[i].getAttribute("class").substr(0,"induk_group_".length) === "induk_group_"){
+            jumlah_induk_group++;
+        }
+    }
+    if(jumlah_group > 0){
+        if(jumlah_induk_group <= 1){
+            var pesan_modal = document.getElementById("pesan_modal");
+            pesan_modal.innerHTML = "Sorry only left 1 group and cannot do delete.";
+            $('#modal-success').modal('show');
+            return false;
+        }
+    }
     
+    // console.log(all_tr);
+    for(var i = 0; i < all_tr.length; i++){
+        all_tr[i].parentNode.removeChild(all_tr[i]);
+    }
+    var arr_address = [];
+    var add_address = 0;
+    for(var i = 0; i < get_all_tr.length; i++){
+        if(get_all_tr[i].getAttribute("class").substr(0,"induk_group_".length) === "induk_group_"){
+            var get_tr_i = get_all_tr[i].getElementsByTagName("i");
+            for(var j = 0; j < get_tr_i.length; j++){
+                if(get_tr_i[j].getAttribute("class") === "fa fa-minus"){
+                    var get_onclick = get_tr_i[j].getAttribute("onclick");
+                    var split_comma = get_onclick.split(",");
+                    var get_address = split_comma[1].trim();
+                    arr_address[add_address] = get_address.replace(/'/g,"");
+                    add_address++;
+                }
+            }
+        }
+    } 
+    var concate = "";
+    var comma = "";
+    for(var i = 0; i < arr_address.length; i++){
+        concate = concate + comma + arr_address[i];
+        comma = ",";
+    }
+    var inisial_all = document.getElementById("inisial_all");
+    inisial_all.value = concate;
 }
 
 function add_group(object_button, inisial, jumlah_group){
@@ -450,9 +521,8 @@ function add_group(object_button, inisial, jumlah_group){
     for(var i = 0; i < get_tr_anakan_input.length; i++){
         if(get_tr_anakan_input[i].getAttribute("type") === "number"){
             var get_name = get_tr_anakan_input[i].getAttribute("name");
-            var active_jumlah_before = jumlah_group;
             var active_jumlah_after = jumlah_group + 1;
-            var get_name_substr = get_name.substr(0, get_name.length - ("_" + active_jumlah_before.toString()).length - 2);
+            var get_name_substr = get_name.substr(0, get_name.length - inisial.length - 2);
             var name_new = get_name_substr + "_" + active_jumlah_after.toString() + "[]";
             get_tr_anakan_input[i].setAttribute("name", name_new);
         }
@@ -467,7 +537,7 @@ function add_group(object_button, inisial, jumlah_group){
     
     var get_tr_anakan_td = clone_tr_anakan_group.getElementsByTagName("td");
     for(var i = 0; i < get_tr_anakan_td.length; i++){
-        if(get_tr_anakan_td[i].getAttribute("class") === "td_number_" + jumlah_group.toString()){
+        if(get_tr_anakan_td[i].getAttribute("class") === "td_number" + inisial){
             get_tr_anakan_td[i].setAttribute("class", "td_number_" + (jumlah_group + 1));
         }
     }
@@ -475,30 +545,49 @@ function add_group(object_button, inisial, jumlah_group){
     clone_tr_jumlah_anakan.setAttribute("class", "jumlah_anakan_" + (jumlah_group + 1));
     var get_tr_jumlah_i = clone_tr_jumlah_anakan.getElementsByTagName("i");
     for(var i = 0; i < get_tr_jumlah_i.length; i++){
-        if(get_tr_jumlah_i[i].getAttribute("urutan_grup") === "tombol_anakan_" + jumlah_group.toString()){
+        if(get_tr_jumlah_i[i].getAttribute("urutan_grup") === "tombol_anakan" + inisial){
+            // console.log((jumlah_group + 1));
             get_tr_jumlah_i[i].setAttribute("urutan_grup", "tombol_anakan_" + (jumlah_group + 1));
             get_tr_jumlah_i[i].setAttribute("onclick", "tambah_anak_grup(this,'_"+(jumlah_group + 1)+"',1);");
         }
     }
     
-    tr_jumlah_anakan.setAttribute("style", "border-bottom: rgb(220,230,241) 2px solid;");
+    tr_jumlah_anakan.setAttribute("style", "border-bottom: rgb(220,230,241) 2px solid; box-shadow: inset 0 1px 0 rgb(242 220 219), inset 0 -1px 0 rgb(220 230 241);");
     
     get_tbody.appendChild(clone_tr_induk_group);
     get_tbody.appendChild(clone_tr_anakan_group);
     get_tbody.appendChild(clone_tr_jumlah_anakan);
     re_trigger_numberonly_input();
     
+    var arr_address = [];
+    var add_address = 0;
     for(var i = 0; i < get_all_tr.length; i++){
         if(get_all_tr[i].getAttribute("class").substr(0,"induk_group_".length) === "induk_group_"){
             var get_tr_i = get_all_tr[i].getElementsByTagName("i");
             for(var j = 0; j < get_tr_i.length; j++){
                 if(get_tr_i[j].getAttribute("class") === "fa fa-minus"){
-                    get_tr_i[j].setAttribute("onclick", "min_group(this, '_"+(jumlah_group + 1)+"', "+(jumlah_group + 1)+");");
+                    var get_onclick = get_tr_i[j].getAttribute("onclick");
+                    var split_comma = get_onclick.split(",");
+                    var get_address = split_comma[1].trim();
+                    arr_address[add_address] = get_address.replace(/'/g,"");
+                    add_address++;
+                    get_tr_i[j].setAttribute("onclick", "min_group(this, "+get_address+", "+(jumlah_group + 1)+");");
                 }
                 if(get_tr_i[j].getAttribute("class") === "fa fa-plus"){
-                    get_tr_i[j].setAttribute("onclick", "add_group(this, '_"+(jumlah_group + 1)+"', "+(jumlah_group + 1)+");");
+                    var get_onclick_ = get_tr_i[j].getAttribute("onclick");
+                    var split_comma_ = get_onclick_.split(",");
+                    var get_address_ = split_comma_[1].trim();
+                    get_tr_i[j].setAttribute("onclick", "add_group(this, "+get_address_+", "+(jumlah_group + 1)+");");
                 }
             }
         }
     }
+    var concate = "";
+    var comma = "";
+    for(var i = 0; i < arr_address.length; i++){
+        concate = concate + comma + arr_address[i];
+        comma = ",";
+    }
+    var inisial_all = document.getElementById("inisial_all");
+    inisial_all.value = concate;
 }
