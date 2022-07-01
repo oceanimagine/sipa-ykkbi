@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Login extends CI_Controller {
+class login extends CI_Controller {
     
     public $layout;
     private $menu;
@@ -50,49 +50,6 @@ class Login extends CI_Controller {
                     $this->layout->render_alert("Welcome Admin.");
                     Message::set("Berhasil login sebagai Admin.");
                     redirect("home");
-                } else {
-                    $this->get_login->process(array(
-                        'action' => 'select',
-                        'table' => 'hduser',
-                        'column_value' => array(
-                            'user_id',
-                            'user_password',
-                            'user_nip',
-                            'user_nama',
-                            'user_level'
-                        ),
-                        'where' => 'user_nama = \''.$username.'\' and user_password = \''.$password.'\'',
-                        'order' => 'user_id desc'
-                    ));
-                    $hduser_active = $this->row;
-                    if(is_object($hduser_active) && isset($hduser_active->user_nama)){
-                        if($hduser_active->user_level == 2){
-                            $_SESSION['PRI'] = "HDUSER";
-                        }
-                        else if($hduser_active->user_level == 3){
-                            $_SESSION['PRI'] = "ITUSER";
-                        }
-                        if($hduser_active->user_level == 2){
-                            $_SESSION['USR'] = "9997";
-                        }
-                        else if($hduser_active->user_level == 3){
-                            $_SESSION['USR'] = "9999";
-                        }
-                        $_SESSION['id'] = $hduser_active->user_nip;
-                        $_SESSION['nama_lengkap'] = $hduser_active->user_nama;
-                        $_SESSION['nomor_karyawan'] = $hduser_active->user_nip;
-                        $_SESSION['username'] = $hduser_active->user_nama;
-                        $_SESSION['userlevel'] = $hduser_active->user_level;
-                        if($hduser_active->user_level == 2){
-                            $this->layout->render_alert("Welcome Satker.");
-                            Message::set("Berhasil login sebagai Satker.");
-                        }
-                        else if($hduser_active->user_level == 3){
-                            $this->layout->render_alert("Welcome IT.");
-                            Message::set("Berhasil login sebagai IT.");
-                        }
-                        redirect("home");
-                    }
                 }
 	    }
             

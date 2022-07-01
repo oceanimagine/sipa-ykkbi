@@ -62,7 +62,7 @@
                 <div class="form-group">
                     <div class="col-md-12">
                         <table class="styled-table" style="border: #f1f1f1 1px solid; ">
-                            <thead style="position: sticky; top: 0px; z-index: 10;">
+                            <thead>
                                 <tr>
                                     <th colspan="8" style="text-align: center; border-right: #f1f1f1 1px solid; border-bottom: #f1f1f1 1px solid; white-space: nowrap;">Rincian Mata Anggaran</th>
                                     <th colspan="9" style="text-align: center; border-bottom: #f1f1f1 1px solid; white-space: nowrap;">RPPT</th>
