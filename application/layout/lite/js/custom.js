@@ -127,11 +127,32 @@ function re_trigger_numberonly_input(){
     /* https://stackoverflow.com/questions/38797697/remove-keydown-event-from-jquery-element-not-working */
     /* remove keydown event jquery */
     /* https://stackoverflow.com/questions/21401175/keycode-for-tab-is-not-working */
+    /* https://www.youtube.com/shorts/ve0of_k4ln0 */
+    /* https://www.youtube.com/shorts/EY8YcdjfEtc */
+    /* https://www.youtube.com/shorts/FOwOzfN6G5o */
     /* javascript tab keycode not working */
     $(".numberonly").off('keydown');
     $('.numberonly').keydown(function (e) {
         var charCode = (e.which) ? e.which : event.keyCode; 
-        // console.log(charCode);
+        console.log(charCode);
+        if((charCode === 37 || charCode === 39) && typeof detect_address_right === "function"){
+            e.preventDefault();
+            if(charCode === 39){
+                detect_address_right(this);
+            }
+            if(charCode === 37){
+                detect_address_left(this);
+            }
+        }
+        if((charCode === 38 || charCode === 40) && typeof detect_address_up === "function"){
+            e.preventDefault();
+            if(charCode === 38){
+                detect_address_up(this);
+            }
+            if(charCode === 40){
+                detect_address_down(this);
+            }
+        }
         if(charCode === 9 && typeof detect_address_input === "function"){
             detect_address_input(this);
         }
@@ -224,7 +245,25 @@ $(function () {
     // https://stackoverflow.com/questions/9799505/allow-only-numbers-and-dot-in-script
     $('.numberonly').keydown(function (e) {
         var charCode = (e.which) ? e.which : event.keyCode; 
-        // console.log(charCode);
+        console.log(charCode);
+        if((charCode === 37 || charCode === 39) && typeof detect_address_right === "function"){
+            e.preventDefault();
+            if(charCode === 39){
+                detect_address_right(this);
+            }
+            if(charCode === 37){
+                detect_address_left(this);
+            }
+        }
+        if((charCode === 38 || charCode === 40) && typeof detect_address_up === "function"){
+            e.preventDefault();
+            if(charCode === 38){
+                detect_address_up(this);
+            }
+            if(charCode === 40){
+                detect_address_down(this);
+            }
+        }
         if(charCode === 9 && typeof detect_address_input === "function"){
             detect_address_input(this);
         }

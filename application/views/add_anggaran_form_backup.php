@@ -92,16 +92,15 @@
                                     <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">%</th>
                                     <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">Nom</th>
                                     <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">%</th>
-                                    <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">Nom</th>
-                                    <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;"><i class="fa fa-info"></i></th>
+                                    <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;" colspan="2">Nom</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="induk_group_1">
-                                    <td style="border-left: #f1f1f1 1px solid; text-align: center; border-right: #f0f0f0 1px solid; border-bottom: #f0f0f0 1px solid;"><i class="fa fa-minus"<?php /* urutan_grup="tombol_anakan_hapus_1" style="cursor: pointer;" onclick="kurang_anak_grup(this,'_1',1);" */ ?>></i></td>
-                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; border-bottom: #f0f0f0 1px solid;"><i class="fa fa-plus"></i></td>
-                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; border-bottom: #f0f0f0 1px solid; background-color: rgb(220,230,241);" colspan="15"><b>GROUP DEFAULT</b></td>
-                                    <?php /* <td style="border-right: #f1f1f1 1px solid; text-align: center; border-bottom: #f0f0f0 1px solid;"><i class="fa fa-plus"></i></td> */ ?>
+                                <tr>
+                                    <td style="border-left: #f1f1f1 1px solid; text-align: center; border-right: #f0f0f0 1px solid; border-bottom: #f0f0f0 1px solid;"><i class="fa fa-minus" urutan_grup="tombol_anakan_hapus_1" style="cursor: pointer;" onclick="kurang_anak_grup(this,'_1',1);"></i></td>
+                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; border-bottom: #f0f0f0 1px solid;"><i class="fa fa-plus" urutan_grup="tombol_anakan_1" style="cursor: pointer;" onclick="tambah_anak_grup(this,'_1',1);"></i></td>
+                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; border-bottom: #f0f0f0 1px solid; background-color: rgb(220,230,241);" colspan="14"><b>GROUP DEFAULT</b></td>
+                                    <td style="border-right: #f1f1f1 1px solid; text-align: center; border-bottom: #f0f0f0 1px solid;"><i class="fa fa-plus"></i></td>
                                 </tr>
                                 <tr style="border-bottom: rgb(242,220,219) 2px solid;" class="anakan_group_1">
                                     <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 4.25%;" colspan="2" class="td_number_1">1</td>
@@ -132,7 +131,7 @@
                                     <td style="text-align: center; border-right: #f0f0f0 1px solid; background-color: rgb(242,220,219);">&nbsp;</td>
                                     <td style="text-align: center; border-right: #f0f0f0 1px solid;">&nbsp;</td>
                                     <td style="text-align: center; border-right: #f0f0f0 1px solid; background-color: rgb(242,220,219);">&nbsp;</td>
-                                    <td style="border-right: #f1f1f1 1px solid; text-align: center; width: 40px"><i class="fa fa-plus" urutan_grup="tombol_anakan_1" style="cursor: pointer;" onclick="tambah_anak_grup(this,'_1',1);"></i></td>
+                                    <td style="border-right: #f1f1f1 1px solid; text-align: center; width: 40px"><i class="fa fa-plus"></i></td>
                                 </tr>
                             </tbody>
                         </table>
