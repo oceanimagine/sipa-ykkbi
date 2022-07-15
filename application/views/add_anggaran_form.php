@@ -136,6 +136,11 @@
                                     <td style="border-right: #f1f1f1 1px solid; text-align: center; width: 40px"><i class="fa fa-plus" urutan_grup="tombol_anakan_1" style="cursor: pointer;" onclick="tambah_anak_grup(this,'_1',1);"></i></td>
                                 </tr>
                             </tbody>
+                            <tbody>
+                                <tr>
+                                    <td colspan="16" style="text-align: center;"><a href="../../../index.php/luckyexcel" target="_blank" style="text-decoration: none;">Show Template</a></td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>

@@ -37,7 +37,7 @@ function get_template(){
             $(function () {
                 var options = {
                     container: 'luckysheet',
-                    showinfobar: false,
+                    showinfobar: false
                 }
                 luckysheet.create(options)
             });
@@ -57,6 +57,7 @@ function get_template(){
         <p style="text-align:center; font-family: consolas, monospace;"> 
             <input style="font-size: 16px; width: 102px;" type="file" id="Luckyexcel-demo-file" name="Luckyexcel-demo-file" change="demoHandler" /> 
             <a href="javascript:void(0)" id="Luckyexcel-export-xlsx" style="text-decoration: none;">Export</a>
+            <a href="javascript:void(0)" id="Luckyexcel-new-xlsx" style="text-decoration: none;">New</a>
         </p>
         <div id="luckysheet" style="margin:0px;padding:0px;position:absolute;width:100%;left: 0px;top: 50px;bottom: 0px;outline: none;"></div>
         <script src="luckysheet/luckyexcel.umd.js"></script>
@@ -65,6 +66,7 @@ function get_template(){
                 let upload = document.getElementById("Luckyexcel-demo-file");
                 let export_ = document.getElementById("Luckyexcel-export-xlsx");
                 let export_mask = document.getElementById("lucky-mask-export");
+                let new_file = document.getElementById("Luckyexcel-new-xlsx");
                 if (upload) {
 
                     window.onload = () => {
@@ -88,6 +90,14 @@ function get_template(){
                             });
                         }, 500);
                         
+                        new_file.addEventListener("click", function () {
+                            window.luckysheet.destroy();
+                            var options = {
+                                container: 'luckysheet',
+                                showinfobar: false
+                            }
+                            luckysheet.create(options)
+                        });
                         upload.addEventListener("change", function (evt) {
                             var files = evt.target.files;
                             if (files == null || files.length == 0) {

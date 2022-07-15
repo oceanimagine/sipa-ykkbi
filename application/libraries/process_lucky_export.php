@@ -1,6 +1,6 @@
 <?php
 
-class lucky_export {
+class process_lucky_export {
     private $json_luckyexcel;
     public function __construct($json_luckyexcel = "") {
         $this->json_luckyexcel = $json_luckyexcel;
@@ -139,7 +139,7 @@ class lucky_export {
                     }
                 }
 
-                if(isset($json_all[$i]->celldata[$j]->v->ct)){
+                if(isset($json_all[$i]->celldata[$j]->v)){
                     if(isset($json_all[$i]->celldata[$j]->v->bg)){
                         // echo "BG\n";
                         $newsheet->getStyle(convert_alphabet($json_all[$i]->celldata[$j]->c)[0] . ((int) $json_all[$i]->celldata[$j]->r + 1))->applyFromArray(array(
@@ -733,8 +733,8 @@ class lucky_export {
                                     $temp_plus = $json_all[$i]->config->columnlen->{$k};
                                 }
                             } else {
-                                $plus_column_width = $plus_column_width + 75;
-                                $temp_plus = 75;
+                                $plus_column_width = $plus_column_width + 74;
+                                $temp_plus = 74;
                             }
                         }
                         if($pos_x_default < $plus_column_width){

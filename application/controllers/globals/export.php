@@ -6,6 +6,6 @@ class export extends CI_Controller {
         $this->json_luckyexcel = post_raw('json_luckyexcel');
     }
     public function index(){
-        new lucky_export($this->json_luckyexcel);
+        new process_lucky_export($this->json_luckyexcel);
     }
 }
