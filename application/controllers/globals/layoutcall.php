@@ -1,6 +1,6 @@
 <?php 
 
-class Layoutcall extends CI_Controller {
+class layoutcall extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->layout = new layout('digital');

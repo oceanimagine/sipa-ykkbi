@@ -1,6 +1,6 @@
 <?php 
 
-class Alert extends CI_Controller {
+class alert extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->layout = new layout('digital');
