@@ -690,6 +690,9 @@ class process_lucky_export {
                 if($frozenInfo->type == "rangeBoth"){
                     $newsheet->freezePane(convert_alphabet(($frozenInfo->range->column_focus + 1))[0].($frozenInfo->range->row_focus + 2));
                 }
+                if($frozenInfo->type == "both"){
+                    $newsheet->freezePane('B2');
+                }
             }
             if(isset($json_all[$i]->showGridLines) && !$json_all[$i]->showGridLines){
                 if($json_all[$i]->showGridLines == 0){

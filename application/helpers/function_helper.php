@@ -198,15 +198,20 @@ function get_project(){
         'column_value' => array(
             'kode'
         ),
-        'order' => ' tahunanggaran asc'
+        'order' => ' tahunanggaran desc'
     ));
     $data = $CI->all;
     if(sizeof($data) > 0){
         $GLOBALS['kode_project'] = $data[0]->kode;
+        $CI->kode_project_scope_controller = $GLOBALS['kode_project'];
         return "<div id='button-project' style='cursor: pointer;'>Project " . $data[0]->kode . "</div>";
     } else {
         return "No Project.";
     }
+}
+
+function get_current_project(){
+    get_project();
 }
 
 function post_raw($name_post){
@@ -422,8 +427,4 @@ function convert_alphabet($param){
         $param_dec,
         $param_hex
     );
-}
-
-function autoload_spreadsheet(){
-    include_once __DIR__ . '/../libraries/phpspreadsheet/vendor/autoload.php';
 }
