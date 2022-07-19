@@ -52,7 +52,22 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('setting','combine','process_table','layout','database','process_param','privilege','process_menu','process_lucky_export','globals','message');
+$autoload['libraries'] = array(
+    'setting',
+    'combine',
+    'process_table',
+    'layout',
+    'database',
+    'process_param',
+    'privilege',
+    'process_menu',
+    'process_lucky_export',
+    'process_kamus_excel',
+    'process_kamus_report_excel',
+    'process_report_excel',
+    'globals',
+    'message'
+);
 
 
 /*

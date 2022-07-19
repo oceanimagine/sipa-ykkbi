@@ -18,7 +18,6 @@ class process_lucky_export {
         error_reporting(0);
         ob_start();
         require_once __DIR__.'/phpexcel/PHPExcel.php';
-        echo "MASUK POST\n";
         $json_all = json_decode(json_encode($this->json_luckyexcel));
         $style_border_top = array(
             'borders' => array(
@@ -141,7 +140,6 @@ class process_lucky_export {
 
                 if(isset($json_all[$i]->celldata[$j]->v)){
                     if(isset($json_all[$i]->celldata[$j]->v->bg)){
-                        // echo "BG\n";
                         $newsheet->getStyle(convert_alphabet($json_all[$i]->celldata[$j]->c)[0] . ((int) $json_all[$i]->celldata[$j]->r + 1))->applyFromArray(array(
                             "fill" => array(
                                 'type' => PHPExcel_Style_Fill::FILL_SOLID,
@@ -805,5 +803,7 @@ class process_lucky_export {
         $write->save('php://output');
         $excel_content = ob_get_clean();
         file_put_contents(__DIR__."/phpexcel/phpexcel-output/" . $excel_name, $excel_content);
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode(array("file_name" => "../../../application/libraries/phpexcel/phpexcel-output/".$excel_name));
     }
 }

@@ -180,7 +180,7 @@ class CI_Exceptions {
 			ob_end_flush();
 		}
 		ob_start();
-		include(APPPATH.'errors/error_php.php');
+		include(__DIR__.'/../../application/errors/error_php.php');
 		$buffer = ob_get_contents();
 		ob_end_clean();
 		echo $buffer;
