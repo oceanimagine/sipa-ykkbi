@@ -40,6 +40,16 @@ class add_anggaran extends CI_Controller {
         $process_report_excel->test_template();
     }
     
+    public function export_test_template_b(){
+        $process_report_excel = new process_report_excel();
+        $process_report_excel->test_complete_template_one_sheet();
+    }
+    
+    public function export_test_template_b_new(){
+        $process_report_excel = new process_report_excel();
+        $process_report_excel->test_complete_template_one_sheet_new();
+    }
+    
     public function export_pdf(){
         $process_report_excel = new process_report_excel();
         $process_report_excel->print_pdf();
@@ -48,6 +58,11 @@ class add_anggaran extends CI_Controller {
     public function print_html(){
         $process_report_excel = new process_report_excel();
         $process_report_excel->print_html();
+    }
+    
+    public function get_style(){
+        $process_report_excel = new process_report_excel();
+        $process_report_excel->test_get_style();
     }
     
     public function index() {

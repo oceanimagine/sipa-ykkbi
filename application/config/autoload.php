@@ -64,6 +64,7 @@ $autoload['libraries'] = array(
     'process_lucky_export',
     'process_kamus_excel',
     'process_kamus_report_excel',
+    'process_report_config',
     'process_report_excel',
     'globals',
     'message'
