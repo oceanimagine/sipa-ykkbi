@@ -66,6 +66,7 @@ $autoload['libraries'] = array(
     'process_kamus_report_excel',
     'process_report_config',
     'process_report_excel',
+    'process_report_excel_ma',
     'globals',
     'message'
 );

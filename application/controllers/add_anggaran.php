@@ -50,6 +50,10 @@ class add_anggaran extends CI_Controller {
         $process_report_excel->test_complete_template_one_sheet_new();
     }
     
+    public function export_excel_ma(){
+        new process_report_excel_ma("all");
+    }
+    
     public function export_pdf(){
         $process_report_excel = new process_report_excel();
         $process_report_excel->print_pdf();

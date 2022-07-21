@@ -23,8 +23,6 @@ class process_report_excel {
         header("Content-Type: application/download");
         header('Content-Disposition: attachment;filename=Hasil Indent.xlsx');
         $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
-        // header('Content-Disposition: attachment;filename=Hasil Indent.ods');
-        // $writer = IOFactory::createWriter($spreadsheet, 'Ods');
         $writer->save('php://output'); 
     }
     public function print_pdf(){
@@ -81,7 +79,7 @@ class process_report_excel {
         $level_4 = "AG";
         $level_5 = "AH";
         $reader = IOFactory::createReader("Xlsx");
-        $spreadsheet = $reader->load(__DIR__."/../../upload/xlsx_excel/TEMPLATE02.xlsx");
+        $spreadsheet = $reader->load(__DIR__."/../../upload/xlsx_excel/TEMPLATE03.xlsx");
         
         $process_report_config = new process_report_config();
         $process_report_config->operasional_tahunan_dan_rppt_rincian();
@@ -182,7 +180,7 @@ class process_report_excel {
         $level_4 = "AG";
         $level_5 = "AH";
         $reader = IOFactory::createReader("Xlsx");
-        $spreadsheet = $reader->load(__DIR__."/../../upload/xlsx_excel/TEMPLATE02.xlsx");
+        $spreadsheet = $reader->load(__DIR__."/../../upload/xlsx_excel/TEMPLATE03.xlsx");
         
         $process_report_config = new process_report_config();
         $process_report_config->operasional_tahunan_dan_rppt_rincian();
@@ -216,6 +214,13 @@ class process_report_excel {
         $begin_row = $begin_row_start;
         
         $all_data = $this->CI->all;
+        $no = 1;
+        
+        for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
+            $style_last = $spreadsheet->getActiveSheet()->getStyleByColumnAndRow($col, 14);
+            $spreadsheet->getActiveSheet()->duplicateStyle($style_last, Coordinate::stringFromColumnIndex($col) . ($begin_row_start + sizeof($all_data)));
+        }
+        
         for($i = 0; $i < sizeof($all_data); $i++){
             $isi_kata = $all_data[$i]->rekmanama;
             if($all_data[$i]->lvl == "1"){
@@ -226,6 +231,8 @@ class process_report_excel {
                 
                 $spreadsheet->getActiveSheet()->getRowDimension($begin_row)->setRowHeight($height_total);
                 $spreadsheet->getActiveSheet()->setCellValue('D'.$begin_row, $isi_kata);
+                
+                $spreadsheet->getActiveSheet()->setCellValue('I'.$begin_row, "=C9");
                 
                 for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
                     $style = $spreadsheet->getActiveSheet()->getStyleByColumnAndRow($col, 9);
@@ -240,6 +247,8 @@ class process_report_excel {
                 
                 $spreadsheet->getActiveSheet()->getRowDimension($begin_row)->setRowHeight($height_total);
                 $spreadsheet->getActiveSheet()->setCellValue('E'.$begin_row, $isi_kata);
+                
+                $spreadsheet->getActiveSheet()->setCellValue('I'.$begin_row, "=C10");
                 
                 for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
                     $style = $spreadsheet->getActiveSheet()->getStyleByColumnAndRow($col, 10);
@@ -256,6 +265,8 @@ class process_report_excel {
                 $spreadsheet->getActiveSheet()->getRowDimension($begin_row)->setRowHeight($height_total);
                 $spreadsheet->getActiveSheet()->setCellValue('F'.$begin_row, $isi_kata);
                 
+                $spreadsheet->getActiveSheet()->setCellValue('I'.$begin_row, "=C11");
+                
                 for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
                     $style = $spreadsheet->getActiveSheet()->getStyleByColumnAndRow($col, 11);
                     $spreadsheet->getActiveSheet()->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
@@ -271,6 +282,8 @@ class process_report_excel {
                 $spreadsheet->getActiveSheet()->getRowDimension($begin_row)->setRowHeight($height_total);
                 $spreadsheet->getActiveSheet()->setCellValue('G'.$begin_row, $isi_kata);
                 
+                $spreadsheet->getActiveSheet()->setCellValue('I'.$begin_row, "=C12");
+                
                 for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
                     $style = $spreadsheet->getActiveSheet()->getStyleByColumnAndRow($col, 12);
                     $spreadsheet->getActiveSheet()->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
@@ -278,6 +291,8 @@ class process_report_excel {
             }
             else if($all_data[$i]->lvl == "5"){
                 $spreadsheet->getActiveSheet()->setCellValue('H'.$begin_row, $isi_kata);
+                
+                $spreadsheet->getActiveSheet()->setCellValue('I'.$begin_row, "=C13");
                 
                 for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
                     $style = $spreadsheet->getActiveSheet()->getStyleByColumnAndRow($col, 13);
@@ -290,7 +305,9 @@ class process_report_excel {
                     $spreadsheet->getActiveSheet()->setCellValue($row_col[$key_row_col[$j]] . $begin_row, $all_data[$i]->{$key_row_col[$j]});
                 }
             }
+            $spreadsheet->getActiveSheet()->setCellValue("A" . $begin_row, $no);
             $begin_row++;
+            $no++;
         }
         
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
