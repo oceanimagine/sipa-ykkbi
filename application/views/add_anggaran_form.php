@@ -21,6 +21,37 @@
         </script>
     </head>
     <body>
+        <style type="text/css">
+            .autocomplete {
+                position: relative;
+            }
+            .autocomplete-items {
+                position: absolute;
+                border: 1px solid #d4d4d4;
+                border-bottom: none;
+                border-top: none;
+                z-index: 99;
+                top: 100%;
+                left: 15px;
+                right: 15px;
+            }
+
+            .autocomplete-items div {
+                padding: 10px;
+                cursor: pointer;
+                background-color: #fff; 
+                border-bottom: 1px solid #d4d4d4; 
+            }
+            
+            .autocomplete-items div:hover {
+                background-color: #e9e9e9; 
+            }
+            
+            .autocomplete-active {
+                background-color: DodgerBlue !important; 
+                color: #ffffff; 
+            }
+        </style>
         <link rel="stylesheet" href="css/add-anggaran-css.css"  type="text/css" />
         <script src="js/add-anggaran-js.js" referrerpolicy="origin"></script>
         <form class="form-horizontal" method="POST" enctype="multipart/form-data">
@@ -34,16 +65,16 @@
                 </div>
                 <div class="form-group">
                     <label for="satuan_kerja" class="col-md-2 control-label">Satuan Kerja</label>
-                    <div class="col-md-10">
-                        <input required type="text" id="satuan_kerja" class="form-control tambah-margin-bawah" name="satuan_kerja" placeholder="Satuan Kerja" value="<?php echo isset($satuan_kerja) ? $satuan_kerja : ""; ?>">
+                    <div class="col-md-10 autocomplete">
+                        <input required type="text" id="satuan_kerja" class="form-control tambah-margin-bawah" name="satuan_kerja" placeholder="Satuan Kerja" value="<?php echo isset($satuan_kerja) ? $satuan_kerja : ""; ?>" autocomplete="off">
                     </div>
                     
                 </div>
                 
                 <div class="form-group">
                     <label for="kegiatan_program_kerja" class="col-md-2 control-label">Kegiatan Program Kerja</label>
-                    <div class="col-md-8">
-                        <input required type="text" id="kegiatan_program_kerja" class="form-control tambah-margin-bawah" name="kegiatan_program_kerja" placeholder="Kegiatan Program Kerja" value="<?php echo isset($kegiatan_program_kerja) ? $kegiatan_program_kerja : ""; ?>">
+                    <div class="col-md-8 autocomplete">
+                        <input required type="text" id="kegiatan_program_kerja" class="form-control tambah-margin-bawah" name="kegiatan_program_kerja" placeholder="Kegiatan Program Kerja" value="<?php echo isset($kegiatan_program_kerja) ? $kegiatan_program_kerja : ""; ?>" autocomplete="off">
                     </div>
                     <div class="col-md-2">
                         <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="search" value="Search">Search</button>
@@ -51,8 +82,8 @@
                 </div>
                 <div class="form-group" id="form_group_a">
                     <label for="mata_anggaran" class="col-md-2 control-label">Mata Anggaran</label>
-                    <div class="col-md-8">
-                        <input required type="text" id="satuan_kerja" class="form-control tambah-margin-bawah" name="mata_anggaran" placeholder="Mata Anggaran" value="<?php echo isset($mata_anggaran) ? $mata_anggaran : ""; ?>">
+                    <div class="col-md-8 autocomplete">
+                        <input required type="text" id="mata_anggaran" class="form-control tambah-margin-bawah" name="mata_anggaran" placeholder="Mata Anggaran" value="<?php echo isset($mata_anggaran) ? $mata_anggaran : ""; ?>" autocomplete="off">
                         <input type="hidden" name="inisial_all" id="inisial_all" value="_1" />
                     </div>
                     <div class="col-md-2">
@@ -77,8 +108,9 @@
                                     <th style="border-right: #f1f1f1 1px solid; text-align: center; border-bottom: #f1f1f1 1px solid; white-space: nowrap;">Sub Total</th>
                                     <th style="border-right: #f1f1f1 1px solid; text-align: center; border-bottom: #f1f1f1 1px solid; white-space: nowrap;" colspan="2">TW I</th>
                                     <th style="border-right: #f1f1f1 1px solid; text-align: center; border-bottom: #f1f1f1 1px solid; white-space: nowrap;" colspan="2">TW II</th>
-                                    <th style="border-right: #f1f1f1 1px solid; text-align: center; border-bottom: #f1f1f1 1px solid; white-space: nowrap;" colspan="3">TW III</th>
+                                    <th style="border-right: #f1f1f1 1px solid; text-align: center; border-bottom: #f1f1f1 1px solid; white-space: nowrap;" colspan="2">TW III</th>
                                     <th style="border-bottom: #f1f1f1 1px solid; text-align: center; white-space: nowrap;" colspan="2">TW IV</th>
+                                    <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap; border-bottom: #f1f1f1 1px solid; border-left: #f1f1f1 1px solid;"><i class="fa fa-info"></i></th>
                                 </tr>
                                 <tr>
                                     <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">Nom</th>
@@ -101,7 +133,7 @@
                                 <tr class="induk_group_1">
                                     <td style="border-left: #f1f1f1 1px solid; text-align: center; border-right: #f0f0f0 1px solid; border-bottom: #f0f0f0 1px solid;"><i class="fa fa-minus" onclick="min_group(this, '_1', 1);" style="cursor: pointer;"></i></td>
                                     <td style="text-align: center; border-right: #f0f0f0 1px solid; border-bottom: #f0f0f0 1px solid;"><i class="fa fa-plus" onclick="add_group(this, '_1', 1);" style="cursor: pointer;"></i></td>
-                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; border-bottom: #f0f0f0 1px solid; background-color: rgb(220,230,241);" colspan="15"><b>GROUP DEFAULT</b></td>
+                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; border-bottom: #f0f0f0 1px solid; background-color: rgb(220,230,241);" colspan="15"><input type="text" style="box-sizing: border-box;border: none;outline: none;height: 32px; width: 100%;background-color: rgb(220,230,241);color:  black;font-weight: bold;height: 100%;" placeholder="GROUP DEFAULT" name="group_default[]"></td>
                                     <?php /* <td style="border-right: #f1f1f1 1px solid; text-align: center; border-bottom: #f0f0f0 1px solid;"><i class="fa fa-plus"></i></td> */ ?>
                                 </tr>
                                 <tr style="border-bottom: rgb(242,220,219) 2px solid;" class="anakan_group_1">
@@ -142,6 +174,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad; margin-top: 15px; border-radius: 0px;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="add_anggaran" value="Add Anggaran">Add Anggaran</button>
                     </div>
                 </div>
             </div>

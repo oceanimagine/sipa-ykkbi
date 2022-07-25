@@ -105,7 +105,7 @@ class process_menu {
         return $this->boolean;
     }
     function select_menu($id_parent){
-        $query = "select id, nama_menu, module, parent_id from tbl_menu where parent_id = '".$id_parent."' order by id asc";
+        $query = "select id, nama_menu, module, parent_id, icon from tbl_menu where parent_id = '".$id_parent."' order by id asc";
         $hasil = $this->model->kueri($query);
         $menu_ = "";
 	$ada_sub = 0;
@@ -135,20 +135,20 @@ class process_menu {
                     if($row->module == "" || $row->module == "#"){
                         $menu_ = $menu_ . '
                         <li '.$active.'>
-                            <a href="../../../index.php/'.$row->module.'"><i class="fa fa-'.($id_parent > 0 ? 'circle-o' : 'server').'"></i> <span>'.$row->nama_menu.'</span></a>
+                            <a style="display: table; white-space: pre-wrap; width: 100%; position: relative;" href="../../../index.php/'.$row->module.'"><i class="fa '.($id_parent > 0 ? 'fa-circle-o' : (isset($row->icon) ? $row->icon : "fa-server")).'" style="display: table-cell; width: 28px; padding-top: 0px;"></i> <span style="padding-bottom: 2px; position: relative; top: 0px;">'.$row->nama_menu.'</span></a>
                             '.$subs_[0].'
                         </li>';
                     } else {
                         if($row->parent_id == 0 && $row->module != "#"){
                             $menu_ = $menu_ . '
                             <li '.$active.'>
-                                <a href="../../../index.php/'.$row->module.'"><i class="fa fa-'.($id_parent > 0 ? 'circle-o' : 'server').'"></i> <span>'.$row->nama_menu.'</span></a>
+                                <a style="display: table; white-space: pre-wrap; width: 100%; position: relative;" href="../../../index.php/'.$row->module.'"><i class="fa '.($id_parent > 0 ? 'fa-circle-o' : (isset($row->icon) ? $row->icon : "fa-server")).'" style="display: table-cell; width: 28px; padding-top: 0px;"></i> <span style="padding-bottom: 2px; position: relative; top: 0px;">'.$row->nama_menu.'</span></a>
                                 '.$subs_[0].'
                             </li>';
                         } else {
                             $menu_ = $menu_ . '
                             <li '.$active.' style="padding-left: 20px;">
-                                <i class="fa fa-'.($id_parent > 0 ? 'circle-o' : 'server').'" style="color: #8aa4af; width: 12px;"></i>
+                                <i class="fa '.($id_parent > 0 ? 'fa-circle-o' : (isset($row->icon) ? $row->icon : "fa-server")).'" style="color: #8aa4af; width: 12px;"></i>
                                 <a href="../../../index.php/'.$row->module.'" style="white-space: initial; padding: 0px; padding-top: 6px; padding-bottom: 6px; display: inline-flex; width: 180px;"> <span>'.$row->nama_menu.'</span></a>
                                 '.$subs_[0].'
                             </li>';

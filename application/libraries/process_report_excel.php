@@ -28,19 +28,19 @@ class process_report_excel {
     public function print_pdf(){
         ini_set("display_errors", "On");
         error_reporting(E_ALL);
-        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile(__DIR__ . "/../../upload/xlsx_excel/HASILINDENT.xlsx");
+        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile(__DIR__ . "/../../upload/xlsx_excel/TESTHTML.xlsx");
         
         $phpWord = $reader->load(__DIR__ . "/../../upload/xlsx_excel/HASILINDENT.xlsx");
         $xmlWriter = IOFactory::createWriter($phpWord,'Mpdf');
         $xmlWriter->writeAllSheets();
-        $xmlWriter->save(__DIR__ . "/../../upload/xlsx_excel/HELLOWWORLD.pdf");
+        $xmlWriter->save(__DIR__ . "/../../upload/xlsx_excel/TESTHTML.pdf");
     }
     public function print_html(){
         $objPHPExcelReader = \PHPExcel_IOFactory::createReader('Excel2007');
-        $objPHPExcel = $objPHPExcelReader->load(__DIR__ . "/../../upload/xlsx_excel/HASILINDENT.xlsx");
+        $objPHPExcel = $objPHPExcelReader->load(__DIR__ . "/../../upload/xlsx_excel/TESTHTML.xlsx");
         
         $objPHPExcelWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel,'HTML');
-        $objPHPExcelWriter->save(__DIR__ . "/../../upload/xlsx_excel/HELLOWWORLD.html");
+        $objPHPExcelWriter->save(__DIR__ . "/../../upload/xlsx_excel/TESTHTML.html");
 
     }
     public function test_template(){

@@ -1,11 +1,14 @@
 <?php
 
 class process_report_config {
+    // ma variable
     public $operasional_tahunan_dan_rppt = array();
     public $operasional_tahunan_dan_rppt_rincian = array();
     public $investasi_rencana_korporasi_dan_rppt = array();
     public $laporan_anggaran_investasi_rencana_korporasi_rincian = array();
     public $kegiatan_rincian_anggaran_rppt_per_mata_anggaran = array();
+    
+    // ma function
     public function operasional_tahunan_dan_rppt(){
         $this->operasional_tahunan_dan_rppt = array(
             "kode" => "B",
@@ -137,4 +140,113 @@ class process_report_config {
         );
     }
     
+    // sbp variable
+    public $program_strategis_ps = array();
+    public $program_kerja_strategis_pks_non_strategis_pkns = array();
+    public $program_kerja_tahunan_pkt_kegiatan_k = array();
+    public $program_kerja_tahunan_pkt_rincian_kegiatan_rk = array();
+    public $mata_anggaran_per_rincian_kegiatan = array();
+    
+    // sbp function
+    function program_strategis_ps(){
+        $this->program_strategis_ps = array(
+            "kode" => "B",
+            "sbpkode" => "C",
+            "sbpnourut" => "D",
+            "lvl" => "E",
+            "satkerid" => "F",
+            "pktkode" => "G",
+            "pktnourut" => "H",
+            "nama" => "I",
+            "pktoutput" => "J",
+            "sbpjenis" => "K",
+            "nom_pendapatan" => "L",
+            "nom_biaya" => "M",
+            "nom_investasi" => "N",
+            "nom_rencana_korporasi" => "O"
+        );
+    }
+    
+    function program_kerja_strategis_pks_non_strategis_pkns(){
+        $this->program_kerja_strategis_pks_non_strategis_pkns = array(
+            "kode" => "B",
+            "sbpkode" => "C",
+            "sbpnourut" => "D",
+            "lvl" => "E",
+            "satkerid" => "F",
+            "pktkode" => "G",
+            "pktnourut" => "H",
+            "nama" => "I",
+            "pktoutput" => "L",
+            "sbpjenis" => "M",
+            "nom_pendapatan" => "N",
+            "nom_biaya" => "O",
+            "nom_investasi" => "P",
+            "nom_rencana_korporasi" => "Q"
+        );
+    }
+    
+    function program_kerja_tahunan_pkt_kegiatan_k(){
+        $this->program_kerja_tahunan_pkt_kegiatan_k = array(
+            "kode" => "B",
+            "sbpkode" => "C",
+            "pktkode" => "D",
+            "sbpnourut" => "E",
+            "lvl" => "F",
+            "satkerid" => "G",
+            "pktnourut" => "H",
+            "nama" => "I",
+            "pktoutput" => "N",
+            "sbpjenis" => "O",
+            "nom_pendapatan" => "P",
+            "nom_biaya" => "Q",
+            "nom_investasi" => "R",
+            "nom_rencana_korporasi" => "S"
+        );
+    }
+    
+    function program_kerja_tahunan_pkt_rincian_kegiatan_rk(){
+        $this->program_kerja_tahunan_pkt_rincian_kegiatan_rk = array(
+            "kode" => "B",
+            "sbpkode" => "C",
+            "pktkode" => "D",
+            "sbpnourut" => "E",
+            "lvl" => "F",
+            "satkerid" => "G",
+            "pktnourut" => "H",
+            "nama" => "I",
+            "pktoutput" => "N",
+            "sbpjenis" => "O",
+            "nom_pendapatan" => "P",
+            "nom_biaya" => "Q",
+            "nom_investasi" => "R",
+            "nom_rencana_korporasi" => "S"
+        );
+    }
+    
+    function mata_anggaran_per_rincian_kegiatan(){
+        $this->mata_anggaran_per_rincian_kegiatan = array(
+            "kode" => "B",
+            "sbpkode" => "C",
+            "pktkode" => "D",
+            "rekmakode" => "E",
+            "sbpnourut" => "F",
+            "lvl" => "G",
+            "satkerid" => "H",
+            "pktnourut" => "I",
+            "nama" => "J",
+            "rekmanama" => "O",
+            "pktoutput" => "P",
+            "sbpjenis" => "Q",
+            "anggaran" => "R",
+            "rppt1nom" => "S",
+            "rppt1perc" => "T",
+            "rppt2nom" => "U",
+            "rppt2perc" => "V",
+            "rppt3nom" => "W",
+            "rppt3perc" => "X",
+            "rppt4nom" => "Y",
+            "rppt4perc" => "Z"
+        );
+    }
 }
