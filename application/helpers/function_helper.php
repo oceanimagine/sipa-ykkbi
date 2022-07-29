@@ -1,5 +1,6 @@
 <?php
 
+// function helper
 function escapeString($val) {
     $db = get_instance()->db->conn_id;
     $val_ = mysqli_real_escape_string($db, $val);
@@ -154,68 +155,6 @@ function show_photo($name_active, $file_name){
         </div>
     </div>
     <?php
-}
-
-// Project Modal
-function project_modal(){
-    $CI =& get_instance();
-    $CI->layout = new layout('lite');
-    $CI->load->model('get_project');
-    $CI->get_project->process(array(
-        'action' => 'select',
-        'table' => 'tblproject',
-        'column_value' => array(
-            'kode'
-        ),
-        'order' => ' tahunanggaran desc'
-    ));
-    $data = $CI->all;
-    $CI->project_modal = "UNDEFINED";
-    if(sizeof($data) > 0){
-        $CI->project_modal = $data[0]->kode;
-    }
-    return $CI->layout->loadView(array(
-        "set_ob_view" => "dialog/dialog-project"
-    ), array(
-        "data_project" => $data
-    ));
-}
-
-function project_test(){
-    $CI =& get_instance();
-    $CI->layout = new layout('lite');
-    return $CI->layout->loadView(array(
-        "set_ob_view" => "dialog/dialog-test"
-    ));
-}
-
-function get_project(){
-    $CI =& get_instance();
-    $CI->load->model('get_project');
-    $CI->get_project->process(array(
-        'action' => 'select',
-        'table' => 'tblproject',
-        'column_value' => array(
-            'kode'
-        ),
-        'order' => ' tahunanggaran desc'
-    ));
-    $data = $CI->all;
-    if(sizeof($data) > 0){
-        $GLOBALS['kode_project'] = $data[0]->kode;
-        $CI->kode_project_scope_controller = $GLOBALS['kode_project'];
-        return "<div id='button-project' style='cursor: pointer;'>Project " . $data[0]->kode . "</div>";
-    } else {
-        return "No Project.";
-    }
-}
-
-function get_current_project(){
-    get_project();
-}
-
-function post_raw($name_post){
-    return isset($_POST[$name_post]) ? $_POST[$name_post] : $name_post;
 }
 
 function do_increment($param, $type = "HEX"){
@@ -427,4 +366,94 @@ function convert_alphabet($param){
         $param_dec,
         $param_hex
     );
+}
+
+function print_query(){
+    $GLOBALS['debug_query'] = true;
+}
+
+function post_raw($name_post){
+    return isset($_POST[$name_post]) ? $_POST[$name_post] : $name_post;
+}
+
+// Project Modal
+function project_modal(){
+    $CI =& get_instance();
+    $CI->layout = new layout('lite');
+    $CI->load->model('get_project');
+    $CI->get_project->process(array(
+        'action' => 'select',
+        'table' => 'tblproject',
+        'column_value' => array(
+            'kode'
+        ),
+        'order' => ' tahunanggaran desc'
+    ));
+    $data = $CI->all;
+    $CI->project_modal = "UNDEFINED";
+    if(sizeof($data) > 0){
+        $CI->project_modal = $data[0]->kode;
+    }
+    return $CI->layout->loadView(array(
+        "set_ob_view" => "dialog/dialog-project"
+    ), array(
+        "data_project" => $data
+    ));
+}
+
+function rincian_kegiatan_modal(){
+    $CI =& get_instance();
+    $CI->layout = new layout('lite');
+    return $CI->layout->loadView(array(
+        "set_ob_view" => "dialog/dialog-rincian-kegiatan"
+    ));
+}
+
+function mata_anggaran_modal(){
+    $CI =& get_instance();
+    $CI->layout = new layout('lite');
+    return $CI->layout->loadView(array(
+        "set_ob_view" => "dialog/dialog-mata-anggaran"
+    ));
+}
+
+function project_test(){
+    $CI =& get_instance();
+    $CI->layout = new layout('lite');
+    return $CI->layout->loadView(array(
+        "set_ob_view" => "dialog/dialog-test"
+    ));
+}
+
+// function onload
+function get_project(){
+    $CI =& get_instance();
+    $CI->load->model('get_project');
+    $CI->get_project->process(array(
+        'action' => 'select',
+        'table' => 'tblproject',
+        'column_value' => array(
+            'kode'
+        ),
+        'order' => ' tahunanggaran desc'
+    ));
+    $data = $CI->all;
+    if(sizeof($data) > 0){
+        $GLOBALS['kode_project'] = $data[0]->kode;
+        $CI->kode_project_scope_controller = $GLOBALS['kode_project'];
+        return "<div id='button-project' style='cursor: pointer;'>Project " . $data[0]->kode . "</div>";
+    } else {
+        return "No Project.";
+    }
+}
+
+function get_current_project(){
+    $CI =& get_instance();
+    if(isset($_SESSION) && is_array($_SESSION) && isset($_SESSION['data_satker'])){
+        $CI->aplikasi = new stdClass();
+        $CI->aplikasi->data = new stdClass();
+        $CI->aplikasi->data->satker = $_SESSION['data_satker'];
+        $CI->aplikasi->data->satker_string = $_SESSION['data_satker_comma'];
+    }
+    get_project();
 }

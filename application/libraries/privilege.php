@@ -20,7 +20,7 @@ class privilege {
 	    }
 	}
 	if(!$same){
-	    redirect('login');
+            header('location: '.$GLOBALS['base_administrator'].'index.php/login');
 	}
     }
     

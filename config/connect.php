@@ -25,7 +25,7 @@ $data = $list_server[$_SERVER['SERVER_NAME']]['data'];
 $base = $list_server[$_SERVER['SERVER_NAME']]['base'];
 $port = $list_server[$_SERVER['SERVER_NAME']]['port'];
 $get_info_server = false;
-$GLOBALS['base_administrator'] = $base . "/";
+$GLOBALS['base_administrator'] = $base;
 $GLOBALS['host'] = $host;
 $GLOBALS['user'] = $user;
 $GLOBALS['pass'] = $pass;
@@ -60,7 +60,7 @@ $GLOBALS['left_menu_under_logo'] = true;
 $GLOBALS['function_process'] = "get_project";
 
 /* Layout Replace Add More Dialog */
-$GLOBALS['add_more_dialog'] = array("project_modal");
+$GLOBALS['add_more_dialog'] = array("project_modal","rincian_kegiatan_modal","mata_anggaran_modal");
 
 /* Additional Function */
 function check_url_index_php(){

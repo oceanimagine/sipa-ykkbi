@@ -7,7 +7,7 @@ function detect_address_left(object_input){
         var get_input_ = get_tr.getElementsByTagName("input");
         var get_focus = 0;
         for(var i = 0; i < get_input_.length; i++){
-            if(get_input_[i].getAttribute("type") === "number"){
+            if(get_input_[i].getAttribute("type") === "number" || get_input_[i].getAttribute("type") === "text"){
                 if(get_input_[i].getAttribute("name") === get_name){
                     break;
                 }
@@ -17,7 +17,7 @@ function detect_address_left(object_input){
         }
         if(!get_focus){
             for(var i = 0; i < get_input_.length; i++){
-                if(get_input_[i].getAttribute("type") === "number"){
+                if(get_input_[i].getAttribute("type") === "number" || get_input_[i].getAttribute("type") === "text"){
                     get_input_[i].focus();
                 }
             }
@@ -36,7 +36,7 @@ function detect_address_right(object_input){
         var after = 0;
         var get_focus = 0;
         for(var i = 0; i < get_input_.length; i++){
-            if(get_input_[i].getAttribute("type") === "number"){
+            if(get_input_[i].getAttribute("type") === "number" || get_input_[i].getAttribute("type") === "text"){
                 if(!after){
                     if(get_input_[i].getAttribute("name") === get_name){
                         after = 1;
@@ -50,7 +50,7 @@ function detect_address_right(object_input){
         }
         if(!get_focus){
             for(var i = 0; i < get_input_.length; i++){
-                if(get_input_[i].getAttribute("type") === "number"){
+                if(get_input_[i].getAttribute("type") === "number" || get_input_[i].getAttribute("type") === "text"){
                     get_input_[i].focus();
                     break;
                 }
@@ -96,7 +96,7 @@ function detect_address_down(object_input){
         }
         var get_input_ = get_tr_active.getElementsByTagName("input");
         for(var i = 0; i < get_input_.length; i++){
-            if(get_input_[i].getAttribute("type") === "number"){
+            if(get_input_[i].getAttribute("type") === "number" || get_input_[i].getAttribute("type") === "text"){
                 if(get_input_[i].getAttribute("name") === get_name){
                     get_input_[i].focus();
                     break;
@@ -138,7 +138,7 @@ function detect_address_up(object_input){
         }
         var get_input_ = get_tr_active.getElementsByTagName("input");
         for(var i = 0; i < get_input_.length; i++){
-            if(get_input_[i].getAttribute("type") === "number"){
+            if(get_input_[i].getAttribute("type") === "number" || get_input_[i].getAttribute("type") === "text"){
                 if(get_input_[i].getAttribute("name") === get_name){
                     get_input_[i].focus();
                     break;
@@ -189,7 +189,7 @@ function detect_address_input_delete(object_input){
 
     var get_input_ = get_tr_after.getElementsByTagName("input");
     for(var i = 0; i < get_input_.length; i++){
-        if(get_input_[i].getAttribute("type") === "number"){
+        if(get_input_[i].getAttribute("type") === "number" || get_input_[i].getAttribute("type") === "text"){
             if(get_input_[i].getAttribute("name") === get_name){
                 get_input_[i].focus();
                 break;
@@ -214,7 +214,7 @@ function detect_address_input(object_input){
     var count_amount = 0;
     var count_active = 0;
     for(var i = 0; i < get_td_input.length; i++){
-        if(get_td_input[i].getAttribute("type") === "number"){
+        if(get_td_input[i].getAttribute("type") === "number" || get_td_input[i].getAttribute("type") === "text"){
             count_amount++;
         }
     }
@@ -396,14 +396,20 @@ function tambah_anak_grup(object_button, inisial, jumlah_anakan){
     }
     var get_td_input_clone = clone_tr.getElementsByTagName("input");
     for(var i = 0; i < get_td_input_clone.length; i++){
-        if(get_td_input_clone[i].getAttribute("type") === "number"){
-            get_td_input_clone[i].value = "0.00";
+        if(get_td_input_clone[i].getAttribute("type") === "number" || get_td_input_clone[i].getAttribute("type") === "text"){
+            if(get_td_input_clone[i].getAttribute("type") === "number"){
+                get_td_input_clone[i].value = "0.00";
+            }
+            if(get_td_input_clone[i].getAttribute("type") === "text"){
+                get_td_input_clone[i].value = "";
+            }
         }
     }
     object_button.setAttribute("onclick", "tambah_anak_grup(this,'"+inisial+"'," + (jumlah_anakan + 1) + ");");
     get_tr_active.style.border = "";
     get_tbody.insertBefore(clone_tr, get_tr_active.nextSibling);
     re_trigger_numberonly_input();
+    re_trigger_input_with_class('textinput');
 }
 
 function min_group(object_button, inisial, jumlah_group){
@@ -515,16 +521,29 @@ function add_group(object_button, inisial, jumlah_group){
         }
     }
     
+    var get_tr_induk_input = clone_tr_induk_group.getElementsByTagName("input");
+    for(var i = 0; i < get_tr_induk_input.length; i++){
+        if(get_tr_induk_input[i].getAttribute("type") === "text"){
+            get_tr_induk_input[i].value = "";
+        }
+    }
+    
     clone_tr_anakan_group.setAttribute("class", "anakan_group_" + (jumlah_group + 1));
     clone_tr_anakan_group.setAttribute("style", "border-bottom: rgb(242,220,219) 2px solid;");
     var get_tr_anakan_input = clone_tr_anakan_group.getElementsByTagName("input");
     for(var i = 0; i < get_tr_anakan_input.length; i++){
-        if(get_tr_anakan_input[i].getAttribute("type") === "number"){
+        if(get_tr_anakan_input[i].getAttribute("type") === "number" || get_tr_anakan_input[i].getAttribute("type") === "text"){
             var get_name = get_tr_anakan_input[i].getAttribute("name");
             var active_jumlah_after = jumlah_group + 1;
             var get_name_substr = get_name.substr(0, get_name.length - inisial.length - 2);
             var name_new = get_name_substr + "_" + active_jumlah_after.toString() + "[]";
             get_tr_anakan_input[i].setAttribute("name", name_new);
+            if(get_tr_anakan_input[i].getAttribute("type") === "number"){
+                get_tr_anakan_input[i].value = "0.00";
+            }
+            if(get_tr_anakan_input[i].getAttribute("type") === "text"){
+                get_tr_anakan_input[i].value = "";
+            }
         }
     }
     
@@ -558,6 +577,7 @@ function add_group(object_button, inisial, jumlah_group){
     get_tbody.appendChild(clone_tr_anakan_group);
     get_tbody.appendChild(clone_tr_jumlah_anakan);
     re_trigger_numberonly_input();
+    re_trigger_input_with_class('textinput');
     
     var arr_address = [];
     var add_address = 0;
@@ -593,75 +613,179 @@ function add_group(object_button, inisial, jumlah_group){
 }
 
 function autocomplete(inp, arr) {
-    var currentFocus;
-    inp.addEventListener("input", function(e) {
-        var a, b, i, val = this.value;
-        closeAllLists();
-        if (!val) { return false;}
-        currentFocus = -1;
-        a = document.createElement("DIV");
-        a.setAttribute("id", this.id + "autocomplete-list");
-        a.setAttribute("class", "autocomplete-items");
-        this.parentNode.appendChild(a);
-        for (i = 0; i < arr.length; i++) {
-            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-                b = document.createElement("DIV");
-                b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-                b.innerHTML += arr[i].substr(val.length);
-                b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-                b.addEventListener("click", function(e) {
-                    inp.value = this.getElementsByTagName("input")[0].value;
-                    closeAllLists();
-                });
-                a.appendChild(b);
+    if(document.getElementById(inp) && document.getElementById(inp).getAttribute("type") == "text"){
+        var inp = document.getElementById(inp);
+        var currentFocus;
+        inp.addEventListener("input", function(e) {
+            var a, b, i, val = this.value;
+            closeAllLists();
+            if (!val) { return false;}
+            currentFocus = -1;
+            a = document.createElement("DIV");
+            a.setAttribute("id", this.id + "autocomplete-list");
+            a.setAttribute("class", "autocomplete-items");
+            this.parentNode.appendChild(a);
+            for (i = 0; i < arr.length; i++) {
+                if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                    b = document.createElement("DIV");
+                    b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                    b.innerHTML += arr[i].substr(val.length);
+                    b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                    b.addEventListener("click", function(e) {
+                        inp.value = this.getElementsByTagName("input")[0].value;
+                        closeAllLists();
+                    });
+                    a.appendChild(b);
+                }
+            }
+        });
+
+        inp.addEventListener("keydown", function(e) {
+            var x = document.getElementById(this.id + "autocomplete-list");
+            if (x) x = x.getElementsByTagName("div");
+            if (e.keyCode == 40) {
+                currentFocus++;
+                addActive(x);
+            } else if (e.keyCode == 38) { 
+                currentFocus--;
+                addActive(x);
+            } else if (e.keyCode == 13) {
+                e.preventDefault();
+                 if (currentFocus > -1) {
+                    if (x) x[currentFocus].click();
+                }
+            }
+        });
+        function addActive(x) {
+            if (!x) return false;
+            removeActive(x);
+            if (currentFocus >= x.length) currentFocus = 0;
+            if (currentFocus < 0) currentFocus = (x.length - 1);
+            x[currentFocus].classList.add("autocomplete-active");
+        }
+        function removeActive(x) {
+            for (var i = 0; i < x.length; i++) {
+                x[i].classList.remove("autocomplete-active");
             }
         }
-    });
-    
-    inp.addEventListener("keydown", function(e) {
-        var x = document.getElementById(this.id + "autocomplete-list");
-        if (x) x = x.getElementsByTagName("div");
-        if (e.keyCode == 40) {
-            currentFocus++;
-            addActive(x);
-        } else if (e.keyCode == 38) { 
-            currentFocus--;
-            addActive(x);
-        } else if (e.keyCode == 13) {
-            e.preventDefault();
-             if (currentFocus > -1) {
-                if (x) x[currentFocus].click();
+        function closeAllLists(elmnt) {
+          var x = document.getElementsByClassName("autocomplete-items");
+            for (var i = 0; i < x.length; i++) {
+                if (elmnt != x[i] && elmnt != inp) {
+                    x[i].parentNode.removeChild(x[i]);
+                }
             }
         }
-    });
-    function addActive(x) {
-        if (!x) return false;
-        removeActive(x);
-        if (currentFocus >= x.length) currentFocus = 0;
-        if (currentFocus < 0) currentFocus = (x.length - 1);
-        x[currentFocus].classList.add("autocomplete-active");
+        document.addEventListener("click", function (e) {
+            closeAllLists(e.target);
+        });
     }
-    function removeActive(x) {
-        for (var i = 0; i < x.length; i++) {
-            x[i].classList.remove("autocomplete-active");
-        }
-    }
-    function closeAllLists(elmnt) {
-      var x = document.getElementsByClassName("autocomplete-items");
-        for (var i = 0; i < x.length; i++) {
-            if (elmnt != x[i] && elmnt != inp) {
-                x[i].parentNode.removeChild(x[i]);
+}
+
+function set_loading(message){
+    var div = document.createElement("div");
+    var span = document.createElement("span");
+    div.style.top = "0";
+    div.style.left = "0";
+    div.style.width = "100%";
+    div.style.height = "100%";
+    div.style.zIndex = "99999";
+    div.style.position = "fixed";
+    div.style.display = "table";
+    div.style.backgroundColor = "rgba(0,0,0,0.9)";
+    div.setAttribute("id","div_loading");
+    span.style.width = "100%";
+    span.style.height = "100%";
+    span.style.display = "table-cell";
+    span.style.verticalAlign = "middle";
+    span.style.textAlign = "center";
+    span.style.color = "white";
+    span.style.fontFamily = "consolas, monospace";
+    span.innerHTML = typeof message !== "undefined" ? message : "LOADING....";
+    span.setAttribute("id","span_loading");
+    div.appendChild(span);
+    document.body.appendChild(div);
+}
+
+function removeLoading(message,loading_message){
+    if(document.getElementById("div_loading")){
+        var span_loading = document.getElementById("span_loading");
+        span_loading.style.fontSize = "20px";
+        span_loading.innerHTML = typeof message !== "undefined" ? message : "DONE.";
+        setTimeout(function(){
+            var div_loading = document.getElementById("div_loading");
+            div_loading.parentNode.removeChild(div_loading);
+            if(typeof loading_message !== "undefined"){
+                set_loading(loading_message);
             }
-        }
+        }, typeof message !== "undefined" && typeof loading_message === "undefined" ? 4000 : 1000);
     }
-    document.addEventListener("click", function (e) {
-        closeAllLists(e.target);
-    });
+}
+
+function set_tr_click_inside_tbody(tbody_active,input_active,id_dialog){
+    var get_tr = tbody_active.getElementsByTagName("tr");
+    for(var i = 0; i < get_tr.length; i++){
+        get_tr[i].onclick = function(){
+            set_loading();
+            var get_td = this.getElementsByTagName("td");
+            var hasil_concate = "";
+            var pemisah = "";
+            for(var i = 0; i < get_td.length; i++){
+                hasil_concate = hasil_concate + pemisah + get_td[i].innerHTML;
+                pemisah = " ---- ";
+            }
+            removeLoading();
+            setTimeout(function(){
+                var get_id = input_active.getAttribute("id");
+                var hidden_id = get_id + "_hidden";
+                var hidden_active = document.getElementById(hidden_id);
+                hidden_active.value = hasil_concate;
+                console.log(hasil_concate);
+                input_active.value = hasil_concate;
+                $('#'+id_dialog).modal('hide');
+            },2000);
+            
+        };
+    }
 }
 
 var data_json = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua & Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia & Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central Arfrican Republic","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cuba","Curacao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauro","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","North Korea","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre & Miquelon","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","St Kitts & Nevis","St Lucia","St Vincent","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad & Tobago","Tunisia","Turkey","Turkmenistan","Turks & Caicos","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States of America","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe"];
 window.addEventListener("load", function () {
-    autocomplete(document.getElementById("satuan_kerja"), data_json);
-    autocomplete(document.getElementById("kegiatan_program_kerja"), data_json);
-    autocomplete(document.getElementById("mata_anggaran"), data_json);
+    autocomplete("satuan_kerja", data_json);
+    autocomplete("kegiatan_program_kerja", data_json);
+    autocomplete("mata_anggaran", data_json);
+    $( "#buka_dialog_rincian_kegiatan" ).click(function(){
+        var satuan_kerja = document.getElementById("satuan_kerja");
+        var satker_active = satuan_kerja.value.split("(").join("KURUNGBUKA").split(")").join("KURUNGTUTUP").split(" ").join("SEPASI");
+        if(satker_active !== ""){
+            set_loading();
+            $.get("../../../index.php/add-anggaran/get-sp-search-pkt-based-satker/" + satker_active, function(data, status){
+                if(status === "success"){
+                    var kegiatan_program_kerja_rincian = document.getElementById("kegiatan_program_kerja_rincian");
+                    var tbody_hasil_data = document.getElementById("tbody_hasil_data");
+                    tbody_hasil_data.innerHTML = data;
+                    $('#modal-rincian-kegiatan').modal('show');
+                    set_tr_click_inside_tbody(tbody_hasil_data,kegiatan_program_kerja_rincian,'modal-rincian-kegiatan');
+                    removeLoading();
+                }
+            });
+        } else {
+            var pesan_modal = document.getElementById("pesan_modal");
+            pesan_modal.innerHTML = "Choose Satker.";
+            $('#modal-success').modal('show');
+        }
+    });
+    $( "#buka_dialog_mata_anggaran" ).click(function(){
+        set_loading();
+        $.get("../../../index.php/add-anggaran/get-sp-search-mataanggaran", function(data, status){
+            if(status === "success"){
+                var mata_anggaran = document.getElementById("mata_anggaran");
+                var tbody_hasil_data_mata_anggaran = document.getElementById("tbody_hasil_data_mata_anggaran");
+                tbody_hasil_data_mata_anggaran.innerHTML = data;
+                $('#modal-mata-anggaran').modal('show');
+                set_tr_click_inside_tbody(tbody_hasil_data_mata_anggaran,mata_anggaran,'modal-mata-anggaran');
+                removeLoading();
+            }
+        });
+    });
 });

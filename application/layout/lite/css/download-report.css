@@ -1,0 +1,12 @@
+@media (max-width: 991.9px){
+    .button-preview {
+        padding-right: 15px !important;
+    }
+    .button-button-preview {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    .button-download {
+        padding-left: 15px !important;
+    }
+}

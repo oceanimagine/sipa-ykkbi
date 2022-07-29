@@ -4,7 +4,7 @@ include_once __DIR__ . '/../libraries/phpspreadsheet/vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 
-class process_report_excel_ma {
+class process_report_excel_ma_old {
     private $spreadsheet;
     public $filename = "";
     public function __construct($all = "", $view_only = false){
@@ -48,8 +48,7 @@ class process_report_excel_ma {
         $highestColumn = $spreadsheet->getSheetByName($sheetname)->getHighestColumn();
         
         $default_height = 12;
-        $begin_row_delete = 8;
-        $begin_row_start = 20;
+        $begin_row_start = 9;
         $begin_row = $begin_row_start;
         
         $all_data = $this->CI->all;
@@ -60,7 +59,7 @@ class process_report_excel_ma {
                 $style_last = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 12);
                 $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style_last, Coordinate::stringFromColumnIndex($col) . ($begin_row_start + sizeof($all_data)));
             }
-            $this->unmerge_and_empty_cell('D:F', $begin_row_delete + 1, $sheetname);
+            $this->unmerge_and_empty_cell('D:F', $begin_row, $sheetname);
         }
         
         for($i = 0; $i < sizeof($all_data); $i++){
@@ -76,6 +75,10 @@ class process_report_excel_ma {
                 
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('G'.$begin_row, "=C9");
                 
+                for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
+                    $style = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 9);
+                    $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
+                }
             }
             else if($all_data[$i]->lvl == "2"){
                 $spreadsheet->getSheetByName($sheetname)->mergeCells('E'.$begin_row.':F'.$begin_row);
@@ -88,6 +91,10 @@ class process_report_excel_ma {
                 
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('G'.$begin_row, "=C10");
                 
+                for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
+                    $style = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 10);
+                    $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
+                }
                 
             }
             else if($all_data[$i]->lvl == "3"){
@@ -95,6 +102,10 @@ class process_report_excel_ma {
                 
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('G'.$begin_row, "=C11");
                 
+                for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
+                    $style = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 11);
+                    $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
+                }
                 
             }
             
@@ -107,7 +118,6 @@ class process_report_excel_ma {
             $begin_row++;
             $no++;
         }
-        $spreadsheet->getSheetByName($sheetname)->removeRow(($begin_row_delete + 1),($begin_row_start - ($begin_row_delete + 1)));
         $this->spreadsheet = $spreadsheet;
     }
     
@@ -132,8 +142,7 @@ class process_report_excel_ma {
         $highestColumn = $spreadsheet->getSheetByName($sheetname)->getHighestColumn();
         
         $default_height = 12;
-        $begin_row_delete = 8;
-        $begin_row_start = 20;
+        $begin_row_start = 9;
         $begin_row = $begin_row_start;
         
         $all_data = $this->CI->all;
@@ -144,7 +153,7 @@ class process_report_excel_ma {
                 $style_last = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 14);
                 $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style_last, Coordinate::stringFromColumnIndex($col) . ($begin_row_start + sizeof($all_data)));
             }
-            $this->unmerge_and_empty_cell('D:H', $begin_row_delete + 1, $sheetname);
+            $this->unmerge_and_empty_cell('D:H', $begin_row, $sheetname);
         }
         
         for($i = 0; $i < sizeof($all_data); $i++){
@@ -160,6 +169,10 @@ class process_report_excel_ma {
                 
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('I'.$begin_row, "=C9");
                 
+                for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
+                    $style = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 9);
+                    $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
+                }
             }
             else if($all_data[$i]->lvl == "2"){
                 $spreadsheet->getSheetByName($sheetname)->mergeCells('E'.$begin_row.':H'.$begin_row);
@@ -172,6 +185,10 @@ class process_report_excel_ma {
                 
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('I'.$begin_row, "=C10");
                 
+                for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
+                    $style = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 10);
+                    $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
+                }
                 
             }
             else if($all_data[$i]->lvl == "3"){
@@ -185,6 +202,10 @@ class process_report_excel_ma {
                 
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('I'.$begin_row, "=C11");
                 
+                for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
+                    $style = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 11);
+                    $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
+                }
                 
             }
             else if($all_data[$i]->lvl == "4"){
@@ -198,12 +219,20 @@ class process_report_excel_ma {
                 
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('I'.$begin_row, "=C12");
                 
+                for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
+                    $style = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 12);
+                    $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
+                }
             }
             else if($all_data[$i]->lvl == "5"){
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('H'.$begin_row, $isi_kata);
                 
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('I'.$begin_row, "=C13");
                 
+                for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
+                    $style = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 13);
+                    $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
+                }
             }
             
             for($j = 0; $j < sizeof($key_row_col); $j++){
@@ -215,7 +244,6 @@ class process_report_excel_ma {
             $begin_row++;
             $no++;
         }
-        $spreadsheet->getSheetByName($sheetname)->removeRow(($begin_row_delete + 1),($begin_row_start - ($begin_row_delete + 1)));
         $this->spreadsheet = $spreadsheet;
     }
     
@@ -239,8 +267,7 @@ class process_report_excel_ma {
         $highestColumn = $spreadsheet->getSheetByName($sheetname)->getHighestColumn();
         
         $default_height = 12;
-        $begin_row_delete = 8;
-        $begin_row_start = 20;
+        $begin_row_start = 9;
         $begin_row = $begin_row_start;
         
         $all_data = $this->CI->all;
@@ -251,7 +278,7 @@ class process_report_excel_ma {
                 $style_last = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 12);
                 $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style_last, Coordinate::stringFromColumnIndex($col) . ($begin_row_start + sizeof($all_data)));
             }
-            $this->unmerge_and_empty_cell('D:F', $begin_row_delete + 1, $sheetname);
+            $this->unmerge_and_empty_cell('D:F', $begin_row, $sheetname);
         }
         
         for($i = 0; $i < sizeof($all_data); $i++){
@@ -267,6 +294,10 @@ class process_report_excel_ma {
                 
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('G'.$begin_row, "=C9");
                 
+                for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
+                    $style = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 9);
+                    $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
+                }
             }
             else if($all_data[$i]->lvl == "2"){
                 $spreadsheet->getSheetByName($sheetname)->mergeCells('E'.$begin_row.':F'.$begin_row);
@@ -279,6 +310,10 @@ class process_report_excel_ma {
                 
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('G'.$begin_row, "=C10");
                 
+                for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
+                    $style = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 10);
+                    $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
+                }
                 
             }
             else if($all_data[$i]->lvl == "3"){
@@ -286,6 +321,10 @@ class process_report_excel_ma {
                 
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('G'.$begin_row, "=C11");
                 
+                for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
+                    $style = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 11);
+                    $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
+                }
                 
             }
             
@@ -298,7 +337,6 @@ class process_report_excel_ma {
             $begin_row++;
             $no++;
         }
-        $spreadsheet->getSheetByName($sheetname)->removeRow(($begin_row_delete + 1),($begin_row_start - ($begin_row_delete + 1)));
         $this->spreadsheet = $spreadsheet;
         
     }
@@ -323,8 +361,7 @@ class process_report_excel_ma {
         $highestColumn = $spreadsheet->getSheetByName($sheetname)->getHighestColumn();
         
         $default_height = 12;
-        $begin_row_delete = 8;
-        $begin_row_start = 20;
+        $begin_row_start = 9;
         $begin_row = $begin_row_start;
         
         $all_data = $this->CI->all;
@@ -335,7 +372,7 @@ class process_report_excel_ma {
                 $style_last = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 14);
                 $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style_last, Coordinate::stringFromColumnIndex($col) . ($begin_row_start + sizeof($all_data)));
             }
-            $this->unmerge_and_empty_cell('D:H', $begin_row_delete + 1, $sheetname);
+            $this->unmerge_and_empty_cell('D:H', $begin_row, $sheetname);
         }
         
         for($i = 0; $i < sizeof($all_data); $i++){
@@ -351,6 +388,10 @@ class process_report_excel_ma {
                 
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('I'.$begin_row, "=C9");
                 
+                for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
+                    $style = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 9);
+                    $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
+                }
             }
             else if($all_data[$i]->lvl == "2"){
                 $spreadsheet->getSheetByName($sheetname)->mergeCells('E'.$begin_row.':H'.$begin_row);
@@ -363,6 +404,10 @@ class process_report_excel_ma {
                 
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('I'.$begin_row, "=C10");
                 
+                for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
+                    $style = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 10);
+                    $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
+                }
                 
             }
             else if($all_data[$i]->lvl == "3"){
@@ -376,6 +421,10 @@ class process_report_excel_ma {
                 
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('I'.$begin_row, "=C11");
                 
+                for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
+                    $style = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 11);
+                    $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
+                }
                 
             }
             else if($all_data[$i]->lvl == "4"){
@@ -389,12 +438,20 @@ class process_report_excel_ma {
                 
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('I'.$begin_row, "=C12");
                 
+                for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
+                    $style = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 12);
+                    $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
+                }
             }
             else if($all_data[$i]->lvl == "5"){
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('H'.$begin_row, $isi_kata);
                 
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('I'.$begin_row, "=C13");
                 
+                for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
+                    $style = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 13);
+                    $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
+                }
             }
             
             for($j = 0; $j < sizeof($key_row_col); $j++){
@@ -406,7 +463,6 @@ class process_report_excel_ma {
             $begin_row++;
             $no++;
         }
-        $spreadsheet->getSheetByName($sheetname)->removeRow(($begin_row_delete + 1),($begin_row_start - ($begin_row_delete + 1)));
         $this->spreadsheet = $spreadsheet;
     }
     
@@ -430,8 +486,7 @@ class process_report_excel_ma {
         $highestColumn = $spreadsheet->getSheetByName($sheetname)->getHighestColumn();
         
         $default_height = 12;
-        $begin_row_delete = 7;
-        $begin_row_start = 20;
+        $begin_row_start = 8;
         $begin_row = $begin_row_start;
         
         $all_data = $this->CI->all;
@@ -442,7 +497,7 @@ class process_report_excel_ma {
                 $style_last = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 12);
                 $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style_last, Coordinate::stringFromColumnIndex($col) . ($begin_row_start + sizeof($all_data)));
             }
-            $this->unmerge_and_empty_cell('J:M', $begin_row_delete + 1, $sheetname);
+            $this->unmerge_and_empty_cell('J:M', $begin_row, $sheetname);
         }
         
         for($i = 0; $i < sizeof($all_data); $i++){
@@ -459,6 +514,10 @@ class process_report_excel_ma {
                 
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('G'.$begin_row, $spreadsheet->getSheetByName($sheetname)->getCell('G8')->getValue());
                 
+                for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
+                    $style = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 8);
+                    $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
+                }
             }
             else if($all_data[$i]->lvl == "2"){
                 $spreadsheet->getSheetByName($sheetname)->mergeCells('K'.$begin_row.':M'.$begin_row);
@@ -468,6 +527,11 @@ class process_report_excel_ma {
                 
                 $spreadsheet->getSheetByName($sheetname)->getRowDimension($begin_row)->setRowHeight($height_total);
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('K'.$begin_row, $isi_kata);
+                
+                for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
+                    $style = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 9);
+                    $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
+                }
                 
             }
             else if($all_data[$i]->lvl == "3"){
@@ -479,15 +543,28 @@ class process_report_excel_ma {
                 $spreadsheet->getSheetByName($sheetname)->getRowDimension($begin_row)->setRowHeight($height_total);
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('L'.$begin_row, $isi_kata);
                 
+                for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
+                    $style = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 10);
+                    $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
+                }
+                
             }
             else if($all_data[$i]->lvl == "4"){
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('M'.$begin_row, $isi_kata);
                 
+                for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
+                    $style = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 11);
+                    $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
+                }
             }
             
             else if($all_data[$i]->lvl == "5"){
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('M'.$begin_row, $isi_kata);
                 
+                for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
+                    $style = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 11);
+                    $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
+                }
             }
             
             for($j = 0; $j < sizeof($key_row_col); $j++){
@@ -499,7 +576,6 @@ class process_report_excel_ma {
             $begin_row++;
             $no++;
         }
-        $spreadsheet->getSheetByName($sheetname)->removeRow(($begin_row_delete + 1),($begin_row_start - ($begin_row_delete + 1)));
         $this->spreadsheet = $spreadsheet;
     }
     

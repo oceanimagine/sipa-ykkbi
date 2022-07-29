@@ -31,7 +31,7 @@ class process_param {
         $query = "insert into " . $table . "(".$result_column.") values (".$result_values.")";
         $this->call_debug($query);
         $this->model->db->query($query);
-        $this->CI->insert_id = $this->model->db->insert_id();
+        $this->CI->insert_id = /* $this->model->db->insert_id() */"0";
 	Message::set("Insert data has been done.");
     }
     
@@ -60,7 +60,7 @@ class process_param {
         }
     }
 
-    function update($param, $debug = false){ /* Update */
+    function update($param){ /* Update */
         $table = $param['table'];
         $where = $param['where'];
         $keyss = array_keys($param['column_value']);
@@ -72,10 +72,6 @@ class process_param {
         }
         $query = "update " . $table . " set " . $result_values . " where " . $where;
         $this->call_debug($query);
-	if($debug){
-	    echo $query;
-	    exit();
-	}
         $this->model->db->query($query);
 	Message::set("Update data has been done.");
     }
@@ -90,6 +86,12 @@ class process_param {
     }
 
     function process($param, $debug = false){
+        if($debug){
+            $this->model->debug = true;
+        }
+        if(isset($GLOBALS['debug_query']) && $GLOBALS['debug_query']){
+            $this->model->debug = true;
+        }
         if($param['action'] == "insert"){
             $this->insert($param);
         }
@@ -97,7 +99,6 @@ class process_param {
             $this->select($param);
         }
         if($param['action'] == "update"){
-	    $debug = isset($GLOBALS['debug_db']) && $GLOBALS['debug_db'] ? $GLOBALS['debug_db'] : false;
             $this->update($param, $debug);
         }
         if($param['action'] == "delete"){

@@ -306,11 +306,11 @@ function get_url($param){
             ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper" id="wrapper_div">
-                
                 <?php 
                 /* 
                 do_include(4);
                 echo "\n"; */
+                
                 include_once $this->folder_body_custom . 'part_body.php'; 
                 echo "\n";
                 ?>

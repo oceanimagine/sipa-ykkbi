@@ -185,6 +185,45 @@ function re_trigger_numberonly_input(){
     });
 }
 
+function re_trigger_input_with_class(classname){
+    /* https://stackoverflow.com/questions/38797697/remove-keydown-event-from-jquery-element-not-working */
+    /* remove keydown event jquery */
+    /* https://stackoverflow.com/questions/21401175/keycode-for-tab-is-not-working */
+    /* https://www.youtube.com/shorts/ve0of_k4ln0 */
+    /* https://www.youtube.com/shorts/EY8YcdjfEtc */
+    /* https://www.youtube.com/shorts/FOwOzfN6G5o */
+    /* javascript tab keycode not working */
+    $("." + classname).off('keydown');
+    $('.' + classname).keydown(function (e) {
+        var charCode = (e.which) ? e.which : event.keyCode; 
+        console.log(charCode);
+        if((charCode === 37 || charCode === 39) && typeof detect_address_right === "function"){
+            e.preventDefault();
+            if(charCode === 39){
+                detect_address_right(this);
+            }
+            if(charCode === 37){
+                detect_address_left(this);
+            }
+        }
+        if((charCode === 38 || charCode === 40) && typeof detect_address_up === "function"){
+            e.preventDefault();
+            if(charCode === 38){
+                detect_address_up(this);
+            }
+            if(charCode === 40){
+                detect_address_down(this);
+            }
+        }
+        if(charCode === 9 && typeof detect_address_input === "function"){
+            detect_address_input(this);
+        }
+        if(charCode === 27 && typeof detect_address_input_delete === "function"){
+            detect_address_input_delete(this);
+        }
+    });
+}
+
 $(function () {
     $(".select2").select2();
     if(document.getElementById("campaign")){
@@ -293,6 +332,8 @@ $(function () {
     $('.numberonly').blur(function () {    
         this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "" ? this.value : (this.value !== "" ? this.value + ".00" : ((this.value === "" ? "0" : this.value) + ".00"));
     });
+    
+    re_trigger_input_with_class('textinput');
     $('.numberonly-no-comma').keypress(function (e) {    
         var charCode = (e.which) ? e.which : event.keyCode;  
         if(String.fromCharCode(charCode).match(/[^0-9]/g))   { 
