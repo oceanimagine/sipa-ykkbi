@@ -722,18 +722,29 @@ function removeLoading(message,loading_message){
     }
 }
 
-function set_tr_click_inside_tbody(tbody_active,input_active,id_dialog){
+function set_tr_click_inside_tbody(tbody_active,input_active,id_dialog,display_address){
     var get_tr = tbody_active.getElementsByTagName("tr");
     for(var i = 0; i < get_tr.length; i++){
         get_tr[i].onclick = function(){
             set_loading();
             var get_td = this.getElementsByTagName("td");
+            var get_div = get_td[0].getElementsByTagName("div");
+            var get_attr_data = JSON.parse(get_div[0].getAttribute("attr_data"));
+            var get_address = display_address.split(",");
             var hasil_concate = "";
             var pemisah = "";
-            for(var i = 0; i < get_td.length; i++){
-                hasil_concate = hasil_concate + pemisah + get_td[i].innerHTML;
+            var hasil_concate_display = "";
+            var pemisah_display = "";
+            for(var i = 0; i < get_attr_data.length; i++){
+                hasil_concate = hasil_concate + pemisah + get_attr_data[i];
                 pemisah = " ---- ";
             }
+            
+            for(var i = 0; i < get_address.length; i++){
+                hasil_concate_display = hasil_concate_display + pemisah_display + get_attr_data[Number(get_address[i])];
+                pemisah_display = " # ";
+            }
+            
             removeLoading();
             setTimeout(function(){
                 var get_id = input_active.getAttribute("id");
@@ -741,7 +752,7 @@ function set_tr_click_inside_tbody(tbody_active,input_active,id_dialog){
                 var hidden_active = document.getElementById(hidden_id);
                 hidden_active.value = hasil_concate;
                 console.log(hasil_concate);
-                input_active.value = hasil_concate;
+                input_active.value = hasil_concate_display;
                 $('#'+id_dialog).modal('hide');
             },2000);
             
@@ -765,7 +776,7 @@ window.addEventListener("load", function () {
                     var tbody_hasil_data = document.getElementById("tbody_hasil_data");
                     tbody_hasil_data.innerHTML = data;
                     $('#modal-rincian-kegiatan').modal('show');
-                    set_tr_click_inside_tbody(tbody_hasil_data,kegiatan_program_kerja_rincian,'modal-rincian-kegiatan');
+                    set_tr_click_inside_tbody(tbody_hasil_data,kegiatan_program_kerja_rincian,'modal-rincian-kegiatan','3,4');
                     removeLoading();
                 }
             });
@@ -783,7 +794,7 @@ window.addEventListener("load", function () {
                 var tbody_hasil_data_mata_anggaran = document.getElementById("tbody_hasil_data_mata_anggaran");
                 tbody_hasil_data_mata_anggaran.innerHTML = data;
                 $('#modal-mata-anggaran').modal('show');
-                set_tr_click_inside_tbody(tbody_hasil_data_mata_anggaran,mata_anggaran,'modal-mata-anggaran');
+                set_tr_click_inside_tbody(tbody_hasil_data_mata_anggaran,mata_anggaran,'modal-mata-anggaran','2,3');
                 removeLoading();
             }
         });

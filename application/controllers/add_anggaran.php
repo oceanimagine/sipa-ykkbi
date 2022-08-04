@@ -66,12 +66,12 @@ class add_anggaran extends CI_Controller {
             $explode_kegiatan_program_kerja_rincian_hidden = explode(" ---- ", $_POST['kegiatan_program_kerja_rincian_hidden']);
             $explode_mata_anggaran_hidden = explode(" ---- ", $_POST['mata_anggaran_hidden']);
             $kode_at = $_POST['kode_project_hidden'];
-            $sbpkode_at = $explode_kegiatan_program_kerja_rincian_hidden[3];
+            $sbpkode_at = $explode_kegiatan_program_kerja_rincian_hidden[5];
             $pktkode_at = $explode_kegiatan_program_kerja_rincian_hidden[1];
             $rekmakode_at = $explode_mata_anggaran_hidden[2];
             $keterangan = "-";
-            print_r($explode_kegiatan_program_kerja_rincian_hidden);
-            //print_query();
+            // print_r($explode_kegiatan_program_kerja_rincian_hidden);
+            // print_query();
             
             $this->get_add_anggaran->process(array(
                 'action' => 'insert',
@@ -87,11 +87,11 @@ class add_anggaran extends CI_Controller {
             
             // Table tbldaftaratgroup
             // echo "AAAAA";
-            print_r($_POST['group_default']);
+            // print_r($_POST['group_default']);
             for($i = 0; $i < sizeof($_POST['group_default']); $i++){
                 $group_default = $_POST['group_default'][$i];
                 $kode_group = $_POST['kode_project_hidden'];
-                $sbpkode_group = $explode_kegiatan_program_kerja_rincian_hidden[3];
+                $sbpkode_group = $explode_kegiatan_program_kerja_rincian_hidden[5];
                 $pktkode_group = $explode_kegiatan_program_kerja_rincian_hidden[1];
                 $rekmakode_group = $explode_mata_anggaran_hidden[2];
                 $group_group = $group_default;
@@ -115,6 +115,7 @@ class add_anggaran extends CI_Controller {
             $explode_satker_2 = explode(")", $explode_satker[1]);
             $id_satker = $explode_satker_2[0];
             $explode_inisial_all = explode(",", $_POST['inisial_all']);
+            $pktkode_rk_rincian = $explode_kegiatan_program_kerja_rincian_hidden[3];
             for($i = 0; $i < sizeof($explode_inisial_all); $i++){
                 $inisial_name = $explode_inisial_all[$i];
                 $nama = $_POST['nama'.$inisial_name];
@@ -139,7 +140,7 @@ class add_anggaran extends CI_Controller {
                         'column_value' => array(
                             '"kode"' => $kode_group,
                             '"sbpkode"' => $sbpkode_group,
-                            '"pktkode"' => $pktkode_group,
+                            '"pktkode"' => $pktkode_rk_rincian,
                             '"rekmakode"' => $rekmakode_group,
                             '"group"' => $group_default,
                             '"satkerid"' => $id_satker,
@@ -166,6 +167,7 @@ class add_anggaran extends CI_Controller {
             // echo "</pre>\n";
             header('location: '.$GLOBALS['base_administrator'].'index.php/add-anggaran');
             exit();
+            
         }
         $this->layout->loadView(
             'add_anggaran_form',
