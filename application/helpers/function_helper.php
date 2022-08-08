@@ -376,6 +376,20 @@ function post_raw($name_post){
     return isset($_POST[$name_post]) ? $_POST[$name_post] : $name_post;
 }
 
+function set_title($title){
+    echo "<title>".$title."</title>\n<style>html, body{font-family: consolas, monospace;}</style>\n";
+}
+
+function cetak_html($param){
+    if(is_array($param)){
+        echo "<pre>\n";
+        print_r($param);
+        echo "</pre>\n";
+    } else {
+        echo $param . "<br />\n";
+    }
+}
+
 // Project Modal
 function project_modal(){
     $CI =& get_instance();

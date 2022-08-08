@@ -12,7 +12,7 @@
                 <table id="table-data" class="table table-bordered table-hover">
                     <thead style="background-color: white;">
                         <tr>
-                            <th style="white-space: nowrap;">Rekma Kode</th>
+                            <th style="white-space: nowrap;">Kode</th>
                             <th style="white-space: nowrap;">Nama Rekening</th>
                         </tr>
                     </thead>

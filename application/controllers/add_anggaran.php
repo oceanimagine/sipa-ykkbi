@@ -21,13 +21,13 @@ class add_anggaran extends CI_Controller {
         $this->get_add_anggaran->get_data();
     }
 
-    public function script_table(){
-        return $this->layout->loadjs("add_anggaran/get_add_anggaran");
-    }
-    
     public function get_style(){
         $process_report_excel = new process_report_excel();
         $process_report_excel->test_get_style();
+    }
+    
+    public function script_table(){
+        return $this->layout->loadjs("add_anggaran/get_add_anggaran");
     }
     
     public function get_sp_search_pkt_based_satker($satker){
@@ -57,10 +57,12 @@ class add_anggaran extends CI_Controller {
         ));
     }
     
-    public function index() {
+    public function insert_anggaran(){
         if($this->input->post("kode_project_hidden")){
-            // echo "<pre>\n";
-            // print_r($_POST);
+            $this->db->trans_start();
+            $this->db->trans_strict(FALSE);
+            // set_title("Debug POST.");
+            // cetak_html($_POST);
             
             //Table tbldaftarat
             $explode_kegiatan_program_kerja_rincian_hidden = explode(" ---- ", $_POST['kegiatan_program_kerja_rincian_hidden']);
@@ -70,7 +72,7 @@ class add_anggaran extends CI_Controller {
             $pktkode_at = $explode_kegiatan_program_kerja_rincian_hidden[1];
             $rekmakode_at = $explode_mata_anggaran_hidden[2];
             $keterangan = "-";
-            // print_r($explode_kegiatan_program_kerja_rincian_hidden);
+            // cetak_html($explode_kegiatan_program_kerja_rincian_hidden);
             // print_query();
             
             $this->get_add_anggaran->process(array(
@@ -84,10 +86,12 @@ class add_anggaran extends CI_Controller {
                     'keterangan' => $keterangan
                 )
             )); 
+            $affected_at = $this->affected;
             
             // Table tbldaftaratgroup
-            // echo "AAAAA";
-            // print_r($_POST['group_default']);
+            // cetak_html("AAAAA");
+            // cetak_html($_POST['group_default']);
+            $affected_group = 0;
             for($i = 0; $i < sizeof($_POST['group_default']); $i++){
                 $group_default = $_POST['group_default'][$i];
                 $kode_group = $_POST['kode_project_hidden'];
@@ -107,6 +111,10 @@ class add_anggaran extends CI_Controller {
                         '"group"' => $group_group
                     )
                 ));
+                $affected_group = 0;
+                if($this->affected){
+                    $affected_group = 1;
+                }
             }
             
             //Table tbldaftaratrincian
@@ -116,6 +124,7 @@ class add_anggaran extends CI_Controller {
             $id_satker = $explode_satker_2[0];
             $explode_inisial_all = explode(",", $_POST['inisial_all']);
             $pktkode_rk_rincian = $explode_kegiatan_program_kerja_rincian_hidden[3];
+            $affected_rincian = 0;
             for($i = 0; $i < sizeof($explode_inisial_all); $i++){
                 $inisial_name = $explode_inisial_all[$i];
                 $nama = $_POST['nama'.$inisial_name];
@@ -162,15 +171,140 @@ class add_anggaran extends CI_Controller {
                             '"rppt4nom"' => $tw4[$j]
                         )
                     ));
+                    $affected_rincian = 0;
+                    if($this->affected){
+                        $affected_rincian = 1;
+                    }
                 }
             }
-            // echo "</pre>\n";
-            header('location: '.$GLOBALS['base_administrator'].'index.php/add-anggaran');
-            exit();
             
+            if($affected_at && $affected_group && $affected_rincian && $this->db->trans_status()){
+                $this->db->trans_commit();
+                header('location: '.$GLOBALS['base_administrator'].'index.php/add-anggaran');
+            } else {
+                $this->db->trans_rollback();
+                set_title("Failed.");
+                cetak_html("Gagal Delete.");
+                Message::set("Insert failed.");
+                header('location: '.$GLOBALS['base_administrator'].'index.php/add-anggaran');
+            }
+            
+            exit();
         }
+    }
+    
+    private $kode_at;
+    private $sbpkode_at;
+    private $pktkode_at;
+    private $rekmakode_at;
+    private $debug_param = FALSE;
+    function debug_param($param_id){
+        if($this->debug_param){
+            if($this->router->routes['translate_uri_dashes']){
+                $param_id = str_replace("_", "-", $param_id);
+            }
+            set_title("Debug Param.");
+            cetak_html($param_id);
+            $explode_param_id = explode("-", $param_id);
+            $kode = $explode_param_id[0];
+            $sbpkode = isset($explode_param_id[1]) ? $explode_param_id[1] : "";
+            $pktkode = isset($explode_param_id[2]) ? $explode_param_id[2] : "";
+            $rekmakode = isset($explode_param_id[3]) ? $explode_param_id[3] : "";
+            cetak_html($kode);
+            cetak_html($sbpkode);
+            cetak_html($pktkode);
+            cetak_html($rekmakode);
+            exit();
+        }
+    }
+    
+    public function process_param($param_id){
+        $this->debug_param($param_id);
+        if($this->router->routes['translate_uri_dashes']){
+            $param_id = str_replace("_", "-", $param_id);
+        }
+        $explode_param_id = explode("-", $param_id);
+        $kode = $explode_param_id[0];
+        $sbpkode = isset($explode_param_id[1]) ? $explode_param_id[1] : "";
+        $pktkode = isset($explode_param_id[2]) ? $explode_param_id[2] : "";
+        $rekmakode = isset($explode_param_id[3]) ? $explode_param_id[3] : "";
+        $this->kode_at = $kode;
+        $this->sbpkode_at = $sbpkode;
+        $this->pktkode_at = $pktkode;
+        $this->rekmakode_at = $rekmakode;
+    }
+    
+    public function edit($param_id){
+        $this->process_param($param_id);
+    }
+    
+    public function hapus($param_id){
+        $this->process_param($param_id);
+        $this->db->trans_start();
+        $this->db->trans_strict(FALSE);
+        
+        $this->get_add_anggaran->process(array(
+            'action' => 'delete',
+            'table' => 'tbldaftarat',
+            'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and pktkode = \''.$this->pktkode_at .'\' and rekmakode = \''.$this->rekmakode_at .'\''
+        ));
+        $affected_1 = $this->affected;
+        
+        $this->get_add_anggaran->process(array(
+            'action' => 'delete',
+            'table' => 'tbldaftaratgroup',
+            'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and pktkode = \''.$this->pktkode_at .'\' and rekmakode = \''.$this->rekmakode_at .'\''
+        ));
+        $affected_2 = $this->affected;
+             
+        $this->get_add_anggaran->process(array(
+            'action' => 'select',
+            'table' => 'tbldaftaratrincian',
+            'column_value' => array('*'),
+            'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and rekmakode = \''.$this->rekmakode_at .'\''
+        ));
+        
+        $pktkode_rincian = "";
+        $data_rincian = $this->all;
+        if(sizeof($data_rincian) > 0){
+            $pktkode_rincian = $data_rincian[0]->pktkode;
+        }
+        
+        $this->get_add_anggaran->process(array(
+            'action' => 'delete',
+            'table' => 'tbldaftaratrincian',
+            'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and pktkode = \''.$pktkode_rincian.'\' and rekmakode = \''.$this->rekmakode_at .'\''
+        ));
+        $affected_3 = $this->affected;
+        
+        if($affected_1 && $affected_2 && $affected_3 && $this->db->trans_status()){
+            $this->db->trans_commit();
+            header('location: '.$GLOBALS['base_administrator'].'index.php/add-anggaran');
+        } else {
+            $this->db->trans_rollback();
+            set_title("Failed.");
+            cetak_html("Gagal Delete.");
+            Message::set("Delete failed.");
+            header('location: '.$GLOBALS['base_administrator'].'index.php/add-anggaran');
+        }
+        exit();
+    }
+    
+    public function add(){
+        $this->insert_anggaran();
         $this->layout->loadView(
             'add_anggaran_form',
+            array(
+                "hasil" => "abcd",
+                "script" => $this->script_table(),
+                'data_satker' => $this->aplikasi->data->satker
+            )
+        );
+    }
+    
+    public function index(){
+        $this->layout->loadView(
+            'add_anggaran_list',
             array(
                 "hasil" => "abcd",
                 "script" => $this->script_table(),

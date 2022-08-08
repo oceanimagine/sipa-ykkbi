@@ -91,7 +91,20 @@ $(document).ready(function () {
     var url_ = url__;
     var url_data = url_;
     loadData();
-
+    
+    function add_clear_both(){
+        var get_div = document.getElementsByTagName("div");
+        for(var i = 0; i < get_div.length; i++){
+            if(get_div[i].getAttribute("class") === "panel-heading"){
+                var create_p = document.createElement("p");
+                create_p.style.clear = "both";
+                create_p.style.margin = "0px";
+                get_div[i].appendChild(create_p);
+                break;
+            }
+        }
+    }
+    
     function loadData() {
         $('#table-data').dataTable().fnDestroy();
         var url = '';
@@ -127,6 +140,7 @@ $(document).ready(function () {
         window.update_size = function () {
             $(oTable).css({width: $(oTable).parent().width()});
             oTable.fnAdjustColumnSizing();
+            add_clear_both();
             setTimeout(function(){
                 if(anggaran_tahunan){
                     change_based_sbp_jenis_anggaran_tahunan();
@@ -140,6 +154,10 @@ $(document).ready(function () {
                 update_size();
             }, 250);
         });
+        
+        setTimeout(function () {
+            update_size();
+        }, 250);
     }
 });
 

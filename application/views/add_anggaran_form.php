@@ -18,6 +18,9 @@
         </style>
         <script type="text/javascript">
             /* Script Goes Here */
+             function move_url(link){
+                document.location = "../../../index.php/" + link;
+            }
         </script>
     </head>
     <body>
@@ -159,7 +162,14 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad; margin-top: 15px; border-radius: 0px;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="add_anggaran" value="Add Anggaran">Add Anggaran</button>
+                        <div class="form-group">
+                            <div class="col-xs-6" style="padding-left: 0px; padding-right: 4px;">
+                                <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad; margin-top: 15px; border-radius: 0px;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="add_anggaran" value="Add Anggaran">Add Anggaran</button>
+                            </div>
+                            <div class="col-xs-6" style="padding-right: 0px; padding-left: 4px;">
+                                <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad; margin-top: 15px; border-radius: 0px;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="show_data" value="Show Data" onclick="move_url('add-anggaran');">Show Data</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

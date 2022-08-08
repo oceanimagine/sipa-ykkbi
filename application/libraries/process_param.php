@@ -29,10 +29,13 @@ class process_param {
             $comma = ",";
         }
         $query = "insert into " . $table . "(".$result_column.") values (".$result_values.")";
+        cetak_html($query);
+            
         $this->call_debug($query);
         $this->model->db->query($query);
         $this->CI->insert_id = /* $this->model->db->insert_id() */"0";
-	Message::set("Insert data has been done.");
+        $this->CI->affected = $this->model->db->affected_rows();
+        Message::set("Insert data has been done.");
     }
     
     function select($param){ /* Read */
@@ -73,16 +76,20 @@ class process_param {
         $query = "update " . $table . " set " . $result_values . " where " . $where;
         $this->call_debug($query);
         $this->model->db->query($query);
+        $this->CI->affected = $this->model->db->affected_rows();
 	Message::set("Update data has been done.");
+        
     }
     
     function delete($param){ /* Delete */
         $table = $param['table'];
         $where = $param['where'];
         $query = "delete from " . $table . " where " . $where;
+        
         $this->call_debug($query);
         $this->model->db->query($query);
-	Message::set("Delete data has been done.");
+        $this->CI->affected = $this->model->db->affected_rows();
+        Message::set("Delete data has been done.");
     }
 
     function process($param, $debug = false){

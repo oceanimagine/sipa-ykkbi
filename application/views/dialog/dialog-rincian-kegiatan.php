@@ -13,7 +13,7 @@
                     <thead style="background-color: white;">
                         <tr>
                             <th style="white-space: nowrap;">Satker</th>
-                            <th style="white-space: nowrap;">Kode Rincian Kegiatan</th>
+                            <th style="white-space: nowrap;">Kode</th>
                             <th style="white-space: nowrap;">Rincian Kegiatan</th>
                         </tr>
                     </thead>
