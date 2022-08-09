@@ -57,10 +57,8 @@ class add_anggaran extends CI_Controller {
         ));
     }
     
-    public function insert_anggaran(){
+    public function insert_anggaran_process(){
         if($this->input->post("kode_project_hidden")){
-            $this->db->trans_start();
-            $this->db->trans_strict(FALSE);
             // set_title("Debug POST.");
             // cetak_html($_POST);
             
@@ -178,7 +176,20 @@ class add_anggaran extends CI_Controller {
                 }
             }
             
-            if($affected_at && $affected_group && $affected_rincian && $this->db->trans_status()){
+            if($affected_at && $affected_group && $affected_rincian){
+                $this->commit_insert = TRUE;
+            }
+        }
+    }
+    
+    public function insert_anggaran(){
+        if($this->input->post("kode_project_hidden")){
+            $this->db->trans_start();
+            $this->db->trans_strict(FALSE);
+            
+            $this->insert_anggaran_process();
+            
+            if($this->commit_insert && $this->db->trans_status()){
                 $this->db->trans_commit();
                 header('location: '.$GLOBALS['base_administrator'].'index.php/add-anggaran');
             } else {
@@ -193,11 +204,37 @@ class add_anggaran extends CI_Controller {
         }
     }
     
+    public function update_anggaran($param_id){
+        if($this->input->post("kode_project_hidden")){
+            $this->db->trans_start();
+            $this->db->trans_strict(FALSE);
+            
+            $this->hapus_process($param_id);
+            $this->insert_anggaran_process();
+            
+            if($this->commit_delete && $this->commit_insert && $this->db->trans_status()){
+                $this->db->trans_commit();
+                cetak_html("Berhasil Update.");
+                header('location: '.$GLOBALS['base_administrator'].'index.php/add-anggaran');
+            } else {
+                $this->db->trans_rollback();
+                set_title("Failed.");
+                cetak_html("Gagal Update.");
+                Message::set("Insert failed.");
+                header('location: '.$GLOBALS['base_administrator'].'index.php/add-anggaran');
+            }
+            
+            exit();
+        }
+    }
+    
     private $kode_at;
     private $sbpkode_at;
     private $pktkode_at;
     private $rekmakode_at;
     private $debug_param = FALSE;
+    private $commit_insert = FALSE;
+    private $commit_delete = FALSE;
     function debug_param($param_id){
         if($this->debug_param){
             if($this->router->routes['translate_uri_dashes']){
@@ -234,15 +271,8 @@ class add_anggaran extends CI_Controller {
         $this->rekmakode_at = $rekmakode;
     }
     
-    public function edit($param_id){
+    public function hapus_process($param_id){
         $this->process_param($param_id);
-    }
-    
-    public function hapus($param_id){
-        $this->process_param($param_id);
-        $this->db->trans_start();
-        $this->db->trans_strict(FALSE);
-        
         $this->get_add_anggaran->process(array(
             'action' => 'delete',
             'table' => 'tbldaftarat',
@@ -276,8 +306,19 @@ class add_anggaran extends CI_Controller {
             'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and pktkode = \''.$pktkode_rincian.'\' and rekmakode = \''.$this->rekmakode_at .'\''
         ));
         $affected_3 = $this->affected;
+        if($affected_1 && $affected_2 && $affected_3){
+            $this->commit_delete = TRUE;
+        }
+    }
+    
+    public function hapus($param_id){
         
-        if($affected_1 && $affected_2 && $affected_3 && $this->db->trans_status()){
+        $this->db->trans_start();
+        $this->db->trans_strict(FALSE);
+        
+        $this->hapus_process($param_id);
+        
+        if($this->commit_delete && $this->db->trans_status()){
             $this->db->trans_commit();
             header('location: '.$GLOBALS['base_administrator'].'index.php/add-anggaran');
         } else {
@@ -288,6 +329,59 @@ class add_anggaran extends CI_Controller {
             header('location: '.$GLOBALS['base_administrator'].'index.php/add-anggaran');
         }
         exit();
+    }
+    
+    private $data_rincian_edit = array();
+    private $data_group_edit = array();
+    public function get_data_edit($param_id){
+        $this->process_param($param_id);
+        
+        // Get Group
+        $this->get_add_anggaran->process(array(
+            'action' => 'select',
+            'table' => 'tbldaftaratgroup',
+            'column_value' => array('*'),
+            'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and pktkode = \''.$this->pktkode_at .'\' and rekmakode = \''.$this->rekmakode_at .'\''
+        ));
+        $this->data_group_edit = $this->all;
+        
+        // Get Rincian
+        $this->get_add_anggaran->process(array(
+            'action' => 'select',
+            'table' => 'tbldaftaratrincian',
+            'column_value' => array('*'),
+            'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and rekmakode = \''.$this->rekmakode_at .'\''
+        ));
+        
+        $pktkode_rincian = "";
+        $data_rincian = $this->all;
+        if(sizeof($data_rincian) > 0){
+            $pktkode_rincian = $data_rincian[0]->pktkode;
+        }
+        
+        $this->get_add_anggaran->process(array(
+            'action' => 'select',
+            'table' => 'tbldaftaratrincian',
+            'column_value' => array('*'),
+            'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and pktkode = \''.$pktkode_rincian.'\' and rekmakode = \''.$this->rekmakode_at .'\''
+        ));
+        $this->data_rincian_edit = $this->all;
+    }
+    
+    public function edit($param_id){
+        $this->update_anggaran($param_id);
+        $this->get_data_edit($param_id);
+        $this->layout->loadView(
+            'add_anggaran_form',
+            array(
+                "hasil" => "abcd",
+                "script" => $this->script_table(),
+                'data_satker' => $this->aplikasi->data->satker,
+                'update' => TRUE,
+                'data_rincian_edit' => $this->data_rincian_edit,
+                'data_group_edit' => $this->data_group_edit
+            )
+        );
     }
     
     public function add(){

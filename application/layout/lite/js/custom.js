@@ -285,6 +285,7 @@ $(function () {
     // https://www.outsystems.com/forums/discussion/53459/prevent-keyboard-arrow-key-up-and-down-using-javascript/
     // https://stackoverflow.com/questions/21177489/selectionstart-selectionend-on-input-type-number-no-longer-allowed-in-chrome
     $('.numberonly').keydown(function (e) {
+        
         var charCode = (e.which) ? e.which : event.keyCode; 
         console.log(charCode);
         if((charCode === 37 || charCode === 39) && typeof detect_address_right === "function"){
@@ -306,6 +307,7 @@ $(function () {
             }
         }
         if(charCode === 9 && typeof detect_address_input === "function"){
+            console.log("MASUK FUNGSI KEYDOWN TAB.");
             detect_address_input(this);
         }
         if(charCode === 27 && typeof detect_address_input_delete === "function"){

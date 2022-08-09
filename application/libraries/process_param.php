@@ -29,7 +29,7 @@ class process_param {
             $comma = ",";
         }
         $query = "insert into " . $table . "(".$result_column.") values (".$result_values.")";
-        cetak_html($query);
+        // cetak_html($query);
             
         $this->call_debug($query);
         $this->model->db->query($query);
