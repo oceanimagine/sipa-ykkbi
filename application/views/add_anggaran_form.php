@@ -32,7 +32,8 @@
         if(isset($data_rincian_edit)){
             // cetak_html($data_rincian_edit);
             // cetak_html($data_group_edit);
-            
+            // cetak_html($data_rincian_kegiatan_edit);
+            // cetak_html($data_mata_anggaran_edit);
             $size_group_edit = sizeof($data_group_edit);
             $size_rincian_edit = sizeof($data_rincian_edit);
             
@@ -75,7 +76,7 @@
                             
                                     if(isset($data_satker) && is_array($data_satker)){
                                         foreach($data_satker as $satker){
-                                            $selected = isset($satuan_kerja) && $satuan_kerja == "(".$satker->satkerid.") ".$satker->nama1 ? " selected='selected'" : "";
+                                            $selected = isset($id_satker_edit) && $id_satker_edit == $satker->satkerid ? " selected='selected'" : "";
                                             echo "<option value='(".$satker->satkerid.") ".$satker->nama1."'".$selected.">(".$satker->satkerid.") ".$satker->nama1."</option>\n";
                                         }
                                     }
@@ -94,8 +95,8 @@
                         <div class="form-group" style="margin-bottom:0px;">
                             <label for="kegiatan_program_kerja_rincian" class="col-xs-2 control-label">Rincian Kegiatan</label>
                             <div class="col-xs-9 autocomplete">
-                                <input required="" type="text" id="kegiatan_program_kerja_rincian" class="form-control tambah-margin-bawah" name="kegiatan_program_kerja_rincian" placeholder="Rincian Kegiatan" value="<?php echo isset($kegiatan_program_kerja) ? $kegiatan_program_kerja : ""; ?>" autocomplete="off" disabled="">
-                                <input type="hidden" id="kegiatan_program_kerja_rincian_hidden" name="kegiatan_program_kerja_rincian_hidden">
+                                <input required="" type="text" id="kegiatan_program_kerja_rincian" class="form-control tambah-margin-bawah" name="kegiatan_program_kerja_rincian" placeholder="Rincian Kegiatan" value="<?php echo isset($data_rincian_kegiatan_display) ? $data_rincian_kegiatan_display : ""; ?>" autocomplete="off" disabled="">
+                                <input type="hidden" id="kegiatan_program_kerja_rincian_hidden" name="kegiatan_program_kerja_rincian_hidden" value="<?php echo isset($data_rincian_kegiatan_hidden) ? $data_rincian_kegiatan_hidden : ""; ?>">
                             </div>
                             <div class="col-xs-1" style="padding: 0px;">
                                 <button id="buka_dialog_rincian_kegiatan" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="search" value="Search"><i class="fa fa-search"></i></button>
@@ -111,8 +112,8 @@
                         <div class="form-group" id="form_group_a" style="margin-bottom: 0px;">
                             <label for="mata_anggaran" class="col-xs-2 control-label">Mata Anggaran</label>
                             <div class="col-xs-9 autocomplete">
-                                <input required="" type="text" id="mata_anggaran" class="form-control tambah-margin-bawah" name="mata_anggaran" placeholder="Mata Anggaran" value="<?php echo isset($mata_anggaran) ? $mata_anggaran : ""; ?>" autocomplete="off" disabled="">
-                                <input type="hidden" id="mata_anggaran_hidden" name="mata_anggaran_hidden">
+                                <input required="" type="text" id="mata_anggaran" class="form-control tambah-margin-bawah" name="mata_anggaran" placeholder="Mata Anggaran" value="<?php echo isset($data_mata_anggaran_display) ? $data_mata_anggaran_display : ""; ?>" autocomplete="off" disabled="">
+                                <input type="hidden" id="mata_anggaran_hidden" name="mata_anggaran_hidden" value="<?php echo isset($data_mata_anggaran_hidden) ? $data_mata_anggaran_hidden : ""; ?>">
                                 <input type="hidden" name="inisial_all" id="inisial_all" value="<?php echo $initial_hidden; ?>">
                             </div>
                             <div class="col-xs-1" style="padding:0px;">

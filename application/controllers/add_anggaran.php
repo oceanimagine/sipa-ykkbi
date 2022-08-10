@@ -333,6 +333,13 @@ class add_anggaran extends CI_Controller {
     
     private $data_rincian_edit = array();
     private $data_group_edit = array();
+    private $data_rincian_kegiatan_edit = array();
+    private $data_mata_anggaran_edit = array();
+    private $id_satker_edit = array();
+    private $data_rincian_kegiatan_display = "";
+    private $data_rincian_kegiatan_hidden = "";
+    private $data_mata_anggaran_display = "";
+    private $data_mata_anggaran_hidden = "";
     public function get_data_edit($param_id){
         $this->process_param($param_id);
         
@@ -366,6 +373,40 @@ class add_anggaran extends CI_Controller {
             'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and pktkode = \''.$pktkode_rincian.'\' and rekmakode = \''.$this->rekmakode_at .'\''
         ));
         $this->data_rincian_edit = $this->all;
+        
+        // Get Rincian Kegiatan Edit
+        $explode_pktkode_at = explode(".", $this->pktkode_at);
+        $kode_satker = $explode_pktkode_at[0];
+        $this->get_add_anggaran->process(array(
+            'action' => 'select',
+            'table' => 'sp_search_pkt(\''.$this->kode_at.'\',\''.$kode_satker.'\')',
+            'column_value' => array('*'),
+            'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and pktkode_k = \''.$this->pktkode_at .'\' and pktkode_rk = \''.$pktkode_rincian.'\''
+        ));
+        
+        $this->id_satker_edit = $kode_satker;
+        $this->data_rincian_kegiatan_edit = $this->all;
+        
+        if(sizeof($this->data_rincian_kegiatan_edit) > 0){
+            $data_rincian_kegiatan_edit = $this->data_rincian_kegiatan_edit;
+            $this->data_rincian_kegiatan_display = $data_rincian_kegiatan_edit[0]->pktkode_rk . " # " . $data_rincian_kegiatan_edit[0]->nama_rinciankegiatan;
+            $this->data_rincian_kegiatan_hidden = $data_rincian_kegiatan_edit[0]->nama_satker . " ---- " . $data_rincian_kegiatan_edit[0]->pktkode_k . " ---- " . $data_rincian_kegiatan_edit[0]->nama_kegiatan . " ---- " . $data_rincian_kegiatan_edit[0]->pktkode_rk . " ---- " . $data_rincian_kegiatan_edit[0]->nama_rinciankegiatan . " ---- " . $data_rincian_kegiatan_edit[0]->sbpkode;
+        }
+        
+        // Get Mata Anggaran Edit
+        $this->get_add_anggaran->process(array(
+            'action' => 'select',
+            'table' => 'sp_search_mataanggaran(\''.$this->kode_at.'\',\''.$kode_satker.'\')',
+            'column_value' => array('*'),
+            'where' => 'rekmakode = \''.$this->rekmakode_at .'\''
+        ));
+        $this->data_mata_anggaran_edit = $this->all;
+        
+        if(sizeof($this->data_mata_anggaran_edit) > 0){
+            $data_mata_anggaran_edit = $this->data_mata_anggaran_edit;
+            $this->data_mata_anggaran_display = $data_mata_anggaran_edit[0]->rekmakode . " # " . $data_mata_anggaran_edit[0]->nama_rekening;
+            $this->data_mata_anggaran_hidden = $data_mata_anggaran_edit[0]->kode . " ---- " . $data_mata_anggaran_edit[0]->remagroup . " ---- " . $data_mata_anggaran_edit[0]->rekmakode . " ---- " . $data_mata_anggaran_edit[0]->nama_rekening;
+        }
     }
     
     public function edit($param_id){
@@ -379,7 +420,14 @@ class add_anggaran extends CI_Controller {
                 'data_satker' => $this->aplikasi->data->satker,
                 'update' => TRUE,
                 'data_rincian_edit' => $this->data_rincian_edit,
-                'data_group_edit' => $this->data_group_edit
+                'data_group_edit' => $this->data_group_edit,
+                'id_satker_edit' => $this->id_satker_edit,
+                'data_rincian_kegiatan_edit' => $this->data_rincian_kegiatan_edit,
+                'data_mata_anggaran_edit' => $this->data_mata_anggaran_edit,
+                'data_rincian_kegiatan_display' => $this->data_rincian_kegiatan_display,
+                'data_rincian_kegiatan_hidden' => $this->data_rincian_kegiatan_hidden,
+                'data_mata_anggaran_display' => $this->data_mata_anggaran_display,
+                'data_mata_anggaran_hidden' => $this->data_mata_anggaran_hidden
             )
         );
     }

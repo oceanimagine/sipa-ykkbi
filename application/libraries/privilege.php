@@ -19,9 +19,10 @@ class privilege {
 		break;
 	    }
 	}
-	if(!$same){
+	if(!$same && !isset($GLOBALS['login_page'])){
             header('location: '.$GLOBALS['base_administrator'].'index.php/login');
 	}
+        return $same;
     }
     
 }

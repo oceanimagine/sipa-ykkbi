@@ -772,6 +772,7 @@ window.addEventListener("load", function () {
             set_loading();
             $.get("../../../index.php/add-anggaran/get-sp-search-pkt-based-satker/" + satker_active, function(data, status){
                 if(status === "success"){
+                    check_session(data);
                     var kegiatan_program_kerja_rincian = document.getElementById("kegiatan_program_kerja_rincian");
                     var tbody_hasil_data = document.getElementById("tbody_hasil_data");
                     tbody_hasil_data.innerHTML = data;
@@ -790,6 +791,7 @@ window.addEventListener("load", function () {
         set_loading();
         $.get("../../../index.php/add-anggaran/get-sp-search-mataanggaran", function(data, status){
             if(status === "success"){
+                check_session(data);
                 var mata_anggaran = document.getElementById("mata_anggaran");
                 var tbody_hasil_data_mata_anggaran = document.getElementById("tbody_hasil_data_mata_anggaran");
                 tbody_hasil_data_mata_anggaran.innerHTML = data;

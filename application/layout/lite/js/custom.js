@@ -57,6 +57,15 @@ function remove_input(container_label_, name, variable_name, increment){
         }
     }
 }
+
+function check_session(HTMLTAG){
+    var split_login = HTMLTAG.split("<div class=\"login-box\">");
+    if(split_login.length > 1){
+        document.location = "../../../index.php/login";
+        return false;
+    }
+}
+
 function tambah_input(container_label_, name, variable_name){
     if(document.getElementById(container_label_)){
         window[variable_name]++;

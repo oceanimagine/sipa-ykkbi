@@ -7,6 +7,11 @@ class login extends CI_Controller {
     public $test;
     public function __construct() {
         parent::__construct();
+        $GLOBALS['login_page'] = true;
+        $session_exists = Privilege::admin();
+        if($session_exists){
+            header('location: '.$GLOBALS['base_administrator'].'index.php/home');
+        }
 	$this->load->model('get_login');
         $this->layout = new layout('login');
         $this->menu = new process_menu();
