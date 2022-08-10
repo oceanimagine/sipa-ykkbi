@@ -104,3 +104,13 @@ input[type=number] {
     background-color: DodgerBlue !important; 
     color: #ffffff; 
 }
+
+/* https://stackoverflow.com/questions/43104653/form-hidden-field-and-required-validation-use */
+.input-hidden{
+    height:0;
+    width:0;
+    visibility: hidden;
+    padding:0;
+    margin:0;
+    float:right;
+}

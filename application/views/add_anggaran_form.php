@@ -60,7 +60,7 @@
         ?>
         <link rel="stylesheet" href="css/add-anggaran-css.css"  type="text/css" />
         <script src="js/add-anggaran-js.js" referrerpolicy="origin"></script>
-        <form class="form-horizontal" method="POST" enctype="multipart/form-data">
+        <form class="form-horizontal" method="POST" enctype="multipart/form-data" id="form-anggaran-tahunan">
             <div class="box-body" style="min-width: 1400px;">
                 
                 <div class="form-group">
@@ -84,7 +84,7 @@
                                 </select>
                                 <?php } else if(sizeof($data_satker) > 0){ ?>
                                 <input required type="text" id="satuan_kerja_display" class="form-control tambah-margin-bawah" name="satuan_kerja_display" placeholder="Satuan Kerja" value="<?php echo "(" . $data_satker[0]->satkerid . ") " . $data_satker[0]->nama1; ?>" autocomplete="off" disabled>
-                                <input type="hidden" id="satuan_kerja" name="satuan_kerja" value="<?php echo "(" . $data_satker[0]->satkerid . ") " . $data_satker[0]->nama1; ?>" />
+                                <input required="" type="hidden" id="satuan_kerja" name="satuan_kerja" value="<?php echo "(" . $data_satker[0]->satkerid . ") " . $data_satker[0]->nama1; ?>" />
                                 <?php } ?>
                                 <?php } ?>
                                 <input type="hidden" name="kode_project_hidden" value="{replace_project_modal}">
@@ -96,7 +96,7 @@
                             <label for="kegiatan_program_kerja_rincian" class="col-xs-2 control-label">Rincian Kegiatan</label>
                             <div class="col-xs-9 autocomplete">
                                 <input required="" type="text" id="kegiatan_program_kerja_rincian" class="form-control tambah-margin-bawah" name="kegiatan_program_kerja_rincian" placeholder="Rincian Kegiatan" value="<?php echo isset($data_rincian_kegiatan_display) ? $data_rincian_kegiatan_display : ""; ?>" autocomplete="off" disabled="">
-                                <input type="hidden" id="kegiatan_program_kerja_rincian_hidden" name="kegiatan_program_kerja_rincian_hidden" value="<?php echo isset($data_rincian_kegiatan_hidden) ? $data_rincian_kegiatan_hidden : ""; ?>">
+                                <input required="" type="hidden" id="kegiatan_program_kerja_rincian_hidden" name="kegiatan_program_kerja_rincian_hidden" value="<?php echo isset($data_rincian_kegiatan_hidden) ? $data_rincian_kegiatan_hidden : ""; ?>">
                             </div>
                             <div class="col-xs-1" style="padding: 0px;">
                                 <button id="buka_dialog_rincian_kegiatan" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="search" value="Search"><i class="fa fa-search"></i></button>
@@ -113,8 +113,8 @@
                             <label for="mata_anggaran" class="col-xs-2 control-label">Mata Anggaran</label>
                             <div class="col-xs-9 autocomplete">
                                 <input required="" type="text" id="mata_anggaran" class="form-control tambah-margin-bawah" name="mata_anggaran" placeholder="Mata Anggaran" value="<?php echo isset($data_mata_anggaran_display) ? $data_mata_anggaran_display : ""; ?>" autocomplete="off" disabled="">
-                                <input type="hidden" id="mata_anggaran_hidden" name="mata_anggaran_hidden" value="<?php echo isset($data_mata_anggaran_hidden) ? $data_mata_anggaran_hidden : ""; ?>">
-                                <input type="hidden" name="inisial_all" id="inisial_all" value="<?php echo $initial_hidden; ?>">
+                                <input required="" type="hidden" id="mata_anggaran_hidden" name="mata_anggaran_hidden" value="<?php echo isset($data_mata_anggaran_hidden) ? $data_mata_anggaran_hidden : ""; ?>">
+                                <input required="" type="hidden" name="inisial_all" id="inisial_all" value="<?php echo $initial_hidden; ?>">
                             </div>
                             <div class="col-xs-1" style="padding:0px;">
                                 <button id="buka_dialog_mata_anggaran" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="search" value="Search"><i class="fa fa-search"></i></button>
@@ -218,9 +218,9 @@
                         <div class="form-group">
                             <div class="col-xs-6" style="padding-left: 0px; padding-right: 4px;">
                                 <?php if(isset($update) && $update){ ?>
-                                <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad; margin-top: 15px; border-radius: 0px;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="update_anggaran" value="Update Anggaran">Update Anggaran</button>
+                                <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad; margin-top: 15px; border-radius: 0px;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="update_anggaran" id="update_anggaran" value="Update Anggaran">Update Anggaran</button>
                                 <?php } else { ?>
-                                <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad; margin-top: 15px; border-radius: 0px;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="add_anggaran" value="Add Anggaran">Add Anggaran</button>
+                                <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad; margin-top: 15px; border-radius: 0px;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="add_anggaran" id="update_anggaran" value="Add Anggaran">Add Anggaran</button>
                                 <?php } ?>
                             </div>
                             <div class="col-xs-6" style="padding-right: 0px; padding-left: 4px;">

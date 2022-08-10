@@ -249,6 +249,45 @@ $(function () {
     $('.jam').timepicker({
         timeFormat: 'HH:mm:ss'
     });
+    
+    if(document.getElementById("satuan_kerja")){
+        var satuan_kerja = document.getElementById("satuan_kerja");
+        satuan_kerja.onchange = function(){
+            var kegiatan_program_kerja_rincian = document.getElementById("kegiatan_program_kerja_rincian");
+            kegiatan_program_kerja_rincian.value = "";
+            var kegiatan_program_kerja_rincian_hidden = document.getElementById("kegiatan_program_kerja_rincian_hidden");
+            kegiatan_program_kerja_rincian_hidden.value = "";
+            
+            var mata_anggaran = document.getElementById("mata_anggaran");
+            mata_anggaran.value = "";
+            var mata_anggaran_hidden = document.getElementById("mata_anggaran_hidden");
+            mata_anggaran_hidden.value = "";
+        };
+    }
+    
+    if(document.getElementById("form-anggaran-tahunan")){
+        var form_anggaran_tahunan = document.getElementById("form-anggaran-tahunan");
+        form_anggaran_tahunan.onsubmit = function(e){
+            e.preventDefault();
+            var update_anggaran = document.getElementById("update_anggaran");
+            update_anggaran.setAttribute("disabled", "");
+            var kegiatan_program_kerja_rincian = document.getElementById("kegiatan_program_kerja_rincian");
+            var kegiatan_program_kerja_rincian_hidden = document.getElementById("kegiatan_program_kerja_rincian_hidden");
+            
+            var mata_anggaran = document.getElementById("mata_anggaran");
+            var mata_anggaran_hidden = document.getElementById("mata_anggaran_hidden");
+            
+            if(kegiatan_program_kerja_rincian.value === "" || kegiatan_program_kerja_rincian_hidden.value === "" || mata_anggaran.value === "" || mata_anggaran_hidden.value === ""){
+                var pesan_modal = document.getElementById("pesan_modal");
+                pesan_modal.innerHTML = "Rincian dan Mata Anggaran tidak boleh kosong.";
+                $('#modal-success').modal('show');
+                update_anggaran.removeAttribute("disabled");
+            } else {
+                
+                this.submit();
+            }
+        };
+    }
     /* https://stackoverflow.com/questions/17461682/calling-a-function-on-bootstrap-modal-open */
     /* https://stackoverflow.com/questions/45077494/get-data-attribute-of-a-bootstrap-modal-link */
     var masuk_video = false;

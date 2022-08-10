@@ -57,6 +57,10 @@ class add_anggaran extends CI_Controller {
         ));
     }
     
+    private $redirect_kode_edit = "";
+    private $redirect_sbpkode_edit = "";
+    private $redirect_pktkode_edit = "";
+    private $redirect_rekmakode_edit = "";
     public function insert_anggaran_process(){
         if($this->input->post("kode_project_hidden")){
             // set_title("Debug POST.");
@@ -85,6 +89,11 @@ class add_anggaran extends CI_Controller {
                 )
             )); 
             $affected_at = $this->affected;
+            
+            $this->redirect_kode_edit = $kode_at;
+            $this->redirect_sbpkode_edit = $sbpkode_at;
+            $this->redirect_pktkode_edit = $pktkode_at;
+            $this->redirect_rekmakode_edit = $rekmakode_at;
             
             // Table tbldaftaratgroup
             // cetak_html("AAAAA");
@@ -215,12 +224,14 @@ class add_anggaran extends CI_Controller {
             if($this->commit_delete && $this->commit_insert && $this->db->trans_status()){
                 $this->db->trans_commit();
                 cetak_html("Berhasil Update.");
-                header('location: '.$GLOBALS['base_administrator'].'index.php/add-anggaran');
+                Message::set("Berhasil Update.");
+                $param_id = $this->redirect_kode_edit . "-" . $this->redirect_sbpkode_edit . "-" . $this->redirect_pktkode_edit . "-" . $this->redirect_rekmakode_edit;
+                header('location: '.$GLOBALS['base_administrator'].'index.php/add-anggaran/edit/' . $param_id);
             } else {
                 $this->db->trans_rollback();
                 set_title("Failed.");
                 cetak_html("Gagal Update.");
-                Message::set("Insert failed.");
+                Message::set("Gagal Update.");
                 header('location: '.$GLOBALS['base_administrator'].'index.php/add-anggaran');
             }
             
