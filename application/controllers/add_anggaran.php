@@ -324,22 +324,44 @@ class add_anggaran extends CI_Controller {
     
     public function hapus($param_id){
         
-        $this->db->trans_start();
-        $this->db->trans_strict(FALSE);
-        
-        $this->hapus_process($param_id);
-        
-        if($this->commit_delete && $this->db->trans_status()){
-            $this->db->trans_commit();
-            header('location: '.$GLOBALS['base_administrator'].'index.php/add-anggaran');
-        } else {
-            $this->db->trans_rollback();
-            set_title("Failed.");
-            cetak_html("Gagal Delete.");
-            Message::set("Delete failed.");
-            header('location: '.$GLOBALS['base_administrator'].'index.php/add-anggaran');
+        if($this->input->post("kode_project_hidden")){
+            $this->db->trans_start();
+            $this->db->trans_strict(FALSE);
+
+            $this->hapus_process($param_id);
+
+            if($this->commit_delete && $this->db->trans_status()){
+                $this->db->trans_commit();
+                header('location: '.$GLOBALS['base_administrator'].'index.php/add-anggaran');
+            } else {
+                $this->db->trans_rollback();
+                set_title("Failed.");
+                cetak_html("Gagal Delete.");
+                Message::set("Delete failed.");
+                header('location: '.$GLOBALS['base_administrator'].'index.php/add-anggaran');
+            }
+            exit();
         }
-        exit();
+        $this->get_data_edit($param_id);
+        $this->layout->loadView(
+            'add_anggaran_form',
+            array(
+                "hasil" => "abcd",
+                "script" => $this->script_table(),
+                'data_satker' => $this->aplikasi->data->satker,
+                'update' => TRUE,
+                'data_rincian_edit' => $this->data_rincian_edit,
+                'data_group_edit' => $this->data_group_edit,
+                'id_satker_edit' => $this->id_satker_edit,
+                'data_rincian_kegiatan_edit' => $this->data_rincian_kegiatan_edit,
+                'data_mata_anggaran_edit' => $this->data_mata_anggaran_edit,
+                'data_rincian_kegiatan_display' => $this->data_rincian_kegiatan_display,
+                'data_rincian_kegiatan_hidden' => $this->data_rincian_kegiatan_hidden,
+                'data_mata_anggaran_display' => $this->data_mata_anggaran_display,
+                'data_mata_anggaran_hidden' => $this->data_mata_anggaran_hidden,
+                'konfirmasi_hapus' => true
+            )
+        );
     }
     
     private $data_rincian_edit = array();

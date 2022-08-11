@@ -24,17 +24,33 @@ class get_add_anggaran extends CI_Model {
         $clouse = "";
 
         if ($sSearch != '') {
-            $clouse = " where (kode like '%" . $sSearch . "%' or sbpkode like '%" . $sSearch . "%' or pktkode like '%" . $sSearch . "%' or rekmakode like '%" . $sSearch . "%' or keterangan like '%" . $sSearch . "%') ";
+            $clouse = " 
+                where (
+                    lower((select nama1 from tblmastersatker where satkerid = substring(a.pktkode from 1 for 1))) like '%" . strtolower($sSearch) . "%' or 
+                    lower((select b.pktkode from tbldaftaratrincian b where a.kode = b.kode and b.sbpkode = a.sbpkode and b.rekmakode = a.rekmakode offset 0 limit 1)) like '%" . strtolower($sSearch) . "%' or 
+                    a.rekmakode like '%" . $sSearch . "%' or 
+                    lower((select c.nama_rekening from sp_search_mataanggaran(a.kode, substring(a.pktkode from 1 for 1)) c where c.rekmakode = a.rekmakode)) like '%" . strtolower($sSearch) . "%'
+                ) ";
         }
 
         /* select id, harga, tanggal_harus_bayar, case status when '1' then 'Aktif' when '2' then 'Tidak Aktif' else 'Tidak Aktif' end as status from tbl_atur_bayar */
 
-        $sql_total = "select CONCAT(kode, '-', sbpkode, '-', pktkode, '-', rekmakode) as id, kode, sbpkode, pktkode, rekmakode, keterangan from tbldaftarat" . $clouse . $this->where_project($clouse) . "";
+        $sql_total = "select CONCAT(a.kode, '-', a.sbpkode, '-', a.pktkode, '-', a.rekmakode) as id from tbldaftarat a" . $clouse . $this->where_project($clouse) . "";
 
         $query_total = $this->db->query($sql_total);
         $total = $query_total->num_rows();
 
-        $sql = "select CONCAT(kode, '-', sbpkode, '-', pktkode, '-', rekmakode) as id, kode, sbpkode, pktkode, rekmakode, keterangan from tbldaftarat ".$clouse.$this->where_project($clouse)." order by kode asc offset $iDisplayStart limit 1000";
+        $sql = "
+        select 
+            CONCAT(a.kode, '-', a.sbpkode, '-', a.pktkode, '-', a.rekmakode) as id, 
+            (select nama1 from tblmastersatker where satkerid = substring(a.pktkode from 1 for 1)) as satker_nama,
+            (select b.pktkode from tbldaftaratrincian b where a.kode = b.kode and b.sbpkode = a.sbpkode and b.rekmakode = a.rekmakode offset 0 limit 1) as pktkode_rk,
+            a.rekmakode,
+            (select c.nama_rekening from sp_search_mataanggaran(a.kode, substring(a.pktkode from 1 for 1)) c where c.rekmakode = a.rekmakode) as nama_rekening
+        from 
+            tbldaftarat a ".$clouse.$this->where_project($clouse)." 
+        order by a.kode asc 
+        offset $iDisplayStart limit $iDisplayLength";
 
         $page = ($iDisplayStart / $iDisplayLength);
 

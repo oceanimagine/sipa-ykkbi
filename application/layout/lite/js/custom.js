@@ -94,7 +94,7 @@ function resize_wrapper(){
         document.body.style.overflow = "hidden";
         document.body.classList.add("sidebar-collapse");
         setTimeout(function(){
-            console.log(window.getComputedStyle(document.querySelector("#wrapper_div")).minHeight);
+            /* console.log(window.getComputedStyle(document.querySelector("#wrapper_div")).minHeight); */
             document.getElementById("div_box_info").style.height = window.getComputedStyle(document.querySelector("#wrapper_div")).minHeight;
         }, 100);
     }
@@ -143,8 +143,8 @@ function re_trigger_numberonly_input(){
     $(".numberonly").off('keydown');
     $('.numberonly').keydown(function (e) {
         var charCode = (e.which) ? e.which : event.keyCode; 
-        console.log(charCode);
-        if((charCode === 37 || charCode === 39) && typeof detect_address_right === "function"){
+        /* console.log(charCode); */
+        if(((e.shiftKey && charCode === 37) || (e.shiftKey && charCode === 39)) && typeof detect_address_right === "function"){
             e.preventDefault();
             if(charCode === 39){
                 detect_address_right(this);
@@ -183,14 +183,23 @@ function re_trigger_numberonly_input(){
     });   
     $(".numberonly").off('focus');
     $('.numberonly').focus(function () {
+        jumlahkan_nom_per_baris(this);
+        jumlahkan_nom(this);
         this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "00" ? this.value : (this.value.split(".").length > 1 && this.value.split(".")[1] === "00" ? (this.value.substr(0,this.value.length - 3) === "0" ? "" : this.value.substr(0,this.value.length - 3)) : this.value);
         this.setAttribute("type", "text");
         this.setSelectionRange(0, this.value.length);
         this.setAttribute("type", "number");
     });
     $(".numberonly").off('blur');
-    $('.numberonly').blur(function () {    
-        this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "" ? this.value : (this.value !== "" ? this.value + ".00" : ((this.value === "" ? "0" : this.value) + ".00"));
+    $('.numberonly').blur(function () {  
+        jumlahkan_nom_per_baris(this);
+        jumlahkan_nom(this);
+        var get_nama = this.getAttribute("name");
+        if(get_nama.substr(0,1) === "Q" || get_nama.substr(0,1) === "F"){
+            this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "" ? this.value : (this.value !== "" ? this.value + "" : ((this.value === "" ? "0" : this.value) + ""));
+        } else {
+            this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "" ? this.value : (this.value !== "" ? this.value + ".00" : ((this.value === "" ? "0" : this.value) + ".00"));
+        }
     });
 }
 
@@ -205,8 +214,8 @@ function re_trigger_input_with_class(classname){
     $("." + classname).off('keydown');
     $('.' + classname).keydown(function (e) {
         var charCode = (e.which) ? e.which : event.keyCode; 
-        console.log(charCode);
-        if((charCode === 37 || charCode === 39) && typeof detect_address_right === "function"){
+        /* console.log(charCode); */
+        if(((e.shiftKey && charCode === 37) || (e.shiftKey && charCode === 39)) && typeof detect_address_right === "function"){
             e.preventDefault();
             if(charCode === 39){
                 detect_address_right(this);
@@ -267,24 +276,48 @@ $(function () {
     
     if(document.getElementById("form-anggaran-tahunan")){
         var form_anggaran_tahunan = document.getElementById("form-anggaran-tahunan");
+        /* console.log(form_anggaran_tahunan); */
         form_anggaran_tahunan.onsubmit = function(e){
             e.preventDefault();
-            var update_anggaran = document.getElementById("update_anggaran");
-            update_anggaran.setAttribute("disabled", "");
-            var kegiatan_program_kerja_rincian = document.getElementById("kegiatan_program_kerja_rincian");
-            var kegiatan_program_kerja_rincian_hidden = document.getElementById("kegiatan_program_kerja_rincian_hidden");
+            var update_insert = false;
+            var tombol_submit = {};
+            if(document.getElementById("update_anggaran")){
+                tombol_submit = document.getElementById("update_anggaran");
+                update_insert = true;
+            }
+            if(document.getElementById("add_anggaran")){
+                tombol_submit = document.getElementById("add_anggaran");
+                update_insert = true;
+            }
+            if(document.getElementById("hapus_anggaran")){
+                tombol_submit = document.getElementById("hapus_anggaran");
+                var pesan_modal = document.getElementById("isi-pesan-modal-default");
+                pesan_modal.innerHTML = "Apakah anda benar benar yakin ?";
+                $('#modal-default').modal('show');
+                var button_confirm = document.getElementById("button-confirm");
+                button_confirm.setAttribute("onclick", "document.getElementById(\"form-anggaran-tahunan\").submit()");
+                tombol_submit.setAttribute("disabled", "");
+                $("#modal-default").on("hidden.bs.modal", function () {
+                    tombol_submit.removeAttribute("disabled");
+                });
+            }
             
-            var mata_anggaran = document.getElementById("mata_anggaran");
-            var mata_anggaran_hidden = document.getElementById("mata_anggaran_hidden");
-            
-            if(kegiatan_program_kerja_rincian.value === "" || kegiatan_program_kerja_rincian_hidden.value === "" || mata_anggaran.value === "" || mata_anggaran_hidden.value === ""){
-                var pesan_modal = document.getElementById("pesan_modal");
-                pesan_modal.innerHTML = "Rincian dan Mata Anggaran tidak boleh kosong.";
-                $('#modal-success').modal('show');
-                update_anggaran.removeAttribute("disabled");
-            } else {
-                
-                this.submit();
+            if(update_insert){
+                tombol_submit.setAttribute("disabled", "");
+                var kegiatan_program_kerja_rincian = document.getElementById("kegiatan_program_kerja_rincian");
+                var kegiatan_program_kerja_rincian_hidden = document.getElementById("kegiatan_program_kerja_rincian_hidden");
+
+                var mata_anggaran = document.getElementById("mata_anggaran");
+                var mata_anggaran_hidden = document.getElementById("mata_anggaran_hidden");
+
+                if(kegiatan_program_kerja_rincian.value === "" || kegiatan_program_kerja_rincian_hidden.value === "" || mata_anggaran.value === "" || mata_anggaran_hidden.value === ""){
+                    var pesan_modal = document.getElementById("pesan_modal");
+                    pesan_modal.innerHTML = "Rincian dan Mata Anggaran tidak boleh kosong.";
+                    $('#modal-success').modal('show');
+                    tombol_submit.removeAttribute("disabled");
+                } else {
+                    this.submit();
+                }
             }
         };
     }
@@ -334,9 +367,10 @@ $(function () {
     // https://stackoverflow.com/questions/21177489/selectionstart-selectionend-on-input-type-number-no-longer-allowed-in-chrome
     $('.numberonly').keydown(function (e) {
         
-        var charCode = (e.which) ? e.which : event.keyCode; 
-        console.log(charCode);
-        if((charCode === 37 || charCode === 39) && typeof detect_address_right === "function"){
+        var charCode = (e.which) ? e.which : event.keyCode;
+        
+        /* console.log(charCode); */
+        if(((e.shiftKey && charCode === 37) || (e.shiftKey && charCode === 39)) && typeof detect_address_right === "function"){
             e.preventDefault();
             if(charCode === 39){
                 detect_address_right(this);
@@ -345,6 +379,7 @@ $(function () {
                 detect_address_left(this);
             }
         }
+    
         if((charCode === 38 || charCode === 40) && typeof detect_address_up === "function"){
             e.preventDefault();
             if(charCode === 38){
@@ -355,7 +390,7 @@ $(function () {
             }
         }
         if(charCode === 9 && typeof detect_address_input === "function"){
-            console.log("MASUK FUNGSI KEYDOWN TAB.");
+            /* console.log("MASUK FUNGSI KEYDOWN TAB."); */
             detect_address_input(this);
         }
         if(charCode === 27 && typeof detect_address_input_delete === "function"){
@@ -374,13 +409,22 @@ $(function () {
         }
     });   
     $('.numberonly').focus(function () {
+        jumlahkan_nom_per_baris(this);
+        jumlahkan_nom(this);
         this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "00" ? this.value : (this.value.split(".").length > 1 && this.value.split(".")[1] === "00" ? (this.value.substr(0,this.value.length - 3) === "0" ? "" : this.value.substr(0,this.value.length - 3)) : this.value);
         this.setAttribute("type", "text");
         this.setSelectionRange(0, this.value.length);
         this.setAttribute("type", "number");
     });
-    $('.numberonly').blur(function () {    
-        this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "" ? this.value : (this.value !== "" ? this.value + ".00" : ((this.value === "" ? "0" : this.value) + ".00"));
+    $('.numberonly').blur(function () {
+        jumlahkan_nom_per_baris(this);
+        jumlahkan_nom(this);
+        var get_nama = this.getAttribute("name");
+        if(get_nama.substr(0,1) === "Q" || get_nama.substr(0,1) === "F"){
+            this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "" ? this.value : (this.value !== "" ? this.value + "" : ((this.value === "" ? "0" : this.value) + ""));
+        } else {
+            this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "" ? this.value : (this.value !== "" ? this.value + ".00" : ((this.value === "" ? "0" : this.value) + ".00"));
+        }
     });
     
     re_trigger_input_with_class('textinput');
@@ -401,7 +445,7 @@ $(function () {
 });
 
 $(window).resize(function(){
-    console.log("COBA");
+    /* console.log("COBA"); */
     resize_wrapper();
 });
 

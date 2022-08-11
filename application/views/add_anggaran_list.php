@@ -31,6 +31,7 @@
                 document.location = "../../../index.php/" + link;
             }
             function confirm_delete(param){
+                console.log("MASUK DELETE");
                 var split_ = param.split("index.php/");
                 var button_confirm = document.getElementById("button-confirm");
                 button_confirm.setAttribute("onclick", "move_url('"+split_[1]+"')");
@@ -40,6 +41,7 @@
 </head>
 <body>
     <script type="text/javascript" id="tempat_script">
+    var add_anggaran_list = true;
     if(typeof $ !== "undefined"){
         <?php echo $script; ?>
     }
@@ -58,11 +60,10 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Kode</th>
-                                <th>SBP Kode</th>
-                                <th>PKT Kode</th>
-                                <th>Rekma Kode</th>
-                                <th>Keterangan</th>
+                                <th>Nama Satker</th>
+                                <th>Kode Rincian</th>
+                                <th>Kode Rekening</th>
+                                <th>Mata Anggaran</th>
                                 <th>Action</th>
                             </tr>
                         </thead>

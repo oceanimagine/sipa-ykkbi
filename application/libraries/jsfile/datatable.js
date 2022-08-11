@@ -85,6 +85,32 @@ function change_based_sbp_jenis_anggaran_tahunan(){
     }
 }
 
+function remove_modal_a(){
+    var table_data = document.getElementsByTagName("table");
+    var count = 0;
+    for(var i = 0; i < table_data.length; i++){
+        if(table_data[i].getAttribute("class") === "table table-bordered table-hover no-footer dataTable"){
+            if(count === 1){
+                var get_tbody = table_data[i].getElementsByTagName("tbody");
+                var get_tr = get_tbody[0].getElementsByTagName("tr");
+                for(var j = 0; j < get_tr.length; j++){
+                    var get_td = get_tr[j].getElementsByTagName("td");
+                    var a_object = get_td[get_td.length - 1].getElementsByTagName("a");
+                    if(a_object.length > 0){
+                        a_object[a_object.length - 1].removeAttribute("data-target");
+                        a_object[a_object.length - 1].removeAttribute("data-toggle");
+                        a_object[a_object.length - 1].removeAttribute("onclick");
+                        var get_href = a_object[a_object.length - 1].getAttribute("href").split("#").join("");
+                        a_object[a_object.length - 1].setAttribute("href", get_href);
+                    }
+                }
+                break;
+            }
+            count++;
+        }
+    }
+}
+
 var oTable = {};
 $(document).ready(function () {
     
@@ -133,7 +159,10 @@ $(document).ready(function () {
                     if(anggaran_tahunan){
                         change_based_sbp_jenis_anggaran_tahunan();
                     }
-                }, 100);
+                    if(typeof add_anggaran_list !== "undefined" && add_anggaran_list){
+                        remove_modal_a();
+                    }
+                }, 1000);
             }
         });
 
@@ -157,7 +186,7 @@ $(document).ready(function () {
         
         setTimeout(function () {
             update_size();
-        }, 250);
+        }, 500);
     }
 });
 

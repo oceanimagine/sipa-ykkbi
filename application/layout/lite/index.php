@@ -344,7 +344,7 @@ function get_url($param){
                                 <h4 class="modal-title">WARNING !!!!</h4>
                             </div>
                             <div class="modal-body">
-                                <p>Are you sure&hellip;?</p>
+                                <p id="isi-pesan-modal-default">Are you sure&hellip;?</p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>

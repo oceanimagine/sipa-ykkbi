@@ -188,10 +188,11 @@ function detect_address_input_delete(object_input){
     // console.log(get_tr_after);
 
     var get_input_ = get_tr_after.getElementsByTagName("input");
+    var tmp_input_ = {"undefined":true};
     for(var i = 0; i < get_input_.length; i++){
         if(get_input_[i].getAttribute("type") === "number" || get_input_[i].getAttribute("type") === "text"){
             if(get_input_[i].getAttribute("name") === get_name){
-                get_input_[i].focus();
+                tmp_input_ = get_input_[i];
                 break;
             }
         }
@@ -203,6 +204,9 @@ function detect_address_input_delete(object_input){
         var split_comma = fungsi.split(",");
         var split_kurung = split_comma[split_comma.length - 1].split(")");
         kurangi_anak_grup(get_i_tr[0], inisial, Number(split_kurung[0]));
+        if(typeof tmp_input_.undefined === "undefined"){
+            tmp_input_.focus();
+        }
     }
 }
 
@@ -259,6 +263,12 @@ function detect_address_input(object_input){
 }
 
 function kurangi_anak_grup(object_button, inisial, jumlah_anakan){
+    if(typeof konfirmasi_hapus !== "undefined" && konfirmasi_hapus){
+        var pesan_modal = document.getElementById("pesan_modal");
+        pesan_modal.innerHTML = "Tombol disabled sedang dalam mode konfirmasi hapus.";
+        $('#modal-success').modal('show');
+        return false;
+    }
     if(jumlah_anakan <= 1){
         var pesan_modal = document.getElementById("pesan_modal");
         pesan_modal.innerHTML = "Sorry only left 1 row and cannot do delete.";
@@ -287,6 +297,7 @@ function kurangi_anak_grup(object_button, inisial, jumlah_anakan){
     get_tr.parentNode.removeChild(get_tr);
     var get_tr_inside = get_tbody.getElementsByTagName("tr");
     var get_tr_active = {};
+    var tmp_input = {};
     var count = 1;
     for(var i = 0; i < get_tr_inside.length; i++){
         if(get_tr_inside[i].getAttribute("class") === "anakan_group" + inisial){
@@ -299,6 +310,13 @@ function kurangi_anak_grup(object_button, inisial, jumlah_anakan){
                 }
             }
             var get_i = get_tr_active.getElementsByTagName("i");
+            var get_input = get_tr_active.getElementsByTagName("input");
+            for(var j = 0; j < get_input.length; j++){
+                if(get_input[j].getAttribute("name").substr(0, "subtotal_".length) === "subtotal_"){
+                    tmp_input = get_input[j];
+                    break;
+                }
+            }
             if(get_i[0].getAttribute("class") === "fa fa-minus"){
                 get_i[0].setAttribute("onclick", "kurangi_anak_grup(this,'"+inisial+"'," + (jumlah_anakan - 1) + ");");
             }
@@ -308,6 +326,7 @@ function kurangi_anak_grup(object_button, inisial, jumlah_anakan){
             count++;
         }
     }
+    tmp_input.focus();
     get_tr_active.style.borderBottom = "rgb(242,220,219) 2px solid";
 
 }
@@ -355,8 +374,100 @@ function kurang_anak_grup(object_button, inisial, jumlah_anakan){
     get_tr_active_before.style.borderBottom = "rgb(242,220,219) 2px solid";
 }
 
+function jumlahkan_nom_per_baris(object_input){
+    var get_td = object_input.parentNode;
+    var get_tr = get_td.parentNode;
+    var get_input = get_tr.getElementsByTagName("input");
+    var Q_ = 0;
+    var F_ = 0;
+    var tarif_ = 0;
+    for(var k = 0; k < get_input.length; k++){
+         if(get_input[k].getAttribute("name").substr(0, "Q_".length) === "Q_"){
+             Q_ = Number(get_input[k].value);
+         }
+         if(get_input[k].getAttribute("name").substr(0, "F_".length) === "F_"){
+             F_ = Number(get_input[k].value);
+         }
+         if(get_input[k].getAttribute("name").substr(0, "tarif_".length) === "tarif_"){
+             tarif_ = Number(get_input[k].value);
+         }
+         if(get_input[k].getAttribute("name").substr(0, "subtotal_".length) === "subtotal_"){
+             get_input[k].value = Q_ * F_ *tarif_;
+         }
+    }
+}
+
+function jumlahkan_nom(object_input){
+    /* console.log(object_input); */
+    var get_td = object_input.parentNode;
+    var get_tr = get_td.parentNode;
+    var get_tbody = get_tr.parentNode;
+    var get_class = get_tr.getAttribute("class");
+    var get_address_split = get_class.split("_");
+    var get_address = get_address_split[get_address_split.length - 1];
+    
+    var get_all_tr = get_tbody.getElementsByTagName("tr");
+    var subtotal_ = 0;
+    var tw1_ = 0;
+    var tw2_ = 0;
+    var tw3_ = 0;
+    var tw4_ = 0;
+    var get_td_all = {};
+    for(var i = 0; i < get_all_tr.length; i++){
+        if(get_all_tr[i].getAttribute("class") === "anakan_group_" + get_address){
+            get_td_all = get_all_tr[i].getElementsByTagName("td");
+            for(var j = 0; j < get_td_all.length; j++){
+                var get_input = get_td_all[j].getElementsByTagName("input");
+                for(var k = 0; k < get_input.length; k++){
+                    if(get_input[k].getAttribute("name").substr(0, "subtotal_".length) === "subtotal_"){
+                        subtotal_ = subtotal_ + Number(get_input[k].value);
+                    }
+                    if(get_input[k].getAttribute("name").substr(0, "tw1_".length) === "tw1_"){
+                        tw1_ = tw1_ + Number(get_input[k].value);
+                    }
+                    if(get_input[k].getAttribute("name").substr(0, "tw2_".length) === "tw2_"){
+                        tw2_ = tw2_ + Number(get_input[k].value);
+                    }
+                    if(get_input[k].getAttribute("name").substr(0, "tw3_".length) === "tw3_"){
+                        tw3_ = tw3_ + Number(get_input[k].value);
+                    }
+                    if(get_input[k].getAttribute("name").substr(0, "tw4_".length) === "tw4_"){
+                        tw4_ = tw4_ + Number(get_input[k].value);
+                    }
+                }
+            }
+        }
+        if(get_all_tr[i].getAttribute("class") === "jumlah_anakan_" + get_address){
+            get_td_all = get_all_tr[i].getElementsByTagName("td");
+            for(var j = 0; j < get_td_all.length; j++){
+                if(get_td_all[j].getAttribute("info") === "total_rintotal"){
+                    get_td_all[j].innerHTML = subtotal_;
+                }
+                if(get_td_all[j].getAttribute("info") === "total_rppt1nom"){
+                    get_td_all[j].innerHTML = tw1_;
+                }
+                if(get_td_all[j].getAttribute("info") === "total_rppt2nom"){
+                    get_td_all[j].innerHTML = tw2_;
+                }
+                if(get_td_all[j].getAttribute("info") === "total_rppt3nom"){
+                    get_td_all[j].innerHTML = tw3_;
+                }
+                if(get_td_all[j].getAttribute("info") === "total_rppt4nom"){
+                    get_td_all[j].innerHTML = tw4_;
+                }
+            }
+        }
+    }
+}
+
 function tambah_anak_grup(object_button, inisial, jumlah_anakan){
     // console.log("TAMBAH");
+    if(typeof konfirmasi_hapus !== "undefined" && konfirmasi_hapus){
+        var pesan_modal = document.getElementById("pesan_modal");
+        pesan_modal.innerHTML = "Tombol disabled sedang dalam mode konfirmasi hapus.";
+        $('#modal-success').modal('show');
+        return false;
+    }
     var get_td = object_button.parentNode;
     var get_tr = get_td.parentNode;
     var get_tbody = get_tr.parentNode;
@@ -385,7 +496,7 @@ function tambah_anak_grup(object_button, inisial, jumlah_anakan){
             count++;
         }
     }
-    console.log(get_tr_active);
+    /* console.log(get_tr_active); */
     var clone_tr = get_tr_active.cloneNode(true);
     var get_td_clone = clone_tr.getElementsByTagName("td");
     for(var i = 0; i < get_td_clone.length; i++){
@@ -399,6 +510,12 @@ function tambah_anak_grup(object_button, inisial, jumlah_anakan){
         if(get_td_input_clone[i].getAttribute("type") === "number" || get_td_input_clone[i].getAttribute("type") === "text"){
             if(get_td_input_clone[i].getAttribute("type") === "number"){
                 get_td_input_clone[i].value = "0.00";
+                if(get_td_input_clone[i].getAttribute("name").substr(0,1) === "F"){
+                    get_td_input_clone[i].value = "0";
+                }
+                if(get_td_input_clone[i].getAttribute("name").substr(0,1) === "Q"){
+                    get_td_input_clone[i].value = "0";
+                }
             }
             if(get_td_input_clone[i].getAttribute("type") === "text"){
                 get_td_input_clone[i].value = "";
@@ -413,6 +530,12 @@ function tambah_anak_grup(object_button, inisial, jumlah_anakan){
 }
 
 function min_group(object_button, inisial, jumlah_group){
+    if(typeof konfirmasi_hapus !== "undefined" && konfirmasi_hapus){
+        var pesan_modal = document.getElementById("pesan_modal");
+        pesan_modal.innerHTML = "Tombol disabled sedang dalam mode konfirmasi hapus.";
+        $('#modal-success').modal('show');
+        return false;
+    }
     var get_td = object_button.parentNode;
     var get_tr = get_td.parentNode;
     var get_tbody = get_tr.parentNode;
@@ -479,6 +602,12 @@ function min_group(object_button, inisial, jumlah_group){
 }
 
 function add_group(object_button, inisial, jumlah_group){
+    if(typeof konfirmasi_hapus !== "undefined" && konfirmasi_hapus){
+        var pesan_modal = document.getElementById("pesan_modal");
+        pesan_modal.innerHTML = "Tombol disabled sedang dalam mode konfirmasi hapus.";
+        $('#modal-success').modal('show');
+        return false;
+    }
     var get_td = object_button.parentNode;
     var get_tr = get_td.parentNode;
     var get_tbody = get_tr.parentNode;
@@ -751,7 +880,7 @@ function set_tr_click_inside_tbody(tbody_active,input_active,id_dialog,display_a
                 var hidden_id = get_id + "_hidden";
                 var hidden_active = document.getElementById(hidden_id);
                 hidden_active.value = hasil_concate;
-                console.log(hasil_concate);
+                /* console.log(hasil_concate); */
                 input_active.value = hasil_concate_display;
                 $('#'+id_dialog).modal('hide');
             },2000);
