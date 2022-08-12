@@ -224,7 +224,7 @@ $(document).ready(function () {
             }, 250);
         });
         if(typeof add_anggaran_list !== "undefined" && add_anggaran_list){
-            set_loading_("PLEASE WAIT.");
+            set_loading_("PREPARING TABLE.");
         }
         
         setTimeout(function () {

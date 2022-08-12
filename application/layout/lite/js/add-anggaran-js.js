@@ -389,6 +389,10 @@ function check_nom_all_row(){
             var tw2_ = 0;
             var tw3_ = 0;
             var tw4_ = 0;
+            var persen_tw1_ = 0;
+            var persen_tw2_ = 0;
+            var persen_tw3_ = 0;
+            var persen_tw4_ = 0;
             var jumlah_tw = 0;
             var jumlah_tw_perbandingan = 0;
 
@@ -407,11 +411,32 @@ function check_nom_all_row(){
                     jumlah_tw = tw1_ + tw2_ + tw3_ + tw4_;
                 }
             }
+            
             for(var k = 0; k < get_input_.length; k++){
                 if(get_input_[k].getAttribute("name").substr(0, "subtotal_".length) === "subtotal_"){
                     jumlah_tw_perbandingan = Number(get_input_[k].value);
                 }
             }
+            
+            for(var k = 0; k < get_input_.length; k++){
+                if(get_input_[k].getAttribute("name").substr(0, "persen_tw1_".length) === "persen_tw1_"){
+                    persen_tw1_ = ((tw1_ / jumlah_tw_perbandingan) * 100).toFixed(2);
+                    get_input_[k].value = persen_tw1_;
+                }
+                if(get_input_[k].getAttribute("name").substr(0, "persen_tw2_".length) === "persen_tw2_"){
+                    persen_tw2_ = ((tw2_ / jumlah_tw_perbandingan) * 100).toFixed(2);
+                    get_input_[k].value = persen_tw2_;
+                }
+                if(get_input_[k].getAttribute("name").substr(0, "persen_tw3_".length) === "persen_tw3_"){
+                    persen_tw3_ = ((tw3_ / jumlah_tw_perbandingan) * 100).toFixed(2);
+                    get_input_[k].value = persen_tw3_;
+                }
+                if(get_input_[k].getAttribute("name").substr(0, "persen_tw4_".length) === "persen_tw4_"){
+                    persen_tw4_ = ((tw4_ / jumlah_tw_perbandingan) * 100).toFixed(2);
+                    get_input_[k].value = persen_tw4_;
+                }
+            }
+            
             var last_temp = [];
             var address_temp = 0;
             for(var k = 0; k < get_input_.length; k++){
@@ -599,6 +624,39 @@ function check_nom_baris_sebelumnya_border_bottom(object_tr){
     }
 }
 
+function check_percent_nom_baris(object_input){
+    
+    var get_td = object_input.parentNode;
+    var get_tr = get_td.parentNode;
+    var get_class = get_tr.getAttribute("class");
+    var get_address_split = get_class.split("_");
+    var get_address = get_address_split[get_address_split.length - 1];
+    
+    var get_input_source_name = object_input.getAttribute("name");
+    var get_input_source_tw = "0";
+    var value_active_source = "";
+    var jumlah_tw_perbandingan = 0;
+    if(get_input_source_name.substr(0,"persen_tw".length) === "persen_tw"){
+        get_input_source_tw = get_input_source_name.substr("persen_tw".length, 1);
+        value_active_source = object_input.value;
+        var get_td_ = object_input.parentNode;
+        var get_tr_ = get_td_.parentNode;
+        var get_input_ = get_tr_.getElementsByTagName("input");
+        for(var k = 0; k < get_input_.length; k++){
+            if(get_input_[k].getAttribute("name").substr(0, "subtotal_".length) === "subtotal_"){
+                jumlah_tw_perbandingan = Number(get_input_[k].value);
+            }
+        }
+        for(var k = 0; k < get_input_.length; k++){
+            if(get_input_[k].getAttribute("name").substr(0,("tw"+get_input_source_tw+"_"+get_address).length) === "tw"+get_input_source_tw+"_"+get_address){
+                get_input_[k].value = (value_active_source / 100 * jumlah_tw_perbandingan).toFixed(2);
+                break;
+            }
+        }
+    }
+    
+}
+
 function check_nom_per_baris(object_input){
     var get_td = object_input.parentNode;
     var get_tr = get_td.parentNode;
@@ -607,7 +665,6 @@ function check_nom_per_baris(object_input){
     var get_address = get_address_split[get_address_split.length - 1];
     var get_tbody = get_tr.parentNode;
     var get_all_tr = get_tbody.getElementsByTagName("tr");
-    
     
     var tambah_anakan = 0;
     var temp_tr = {"undefined":true};
@@ -619,9 +676,20 @@ function check_nom_per_baris(object_input){
             var tw2_ = 0;
             var tw3_ = 0;
             var tw4_ = 0;
+            var persen_tw1_ = 0;
+            var persen_tw2_ = 0;
+            var persen_tw3_ = 0;
+            var persen_tw4_ = 0;
             var jumlah_tw = 0;
             var jumlah_tw_perbandingan = 0;
             var masuk_pengecekan = false;
+            
+            for(var k = 0; k < get_input_.length; k++){
+                if(get_input_[k].getAttribute("name").substr(0, "subtotal_".length) === "subtotal_"){
+                    jumlah_tw_perbandingan = Number(get_input_[k].value);
+                }
+            }
+            
             for(var k = 0; k < get_input_.length; k++){
                 if(get_input_[k].getAttribute("name").substr(0, "tw1_".length) === "tw1_"){
                     tw1_ = Number(get_input_[k].value);
@@ -637,11 +705,26 @@ function check_nom_per_baris(object_input){
                     jumlah_tw = tw1_ + tw2_ + tw3_ + tw4_;
                 }
             }
+            
             for(var k = 0; k < get_input_.length; k++){
-                if(get_input_[k].getAttribute("name").substr(0, "subtotal_".length) === "subtotal_"){
-                    jumlah_tw_perbandingan = Number(get_input_[k].value);
+                if(get_input_[k].getAttribute("name").substr(0, "persen_tw1_".length) === "persen_tw1_"){
+                    persen_tw1_ = ((tw1_ / jumlah_tw_perbandingan) * 100).toFixed(2);
+                    get_input_[k].value = persen_tw1_;
+                }
+                if(get_input_[k].getAttribute("name").substr(0, "persen_tw2_".length) === "persen_tw2_"){
+                    persen_tw2_ = ((tw2_ / jumlah_tw_perbandingan) * 100).toFixed(2);
+                    get_input_[k].value = persen_tw2_;
+                }
+                if(get_input_[k].getAttribute("name").substr(0, "persen_tw3_".length) === "persen_tw3_"){
+                    persen_tw3_ = ((tw3_ / jumlah_tw_perbandingan) * 100).toFixed(2);
+                    get_input_[k].value = persen_tw3_;
+                }
+                if(get_input_[k].getAttribute("name").substr(0, "persen_tw4_".length) === "persen_tw4_"){
+                    persen_tw4_ = ((tw4_ / jumlah_tw_perbandingan) * 100).toFixed(2);
+                    get_input_[k].value = persen_tw4_;
                 }
             }
+            
             var last_temp = [];
             var address_temp = 0;
             for(var k = 0; k < get_input_.length; k++){

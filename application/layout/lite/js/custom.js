@@ -181,6 +181,15 @@ function re_trigger_numberonly_input(){
             return false;                        
         }
     });   
+    
+    $(".numberonly").off('keyup');
+    $('.numberonly').keyup(function () {   
+        var object_ = this;
+        setTimeout(function(){
+            check_percent_nom_baris(object_);
+        }, 500);
+    });
+    
     $(".numberonly").off('focus');
     $('.numberonly').focus(function () {
         jumlahkan_nom_per_baris(this);
@@ -193,6 +202,7 @@ function re_trigger_numberonly_input(){
     });
     $(".numberonly").off('blur');
     $('.numberonly').blur(function () {  
+        check_percent_nom_baris(this);
         jumlahkan_nom_per_baris(this);
         jumlahkan_nom(this);
         check_nom_per_baris(this);
@@ -410,6 +420,13 @@ $(function () {
             return false;                        
         }
     });   
+    $('.numberonly').keyup(function () {   
+        var object_ = this;
+        setTimeout(function(){
+            check_percent_nom_baris(object_);
+        }, 500);
+        
+    });
     $('.numberonly').focus(function () {
         jumlahkan_nom_per_baris(this);
         jumlahkan_nom(this);
@@ -420,6 +437,7 @@ $(function () {
         this.setAttribute("type", "number");
     });
     $('.numberonly').blur(function () {
+        check_percent_nom_baris(this);
         jumlahkan_nom_per_baris(this);
         jumlahkan_nom(this);
         check_nom_per_baris(this);
