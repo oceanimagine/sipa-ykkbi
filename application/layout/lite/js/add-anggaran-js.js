@@ -374,6 +374,343 @@ function kurang_anak_grup(object_button, inisial, jumlah_anakan){
     get_tr_active_before.style.borderBottom = "rgb(242,220,219) 2px solid";
 }
 
+function check_nom_all_row(){
+    var table_anggaran_tahunan = document.getElementById("table-anggaran-tahunan");
+    var get_tbody = table_anggaran_tahunan.getElementsByTagName("tbody");
+    var get_all_tr = get_tbody[0].getElementsByTagName("tr");
+    
+    
+    for(var i = 0; i < get_all_tr.length; i++){
+        
+        if(get_all_tr[i].getAttribute("class").substr(0,"anakan_group_".length) === "anakan_group_"){
+            var get_input_ = get_all_tr[i].getElementsByTagName("input");
+
+            var tw1_ = 0;
+            var tw2_ = 0;
+            var tw3_ = 0;
+            var tw4_ = 0;
+            var jumlah_tw = 0;
+            var jumlah_tw_perbandingan = 0;
+
+            for(var k = 0; k < get_input_.length; k++){
+                if(get_input_[k].getAttribute("name").substr(0, "tw1_".length) === "tw1_"){
+                    tw1_ = Number(get_input_[k].value);
+                }
+                if(get_input_[k].getAttribute("name").substr(0, "tw2_".length) === "tw2_"){
+                    tw2_ = Number(get_input_[k].value);
+                }
+                if(get_input_[k].getAttribute("name").substr(0, "tw3_".length) === "tw3_"){
+                    tw3_ = Number(get_input_[k].value);
+                }
+                if(get_input_[k].getAttribute("name").substr(0, "tw4_".length) === "tw4_"){
+                    tw4_ = Number(get_input_[k].value);
+                    jumlah_tw = tw1_ + tw2_ + tw3_ + tw4_;
+                }
+            }
+            for(var k = 0; k < get_input_.length; k++){
+                if(get_input_[k].getAttribute("name").substr(0, "subtotal_".length) === "subtotal_"){
+                    jumlah_tw_perbandingan = Number(get_input_[k].value);
+                }
+            }
+            var last_temp = [];
+            var address_temp = 0;
+            for(var k = 0; k < get_input_.length; k++){
+                if(get_input_[k].getAttribute("name").substr(0, "tw1_".length) === "tw1_"){
+                    if(jumlah_tw_perbandingan !== jumlah_tw){
+                        get_input_[k].style.borderTop = "red 1px solid";
+                        get_input_[k].style.borderRight = "red 1px solid";
+                        get_input_[k].style.borderLeft = "red 1px solid";
+                        last_temp[address_temp] = get_input_[k];
+                        address_temp++;
+                    }
+                    if(jumlah_tw_perbandingan === jumlah_tw){
+                        get_input_[k].style.border = "none";
+                    }
+                }
+                if(get_input_[k].getAttribute("name").substr(0, "tw2_".length) === "tw2_"){
+                    if(jumlah_tw_perbandingan !== jumlah_tw){
+                        get_input_[k].style.borderTop = "red 1px solid";
+                        get_input_[k].style.borderRight = "red 1px solid";
+                        get_input_[k].style.borderLeft = "red 1px solid";
+                        last_temp[address_temp] = get_input_[k];
+                        address_temp++;
+                    }
+                    if(jumlah_tw_perbandingan === jumlah_tw){
+                        get_input_[k].style.border = "none";
+                    }
+                }
+                if(get_input_[k].getAttribute("name").substr(0, "tw3_".length) === "tw3_"){
+                    if(jumlah_tw_perbandingan !== jumlah_tw){
+                        get_input_[k].style.borderTop = "red 1px solid";
+                        get_input_[k].style.borderRight = "red 1px solid";
+                        get_input_[k].style.borderLeft = "red 1px solid";
+                        last_temp[address_temp] = get_input_[k];
+                        address_temp++;
+                    }
+                    if(jumlah_tw_perbandingan === jumlah_tw){
+                        get_input_[k].style.border = "none";
+                    }
+                }
+                if(get_input_[k].getAttribute("name").substr(0, "tw4_".length) === "tw4_"){
+                    if(jumlah_tw_perbandingan !== jumlah_tw){
+                        get_input_[k].style.borderTop = "red 1px solid";
+                        get_input_[k].style.borderRight = "red 1px solid";
+                        get_input_[k].style.borderLeft = "red 1px solid";
+                        last_temp[address_temp] = get_input_[k];
+                        address_temp++;
+                    }
+                    if(jumlah_tw_perbandingan === jumlah_tw){
+                        get_input_[k].style.border = "none";
+                    }
+                }
+            }
+        } else {
+            if(typeof last_temp === "object"){
+                for(var j = 0; j < last_temp.length; j++){
+                    last_temp[j].style.borderBottom = "red 1px solid";
+                }
+            }
+        }
+    }
+    
+}
+
+function check_nom_baris_sebelumnya(object_tr){
+    var get_input_ = object_tr.getElementsByTagName("input");
+    
+    var tw1_ = 0;
+    var tw2_ = 0;
+    var tw3_ = 0;
+    var tw4_ = 0;
+    var jumlah_tw = 0;
+    var jumlah_tw_perbandingan = 0;
+    
+    
+     for(var k = 0; k < get_input_.length; k++){
+        if(get_input_[k].getAttribute("name").substr(0, "tw1_".length) === "tw1_"){
+            tw1_ = Number(get_input_[k].value);
+        }
+        if(get_input_[k].getAttribute("name").substr(0, "tw2_".length) === "tw2_"){
+            tw2_ = Number(get_input_[k].value);
+        }
+        if(get_input_[k].getAttribute("name").substr(0, "tw3_".length) === "tw3_"){
+            tw3_ = Number(get_input_[k].value);
+        }
+        if(get_input_[k].getAttribute("name").substr(0, "tw4_".length) === "tw4_"){
+            tw4_ = Number(get_input_[k].value);
+            jumlah_tw = tw1_ + tw2_ + tw3_ + tw4_;
+        }
+    }
+    for(var k = 0; k < get_input_.length; k++){
+        if(get_input_[k].getAttribute("name").substr(0, "subtotal_".length) === "subtotal_"){
+            jumlah_tw_perbandingan = Number(get_input_[k].value);
+        }
+    }
+    
+    for(var k = 0; k < get_input_.length; k++){
+        if(get_input_[k].getAttribute("name").substr(0, "tw1_".length) === "tw1_"){
+            if(jumlah_tw_perbandingan !== jumlah_tw){
+                get_input_[k].style.borderBottom = "red 1px solid";
+            }
+        }
+        if(get_input_[k].getAttribute("name").substr(0, "tw2_".length) === "tw2_"){
+            if(jumlah_tw_perbandingan !== jumlah_tw){
+                get_input_[k].style.borderBottom = "red 1px solid";
+            }
+        }
+        if(get_input_[k].getAttribute("name").substr(0, "tw3_".length) === "tw3_"){
+            if(jumlah_tw_perbandingan !== jumlah_tw){
+                get_input_[k].style.borderBottom = "red 1px solid";
+            }
+        }
+        if(get_input_[k].getAttribute("name").substr(0, "tw4_".length) === "tw4_"){
+            if(jumlah_tw_perbandingan !== jumlah_tw){
+                get_input_[k].style.borderBottom = "red 1px solid";
+            }
+        }
+    }
+}
+
+function check_nom_baris_sebelumnya_border_bottom(object_tr){
+    var get_input_ = object_tr.getElementsByTagName("input");
+    
+    var tw1_ = 0;
+    var tw2_ = 0;
+    var tw3_ = 0;
+    var tw4_ = 0;
+    var jumlah_tw = 0;
+    var jumlah_tw_perbandingan = 0;
+    
+    
+     for(var k = 0; k < get_input_.length; k++){
+        if(get_input_[k].getAttribute("name").substr(0, "tw1_".length) === "tw1_"){
+            tw1_ = Number(get_input_[k].value);
+        }
+        if(get_input_[k].getAttribute("name").substr(0, "tw2_".length) === "tw2_"){
+            tw2_ = Number(get_input_[k].value);
+        }
+        if(get_input_[k].getAttribute("name").substr(0, "tw3_".length) === "tw3_"){
+            tw3_ = Number(get_input_[k].value);
+        }
+        if(get_input_[k].getAttribute("name").substr(0, "tw4_".length) === "tw4_"){
+            tw4_ = Number(get_input_[k].value);
+            jumlah_tw = tw1_ + tw2_ + tw3_ + tw4_;
+        }
+    }
+    for(var k = 0; k < get_input_.length; k++){
+        if(get_input_[k].getAttribute("name").substr(0, "subtotal_".length) === "subtotal_"){
+            jumlah_tw_perbandingan = Number(get_input_[k].value);
+        }
+    }
+    
+    for(var k = 0; k < get_input_.length; k++){
+        if(get_input_[k].getAttribute("name").substr(0, "tw1_".length) === "tw1_"){
+            if(jumlah_tw_perbandingan !== jumlah_tw){
+                get_input_[k].style.border = "none";
+                get_input_[k].style.borderTop = "red 1px solid";
+                get_input_[k].style.borderRight = "red 1px solid";
+                get_input_[k].style.borderLeft = "red 1px solid";
+            }
+        }
+        if(get_input_[k].getAttribute("name").substr(0, "tw2_".length) === "tw2_"){
+            if(jumlah_tw_perbandingan !== jumlah_tw){
+                get_input_[k].style.border = "none";
+                get_input_[k].style.borderTop = "red 1px solid";
+                get_input_[k].style.borderRight = "red 1px solid";
+                get_input_[k].style.borderLeft = "red 1px solid";
+            }
+        }
+        if(get_input_[k].getAttribute("name").substr(0, "tw3_".length) === "tw3_"){
+            if(jumlah_tw_perbandingan !== jumlah_tw){
+                get_input_[k].style.border = "none";
+                get_input_[k].style.borderTop = "red 1px solid";
+                get_input_[k].style.borderRight = "red 1px solid";
+                get_input_[k].style.borderLeft = "red 1px solid";
+            }
+        }
+        if(get_input_[k].getAttribute("name").substr(0, "tw4_".length) === "tw4_"){
+            if(jumlah_tw_perbandingan !== jumlah_tw){
+                get_input_[k].style.border = "none";
+                get_input_[k].style.borderTop = "red 1px solid";
+                get_input_[k].style.borderRight = "red 1px solid";
+                get_input_[k].style.borderLeft = "red 1px solid";
+            }
+        }
+    }
+}
+
+function check_nom_per_baris(object_input){
+    var get_td = object_input.parentNode;
+    var get_tr = get_td.parentNode;
+    var get_class = get_tr.getAttribute("class");
+    var get_address_split = get_class.split("_");
+    var get_address = get_address_split[get_address_split.length - 1];
+    var get_tbody = get_tr.parentNode;
+    var get_all_tr = get_tbody.getElementsByTagName("tr");
+    
+    
+    var tambah_anakan = 0;
+    var temp_tr = {"undefined":true};
+    for(var i = 0; i < get_all_tr.length; i++){
+        if(get_all_tr[i].getAttribute("class") === "anakan_group_" + get_address){
+            var get_input_ = get_all_tr[i].getElementsByTagName("input");
+
+            var tw1_ = 0;
+            var tw2_ = 0;
+            var tw3_ = 0;
+            var tw4_ = 0;
+            var jumlah_tw = 0;
+            var jumlah_tw_perbandingan = 0;
+            var masuk_pengecekan = false;
+            for(var k = 0; k < get_input_.length; k++){
+                if(get_input_[k].getAttribute("name").substr(0, "tw1_".length) === "tw1_"){
+                    tw1_ = Number(get_input_[k].value);
+                }
+                if(get_input_[k].getAttribute("name").substr(0, "tw2_".length) === "tw2_"){
+                    tw2_ = Number(get_input_[k].value);
+                }
+                if(get_input_[k].getAttribute("name").substr(0, "tw3_".length) === "tw3_"){
+                    tw3_ = Number(get_input_[k].value);
+                }
+                if(get_input_[k].getAttribute("name").substr(0, "tw4_".length) === "tw4_"){
+                    tw4_ = Number(get_input_[k].value);
+                    jumlah_tw = tw1_ + tw2_ + tw3_ + tw4_;
+                }
+            }
+            for(var k = 0; k < get_input_.length; k++){
+                if(get_input_[k].getAttribute("name").substr(0, "subtotal_".length) === "subtotal_"){
+                    jumlah_tw_perbandingan = Number(get_input_[k].value);
+                }
+            }
+            var last_temp = [];
+            var address_temp = 0;
+            for(var k = 0; k < get_input_.length; k++){
+                if(get_input_[k].getAttribute("name").substr(0, "tw1_".length) === "tw1_"){
+                    if(jumlah_tw_perbandingan !== jumlah_tw){
+                        get_input_[k].style.borderTop = "red 1px solid";
+                        get_input_[k].style.borderRight = "red 1px solid";
+                        get_input_[k].style.borderLeft = "red 1px solid";
+                        last_temp[address_temp] = get_input_[k];
+                        address_temp++;
+                    }
+                    if(jumlah_tw_perbandingan === jumlah_tw){
+                        get_input_[k].style.border = "none";
+                    }
+                }
+                if(get_input_[k].getAttribute("name").substr(0, "tw2_".length) === "tw2_"){
+                    if(jumlah_tw_perbandingan !== jumlah_tw){
+                        get_input_[k].style.borderTop = "red 1px solid";
+                        get_input_[k].style.borderRight = "red 1px solid";
+                        get_input_[k].style.borderLeft = "red 1px solid";
+                        last_temp[address_temp] = get_input_[k];
+                        address_temp++;
+                    }
+                    if(jumlah_tw_perbandingan === jumlah_tw){
+                        get_input_[k].style.border = "none";
+                    }
+                }
+                if(get_input_[k].getAttribute("name").substr(0, "tw3_".length) === "tw3_"){
+                    if(jumlah_tw_perbandingan !== jumlah_tw){
+                        get_input_[k].style.borderTop = "red 1px solid";
+                        get_input_[k].style.borderRight = "red 1px solid";
+                        get_input_[k].style.borderLeft = "red 1px solid";
+                        last_temp[address_temp] = get_input_[k];
+                        address_temp++;
+                    }
+                    if(jumlah_tw_perbandingan === jumlah_tw){
+                        get_input_[k].style.border = "none";
+                    }
+                }
+                if(get_input_[k].getAttribute("name").substr(0, "tw4_".length) === "tw4_"){
+                    if(jumlah_tw_perbandingan !== jumlah_tw){
+                        get_input_[k].style.borderTop = "red 1px solid";
+                        get_input_[k].style.borderRight = "red 1px solid";
+                        get_input_[k].style.borderLeft = "red 1px solid";
+                        last_temp[address_temp] = get_input_[k];
+                        address_temp++;
+                    }
+                    if(jumlah_tw_perbandingan === jumlah_tw){
+                        get_input_[k].style.border = "none";
+                        if(typeof temp_tr.undefined === "undefined"){
+                            /* console.log(temp_tr); */
+                            masuk_pengecekan = true;
+                            check_nom_baris_sebelumnya(temp_tr);
+                        }
+                    }
+                }
+            }
+            if(typeof temp_tr.undefined === "undefined" && !masuk_pengecekan){
+                check_nom_baris_sebelumnya_border_bottom(temp_tr);
+            }
+            temp_tr = get_all_tr[i];
+            tambah_anakan++;
+        }
+    }
+    for(var j = 0; j < last_temp.length; j++){
+        last_temp[j].style.borderBottom = "red 1px solid";
+    }
+}
+
 function jumlahkan_nom_per_baris(object_input){
     var get_td = object_input.parentNode;
     var get_tr = get_td.parentNode;
@@ -506,6 +843,7 @@ function tambah_anak_grup(object_button, inisial, jumlah_anakan){
         }
     }
     var get_td_input_clone = clone_tr.getElementsByTagName("input");
+    var temp_subtotal = {};
     for(var i = 0; i < get_td_input_clone.length; i++){
         if(get_td_input_clone[i].getAttribute("type") === "number" || get_td_input_clone[i].getAttribute("type") === "text"){
             if(get_td_input_clone[i].getAttribute("type") === "number"){
@@ -516,6 +854,9 @@ function tambah_anak_grup(object_button, inisial, jumlah_anakan){
                 if(get_td_input_clone[i].getAttribute("name").substr(0,1) === "Q"){
                     get_td_input_clone[i].value = "0";
                 }
+                if(get_td_input_clone[i].getAttribute("name").substr(0,"subtotal_".length) === "subtotal_"){
+                    temp_subtotal = get_td_input_clone[i];
+                }
             }
             if(get_td_input_clone[i].getAttribute("type") === "text"){
                 get_td_input_clone[i].value = "";
@@ -525,6 +866,7 @@ function tambah_anak_grup(object_button, inisial, jumlah_anakan){
     object_button.setAttribute("onclick", "tambah_anak_grup(this,'"+inisial+"'," + (jumlah_anakan + 1) + ");");
     get_tr_active.style.border = "";
     get_tbody.insertBefore(clone_tr, get_tr_active.nextSibling);
+    check_nom_per_baris(temp_subtotal);
     re_trigger_numberonly_input();
     re_trigger_input_with_class('textinput');
 }

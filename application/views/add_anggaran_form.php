@@ -145,7 +145,7 @@
                 
                 <div class="form-group">
                     <div class="col-md-12">
-                        <table class="styled-table" style="border: #f1f1f1 1px solid; min-width: 1300px;">
+                        <table class="styled-table" style="border: #f1f1f1 1px solid; min-width: 1300px;" id="table-anggaran-tahunan">
                             <thead>
                                 <tr>
                                     <th colspan="7" style="text-align: center; border-right: #f1f1f1 1px solid; border-bottom: #f1f1f1 1px solid; white-space: nowrap;">Rincian Mata Anggaran</th>

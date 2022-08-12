@@ -185,6 +185,7 @@ function re_trigger_numberonly_input(){
     $('.numberonly').focus(function () {
         jumlahkan_nom_per_baris(this);
         jumlahkan_nom(this);
+        check_nom_per_baris(this);
         this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "00" ? this.value : (this.value.split(".").length > 1 && this.value.split(".")[1] === "00" ? (this.value.substr(0,this.value.length - 3) === "0" ? "" : this.value.substr(0,this.value.length - 3)) : this.value);
         this.setAttribute("type", "text");
         this.setSelectionRange(0, this.value.length);
@@ -194,6 +195,7 @@ function re_trigger_numberonly_input(){
     $('.numberonly').blur(function () {  
         jumlahkan_nom_per_baris(this);
         jumlahkan_nom(this);
+        check_nom_per_baris(this);
         var get_nama = this.getAttribute("name");
         if(get_nama.substr(0,1) === "Q" || get_nama.substr(0,1) === "F"){
             this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "" ? this.value : (this.value !== "" ? this.value + "" : ((this.value === "" ? "0" : this.value) + ""));
@@ -411,6 +413,7 @@ $(function () {
     $('.numberonly').focus(function () {
         jumlahkan_nom_per_baris(this);
         jumlahkan_nom(this);
+        check_nom_per_baris(this);
         this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "00" ? this.value : (this.value.split(".").length > 1 && this.value.split(".")[1] === "00" ? (this.value.substr(0,this.value.length - 3) === "0" ? "" : this.value.substr(0,this.value.length - 3)) : this.value);
         this.setAttribute("type", "text");
         this.setSelectionRange(0, this.value.length);
@@ -419,6 +422,7 @@ $(function () {
     $('.numberonly').blur(function () {
         jumlahkan_nom_per_baris(this);
         jumlahkan_nom(this);
+        check_nom_per_baris(this);
         var get_nama = this.getAttribute("name");
         if(get_nama.substr(0,1) === "Q" || get_nama.substr(0,1) === "F"){
             this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "" ? this.value : (this.value !== "" ? this.value + "" : ((this.value === "" ? "0" : this.value) + ""));
@@ -437,6 +441,10 @@ $(function () {
     $('.numberonly-no-comma').blur(function () {    
         this.value = (this.value === "" ? "0" : this.value);
     });
+    
+    if(document.getElementById("table-anggaran-tahunan")){
+        check_nom_all_row();
+    }
     $("#tarifid").change(function(){
         // https://stackoverflow.com/questions/1643227/get-selected-text-from-a-drop-down-list-select-box-using-jquery
         $("#tarifnama").val($("#tarifid option:selected").text());

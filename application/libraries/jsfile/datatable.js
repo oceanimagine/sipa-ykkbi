@@ -60,6 +60,46 @@ function group_based_sbp_jenis_anggaran_tahunan(){
     }
 }
 
+function set_loading_(message){
+    var div = document.createElement("div");
+    var span = document.createElement("span");
+    div.style.top = "0";
+    div.style.left = "0";
+    div.style.width = "100%";
+    div.style.height = "100%";
+    div.style.zIndex = "99999";
+    div.style.position = "fixed";
+    div.style.display = "table";
+    div.style.backgroundColor = "rgba(0,0,0,0.95)";
+    div.setAttribute("id","div_loading");
+    span.style.width = "100%";
+    span.style.height = "100%";
+    span.style.display = "table-cell";
+    span.style.verticalAlign = "middle";
+    span.style.textAlign = "center";
+    span.style.color = "white";
+    span.style.fontFamily = "consolas, monospace";
+    span.innerHTML = typeof message !== "undefined" ? message : "LOADING....";
+    span.setAttribute("id","span_loading");
+    div.appendChild(span);
+    document.body.appendChild(div);
+}
+
+function removeLoading_(message,loading_message){
+    if(document.getElementById("div_loading")){
+        var span_loading = document.getElementById("span_loading");
+        span_loading.style.fontSize = "20px";
+        span_loading.innerHTML = typeof message !== "undefined" ? message : "DONE.";
+        setTimeout(function(){
+            var div_loading = document.getElementById("div_loading");
+            div_loading.parentNode.removeChild(div_loading);
+            if(typeof loading_message !== "undefined"){
+                set_loading(loading_message);
+            }
+        }, typeof message !== "undefined" && typeof loading_message === "undefined" ? 4000 : 1000);
+    }
+}
+
 function change_based_sbp_jenis_anggaran_tahunan(){
     var table_data = document.getElementsByTagName("table");
     var count = 0;
@@ -162,7 +202,7 @@ $(document).ready(function () {
                     if(typeof add_anggaran_list !== "undefined" && add_anggaran_list){
                         remove_modal_a();
                     }
-                }, 1000);
+                }, 1500);
             }
         });
 
@@ -183,10 +223,16 @@ $(document).ready(function () {
                 update_size();
             }, 250);
         });
+        if(typeof add_anggaran_list !== "undefined" && add_anggaran_list){
+            set_loading_("PLEASE WAIT.");
+        }
         
         setTimeout(function () {
             update_size();
-        }, 500);
+            if(typeof add_anggaran_list !== "undefined" && add_anggaran_list){
+                removeLoading_();
+            }
+        }, 1000);
     }
 });
 
