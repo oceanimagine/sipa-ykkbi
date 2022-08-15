@@ -183,18 +183,11 @@ function re_trigger_numberonly_input(){
     });   
     
     $(".numberonly").off('keyup');
-    $('.numberonly').keyup(function () {   
-        var object_ = this;
-        setTimeout(function(){
-            check_percent_nom_baris(object_);
-        }, 500);
-    });
+    $('.numberonly').keyup(function(){});
     
     $(".numberonly").off('focus');
     $('.numberonly').focus(function () {
-        jumlahkan_nom_per_baris(this);
-        jumlahkan_nom(this);
-        check_nom_per_baris(this);
+        unset_tiga_titik_all_per_input(this);
         this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "00" ? this.value : (this.value.split(".").length > 1 && this.value.split(".")[1] === "00" ? (this.value.substr(0,this.value.length - 3) === "0" ? "" : this.value.substr(0,this.value.length - 3)) : this.value);
         this.setAttribute("type", "text");
         this.setSelectionRange(0, this.value.length);
@@ -202,10 +195,12 @@ function re_trigger_numberonly_input(){
     });
     $(".numberonly").off('blur');
     $('.numberonly').blur(function () {  
+        unset_tiga_titik_all();
         check_percent_nom_baris(this);
         jumlahkan_nom_per_baris(this);
         jumlahkan_nom(this);
         check_nom_per_baris(this);
+        set_tiga_titik_all();
         var get_nama = this.getAttribute("name");
         if(get_nama.substr(0,1) === "Q" || get_nama.substr(0,1) === "F"){
             this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "" ? this.value : (this.value !== "" ? this.value + "" : ((this.value === "" ? "0" : this.value) + ""));
@@ -252,6 +247,82 @@ function re_trigger_input_with_class(classname){
             detect_address_input_delete(this);
         }
     });
+}
+
+function set_tiga_titik(object_input){
+    var nilai = object_input.value;
+    var hasil = typeof nilai !== "undefined" ? nilai : "";
+    if(typeof nilai !== "undefined"){
+        hasil = "";
+        var jumlah_string = nilai.length;
+        while(true){
+            if(jumlah_string > 3){
+                jumlah_string = jumlah_string - 3;
+                hasil = "," + nilai.substr(jumlah_string, 3) + hasil;
+            } else {
+                hasil = nilai.substr(0, jumlah_string) + hasil;
+                break;
+            }
+        }
+    }
+    return hasil;
+}
+
+
+function unset_tiga_titik_all_per_input(object_input){
+    if(object_input.getAttribute("class") === "numberonly"){
+        var nilai = object_input.value;
+        object_input.setAttribute("type", "number");
+        object_input.value = nilai.split(",").join("");
+    }
+}
+
+function set_tiga_titik_all_per_input(object_input){
+    if(object_input.getAttribute("class") === "numberonly"){
+        var nilai = object_input.value;
+        var split_nilai = nilai.split(".", nilai);
+        var result_titik = set_tiga_titik({"value":split_nilai[0]});
+        object_input.setAttribute("type", "text");
+        object_input.value = result_titik + (split_nilai.length > 1 ? "." + split_nilai[1] : "");
+    }
+}
+
+function unset_tiga_titik_all(){
+    var table_anggaran_tahunan = document.getElementById("table-anggaran-tahunan");
+    var get_tbody = table_anggaran_tahunan.getElementsByTagName("tbody");
+    var get_tr = get_tbody[0].getElementsByTagName("tr");
+    for(var i = 0; i < get_tr.length; i++){
+        if(get_tr[i].getAttribute("class").substr(0,"anakan_group_".length) === "anakan_group_"){
+            var get_input_anakan = get_tr[i].getElementsByTagName("input");
+            for(var j = 1; j < get_input_anakan.length; j++){
+                if(get_input_anakan[j].getAttribute("class") === "numberonly"){
+                    var nilai = get_input_anakan[j].value;
+                    get_input_anakan[j].setAttribute("type", "number");
+                    get_input_anakan[j].value = nilai.split(",").join("");
+                }
+            }
+        }
+    }
+}
+
+function set_tiga_titik_all(){
+    var table_anggaran_tahunan = document.getElementById("table-anggaran-tahunan");
+    var get_tbody = table_anggaran_tahunan.getElementsByTagName("tbody");
+    var get_tr = get_tbody[0].getElementsByTagName("tr");
+    for(var i = 0; i < get_tr.length; i++){
+        if(get_tr[i].getAttribute("class").substr(0,"anakan_group_".length) === "anakan_group_"){
+            var get_input_anakan = get_tr[i].getElementsByTagName("input");
+            for(var j = 1; j < get_input_anakan.length; j++){
+                if(get_input_anakan[j].getAttribute("class") === "numberonly"){
+                    var nilai = get_input_anakan[j].value;
+                    var split_nilai = nilai.split(".");
+                    var result_titik = set_tiga_titik({"value":split_nilai[0]});
+                    get_input_anakan[j].setAttribute("type", "text");
+                    get_input_anakan[j].value = result_titik + (split_nilai.length > 1 ? "." + split_nilai[1] : "");
+                }
+            }
+        }
+    }
 }
 
 $(function () {
@@ -321,14 +392,84 @@ $(function () {
 
                 var mata_anggaran = document.getElementById("mata_anggaran");
                 var mata_anggaran_hidden = document.getElementById("mata_anggaran_hidden");
-
-                if(kegiatan_program_kerja_rincian.value === "" || kegiatan_program_kerja_rincian_hidden.value === "" || mata_anggaran.value === "" || mata_anggaran_hidden.value === ""){
-                    var pesan_modal = document.getElementById("pesan_modal");
-                    pesan_modal.innerHTML = "Rincian dan Mata Anggaran tidak boleh kosong.";
+                
+                var table_anggaran_tahunan = document.getElementById("table-anggaran-tahunan");
+                var get_tbody = table_anggaran_tahunan.getElementsByTagName("tbody");
+                var get_tr = get_tbody[0].getElementsByTagName("tr");
+                var kesamman_group = [];
+                var check_kosong_anak = 0;
+                var check_kosong_anak_number = 0;
+                var check_kosong_group = 0;
+                var lewat_kesamaan_group = 0;
+                var lewat_check_kosong = 0;
+                var lewat_check_number_kosong = 0;
+                var pesan_modal = {};
+                for(var i = 0; i < get_tr.length; i++){
+                    if(get_tr[i].getAttribute("class").substr(0,"induk_group_".length) === "induk_group_"){
+                        var get_input_group = get_tr[i].getElementsByTagName("input");
+                        if(get_input_group[0].value === ""){
+                            check_kosong_group = 1;
+                        }
+                        if(typeof kesamman_group[get_input_group[0].value] === "undefined"){
+                            kesamman_group[get_input_group[0].value] = 0;
+                        } else {
+                            kesamman_group[get_input_group[0].value]++;
+                        }
+                    }
+                    if(get_tr[i].getAttribute("class").substr(0,"anakan_group_".length) === "anakan_group_"){
+                        var get_input_anakan = get_tr[i].getElementsByTagName("input");
+                        if(get_input_anakan[0].value === ""){
+                            check_kosong_anak = 1;
+                        }
+                        for(var j = 1; j < get_input_anakan.length; j++){
+                            if(get_input_anakan[j].getAttribute("class") === "numberonly"){
+                                if(get_input_anakan[j].value === ""){
+                                    check_kosong_anak_number = 1;
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                if(check_kosong_anak_number){
+                    lewat_check_number_kosong = 1;
+                    pesan_modal = document.getElementById("pesan_modal");
+                    pesan_modal.innerHTML = "Tidak boleh ada angka nol atau kosong.";
                     $('#modal-success').modal('show');
                     tombol_submit.removeAttribute("disabled");
-                } else {
-                    this.submit();
+                }
+                
+                if(!lewat_check_number_kosong){
+                    for(var key in kesamman_group){
+                        if(kesamman_group[key] > 0){
+                            lewat_kesamaan_group = 1;
+                            pesan_modal = document.getElementById("pesan_modal");
+                            pesan_modal.innerHTML = "Nama Group tidak boleh sama.";
+                            $('#modal-success').modal('show');
+                            tombol_submit.removeAttribute("disabled");
+                            break;
+                        }
+                    }
+                }
+                
+                if(!lewat_check_number_kosong && !lewat_kesamaan_group && (check_kosong_group || check_kosong_anak)){
+                    lewat_check_kosong = 1;
+                    pesan_modal = document.getElementById("pesan_modal");
+                    pesan_modal.innerHTML = "Nama Group dan Nama Rincian tidak boleh kosong.";
+                    $('#modal-success').modal('show');
+                    tombol_submit.removeAttribute("disabled");
+                }
+                
+                if(!lewat_check_number_kosong && !lewat_kesamaan_group && !lewat_check_kosong){
+                    if(kegiatan_program_kerja_rincian.value === "" || kegiatan_program_kerja_rincian_hidden.value === "" || mata_anggaran.value === "" || mata_anggaran_hidden.value === ""){
+                        pesan_modal = document.getElementById("pesan_modal");
+                        pesan_modal.innerHTML = "Rincian dan Mata Anggaran tidak boleh kosong.";
+                        $('#modal-success').modal('show');
+                        tombol_submit.removeAttribute("disabled");
+                    } else {
+                        unset_tiga_titik_all();
+                        this.submit();
+                    }
                 }
             }
         };
@@ -420,27 +561,21 @@ $(function () {
             return false;                        
         }
     });   
-    $('.numberonly').keyup(function () {   
-        var object_ = this;
-        setTimeout(function(){
-            check_percent_nom_baris(object_);
-        }, 500);
-        
-    });
+    $('.numberonly').keyup(function () {});
     $('.numberonly').focus(function () {
-        jumlahkan_nom_per_baris(this);
-        jumlahkan_nom(this);
-        check_nom_per_baris(this);
+        unset_tiga_titik_all_per_input(this);
         this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "00" ? this.value : (this.value.split(".").length > 1 && this.value.split(".")[1] === "00" ? (this.value.substr(0,this.value.length - 3) === "0" ? "" : this.value.substr(0,this.value.length - 3)) : this.value);
         this.setAttribute("type", "text");
         this.setSelectionRange(0, this.value.length);
         this.setAttribute("type", "number");
     });
     $('.numberonly').blur(function () {
+        unset_tiga_titik_all();
         check_percent_nom_baris(this);
         jumlahkan_nom_per_baris(this);
         jumlahkan_nom(this);
         check_nom_per_baris(this);
+        set_tiga_titik_all();
         var get_nama = this.getAttribute("name");
         if(get_nama.substr(0,1) === "Q" || get_nama.substr(0,1) === "F"){
             this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "" ? this.value : (this.value !== "" ? this.value + "" : ((this.value === "" ? "0" : this.value) + ""));
@@ -462,6 +597,7 @@ $(function () {
     
     if(document.getElementById("table-anggaran-tahunan")){
         check_nom_all_row();
+        set_tiga_titik_all();
     }
     $("#tarifid").change(function(){
         // https://stackoverflow.com/questions/1643227/get-selected-text-from-a-drop-down-list-select-box-using-jquery

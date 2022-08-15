@@ -390,6 +390,23 @@ function cetak_html($param){
     }
 }
 
+function set_titik($param){
+    $param = (string) $param;
+    $hasil = "";
+    $jumlah = strlen($param);
+    while(true){
+        if($jumlah > 3){
+            $jumlah = $jumlah - 3;
+            $hasil = "," . substr($param, $jumlah, 3) . $hasil;
+        } else {
+            $hasil = substr($param, 0, $jumlah) . $hasil;
+            break;
+            
+        }
+    }
+    return $hasil;
+}
+
 // Project Modal
 function project_modal(){
     $CI =& get_instance();

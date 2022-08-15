@@ -421,19 +421,19 @@ function check_nom_all_row(){
             for(var k = 0; k < get_input_.length; k++){
                 if(get_input_[k].getAttribute("name").substr(0, "persen_tw1_".length) === "persen_tw1_"){
                     persen_tw1_ = ((tw1_ / jumlah_tw_perbandingan) * 100).toFixed(2);
-                    get_input_[k].value = persen_tw1_;
+                    get_input_[k].value = isNaN(persen_tw1_) ? "0.00" : persen_tw1_;
                 }
                 if(get_input_[k].getAttribute("name").substr(0, "persen_tw2_".length) === "persen_tw2_"){
                     persen_tw2_ = ((tw2_ / jumlah_tw_perbandingan) * 100).toFixed(2);
-                    get_input_[k].value = persen_tw2_;
+                    get_input_[k].value = isNaN(persen_tw2_) ? "0.00" : persen_tw2_;
                 }
                 if(get_input_[k].getAttribute("name").substr(0, "persen_tw3_".length) === "persen_tw3_"){
                     persen_tw3_ = ((tw3_ / jumlah_tw_perbandingan) * 100).toFixed(2);
-                    get_input_[k].value = persen_tw3_;
+                    get_input_[k].value = isNaN(persen_tw3_) ? "0.00" : persen_tw3_;
                 }
                 if(get_input_[k].getAttribute("name").substr(0, "persen_tw4_".length) === "persen_tw4_"){
                     persen_tw4_ = ((tw4_ / jumlah_tw_perbandingan) * 100).toFixed(2);
-                    get_input_[k].value = persen_tw4_;
+                    get_input_[k].value = isNaN(persen_tw4_) ? "0.00" : persen_tw4_;
                 }
             }
             
@@ -709,19 +709,19 @@ function check_nom_per_baris(object_input){
             for(var k = 0; k < get_input_.length; k++){
                 if(get_input_[k].getAttribute("name").substr(0, "persen_tw1_".length) === "persen_tw1_"){
                     persen_tw1_ = ((tw1_ / jumlah_tw_perbandingan) * 100).toFixed(2);
-                    get_input_[k].value = persen_tw1_;
+                    get_input_[k].value = isNaN(persen_tw1_) ? "0.00" : persen_tw1_;
                 }
                 if(get_input_[k].getAttribute("name").substr(0, "persen_tw2_".length) === "persen_tw2_"){
                     persen_tw2_ = ((tw2_ / jumlah_tw_perbandingan) * 100).toFixed(2);
-                    get_input_[k].value = persen_tw2_;
+                    get_input_[k].value = isNaN(persen_tw2_) ? "0.00" : persen_tw2_;
                 }
                 if(get_input_[k].getAttribute("name").substr(0, "persen_tw3_".length) === "persen_tw3_"){
                     persen_tw3_ = ((tw3_ / jumlah_tw_perbandingan) * 100).toFixed(2);
-                    get_input_[k].value = persen_tw3_;
+                    get_input_[k].value = isNaN(persen_tw3_) ? "0.00" : persen_tw3_;
                 }
                 if(get_input_[k].getAttribute("name").substr(0, "persen_tw4_".length) === "persen_tw4_"){
                     persen_tw4_ = ((tw4_ / jumlah_tw_perbandingan) * 100).toFixed(2);
-                    get_input_[k].value = persen_tw4_;
+                    get_input_[k].value = isNaN(persen_tw4_) ? "0.00" : persen_tw4_;
                 }
             }
             
@@ -861,19 +861,19 @@ function jumlahkan_nom(object_input){
             get_td_all = get_all_tr[i].getElementsByTagName("td");
             for(var j = 0; j < get_td_all.length; j++){
                 if(get_td_all[j].getAttribute("info") === "total_rintotal"){
-                    get_td_all[j].innerHTML = subtotal_;
+                    get_td_all[j].innerHTML = set_tiga_titik({"value":subtotal_.toString()});
                 }
                 if(get_td_all[j].getAttribute("info") === "total_rppt1nom"){
-                    get_td_all[j].innerHTML = tw1_;
+                    get_td_all[j].innerHTML = set_tiga_titik({"value":tw1_.toString()});
                 }
                 if(get_td_all[j].getAttribute("info") === "total_rppt2nom"){
-                    get_td_all[j].innerHTML = tw2_;
+                    get_td_all[j].innerHTML = set_tiga_titik({"value":tw2_.toString()});
                 }
                 if(get_td_all[j].getAttribute("info") === "total_rppt3nom"){
-                    get_td_all[j].innerHTML = tw3_;
+                    get_td_all[j].innerHTML = set_tiga_titik({"value":tw3_.toString()});
                 }
                 if(get_td_all[j].getAttribute("info") === "total_rppt4nom"){
-                    get_td_all[j].innerHTML = tw4_;
+                    get_td_all[j].innerHTML = set_tiga_titik({"value":tw4_.toString()});
                 }
             }
         }
@@ -929,7 +929,8 @@ function tambah_anak_grup(object_button, inisial, jumlah_anakan){
     var temp_subtotal = {};
     for(var i = 0; i < get_td_input_clone.length; i++){
         if(get_td_input_clone[i].getAttribute("type") === "number" || get_td_input_clone[i].getAttribute("type") === "text"){
-            if(get_td_input_clone[i].getAttribute("type") === "number"){
+            if(get_td_input_clone[i].getAttribute("class") === "numberonly"){
+                // console.log(get_td_input_clone[i]);
                 get_td_input_clone[i].value = "0.00";
                 if(get_td_input_clone[i].getAttribute("name").substr(0,1) === "F"){
                     get_td_input_clone[i].value = "0";
@@ -941,7 +942,7 @@ function tambah_anak_grup(object_button, inisial, jumlah_anakan){
                     temp_subtotal = get_td_input_clone[i];
                 }
             }
-            if(get_td_input_clone[i].getAttribute("type") === "text"){
+            if(get_td_input_clone[i].getAttribute("class") === "textinput"){
                 get_td_input_clone[i].value = "";
             }
         }
@@ -949,7 +950,6 @@ function tambah_anak_grup(object_button, inisial, jumlah_anakan){
     object_button.setAttribute("onclick", "tambah_anak_grup(this,'"+inisial+"'," + (jumlah_anakan + 1) + ");");
     get_tr_active.style.border = "";
     get_tbody.insertBefore(clone_tr, get_tr_active.nextSibling);
-    check_nom_per_baris(temp_subtotal);
     re_trigger_numberonly_input();
     re_trigger_input_with_class('textinput');
 }

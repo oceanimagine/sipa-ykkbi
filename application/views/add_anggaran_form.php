@@ -67,7 +67,7 @@
             }
         </style>
         <?php } ?>
-        <form class="form-horizontal" method="POST" enctype="multipart/form-data" id="form-anggaran-tahunan">
+        <form novalidate class="form-horizontal" method="POST" enctype="multipart/form-data" id="form-anggaran-tahunan">
             <div class="box-body" style="min-width: 1400px; position: relative;">
                 <?php 
                 $disabled_input = "";
@@ -214,7 +214,7 @@
                                     
                                     ?>
                                     <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 3%;" colspan="2" class="td_number_<?php echo ($i + 1); ?>"><?php echo $no; ?></td>
-                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 25%;"><input <?php echo $disabled_input; ?> required="" autocomplete="off" name="nama_<?php echo ($i + 1); ?>[]" class="textinput" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; width: 88%;" placeholder="NAMA" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rincian) ? $data_rincian_edit[$j]->rincian : ""; ?>"></td>
+                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 25%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="nama_<?php echo ($i + 1); ?>[]" class="textinput" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; width: 88%;" placeholder="NAMA" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rincian) ? $data_rincian_edit[$j]->rincian : ""; ?>"></td>
                                     <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 3%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="Q_<?php echo ($i + 1); ?>[]" class="numberonly" type="number" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="Q" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rinkuantitas) ? $data_rincian_edit[$j]->rinkuantitas : "0"; ?>"></td>
                                     <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 3%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="F_<?php echo ($i + 1); ?>[]" class="numberonly" type="number" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="F" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rinfrekwensi) ? $data_rincian_edit[$j]->rinfrekwensi : "0"; ?>"></td>
                                     <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 6%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="tarif_<?php echo ($i + 1); ?>[]" class="numberonly" type="number" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rintarif) ? $data_rincian_edit[$j]->rintarif : "0.00"; ?>"></td>
@@ -242,15 +242,15 @@
                                 <?php } ?>
                                 <tr class="jumlah_anakan_<?php echo ($i + 1); ?>" style="border-bottom: rgb(220,230,241) 2px solid; box-shadow: inset 0 1px 0 rgb(242 220 219), inset 0 -1px 0 rgb(220 230 241);">
                                     <td style="text-align: right; border-right: #f0f0f0 1px solid;" colspan="6">Total</td>
-                                    <td style="text-align: right; border-right: #f0f0f0 1px solid; background-color: rgb(242,220,219);" info="total_rintotal"><?php echo $total_rintotal; ?></td>
+                                    <td style="text-align: right; border-right: #f0f0f0 1px solid; background-color: rgb(242,220,219);" info="total_rintotal"><?php echo set_titik($total_rintotal); ?></td>
                                     <td style="text-align: center; border-right: #f0f0f0 1px solid;">&nbsp;</td>
-                                    <td style="text-align: right; border-right: #f0f0f0 1px solid; background-color: rgb(242,220,219);" info="total_rppt1nom"><?php echo $total_rppt1nom; ?></td>
+                                    <td style="text-align: right; border-right: #f0f0f0 1px solid; background-color: rgb(242,220,219);" info="total_rppt1nom"><?php echo set_titik($total_rppt1nom); ?></td>
                                     <td style="text-align: center; border-right: #f0f0f0 1px solid;">&nbsp;</td>
-                                    <td style="text-align: right; border-right: #f0f0f0 1px solid; background-color: rgb(242,220,219);" info="total_rppt2nom"><?php echo $total_rppt2nom; ?></td>
+                                    <td style="text-align: right; border-right: #f0f0f0 1px solid; background-color: rgb(242,220,219);" info="total_rppt2nom"><?php echo set_titik($total_rppt2nom); ?></td>
                                     <td style="text-align: center; border-right: #f0f0f0 1px solid;">&nbsp;</td>
-                                    <td style="text-align: right; border-right: #f0f0f0 1px solid; background-color: rgb(242,220,219);" info="total_rppt3nom"><?php echo $total_rppt3nom; ?></td>
+                                    <td style="text-align: right; border-right: #f0f0f0 1px solid; background-color: rgb(242,220,219);" info="total_rppt3nom"><?php echo set_titik($total_rppt3nom); ?></td>
                                     <td style="text-align: center; border-right: #f0f0f0 1px solid;">&nbsp;</td>
-                                    <td style="text-align: right; border-right: #f0f0f0 1px solid; background-color: rgb(242,220,219);" info="total_rppt4nom"><?php echo $total_rppt4nom; ?></td>
+                                    <td style="text-align: right; border-right: #f0f0f0 1px solid; background-color: rgb(242,220,219);" info="total_rppt4nom"><?php echo set_titik($total_rppt4nom); ?></td>
                                     <td style="border-right: #f1f1f1 1px solid; text-align: center; width: 40px"><i class="fa fa-plus" urutan_grup="tombol_anakan_<?php echo ($i + 1); ?>" style="cursor: pointer;" onclick="tambah_anak_grup(this,'_<?php echo ($i + 1); ?>',<?php echo ($size_rincian_edit > 1) ? ($no - 1) : $no; ?>);"></i></td>
                                 </tr>
                                 <?php } ?>
