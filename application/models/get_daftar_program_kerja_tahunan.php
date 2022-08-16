@@ -1,6 +1,6 @@
 <?php 
 
-class get_daftar_strategic_business_plan extends CI_Model {
+class get_daftar_program_kerja_tahunan extends CI_Model {
 
     function __construct(){
         $this->param = new process_param();
@@ -24,30 +24,29 @@ class get_daftar_strategic_business_plan extends CI_Model {
         $clouse = "";
 
         if ($sSearch != '') {
-            $clouse = " where (lower(sbpkode) like '%" . strtolower($sSearch) . "%' or lower(sbpnourut) like '%" . strtolower($sSearch) . "%' or lower(sbpdesc) like '%" . strtolower($sSearch) . "%') ";
+            $clouse = " where (lower(ikukode) like '%" . strtolower($sSearch) . "%' or lower(sbpkode) like '%" . strtolower($sSearch) . "%' or lower(pktkode) like '%" . strtolower($sSearch) . "%') ";
         }
 
         /* select id, harga, tanggal_harus_bayar, case status when '1' then 'Aktif' when '2' then 'Tidak Aktif' else 'Tidak Aktif' end as status from tbl_atur_bayar */
 
-        $sql_total = "select * from tbldaftarsbpps" . $clouse . $this->where_project($clouse) . "";
+        $sql_total = "select * from tbldaftarikupkt" . $clouse . $this->where_project($clouse) . "";
 
         $query_total = $this->db->query($sql_total);
         $total = $query_total->num_rows();
 
         $sql = "
         select
-            CONCAT(kode, '-', sbpkode, '-', sbpnourut) as id,
+            pktkode as id,
             kode,
+            ikukode,
             sbpkode,
-            sbpnourut,
-            sbpdesc,
-            sbporderview
-        from tbldaftarsbpps ".
+            pktkode
+        from tbldaftarikupkt ".
         $clouse.$this->where_project($clouse)." order by kode asc offset $iDisplayStart limit " . $iDisplayLength;
 
         $page = ($iDisplayStart / $iDisplayLength);
 
-        $resuld = $process_table->coba_db($sql, $page, $iDisplayLength, true, "../../../index.php/daftar-strategic-business-plan/edit", "../../../index.php/daftar-strategic-business-plan/hapus");
+        $resuld = $process_table->coba_db($sql, $page, $iDisplayLength, true, "../../../index.php/daftar-program-kerja-tahunan/edit", "../../../index.php/daftar-program-kerja-tahunan/hapus");
 
         $output = array(
             'sEcho' => $sEcho,
