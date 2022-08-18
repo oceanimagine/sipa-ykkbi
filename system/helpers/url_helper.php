@@ -533,6 +533,7 @@ if ( ! function_exists('redirect'))
 	{
             //echo "Location: ".$uri, TRUE, $http_response_code;
             //exit();
+            $uri_ = $uri;
 		if ( ! preg_match('#^https?://#i', $uri))
 		{
 			$uri = site_url($uri);
@@ -545,7 +546,9 @@ if ( ! function_exists('redirect'))
                         break;
 			default : 
                             
-                            header("Location: ".$uri, TRUE, $http_response_code);
+                            // header("Location: ".$uri, TRUE, $http_response_code);
+                            // echo 'location: '.$GLOBALS['base_administrator'].'index.php/' . $uri_;
+                            header('location: '.$GLOBALS['base_administrator'].'index.php/' . $uri_);
                         break;
 		}
 		exit;

@@ -25,7 +25,7 @@
                 </table>  
             </div>
             <div class="modal-footer" style="height: 10vh; padding: 20px;">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">CLOSE</button>
             </div>
         </div>
     </div>

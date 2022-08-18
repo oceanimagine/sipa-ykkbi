@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Module Daftar Strategic Business Plan Form</title>
+	<title>Add Strategic Business Plan</title>
         <style type="text/css">
             html, body {
                 font-family: consolas, monospace;

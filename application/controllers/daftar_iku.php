@@ -17,16 +17,17 @@ class daftar_iku extends CI_Controller {
     }
     
     public function hapus($id){
-        
+        $id = urldecode($id);
         $this->get_daftar_iku->process(array(
             'action' => 'delete',
             'table' => 'tbldaftariku',
             'where' => 'ikukode = \''.$id.'\''
         ));
-        redirect('daftar_iku');
+        redirect('daftar-iku');
     }
     
     public function edit($id){
+        $id = urldecode($id);
         if($this->input->post('kode')){
             $kode = $this->input->post('kode');
             $ikukode = $this->input->post('ikukode');
@@ -45,7 +46,7 @@ class daftar_iku extends CI_Controller {
                 'where' => 'ikukode = \''.$id.'\''
             ));
             
-            redirect('daftar_iku/edit/'.$id.'');
+            redirect('daftar-iku/edit/'.urlencode($id).'');
         }
         
         $this->get_daftar_iku->process(array(
@@ -59,12 +60,13 @@ class daftar_iku extends CI_Controller {
             ),
             'where' => 'ikukode = \''.$id.'\''
         ));
+        
         $this->layout->loadView('daftar_iku_form', array(
-            
             'kode' => $this->row->{'kode'},
-            'ikukode' => $this->row->{'ikukode'},
-            'ikunama' => $this->row->{'ikunama'},
-            'ikurincian' => $this->row->{'ikurincian'}
+            'iku_kode' => $this->row->{'ikukode'},
+            'iku_nama' => $this->row->{'ikunama'},
+            'iku_rincian' => $this->row->{'ikurincian'},
+            'title' => 'Edit IKU'
         ));
     }
     
@@ -74,9 +76,9 @@ class daftar_iku extends CI_Controller {
             $ikukode = $this->input->post('ikukode');
             $ikunama = $this->input->post('ikunama');
             $ikurincian = $this->input->post('ikurincian');
-            $this->get_mata_anggaran_induk->process(array(
+            $this->get_daftar_iku->process(array(
                 'action' => 'insert',
-                'table' => 'tbldaftarsbpps',
+                'table' => 'tbldaftariku',
                 'column_value' => array(
                     'kode' => $kode,
                     'ikukode' => $ikukode,
@@ -85,9 +87,29 @@ class daftar_iku extends CI_Controller {
                 )
             ));
             
-            redirect('daftar_program_kerja_tahunan/add');
+            redirect('daftar-iku/add');
         }
-        $this->layout->loadView('daftar_iku_form');
+        
+        // Get Highest Kode IKU
+        $this->get_daftar_iku->process(array(
+            'action' => 'select',
+            'table' => 'tbldaftariku',
+            'column_value' => array(
+                'ikukode'
+            ),
+            'order' => 'ikukode desc'
+        ));
+        
+        $this->layout->loadView('daftar_iku_form', array(
+            "iku_kode" => $this->next_iku($this->all[0]->ikukode),
+            'title' => 'Add IKU'
+        ));
+    }
+    
+    public function next_iku($current_kode){
+        $explode_ = explode("#", $current_kode);
+        $next_increment = (int) $explode_[1] + 1;
+        return "IKU#" . samakan($next_increment, 99);
     }
     
     public function index() {

@@ -107,7 +107,7 @@ class process_table {
                 $slash = "";
                 if ($module_edit != "") {
 		    if(isset($GLOBALS['PRIV_ACTIVE']) && isset($_SESSION['PRI']) && isset($GLOBALS['PRIV_ACTIVE'][$_SESSION['PRI']]) && $GLOBALS['PRIV_ACTIVE'][$_SESSION['PRI']]){
-			$module[$count] = "<a href='" . $module_edit . "/" . $result[$ad][1] . "'>Edit</a>";
+			$module[$count] = "<a href='" . $module_edit . "/" . urlencode($result[$ad][1]) . "'>Edit</a>";
 			$count++;
 		    } else {
 			if(isset($_SESSION['PRI']) && $_SESSION['PRI'] == "Pimpinan"){
@@ -124,7 +124,7 @@ class process_table {
                 }
                 if ($module_hapus != "") {
 		    if(isset($GLOBALS['PRIV_ACTIVE']) && isset($_SESSION['PRI']) && isset($GLOBALS['PRIV_ACTIVE'][$_SESSION['PRI']]) && $GLOBALS['PRIV_ACTIVE'][$_SESSION['PRI']]){
-			$module[$count] = "<a href=\"" . $module_hapus . "/" . $result[$ad][1] . "#\" onclick=\"confirm_delete('" . $module_hapus . "/" . $result[$ad][1] . "')\" data-target=\"#modal-default\" data-toggle=\"modal\">Hapus</a>";
+			$module[$count] = "<a href=\"" . $module_hapus . "/" . urlencode($result[$ad][1]) . "#\" onclick=\"confirm_delete('" . $module_hapus . "/" . urlencode($result[$ad][1]) . "')\" data-target=\"#modal-default\" data-toggle=\"modal\">Hapus</a>";
 			$count++;
 		    }
                 }

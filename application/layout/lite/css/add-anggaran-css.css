@@ -114,3 +114,7 @@ input[type=number] {
     margin:0;
     float:right;
 }
+
+.modal-open .modal {
+    overflow-y: hidden;
+}

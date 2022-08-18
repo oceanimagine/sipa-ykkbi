@@ -448,6 +448,22 @@ function mata_anggaran_modal(){
     ));
 }
 
+function iku_pkt_modal(){
+    $CI =& get_instance();
+    $CI->layout = new layout('lite');
+    return $CI->layout->loadView(array(
+        "set_ob_view" => "dialog/dialog-iku"
+    ));
+}
+
+function sbpps_pkt_modal(){
+    $CI =& get_instance();
+    $CI->layout = new layout('lite');
+    return $CI->layout->loadView(array(
+        "set_ob_view" => "dialog/dialog-sbpps"
+    ));
+}
+
 function project_test(){
     $CI =& get_instance();
     $CI->layout = new layout('lite');

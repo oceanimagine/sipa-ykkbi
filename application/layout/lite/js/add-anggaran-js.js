@@ -1321,7 +1321,10 @@ window.addEventListener("load", function () {
     autocomplete("mata_anggaran", data_json);
     $( "#buka_dialog_rincian_kegiatan" ).click(function(){
         var satuan_kerja = document.getElementById("satuan_kerja");
-        var satker_active = satuan_kerja.value.split("(").join("KURUNGBUKA").split(")").join("KURUNGTUTUP").split(" ").join("SEPASI");
+        var satker_active = satuan_kerja.value
+            .split("(").join("KURUNGBUKA")
+            .split(")").join("KURUNGTUTUP")
+            .split(" ").join("SEPASI");
         if(satker_active !== ""){
             set_loading();
             $.get("../../../index.php/add-anggaran/get-sp-search-pkt-based-satker/" + satker_active, function(data, status){

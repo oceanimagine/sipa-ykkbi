@@ -68,6 +68,38 @@ class daftar_program_kerja_tahunan extends CI_Controller {
         ));
     }
     
+    public function get_iku_only(){
+         // Get IKU
+        $this->get_daftar_program_kerja_tahunan->process(array(
+            'action' => 'select',
+            'table' => 'tbldaftariku',
+            'column_value' => array(
+                'ikukode',
+                'ikunama',
+                'ikurincian'
+            )
+        ));
+        $this->load->view("regular/data_search_iku", array(
+            "data_search" => $this->all
+        ));
+    }
+    
+    public function get_sbpps_only(){
+        // Get SBPPS
+        $this->get_daftar_program_kerja_tahunan->process(array(
+            'action' => 'select',
+            'table' => 'tbldaftarsbpps',
+            'column_value' => array(
+                'sbpkode',
+                'sbpnourut',
+                'sbpdesc'
+            )
+        ));
+        $this->load->view("regular/data_search_sbpps", array(
+            "data_search" => $this->all
+        ));
+    }
+    
     public function add(){
         if($this->input->post('kode')){
             $kode = $this->input->post('kode');
@@ -87,7 +119,10 @@ class daftar_program_kerja_tahunan extends CI_Controller {
             
             redirect('daftar_program_kerja_tahunan/add');
         }
-        $this->layout->loadView('daftar_program_kerja_tahunan_form');
+        
+        $this->layout->loadView('daftar_program_kerja_tahunan_form', array(
+            'daftar_sbpps' => $daftar_sbpps
+        ));
     }
     
     public function index() {

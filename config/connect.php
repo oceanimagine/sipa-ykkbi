@@ -60,7 +60,13 @@ $GLOBALS['left_menu_under_logo'] = true;
 $GLOBALS['function_process'] = "get_project";
 
 /* Layout Replace Add More Dialog */
-$GLOBALS['add_more_dialog'] = array("project_modal","rincian_kegiatan_modal","mata_anggaran_modal");
+$GLOBALS['add_more_dialog'] = array(
+    "project_modal",
+    "rincian_kegiatan_modal",
+    "mata_anggaran_modal",
+    "iku_pkt_modal",
+    "sbpps_pkt_modal"
+);
 
 /* Additional Function */
 function check_url_index_php(){
