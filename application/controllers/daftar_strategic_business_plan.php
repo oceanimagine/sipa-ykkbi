@@ -37,7 +37,7 @@ class daftar_strategic_business_plan extends CI_Controller {
             $sbpkode = $this->input->post('sbpkode');
             $sbpnourut = $this->input->post('sbpnourut');
             $sbpdesc = $this->input->post('sbpdesc');
-            $this->get_mata_anggaran_induk->process(array(
+            $this->get_daftar_strategic_business_plan->process(array(
                 'action' => 'update',
                 'table' => 'tbldaftarsbpps',
                 'column_value' => array(
@@ -53,7 +53,7 @@ class daftar_strategic_business_plan extends CI_Controller {
             redirect('daftar_strategic_business_plan/edit/'.$id.'');
         }
         
-        $this->get_mata_anggaran_induk->process(array(
+        $this->get_daftar_strategic_business_plan->process(array(
             'action' => 'select',
             'table' => 'tbldaftarsbpps',
             'column_value' => array(
