@@ -50,8 +50,8 @@
             <div class="form-group">
                 <label for="iku_kode" class="col-xs-2 control-label">IKU Kode</label>
                 <div class="col-xs-9 autocomplete">
-                    <input required="" type="text" id="iku_kode" class="form-control tambah-margin-bawah" name="iku_kode" placeholder="IKU Kode" value="<?php echo isset($iku_kode_display) ? $iku_kode_display : ""; ?>" autocomplete="off" disabled="">
-                    <input required="" type="hidden" id="iku_kode_hidden" name="iku_kode_hidden" value="<?php echo isset($iku_kode_hidden) ? $iku_kode_hidden : ""; ?>">
+                    <input required="" type="text" id="iku_kode" class="form-control tambah-margin-bawah" name="iku_kode" placeholder="IKU Kode" value="<?php echo isset($iku_display) ? $iku_display : ""; ?>" autocomplete="off" disabled="">
+                    <input required="" type="hidden" id="iku_kode_hidden" name="iku_kode_hidden" value="<?php echo isset($iku_hidden) ? $iku_hidden : ""; ?>">
                 </div>
                 <div class="col-xs-1" style="padding-left:0px;">
                     <button id="buka_dialog_iku_kode" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="search" value="Search"><i class="fa fa-search"></i></button>
@@ -61,8 +61,8 @@
             <div class="form-group">
                 <label for="sbpps_kode" class="col-xs-2 control-label">SBPPS Kode</label>
                 <div class="col-xs-9 autocomplete">
-                    <input required="" type="text" id="sbpps_kode" class="form-control tambah-margin-bawah" name="sbpps_kode" placeholder="SBPPS Kode" value="<?php echo isset($sbpps_kode_display) ? $sbpps_kode_display : ""; ?>" autocomplete="off" disabled="">
-                    <input required="" type="hidden" id="sbpps_kode_hidden" name="sbpps_kode_hidden" value="<?php echo isset($sbpps_kode_hidden) ? $sbpps_kode_hidden : ""; ?>">
+                    <input required="" type="text" id="sbpps_kode" class="form-control tambah-margin-bawah" name="sbpps_kode" placeholder="SBPPS Kode" value="<?php echo isset($sbpkode_display) ? $sbpkode_display : ""; ?>" autocomplete="off" disabled="">
+                    <input required="" type="hidden" id="sbpps_kode_hidden" name="sbpps_kode_hidden" value="<?php echo isset($sbpkode_hidden) ? $sbpkode_hidden : ""; ?>">
                 </div>
                 <div class="col-xs-1" style="padding-left:0px;">
                     <button id="buka_dialog_sbpps_kode" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="search" value="Search"><i class="fa fa-search"></i></button>
@@ -75,9 +75,13 @@
                     <select name="pkt_kode" id="pkt_kode" class="form-control">
                         <option value="">PILIH</option>
                         <?php 
-                        
+                        $urutan_default = "1";
+                        if(isset($urutan_iku) && $urutan_iku != ""){
+                            $urutan_default = $urutan_iku;
+                        }
                         for($i = 1; $i <= 99; $i++){
-                            echo '<option value="1.'. samakan($i, 10).'">1.'. samakan($i, 10).'</option>';
+                            $selected = isset($pktkode) && $pktkode == $urutan_default.'.'. samakan($i, 10) ? " selected='selected'" : "";
+                            echo '<option value="'.$urutan_default.'.'. samakan($i, 10).'"'.$selected.'>'.$urutan_default.'.'. samakan($i, 10).'</option>';
                         }
                         
                         ?>

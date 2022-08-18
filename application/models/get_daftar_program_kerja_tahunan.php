@@ -36,7 +36,7 @@ class get_daftar_program_kerja_tahunan extends CI_Model {
 
         $sql = "
         select
-            pktkode as id,
+            CONCAT(kode, '-', ikukode, '-', sbpkode, '-', pktkode) as id,
             kode,
             ikukode,
             sbpkode,
