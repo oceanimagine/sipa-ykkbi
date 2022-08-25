@@ -16,6 +16,11 @@
                             <th style="white-space: nowrap;">SBP Nourut</th>
                             <th style="white-space: nowrap;">SBP Desc</th>
                         </tr>
+                        <tr>
+                            <th style="white-space: nowrap;padding-top: 0px; padding-bottom:0px;" colspan="3">
+                                <input type="text" style="width: 100%;border: 0px;outline: none;height: 32px;" placeholder="Cari ....">
+                            </th>
+                        </tr>
                     </thead>
                     <tbody id="tbody_daftar_sbpps" style="white-space: pre-wrap;">
                         <tr>

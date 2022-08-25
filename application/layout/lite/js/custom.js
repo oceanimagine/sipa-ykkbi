@@ -58,12 +58,65 @@ function remove_input(container_label_, name, variable_name, increment){
     }
 }
 
+var temporary_tr = [];
+var adress_temporary_tr = 0;
+var input_search_temporary = {"value" : ""};
+
+function search_from_tbody(tbody_object, input_object, colspan_number, input_active, id_dialog, address_display){
+    var get_tr = tbody_object.getElementsByTagName("tr");
+    var tampung_tr = [];
+    var address_tr = 0;
+    var value_search = input_object.value;
+    input_search_temporary = input_object;
+    if(temporary_tr.length  === 0){
+        for(var i = 0; i < get_tr.length; i++){
+            temporary_tr[adress_temporary_tr] = get_tr[i].cloneNode(true);
+            adress_temporary_tr++;
+        }
+    }
+    
+    for(var i = 0; i < temporary_tr.length; i++){
+        var get_td = temporary_tr[i].getElementsByTagName("td");
+        for(var j = 0; j < get_td.length; j++){
+            if(get_td[j].innerHTML.substr(0, value_search.length).toLowerCase() === value_search.toLowerCase()){
+                tampung_tr[address_tr] = temporary_tr[i].cloneNode(true);
+                address_tr++;
+                break;
+            }
+        }
+    }
+    var data_ketemu = false;
+    tbody_object.innerHTML = "";
+    for(var i = 0; i < tampung_tr.length; i++){
+        data_ketemu = true;
+        tbody_object.appendChild(tampung_tr[i]);
+    }
+    if(!data_ketemu){
+        tbody_object.innerHTML = `
+            <tr>
+                <td colspan="`+colspan_number+`">No Found.</td>
+            </tr>
+        `;
+    }
+    
+    if(value_search === ""){
+        tbody_object.innerHTML = "";
+        for(var i = 0; i < temporary_tr.length; i++){
+            tbody_object.appendChild(temporary_tr[i]);
+        }
+    }
+    if(data_ketemu){
+        set_tr_click_inside_tbody(tbody_object,input_active,id_dialog,address_display);
+    }
+}
+
 function check_session(HTMLTAG){
     var split_login = HTMLTAG.split("<div class=\"login-box\">");
     if(split_login.length > 1){
         document.location = "../../../index.php/login";
         return false;
     }
+    return true;
 }
 
 function tambah_input(container_label_, name, variable_name){
@@ -501,6 +554,10 @@ $(function () {
             youtube_video.setAttribute("src", "#");
         }
         masuk_video = false;
+        // console.log("Modal Hidden.");
+        temporary_tr = [];
+        adress_temporary_tr = 0;
+        input_search_temporary.value = "";
     });
     var iframe_all = document.getElementsByTagName("iframe");
     for(var i = 0; i < iframe_all.length; i++){

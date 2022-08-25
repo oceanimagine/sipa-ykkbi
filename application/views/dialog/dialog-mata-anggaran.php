@@ -15,6 +15,11 @@
                             <th style="white-space: nowrap;">Kode</th>
                             <th style="white-space: nowrap;">Nama Rekening</th>
                         </tr>
+                        <tr>
+                            <th style="white-space: nowrap;padding-top: 0px; padding-bottom:0px;" colspan="2">
+                                <input type="text" style="width: 100%;border: 0px;outline: none;height: 32px;" placeholder="Cari ...." id="search_text_dialog_mata_kegiatan">
+                            </th>
+                        </tr>
                     </thead>
                     <tbody id="tbody_hasil_data_mata_anggaran" style="white-space: pre-wrap;">
                         <tr>

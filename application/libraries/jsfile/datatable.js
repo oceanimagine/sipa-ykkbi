@@ -151,6 +151,14 @@ function remove_modal_a(){
     }
 }
 
+function isAlphaOrParen(str) {
+  return /^[a-zA-Z()]+$/.test(str);
+}
+
+function is_tag(param){
+    return param.substr(0,1) === "<" && isAlphaOrParen(param.substr(1,1));
+}
+
 var oTable = {};
 $(document).ready(function () {
     
@@ -190,8 +198,20 @@ $(document).ready(function () {
             "searching": true,
             "info": false,
             "iDisplayLength": anggaran_tahunan ? 1000 : 10,
+            "createdRow" : function(row, data){
+                var address = 0;
+                $.each($('td', row), function () {
+                    if(address > 0){
+                        if(!is_tag(data[address + 1])){
+                            $(this).attr('title', data[address + 1]);
+                            $(this).html(data[address + 1].length > 80 ? data[address + 1].substr(0,80) + " ...." : data[address + 1]);
+                        }
+                    }
+                    address++;
+                });
+            },
             "aoColumnDefs": [
-                {"aTargets": [1], "bVisible": false}, //idx
+                {"aTargets":  [1], "bVisible": false} //idx
             ],
             "initComplete": function () {
                 /* on complete render table datatables */

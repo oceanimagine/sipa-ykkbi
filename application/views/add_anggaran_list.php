@@ -60,9 +60,8 @@
                             <tr>
                                 <th>No</th>
                                 <th>Id</th>
-                                <th>Nama Satker</th>
-                                <th>Kode Rincian</th>
-                                <th>Kode Rekening</th>
+                                <th>Satker</th>
+                                <th>Rincian Kegiatan</th>
                                 <th>Mata Anggaran</th>
                                 <th>Action</th>
                             </tr>

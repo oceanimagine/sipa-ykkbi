@@ -1171,6 +1171,7 @@ function autocomplete(inp, arr) {
         var inp = document.getElementById(inp);
         var currentFocus;
         inp.addEventListener("input", function(e) {
+            e;
             var a, b, i, val = this.value;
             closeAllLists();
             if (!val) { return false;}
@@ -1329,13 +1330,14 @@ window.addEventListener("load", function () {
             set_loading();
             $.get("../../../index.php/add-anggaran/get-sp-search-pkt-based-satker/" + satker_active, function(data, status){
                 if(status === "success"){
-                    check_session(data);
-                    var kegiatan_program_kerja_rincian = document.getElementById("kegiatan_program_kerja_rincian");
-                    var tbody_hasil_data = document.getElementById("tbody_hasil_data");
-                    tbody_hasil_data.innerHTML = data;
-                    $('#modal-rincian-kegiatan').modal('show');
-                    set_tr_click_inside_tbody(tbody_hasil_data,kegiatan_program_kerja_rincian,'modal-rincian-kegiatan','3,4');
-                    removeLoading();
+                    if(check_session(data)){
+                        var kegiatan_program_kerja_rincian = document.getElementById("kegiatan_program_kerja_rincian");
+                        var tbody_hasil_data = document.getElementById("tbody_hasil_data");
+                        tbody_hasil_data.innerHTML = data;
+                        $('#modal-rincian-kegiatan').modal('show');
+                        set_tr_click_inside_tbody(tbody_hasil_data,kegiatan_program_kerja_rincian,'modal-rincian-kegiatan','3,4');
+                        removeLoading();
+                    }
                 }
             });
         } else {
@@ -1348,14 +1350,21 @@ window.addEventListener("load", function () {
         set_loading();
         $.get("../../../index.php/add-anggaran/get-sp-search-mataanggaran", function(data, status){
             if(status === "success"){
-                check_session(data);
-                var mata_anggaran = document.getElementById("mata_anggaran");
-                var tbody_hasil_data_mata_anggaran = document.getElementById("tbody_hasil_data_mata_anggaran");
-                tbody_hasil_data_mata_anggaran.innerHTML = data;
-                $('#modal-mata-anggaran').modal('show');
-                set_tr_click_inside_tbody(tbody_hasil_data_mata_anggaran,mata_anggaran,'modal-mata-anggaran','2,3');
-                removeLoading();
+                if(check_session(data)){
+                    var mata_anggaran = document.getElementById("mata_anggaran");
+                    var tbody_hasil_data_mata_anggaran = document.getElementById("tbody_hasil_data_mata_anggaran");
+                    tbody_hasil_data_mata_anggaran.innerHTML = data;
+                    $('#modal-mata-anggaran').modal('show');
+                    set_tr_click_inside_tbody(tbody_hasil_data_mata_anggaran,mata_anggaran,'modal-mata-anggaran','2,3');
+                    removeLoading();
+                }
             }
         });
+    });
+    $("#search_text_dialog_rincian_kegiatan").bind("keypress keyup keydown", function () {
+        search_from_tbody(document.getElementById('tbody_hasil_data'), this, '3', document.getElementById('kegiatan_program_kerja_rincian'), 'modal-rincian-kegiatan', '3,4');
+    });
+    $("#search_text_dialog_mata_kegiatan").bind("keypress keyup keydown", function () {
+        search_from_tbody(document.getElementById('tbody_hasil_data_mata_anggaran'), this, '2', document.getElementById('mata_anggaran'), 'modal-mata-anggaran', '2,3');
     });
 });

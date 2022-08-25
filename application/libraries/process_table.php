@@ -90,6 +90,7 @@ class process_table {
                     if(substr($this->hasil_keyss[($i - 1)],0,strlen("photo")) == "photo"){
                         $result[$ad][$i] = show_photo_table($this->hasil_keyss[($i - 1)], $row[($i - 1)]);
                     } else {
+                        // $result[$ad][$i] = strlen($row[($i - 1)]) > 80 ? substr($row[($i - 1)], 0, 80) . " ...." : $row[($i - 1)];
                         $result[$ad][$i] = $row[($i - 1)];
                     }
                 }

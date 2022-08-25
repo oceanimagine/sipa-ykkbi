@@ -1,11 +1,3 @@
-function check_session(HTMLTAG){
-    var split_login = HTMLTAG.split("<div class=\"login-box\">");
-    if(split_login.length > 1){
-        document.location = "../../../index.php/login";
-        return false;
-    }
-}
-
 function set_loading(message){
     var div = document.createElement("div");
     var span = document.createElement("span");
@@ -115,13 +107,14 @@ window.addEventListener("load", function () {
         set_loading();
         $.get("../../../index.php/daftar-program-kerja-tahunan/get-iku-only/", function(data, status){
             if(status === "success"){
-                check_session(data);
-                var iku_kode = document.getElementById("iku_kode");
-                var tbody_daftar_iku = document.getElementById("tbody_daftar_iku");
-                tbody_daftar_iku.innerHTML = data;
-                $('#modal-daftar-iku').modal('show');
-                set_tr_click_inside_tbody(tbody_daftar_iku,iku_kode,'modal-daftar-iku','0,1');
-                removeLoading();
+                if(check_session(data)){
+                    var iku_kode = document.getElementById("iku_kode");
+                    var tbody_daftar_iku = document.getElementById("tbody_daftar_iku");
+                    tbody_daftar_iku.innerHTML = data;
+                    $('#modal-daftar-iku').modal('show');
+                    set_tr_click_inside_tbody(tbody_daftar_iku,iku_kode,'modal-daftar-iku','0,1');
+                    removeLoading();
+                }
             }
         });
     });
@@ -129,13 +122,14 @@ window.addEventListener("load", function () {
         set_loading();
         $.get("../../../index.php/daftar-program-kerja-tahunan/get-sbpps-only/", function(data, status){
             if(status === "success"){
-                check_session(data);
-                var sbpps_kode = document.getElementById("sbpps_kode");
-                var tbody_daftar_sbpps = document.getElementById("tbody_daftar_sbpps");
-                tbody_daftar_sbpps.innerHTML = data;
-                $('#modal-daftar-sbpps').modal('show');
-                set_tr_click_inside_tbody(tbody_daftar_sbpps,sbpps_kode,'modal-daftar-sbpps','0,2');
-                removeLoading();
+                if(check_session(data)){
+                    var sbpps_kode = document.getElementById("sbpps_kode");
+                    var tbody_daftar_sbpps = document.getElementById("tbody_daftar_sbpps");
+                    tbody_daftar_sbpps.innerHTML = data;
+                    $('#modal-daftar-sbpps').modal('show');
+                    set_tr_click_inside_tbody(tbody_daftar_sbpps,sbpps_kode,'modal-daftar-sbpps','0,2');
+                    removeLoading();
+                }
             }
         });
     });

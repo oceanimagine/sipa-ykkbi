@@ -115,7 +115,7 @@
                         <div class="form-group" style="margin-bottom:0px;">
                             <label for="kegiatan_program_kerja_rincian" class="col-xs-2 control-label">Rincian Kegiatan</label>
                             <div class="col-xs-9 autocomplete">
-                                <input required="" type="text" id="kegiatan_program_kerja_rincian" class="form-control tambah-margin-bawah" name="kegiatan_program_kerja_rincian" placeholder="Rincian Kegiatan" value="<?php echo isset($data_rincian_kegiatan_display) ? $data_rincian_kegiatan_display : ""; ?>" autocomplete="off" disabled="">
+                                <input required="" type="text" id="kegiatan_program_kerja_rincian" class="form-control tambah-margin-bawah" name="kegiatan_program_kerja_rincian" placeholder="Rincian Kegiatan" value="<?php echo isset($data_rincian_kegiatan_display) ? $data_rincian_kegiatan_display : ""; ?>" title="<?php echo isset($data_rincian_kegiatan_display) ? $data_rincian_kegiatan_display : ""; ?>" autocomplete="off" disabled="">
                                 <input required="" type="hidden" id="kegiatan_program_kerja_rincian_hidden" name="kegiatan_program_kerja_rincian_hidden" value="<?php echo isset($data_rincian_kegiatan_hidden) ? $data_rincian_kegiatan_hidden : ""; ?>">
                             </div>
                             <div class="col-xs-1" style="padding: 0px;">
@@ -132,7 +132,7 @@
                         <div class="form-group" id="form_group_a" style="margin-bottom: 0px;">
                             <label for="mata_anggaran" class="col-xs-2 control-label">Mata Anggaran</label>
                             <div class="col-xs-9 autocomplete">
-                                <input required="" type="text" id="mata_anggaran" class="form-control tambah-margin-bawah" name="mata_anggaran" placeholder="Mata Anggaran" value="<?php echo isset($data_mata_anggaran_display) ? $data_mata_anggaran_display : ""; ?>" autocomplete="off" disabled="">
+                                <input required="" type="text" id="mata_anggaran" class="form-control tambah-margin-bawah" name="mata_anggaran" placeholder="Mata Anggaran" value="<?php echo isset($data_mata_anggaran_display) ? $data_mata_anggaran_display : ""; ?>" title="<?php echo isset($data_mata_anggaran_display) ? $data_mata_anggaran_display : ""; ?>" autocomplete="off" disabled="">
                                 <input required="" type="hidden" id="mata_anggaran_hidden" name="mata_anggaran_hidden" value="<?php echo isset($data_mata_anggaran_hidden) ? $data_mata_anggaran_hidden : ""; ?>">
                                 <input required="" type="hidden" name="inisial_all" id="inisial_all" value="<?php echo $initial_hidden; ?>">
                             </div>
