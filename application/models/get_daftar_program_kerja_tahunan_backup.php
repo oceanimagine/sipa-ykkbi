@@ -24,41 +24,29 @@ class get_daftar_program_kerja_tahunan extends CI_Model {
         $clouse = "";
 
         if ($sSearch != '') {
-            $clouse = " where (lower(sbpkode) like '%" . strtolower($sSearch) . "%' or lower(pktkode) like '%" . strtolower($sSearch) . "%' or lower(pktnama) like '%" . strtolower($sSearch) . "%' or lower(pktoutput) like '%" . strtolower($sSearch) . "%') ";
+            $clouse = " where (lower(ikukode) like '%" . strtolower($sSearch) . "%' or lower(sbpkode) like '%" . strtolower($sSearch) . "%' or lower(pktkode) like '%" . strtolower($sSearch) . "%') ";
         }
 
         /* select id, harga, tanggal_harus_bayar, case status when '1' then 'Aktif' when '2' then 'Tidak Aktif' else 'Tidak Aktif' end as status from tbl_atur_bayar */
 
-        $sql_total = "select * from tbldaftarpkt" . $clouse . $this->where_project($clouse) . "";
+        $sql_total = "select * from tbldaftarikupkt" . $clouse . $this->where_project($clouse) . "";
 
         $query_total = $this->db->query($sql_total);
         $total = $query_total->num_rows();
 
         $sql = "
-        select 
-            CONCAT(kode, '-', sbpkode, '-', pktkode) as id,
+        select
+            CONCAT(kode, '-', ikukode, '-', sbpkode, '-', pktkode) as id,
             kode,
+            ikukode,
             sbpkode,
-            pktkode,
-            pktnama,
-            pktoutput,
-            CASE WHEN pktkrk = 'K' THEN 'Kegiatan' WHEN pktkrk = 'RK' THEN 'Rincian Kegiatan' ELSE 'Selain Kegiatan Dan Selain Rincian Kegiatan' END pktkrk
-        from (
-            select
-                kode,
-                sbpkode,
-                substring(pktkode,0,5) hasil_substring,
-                pktkode,
-                pktkrk,
-                pktnama,
-                pktoutput
-            from tbldaftarpkt
-        ) tbldaftarpkt ".
+            pktkode
+        from tbldaftarikupkt ".
         $clouse.$this->where_project($clouse)." order by kode asc offset $iDisplayStart limit " . $iDisplayLength;
 
         $page = ($iDisplayStart / $iDisplayLength);
 
-        $resuld = $process_table->coba_db($sql, $page, $iDisplayLength, true, "../../../index.php/daftar-iku/edit", "../../../index.php/daftar-iku/hapus");
+        $resuld = $process_table->coba_db($sql, $page, $iDisplayLength, true, "../../../index.php/daftar-program-kerja-tahunan/edit", "../../../index.php/daftar-program-kerja-tahunan/hapus");
 
         $output = array(
             'sEcho' => $sEcho,

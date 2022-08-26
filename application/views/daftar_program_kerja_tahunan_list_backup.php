@@ -60,12 +60,9 @@
                                 <th>No</th>
                                 <th>ID</th>
                                 <th>Kode</th>
+                                <th>IKU Kode</th>
                                 <th>SBP Kode</th>
                                 <th>PKT Kode</th>
-                                <th>PKT Nama</th>
-                                <th>PKT Output</th>
-                                <th>Tipe</th>
-                                
                                 <th>Action</th>
                             </tr>
                         </thead>
