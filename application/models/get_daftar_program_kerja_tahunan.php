@@ -58,7 +58,7 @@ class get_daftar_program_kerja_tahunan extends CI_Model {
 
         $page = ($iDisplayStart / $iDisplayLength);
 
-        $resuld = $process_table->coba_db($sql, $page, $iDisplayLength, true, "../../../index.php/daftar-iku/edit", "../../../index.php/daftar-iku/hapus");
+        $resuld = $process_table->coba_db($sql, $page, $iDisplayLength, true, "../../../index.php/daftar-program-kerja-tahunan/edit", "../../../index.php/daftar-program-kerja-tahunan/hapus");
 
         $output = array(
             'sEcho' => $sEcho,

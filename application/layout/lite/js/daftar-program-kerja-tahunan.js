@@ -133,4 +133,10 @@ window.addEventListener("load", function () {
             }
         });
     });
+    $("#search_text_dialog_sbpps").bind("keypress keyup keydown", function () {
+        search_from_tbody(document.getElementById('tbody_daftar_sbpps'), this, '3', document.getElementById('sbpps_kode'), 'modal-daftar-sbpps', '0,2');
+    });
+    $("#search_text_dialog_iku").bind("keypress keyup keydown", function () {
+        search_from_tbody(document.getElementById('tbody_daftar_iku'), this, '3', document.getElementById('iku_kode'), 'modal-daftar-iku', '0,1');
+    });
 });

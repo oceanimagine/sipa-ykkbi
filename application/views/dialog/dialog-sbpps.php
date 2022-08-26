@@ -18,7 +18,7 @@
                         </tr>
                         <tr>
                             <th style="white-space: nowrap;padding-top: 0px; padding-bottom:0px;" colspan="3">
-                                <input type="text" style="width: 100%;border: 0px;outline: none;height: 32px;" placeholder="Cari ....">
+                                <input type="text" style="width: 100%;border: 0px;outline: none;height: 32px;" placeholder="Cari ...." id="search_text_dialog_sbpps">
                             </th>
                         </tr>
                     </thead>

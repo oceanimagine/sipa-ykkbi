@@ -48,17 +48,6 @@
             </div>
             
             <div class="form-group">
-                <label for="iku_kode" class="col-xs-2 control-label">IKU Kode</label>
-                <div class="col-xs-9 autocomplete">
-                    <input required="" type="text" id="iku_kode" class="form-control tambah-margin-bawah" name="iku_kode" placeholder="IKU Kode" value="<?php echo isset($iku_display) ? $iku_display : ""; ?>" autocomplete="off" disabled="">
-                    <input required="" type="hidden" id="iku_kode_hidden" name="iku_kode_hidden" value="<?php echo isset($iku_hidden) ? $iku_hidden : ""; ?>">
-                </div>
-                <div class="col-xs-1" style="padding-left:0px;">
-                    <button id="buka_dialog_iku_kode" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="search" value="Search"><i class="fa fa-search"></i></button>
-                </div>
-            </div>
-            
-            <div class="form-group">
                 <label for="sbpps_kode" class="col-xs-2 control-label">SBPPS Kode</label>
                 <div class="col-xs-9 autocomplete">
                     <input required="" type="text" id="sbpps_kode" class="form-control tambah-margin-bawah" name="sbpps_kode" placeholder="SBPPS Kode" value="<?php echo isset($sbpkode_display) ? $sbpkode_display : ""; ?>" autocomplete="off" disabled="">
@@ -70,22 +59,34 @@
             </div>
             
             <div class="form-group">
-                <label for="pkt_kode" class="col-xs-2 control-label">PKT Kode</label>
+                <label for="pktkrk" class="col-xs-2 control-label">Tipe</label>
                 <div class="col-xs-10">
-                    <select name="pkt_kode" id="pkt_kode" class="form-control">
+                    <select name="pktkrk" id="pktkrk" class="form-control">
                         <option value="">PILIH</option>
-                        <?php 
-                        $urutan_default = "1";
-                        if(isset($urutan_iku) && $urutan_iku != ""){
-                            $urutan_default = $urutan_iku;
-                        }
-                        for($i = 1; $i <= 99; $i++){
-                            $selected = isset($pktkode) && $pktkode == $urutan_default.'.'. samakan($i, 10) ? " selected='selected'" : "";
-                            echo '<option value="'.$urutan_default.'.'. samakan($i, 10).'"'.$selected.'>'.$urutan_default.'.'. samakan($i, 10).'</option>';
-                        }
-                        
-                        ?>
+                        <option value="K">Kegiatan</option>
+                        <option value="RK">Rincian Kegiatan</option>
                     </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="pktkode" class="col-xs-2 control-label">PKT Kode</label>
+                <div class="col-xs-10">
+                    <input type="text" id="pktkode" class="form-control" name="pktkode" placeholder="PKT Kode" />
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="pktnama" class="col-xs-2 control-label">PKT Nama</label>
+                <div class="col-xs-10">
+                    <input type="text" id="pktnama" class="form-control" name="pktnama" placeholder="PKT Nama" />
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="pktoutput" class="col-xs-2 control-label">PKT Output</label>
+                <div class="col-xs-10">
+                    <input type="text" id="pktoutput" class="form-control" name="pktoutput" placeholder="PKT Output" />
                 </div>
             </div>
             
@@ -93,7 +94,7 @@
             
             <div class="form-group">
                 <div class="col-lg-6 col-md-6" style="margin-bottom: 40px;">
-                    <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="input_daftar_program_kerja_tahunan" value="Input Daftar Program Kerja Tahunan">Input Daftar Program Kerja Tahunan</button>
+                    <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="input_daftar_program_kerja_tahunan" value="Input Daftar Program Kerja Tahunan" disabled>Input Daftar Program Kerja Tahunan</button>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important;" type="button" class="btn btn-default bg-aqua-gradient" onclick="move_url('daftar-program-kerja-tahunan');">Lihat Data</button>
