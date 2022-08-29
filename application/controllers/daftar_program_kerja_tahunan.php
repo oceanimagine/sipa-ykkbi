@@ -16,6 +16,32 @@ class daftar_program_kerja_tahunan extends CI_Controller {
         return $this->layout->loadjs("daftar_program_kerja_tahunan/get_daftar_program_kerja_tahunan");
     }
     
+    public function get_kegiatan_only($sbpkode = ""){
+        
+        $sbpkode_where = $sbpkode != "" ? " and sbpkode = '".$sbpkode."'" : "";
+        $explode_comma = explode(",", $this->aplikasi->data->satker_string);
+        $result_satker = "";
+        $comma = "";
+        for($i = 0; $i < sizeof($explode_comma); $i++){
+            $result_satker = $result_satker . $comma . "'" . $explode_comma[$i] . "'";
+            $comma = ",";
+        }
+        
+        $this->get_daftar_program_kerja_tahunan->process(array(
+            'action' => 'select',
+            'table' => 'tbldaftarpkt',
+            'column_value' => array(
+                '*'
+            ),
+            'where' => 'substring(pktkode from 1 for 1) in ('.$result_satker.') and length(pktkode) = 4' . $sbpkode_where,
+            'order' => 'sbpkode asc, pktkode asc'
+        ));
+        
+        $this->load->view("regular/data_search_kegiatan_based_satker", array(
+            "data_search" => $this->all
+        ));
+    }
+    
     public function hapus($id){
         $id = urldecode($id);
         $this->process_param($id);
@@ -51,21 +77,9 @@ class daftar_program_kerja_tahunan extends CI_Controller {
             redirect('daftar-program-kerja-tahunan/edit/'. urlencode($kode."-".$ikukode."-".$sbpkode."-".$pktkode).'');
         }
         
-        $this->get_daftar_program_kerja_tahunan->process(array(
-            'action' => 'select',
-            'table' => 'tbldaftarikupkt',
-            'column_value' => array(
-                'kode',
-                'ikukode',
-                'sbpkode',
-                'pktkode'
-            ),
-            'where' => 'kode = \''.$this->kode.'\' and ikukode = \''.$this->ikukode.'\' and sbpkode = \''.$this->sbppskode.'\' and pktkode = \''.$this->pktkode.'\''
-        ));
-        $data_row = $this->row;
-        
         // Get SBPPS
-        $sbpkode = $data_row->{'sbpkode'};
+        $sbpkode = $this->sbppskode;
+        $merah = "";
         $this->get_daftar_program_kerja_tahunan->process(array(
             'action' => 'select',
             'table' => 'tbldaftarsbpps',
@@ -78,35 +92,72 @@ class daftar_program_kerja_tahunan extends CI_Controller {
         $data_row_sbpps = $this->row;
         $sbpkode_display = $data_row_sbpps->{'sbpkode'} . " # " . $data_row_sbpps->{'sbpdesc'};
         $sbpkode_hidden = $data_row_sbpps->{'sbpkode'};
+        if($sbpkode_display == " # "){
+            $sbpkode_display = "";
+        }
         
-        // Get Urutan IKU
-        $explode_ = explode(".", $sbpkode_hidden);
-        $urutan_iku = (int) $explode_[sizeof($explode_) - 1];
-        
-        // Get IKU
-        $ikukode = $data_row->{'ikukode'};
+        // Get Kegiatan
         $this->get_daftar_program_kerja_tahunan->process(array(
             'action' => 'select',
-            'table' => 'tbldaftariku',
+            'table' => 'tbldaftarpkt',
             'column_value' => array(
-                'ikukode',
-                'ikunama'
+                'pktkode',
+                'pktnama',
+                'pktoutput'
             ),
-            'where' => 'ikukode = \''.$ikukode.'\''
+            'where' => 'sbpkode = \''.$sbpkode.'\' and pktkode = \''.$this->pktkode_kegiatan.'\''
         ));
-        $data_row_iku = $this->row;
-        $iku_display = $data_row_iku->{'ikukode'} . " # " . $data_row_iku->{'ikunama'};
-        $iku_hidden = $data_row_iku->{'ikukode'};
+        $kegiatan = $this->row;
+        $kegiatan_display = $kegiatan->{'pktkode'} . " # " . $kegiatan->{'pktnama'};
+        $kegiatan_hidden = $kegiatan->{'pktkode'};
+        
+        $kegiatan_count = $this->all;
+        if(sizeof($kegiatan_count) == 0){
+            $this->get_daftar_program_kerja_tahunan->process(array(
+                'action' => 'select',
+                'table' => 'tbldaftarpkt',
+                'column_value' => array(
+                    'pktkode',
+                    'pktnama',
+                    'pktoutput'
+                ),
+                'where' => 'pktkode = \''.$this->pktkode_kegiatan.'\''
+            ));
+            $kegiatan = $this->row;
+            $kegiatan_display = $kegiatan->{'pktkode'} . " # " . $kegiatan->{'pktnama'};
+            $kegiatan_hidden = $kegiatan->{'pktkode'};
+            $merah = "merah";
+        }
+        if($kegiatan_display == " # "){
+            $kegiatan_display = "";
+        }
+        
+        $this->get_daftar_program_kerja_tahunan->process(array(
+            'action' => 'select',
+            'table' => 'tbldaftarpkt',
+            'column_value' => array(
+                'pktnama',
+                'pktoutput'
+            ),
+            'where' => 'sbpkode = \''.$sbpkode.'\' and pktkode = \''.$this->pktkode.'\''
+        ));
+        $kegiatan_rincian = $this->row;
+        $pktnama = $kegiatan_rincian->{'pktnama'};
+        $pktoutput = $kegiatan_rincian->{'pktoutput'};
         
         $this->layout->loadView('daftar_program_kerja_tahunan_form', array(
-            
-            'kode' => $data_row->{'kode'},
             'sbpkode_display' => $sbpkode_display,
             'sbpkode_hidden' => $sbpkode_hidden,
-            'iku_display' => $iku_display,
-            'iku_hidden' => $iku_hidden,
-            'pktkode' => $data_row->{'pktkode'},
-            'urutan_iku' => $urutan_iku
+            'pktkrk' => strlen($this->pktkode) > 4 ? "RK" : "K",
+            'kegiatan_kode_display' => $kegiatan_display,
+            'kegiatan_kode_hidden' => $kegiatan_hidden,
+            'pktnama' => $pktnama,
+            'pktoutput' => $pktoutput,
+            'satker_display' => $this->satker_display,
+            'urutan_kegiatan' => $this->urutan_kegiatan,
+            'urutan_rincian_kegiatan' => $this->urutan_rincian_kegiatan,
+            'satker_view' => $this->aplikasi->data->satker,
+            'merah' => $merah
         ));
     }
     
@@ -135,7 +186,8 @@ class daftar_program_kerja_tahunan extends CI_Controller {
                 'sbpkode',
                 'sbpnourut',
                 'sbpdesc'
-            )
+            ),
+            'order' => 'sbpkode asc'
         ));
         $this->load->view("regular/data_search_sbpps", array(
             "data_search" => $this->all
@@ -163,27 +215,36 @@ class daftar_program_kerja_tahunan extends CI_Controller {
         }
         $daftar_sbpps = "UNDEFINED";
         $this->layout->loadView('daftar_program_kerja_tahunan_form', array(
-            'daftar_sbpps' => $daftar_sbpps
+            'daftar_sbpps' => $daftar_sbpps,
+            'satker_view' => $this->aplikasi->data->satker
         ));
     }
     
     private $kode;
-    private $ikukode;
     private $sbppskode;
     private $pktkode;
+    private $pktkode_kegiatan;
+    private $satker_display;
+    private $urutan_kegiatan;
+    private $urutan_rincian_kegiatan;
     public function process_param($param_id){
         if($this->router->routes['translate_uri_dashes']){
             $param_id = str_replace("_", "-", $param_id);
         }
         $explode_param_id = explode("-", $param_id);
         $kode = $explode_param_id[0];
-        $ikukode = $explode_param_id[1];
-        $sbppskode = $explode_param_id[2];
-        $pktkode = $explode_param_id[3];
+        $sbppskode = $explode_param_id[1];
+        $pktkode = $explode_param_id[2];
         $this->kode = $kode;
-        $this->ikukode = $ikukode;
         $this->sbppskode = $sbppskode;
         $this->pktkode = $pktkode;
+        $explode_pktkode = explode(".", $pktkode);
+        $this->satker_display = $explode_pktkode[0];
+        $this->urutan_kegiatan = $explode_pktkode[1];
+        $this->pktkode_kegiatan = $explode_pktkode[0] . "." . $explode_pktkode[1];
+        if(isset($explode_pktkode[2])){
+            $this->urutan_rincian_kegiatan = $explode_pktkode[2];
+        }
     }
     
     public function index() {

@@ -464,6 +464,14 @@ function sbpps_pkt_modal(){
     ));
 }
 
+function kegiatan_modal(){
+    $CI =& get_instance();
+    $CI->layout = new layout('lite');
+    return $CI->layout->loadView(array(
+        "set_ob_view" => "dialog/dialog-kegiatan"
+    ));
+}
+
 function project_test(){
     $CI =& get_instance();
     $CI->layout = new layout('lite');

@@ -660,6 +660,7 @@ $(function () {
         // https://stackoverflow.com/questions/1643227/get-selected-text-from-a-drop-down-list-select-box-using-jquery
         $("#tarifnama").val($("#tarifid option:selected").text());
     });
+    
     resize_wrapper();
 });
 
