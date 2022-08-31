@@ -26,6 +26,32 @@ class daftar_iku extends CI_Controller {
         redirect('daftar-iku');
     }
     
+    public function get_kegiatan_only($sbpkode = ""){
+        
+        $sbpkode_where = $sbpkode != "" ? " and sbpkode = '".$sbpkode."'" : "";
+        $explode_comma = explode(",", $this->aplikasi->data->satker_string);
+        $result_satker = "";
+        $comma = "";
+        for($i = 0; $i < sizeof($explode_comma); $i++){
+            $result_satker = $result_satker . $comma . "'" . $explode_comma[$i] . "'";
+            $comma = ",";
+        }
+        
+        $this->get_daftar_iku->process(array(
+            'action' => 'select',
+            'table' => 'tbldaftarpkt',
+            'column_value' => array(
+                '*'
+            ),
+            'where' => 'substring(pktkode from 1 for 1) in ('.$result_satker.') and length(pktkode) = 4' . $sbpkode_where,
+            'order' => 'sbpkode asc, pktkode asc'
+        ));
+        
+        $this->load->view("regular/data_search_kegiatan_based_satker", array(
+            "data_search" => $this->all
+        ));
+    }
+    
     public function edit($id){
         $id = urldecode($id);
         if($this->input->post('kode')){

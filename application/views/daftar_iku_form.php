@@ -25,7 +25,7 @@
 	</script>
 </head>
 <body>
-    <script src="js/daftar-program-kerja-tahunan.js" referrerpolicy="origin"></script>
+    <script src="js/daftar-iku.js" referrerpolicy="origin"></script>
     <style type="text/css">
         thead {
             position: sticky; 
@@ -69,11 +69,44 @@
                 </div>
             </div>
             
+            <div class="form-group" id="tempat_kegiatan_kode">
+                <label for="kegiatan_kode" class="col-xs-2 control-label">Kode Kegiatan</label>
+                <div class="col-xs-9 autocomplete">
+                    <input required="" type="text" id="kegiatan_kode" class="form-control tambah-margin-bawah" name="kegiatan_kode" placeholder="Kode Kegiatan" value="<?php echo isset($kegiatan_kode_display) ? $kegiatan_kode_display : ""; ?>" autocomplete="off" disabled="" <?php echo isset($merah) && $merah == "merah" ? " style='color: red;'" : ""; ?>>
+                    <input required="" type="hidden" id="kegiatan_kode_hidden" name="kegiatan_kode_hidden" value="<?php echo isset($kegiatan_kode_hidden) ? $kegiatan_kode_hidden : ""; ?>">
+                </div>
+                <div class="col-xs-1" style="padding-left:0px;">
+                    <button id="buka_dialog_kegiatan_kode" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="search" value="Search"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="ikurincian" class="col-xs-2 control-label">IKU PKT</label>
+                <div class="col-xs-10">
+                    <table class="table table-bordered table-hover">
+                        <thead style="background-color: white;">
+                            <tr>
+                                <th style="white-space: nowrap;">No</th>
+                                <th style="white-space: nowrap;">SBP Kode</th>
+                                <th style="white-space: nowrap;">PKT Kode</th>                      
+                                <th style="white-space: nowrap;">PKT Nama</th>
+                            </tr>
+
+                        </thead>
+                        <tbody style="white-space: pre-wrap;" id="pkt_detail">
+                            <tr>
+                                <td colspan="4">No Data.</td>
+                            </tr>
+                        </tbody>
+                    </table>  
+                </div>
+            </div>
+            
             <div class="box-footer"></div>
             
             <div class="form-group">
                 <div class="col-lg-6 col-md-6" style="margin-bottom: 40px;">
-                    <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="input_daftar_iku" value="Input Daftar IKU">Input Daftar IKU</button>
+                    <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="input_daftar_iku" value="Input Daftar IKU" disabled="">Input Daftar IKU</button>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important;" type="button" class="btn btn-default bg-aqua-gradient" onclick="move_url('daftar-iku');">Lihat Data</button>

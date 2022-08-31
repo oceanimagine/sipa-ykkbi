@@ -79,7 +79,7 @@
             
             <div class="form-group">
                 <div class="col-lg-6 col-md-6" style="margin-bottom: 40px;">
-                    <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="input_daftar_strategic_business_plan" value="Input Daftar Strategic Business Plan">Input Daftar Strategic Business Plan</button>
+                    <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="input_daftar_strategic_business_plan" value="Input Daftar Strategic Business Plan" disabled="">Input Daftar Strategic Business Plan</button>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important;" type="button" class="btn btn-default bg-aqua-gradient" onclick="move_url('daftar-strategic-business-plan');">Lihat Data</button>

@@ -39,10 +39,10 @@ class get_daftar_program_kerja_tahunan extends CI_Model {
             CONCAT(kode, '-', sbpkode, '-', pktkode) as id,
             kode,
             sbpkode,
+            CASE WHEN pktkrk = 'K' THEN 'Kegiatan' WHEN pktkrk = 'RK' THEN 'Rincian Kegiatan' ELSE 'Selain Kegiatan Dan Selain Rincian Kegiatan' END pktkrk,
             pktkode,
             pktnama,
-            pktoutput,
-            CASE WHEN pktkrk = 'K' THEN 'Kegiatan' WHEN pktkrk = 'RK' THEN 'Rincian Kegiatan' ELSE 'Selain Kegiatan Dan Selain Rincian Kegiatan' END pktkrk
+            pktoutput
         from (
             select
                 kode,

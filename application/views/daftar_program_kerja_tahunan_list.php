@@ -61,10 +61,10 @@
                                 <th>ID</th>
                                 <th>Kode</th>
                                 <th>SBP Kode</th>
+                                <th>Tipe</th>
                                 <th>PKT Kode</th>
                                 <th>PKT Nama</th>
                                 <th>PKT Output</th>
-                                <th>Tipe</th>
                                 
                                 <th>Action</th>
                             </tr>
