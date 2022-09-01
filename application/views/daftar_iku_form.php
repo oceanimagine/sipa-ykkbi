@@ -86,16 +86,17 @@
                     <table class="table table-bordered table-hover">
                         <thead style="background-color: white;">
                             <tr>
-                                <th style="white-space: nowrap;">No</th>
-                                <th style="white-space: nowrap;">SBP Kode</th>
-                                <th style="white-space: nowrap;">PKT Kode</th>                      
-                                <th style="white-space: nowrap;">PKT Nama</th>
+                                <th style="white-space: nowrap; width: 5%;">No</th>
+                                <th style="white-space: nowrap; width: 10%;">SBP Kode</th>
+                                <th style="white-space: nowrap; width: 10%;">PKT Kode</th>                      
+                                <th style="white-space: nowrap; width: 70%;">PKT Nama</th>
+                                <th style="white-space: nowrap; width: 5%;">Action</th>
                             </tr>
 
                         </thead>
                         <tbody style="white-space: pre-wrap;" id="pkt_detail">
                             <tr>
-                                <td colspan="4">No Data.</td>
+                                <td colspan="5">No Data.</td>
                             </tr>
                         </tbody>
                     </table>  
