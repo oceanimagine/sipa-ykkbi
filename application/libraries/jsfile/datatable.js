@@ -183,7 +183,10 @@ $(document).ready(function () {
         $('#table-data').dataTable().fnDestroy();
         var url = '';
         url = url_data;
-
+        
+        var table_data = document.getElementById("table-data");
+        var get_thead = table_data.getElementsByTagName("thead");
+        
         oTable = $('#table-data').on('draw.dt', function () {
             /* on draw table datatables */
         }).dataTable({
@@ -211,7 +214,8 @@ $(document).ready(function () {
                 });
             },
             "aoColumnDefs": [
-                {"aTargets":  [1], "bVisible": false} //idx
+                {"aTargets":  [1], "bVisible": false}, //idx
+                {"aTargets":  [get_thead.length - 1], "bVisible": (typeof only_view_table !== "undefined" && only_view_table ? false : true)}
             ],
             "initComplete": function () {
                 /* on complete render table datatables */

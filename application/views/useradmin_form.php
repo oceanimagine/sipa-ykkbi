@@ -53,9 +53,30 @@
             <div class="form-group">
                 <label for="password" class="col-lg-2 control-label">password</label>
                 <div class="col-lg-10">
-                    <input required type="password" id="password" class="form-control" name="password" placeholder="password baru">
+                    <input type="password" id="password" class="form-control" name="password" placeholder="password baru">
                 </div>
             </div>
+            <?php
+            
+            $array_selected = array();
+            if(isset($satker)){
+                $explode_satker = explode(",", $satker);
+                for($i = 0; $i < sizeof($explode_satker); $i++){
+                    $array_selected[$explode_satker[$i]] = true;
+                }
+            }
+            ?>
+            <div class="form-group">
+                <label for="satker" class="col-lg-2 control-label">satker</label>
+                <div class="col-lg-10">
+                    <select class="form-control multiple" name="satker[]" id="satker" multiple="multiple">
+                        <?php foreach($satker_all as $data){ ?>
+                        <?php $selected = isset($array_selected[$data->satkerid]) && $array_selected[$data->satkerid] ? " selected='selected'" : ""; ?>
+                        <option value="<?php echo $data->satkerid; ?>"<?php echo $selected; ?>><?php echo $data->nama1; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div><?php /*
             <div class="form-group">
                 <label for="jam" class="col-lg-2 control-label">jam</label>
                 <div class="col-lg-10">
@@ -67,7 +88,7 @@
                 <div class="col-lg-10">
                     <input type="text" id="jam_b" class="form-control jam" name="jam_b" placeholder="jam b" value="<?php echo isset($jam_b) ? $jam_b : ""; ?>">
                 </div>
-            </div>
+            </div> */ ?>
             <?php 
             if(isset($table_menu)){
                 ?>

@@ -25,6 +25,22 @@
 	</script>
 </head>
 <body>
+    <?php $CI =& get_instance(); ?>
+    <?php 
+    
+    $disabled = "";
+    if(!isset($kode_ps)){
+        if($CI->allow_create == "0"){
+            $disabled = " disabled=''";
+        }
+    }
+    if(isset($kode_ps)){
+        if($CI->allow_update == "0"){
+            $disabled = " disabled=''";
+        }
+    }
+    
+    ?>
     <form class="form-horizontal" method="POST" enctype="multipart/form-data">
         <div class="box-body">
             
@@ -39,7 +55,7 @@
             <div class="form-group">
                 <label for="jenis_entri" class="col-lg-2 control-label">Jenis Entri</label>
                 <div class="col-lg-10">
-                    <select name="jenis_entri" id="jenis_entri" class="form-control">
+                    <select <?php echo $disabled; ?> name="jenis_entri" id="jenis_entri" class="form-control">
                         <option value="">PS (Program Strategis)</option>
                         <option value="">PKS (Program Kerja Strategis)</option>
                         <option value="">PKNS (Program Non Kerja Strategis)</option>
@@ -50,7 +66,7 @@
             <div class="form-group">
                 <label for="kode_ps" class="col-lg-2 control-label">Kode PS</label>
                 <div class="col-lg-10">
-                    <input required type="text" id="kode_ps" pattern="\d*" class="form-control numberonly-no-comma" name="kode_ps" placeholder="Kode PS" value="<?php echo isset($kode_ps) ? $kode_ps : "00"; ?>" maxlength="2">
+                    <input <?php echo $disabled; ?> required type="text" id="kode_ps" pattern="\d*" class="form-control numberonly-no-comma" name="kode_ps" placeholder="Kode PS" value="<?php echo isset($kode_ps) ? $kode_ps : "00"; ?>" maxlength="2">
                 </div>
             </div>
             
@@ -71,7 +87,7 @@
             <div class="form-group">
                 <label for="keterangan" class="col-lg-2 control-label">Keterangan</label>
                 <div class="col-lg-10">
-                    <input required type="text" id="keterangan" class="form-control" name="keterangan" placeholder="Keterangan" value="<?php echo isset($keterangan) ? $keterangan : ""; ?>">
+                    <input <?php echo $disabled; ?> required type="text" id="keterangan" class="form-control" name="keterangan" placeholder="Keterangan" value="<?php echo isset($keterangan) ? $keterangan : ""; ?>">
                 </div>
             </div>
             
@@ -79,7 +95,7 @@
             
             <div class="form-group">
                 <div class="col-lg-6 col-md-6" style="margin-bottom: 40px;">
-                    <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="input_daftar_strategic_business_plan" value="Input Daftar Strategic Business Plan" disabled="">Input Daftar Strategic Business Plan</button>
+                    <button <?php echo $disabled; ?> style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="input_daftar_strategic_business_plan" value="Input Daftar Strategic Business Plan" disabled="">Input Daftar Strategic Business Plan</button>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important;" type="button" class="btn btn-default bg-aqua-gradient" onclick="move_url('daftar-strategic-business-plan');">Lihat Data</button>

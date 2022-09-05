@@ -25,18 +25,27 @@ class mata_anggaran_individual_benchmarks extends CI_Controller {
     
     public function hapus($id){
         $_GET['id'] = $id;
-        
+        if($this->allow_delete == "0"){
+            Message::set("Delete Data not allowed.");
+            redirect('mata-anggaran-individual-benchmarks');
+            exit();
+        }
         $this->get_mata_anggaran_individual_benchmarks->process(array(
             'action' => 'delete',
             'table' => 'tblmastermaindividual',
             'where' => 'satkerid = \''.$id.'\''
         ));
-        redirect('mata_anggaran_individual_benchmarks');
+        redirect('mata-anggaran-individual-benchmarks');
     }
     
     public function edit($id){
         if($this->input->post('kode')){
             $_GET['id'] = $id;
+            if($this->allow_update == "0"){
+                Message::set("Update Data not allowed.");
+                redirect('mata-anggaran-individual-benchmarks/edit/'.$id.'');
+                exit();
+            }
             
             $kode = $this->input->post('kode');
             $rekmakode = $this->input->post('rekmakode');
@@ -59,7 +68,7 @@ class mata_anggaran_individual_benchmarks extends CI_Controller {
                 'where' => 'rekmakode = \''.$id.'\''
             ));
             
-            redirect('mata_anggaran_individual_benchmarks/edit/'.$id.'');
+            redirect('mata-anggaran-individual-benchmarks/edit/'.$id.'');
         }
         
         $this->get_mata_anggaran_individual_benchmarks->process(array(
@@ -101,7 +110,11 @@ class mata_anggaran_individual_benchmarks extends CI_Controller {
     
     public function add(){
         if($this->input->post('notiket')){
-            
+            if($this->allow_create == "0"){
+                Message::set("Create Data not allowed.");
+                redirect('mata-anggaran-individual-benchmarks/add');
+                exit();
+            }
             $kode = $this->input->post('kode');
             $rekmakode = $this->input->post('rekmakode');
             $rekmanama = $this->input->post('rekmanama');
@@ -121,7 +134,7 @@ class mata_anggaran_individual_benchmarks extends CI_Controller {
                     'benchmarkprog' => $benchmarkprog
                 )
             ));
-            redirect('mata_anggaran_individual_benchmarks/add');
+            redirect('mata-anggaran-individual-benchmarks/add');
         }
         
         $this->get_mata_anggaran_individual_benchmarks->process(array(

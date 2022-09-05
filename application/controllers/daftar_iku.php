@@ -17,6 +17,11 @@ class daftar_iku extends CI_Controller {
     }
     
     public function hapus($id){
+        if($this->allow_delete == "0"){
+            Message::set("Delete Data not allowed.");
+            redirect('daftar-iku');
+            exit();
+        }
         $id = urldecode($id);
         $this->get_daftar_iku->process(array(
             'action' => 'delete',
@@ -55,6 +60,11 @@ class daftar_iku extends CI_Controller {
     public function edit($id){
         $id = urldecode($id);
         if($this->input->post('kode')){
+            if($this->allow_update == "0"){
+                Message::set("Update Data not allowed.");
+                redirect('daftar-iku/edit/'.$id.'');
+                exit();
+            }
             $kode = $this->input->post('kode');
             $ikukode = $this->input->post('ikukode');
             $ikunama = $this->input->post('ikunama');
@@ -98,6 +108,11 @@ class daftar_iku extends CI_Controller {
     
     public function add(){
         if($this->input->post('kode')){
+            if($this->allow_create == "0"){
+                Message::set("Create Data not allowed.");
+                redirect('daftar-iku/add');
+                exit();
+            }
             $kode = $this->input->post('kode');
             $ikukode = $this->input->post('ikukode');
             $ikunama = $this->input->post('ikunama');

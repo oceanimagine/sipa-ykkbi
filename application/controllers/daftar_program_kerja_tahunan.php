@@ -43,6 +43,11 @@ class daftar_program_kerja_tahunan extends CI_Controller {
     }
     
     public function hapus($id){
+        if($this->allow_delete == "0"){
+            Message::set("Delete Data not allowed.");
+            redirect('daftar-program-kerja-tahunan');
+            exit();
+        }
         $id = urldecode($id);
         $this->process_param($id);
         $this->get_daftar_program_kerja_tahunan->process(array(
@@ -57,6 +62,11 @@ class daftar_program_kerja_tahunan extends CI_Controller {
         $id = urldecode($id);
         $this->process_param($id);
         if($this->input->post('kode')){
+            if($this->allow_update == "0"){
+                Message::set("Update Data not allowed.");
+                redirect('daftar-program-kerja-tahunan/edit/'.$id.'');
+                exit();
+            }
             $kode = $this->input->post('kode');
             $ikukode = $this->input->post('iku_kode_hidden');
             $sbpkode = $this->input->post('sbpps_kode_hidden');
@@ -196,6 +206,11 @@ class daftar_program_kerja_tahunan extends CI_Controller {
     
     public function add(){
         if($this->input->post('kode')){
+            if($this->allow_create == "0"){
+                Message::set("Create Data not allowed.");
+                redirect('daftar-program-kerja-tahunan/add');
+                exit();
+            }
             $kode = $this->input->post('kode');
             $ikukode = $this->input->post('iku_kode_hidden');
             $sbpkode = $this->input->post('sbpps_kode_hidden');

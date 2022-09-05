@@ -6,6 +6,7 @@ class Useradmin extends CI_Controller {
     private $menu_class;
     private $table_menu;
     private $has_insert = array();
+    private $satker_all = array();
     public function __construct() {
         parent::__construct();
         Privilege::admin();
@@ -14,6 +15,16 @@ class Useradmin extends CI_Controller {
         $this->table_menu = $this->menu_class->get_privilege_table();
         $this->layout = new layout('lite');
         $this->load->model('get_useradmin');
+        $this->get_useradmin->process(array(
+            'action' => 'select',
+            'table' => 'tblmastersatker',
+            'column_value' => array(
+                'satkerid',
+                'nama1',
+                'nama2'
+            )
+        ));
+        $this->satker_all = $this->all;
     }
 
     public function get_ajax_useradmin() {
@@ -25,8 +36,9 @@ class Useradmin extends CI_Controller {
         return $this->layout->loadjs("useradmin/get_ajax_useradmin");
     }
     
-    public function hapus(){
-        $id = isset($_GET['id']) && is_numeric($_GET['id']) ? $_GET['id'] : '';
+    public function hapus($id){
+        $id = isset($_GET['id']) && is_numeric($_GET['id']) ? $_GET['id'] : $id;
+        $_GET['id'] = $id;
         delete_photo('photo_user_admin');
         $this->get_useradmin->process(array(
             'action' => 'delete',
@@ -37,13 +49,23 @@ class Useradmin extends CI_Controller {
         redirect('useradmin');
     }
     
-    public function edit(){
-        $id = isset($_GET['id']) && is_numeric($_GET['id']) ? $_GET['id'] : '';
+    public function edit($id){
+        $id = isset($_GET['id']) && is_numeric($_GET['id']) ? $_GET['id'] : $id;
+        $_GET['id'] = $id;
         if($this->input->post('username')){
             $username = $this->input->post('username');
             $password = $this->input->post('password');
             $nama_lengkap = $this->input->post('nama_lengkap');
             $nomor_karyawan = $this->input->post('nomor_karyawan');
+            $satker_isi = "";
+            if(isset($_POST['satker']) && is_array($_POST['satker'])){
+                $satker = $_POST['satker'];
+                $comma = "";
+                for($i = 0; $i < sizeof($satker); $i++){
+                    $satker_isi = $satker_isi . $comma . $satker[$i];
+                    $comma = ",";
+                }
+            }
             upload_file("photo_user_admin");
             $this->get_useradmin->process(array(
                 'action' => 'update',
@@ -52,7 +74,8 @@ class Useradmin extends CI_Controller {
                     'username' => $username,
                     'nama_lengkap' => $nama_lengkap,
                     'nomor_karyawan' => $nomor_karyawan,
-                    'photo_user_admin' => $this->name_file_upload
+                    'photo_user_admin' => $this->name_file_upload,
+                    'satker' => $satker_isi
                 ),
                 'where' => 'id = \'' . $id . '\''
             ));
@@ -76,7 +99,8 @@ class Useradmin extends CI_Controller {
                 'username',
                 'nama_lengkap',
                 'photo_user_admin',
-                'nomor_karyawan'
+                'nomor_karyawan',
+                'satker'
             ),
             'where' => 'id = \''.$id.'\''
         ));
@@ -86,7 +110,9 @@ class Useradmin extends CI_Controller {
             'photo_user_admin' => $this->row->photo_user_admin,
             'nomor_karyawan' => $this->row->nomor_karyawan,
             'judul' => "User Admin Edit",
-            'table_menu' => $this->table_menu
+            'satker' => $this->row->satker,
+            'table_menu' => $this->table_menu,
+            'satker_all' => $this->satker_all
         ));
     }
     public function remove_privilege($id){
@@ -128,6 +154,15 @@ class Useradmin extends CI_Controller {
             $nama_lengkap = $this->input->post('nama_lengkap');
             $nomor_karyawan = $this->input->post('nomor_karyawan');
             upload_file("photo_user_admin");
+            $satker_isi = "";
+            if(isset($_POST['satker']) && is_array($_POST['satker'])){
+                $satker = $_POST['satker'];
+                $comma = "";
+                for($i = 0; $i < sizeof($satker); $i++){
+                    $satker_isi = $satker_isi . $comma . $satker[$i];
+                    $comma = ",";
+                }
+            }
             $this->get_useradmin->process(array(
                 'action' => 'insert',
                 'table' => 'tbl_user_admin',
@@ -136,7 +171,8 @@ class Useradmin extends CI_Controller {
                     'password' => md5($password),
                     'nama_lengkap' => $nama_lengkap,
                     'nomor_karyawan' => $nomor_karyawan,
-                    'photo_user_admin' => $this->name_file_upload
+                    'photo_user_admin' => $this->name_file_upload,
+                    'satker' => $satker_isi
                 )
             ));
             $this->get_useradmin->process(array(
@@ -153,7 +189,8 @@ class Useradmin extends CI_Controller {
         }
         $this->layout->loadView('useradmin_form',array(
             'judul' => "User Admin Add",
-            'table_menu' => $this->table_menu
+            'table_menu' => $this->table_menu,
+            'satker_all' => $this->satker_all
         ));
     }
     public function index() {

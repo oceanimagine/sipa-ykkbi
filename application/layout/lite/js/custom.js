@@ -661,6 +661,7 @@ $(function () {
         $("#tarifnama").val($("#tarifid option:selected").text());
     });
     
+    $(".multiple").select2();
     resize_wrapper();
 });
 

@@ -63,11 +63,10 @@ function upload_file($key_folder){
         $name_table = "tbl" . $rest_name_;
         $id_data = isset($_GET['id']) ? $_GET['id'] : "";
         $name_kolom = $key_folder;
-        $db = $CI->db->conn_id;
-        $query_data = mysqli_query($db, "select ".$name_kolom." from ".$name_table." where id = '".$id_data."'");
-        if(mysqli_num_rows($query_data) > 0){
-            $hasil_data = mysqli_fetch_array($query_data);
-            $file_existing = $hasil_data[$name_kolom];
+        $query_data = $CI->db->query("select ".$name_kolom." from ".$name_table." where id = '".$id_data."'");
+        if(sizeof($query_data->result_array()) > 0){
+            $hasil_data = $query_data->result_array();
+            $file_existing = $hasil_data[0][$name_kolom];
             $CI->name_file = $file_existing;
             $CI->name_file_upload = $CI->name_file;
         }
@@ -488,13 +487,16 @@ function get_project(){
         'action' => 'select',
         'table' => 'tblproject',
         'column_value' => array(
-            'kode'
+            'kode',
+            'allowcrud'
         ),
+        'where' => (isset($_SESSION['PROJECT_ACTIVE']) && $_SESSION['PROJECT_ACTIVE'] != "" ? 'kode = \''.$_SESSION['PROJECT_ACTIVE'].'\'' : ''),
         'order' => ' tahunanggaran desc'
     ));
     $data = $CI->all;
     if(sizeof($data) > 0){
         $GLOBALS['kode_project'] = $data[0]->kode;
+        $GLOBALS['allowcrud_project'] = $data[0]->allowcrud;
         $CI->kode_project_scope_controller = $GLOBALS['kode_project'];
         return "<div id='button-project' style='cursor: pointer;'>Project " . $data[0]->kode . "</div>";
     } else {

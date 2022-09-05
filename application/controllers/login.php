@@ -78,7 +78,7 @@ class login extends CI_Controller {
                     ));
                     $data_satker = $this->all;
                     $_SESSION['PRI'] = "ADMIN";
-                    $_SESSION['USR'] = "9999";
+                    $_SESSION['USR'] = $user_active->id;
                     $_SESSION['id'] = $user_active->id;
                     $_SESSION['data_satker'] = $data_satker;
                     $_SESSION['data_satker_comma'] = $user_active->satker;

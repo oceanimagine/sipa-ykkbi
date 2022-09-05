@@ -14,6 +14,16 @@ class get_daftar_strategic_business_plan extends CI_Model {
 
     function get_data(){
 
+        $CI =& get_instance();
+        $edit_link = "../../../index.php/daftar-strategic-business-plan/edit";
+        $delete_link = "../../../index.php/daftar-strategic-business-plan/hapus";
+        if($CI->allow_update == "0" && $CI->allow_read == "0"){
+            $edit_link = "";
+        }
+        if($CI->allow_delete == "0"){
+            $delete_link = "";
+        }
+        
         $process_table = new process_table();
 
         $sEcho = isset($_GET["sEcho"]) ? $_GET["sEcho"] : '0';
@@ -47,7 +57,7 @@ class get_daftar_strategic_business_plan extends CI_Model {
 
         $page = ($iDisplayStart / $iDisplayLength);
 
-        $resuld = $process_table->coba_db($sql, $page, $iDisplayLength, true, "../../../index.php/daftar-strategic-business-plan/edit", "../../../index.php/daftar-strategic-business-plan/hapus");
+        $resuld = $process_table->coba_db($sql, $page, $iDisplayLength, true, $edit_link, $delete_link);
 
         $output = array(
             'sEcho' => $sEcho,

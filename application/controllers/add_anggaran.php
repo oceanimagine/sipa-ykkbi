@@ -193,6 +193,11 @@ class add_anggaran extends CI_Controller {
     
     public function insert_anggaran(){
         if($this->input->post("kode_project_hidden")){
+            if($this->allow_delete == "0"){
+                Message::set("Create Data not allowed.");
+                header('location: '.$GLOBALS['base_administrator'].'index.php/add-anggaran');
+                exit();
+            }
             $this->db->trans_start();
             $this->db->trans_strict(FALSE);
             
@@ -215,6 +220,11 @@ class add_anggaran extends CI_Controller {
     
     public function update_anggaran($param_id){
         if($this->input->post("kode_project_hidden")){
+            if($this->allow_update == "0"){
+                Message::set("Update Data not allowed.");
+                header('location: '.$GLOBALS['base_administrator'].'index.php/add-anggaran/edit/' . $param_id);
+                exit();
+            }
             $this->db->trans_start();
             $this->db->trans_strict(FALSE);
             
@@ -325,6 +335,11 @@ class add_anggaran extends CI_Controller {
     public function hapus($param_id){
         
         if($this->input->post("kode_project_hidden")){
+            if($this->allow_delete == "0"){
+                Message::set("Delete Data not allowed.");
+                header('location: '.$GLOBALS['base_administrator'].'index.php/add-anggaran');
+                exit();
+            }
             $this->db->trans_start();
             $this->db->trans_strict(FALSE);
 

@@ -25,6 +25,22 @@
 	</script>
 </head>
 <body>
+    <?php $CI =& get_instance(); ?>
+    <?php 
+    
+    $disabled = "";
+    if(!isset($satkerid)){
+        if($CI->allow_create == "0"){
+            $disabled = " disabled=''";
+        }
+    }
+    if(isset($satkerid)){
+        if($CI->allow_update == "0"){
+            $disabled = " disabled=''";
+        }
+    }
+    
+    ?>
     <form class="form-horizontal" method="POST" enctype="multipart/form-data">
         <div class="box-body">
             
@@ -39,7 +55,7 @@
             <div class="form-group">
                 <label for="satkerid" class="col-lg-2 control-label">Satker</label>
                 <div class="col-lg-10">
-                    <select name="satkerid" id="satkerid" class="form-control">
+                    <select <?php echo $disabled; ?> name="satkerid" id="satkerid" class="form-control">
                         <option value="">PILIH Satker</option>
                         <?php foreach($data_satker as $data){ ?>
                         <?php $selected = (isset($satkerid) && $satkerid == $data->satkerid) ? " selected='selected'" : ""; ?>
@@ -52,7 +68,7 @@
             <div class="form-group">
                 <label for="tarifid" class="col-lg-2 control-label">Tipe Tarif</label>
                 <div class="col-lg-10">
-                    <select name="tarifid" id="tarifid" class="form-control">
+                    <select <?php echo $disabled; ?> name="tarifid" id="tarifid" class="form-control">
                         <option value="">PILIH TARIF</option>
                         <option value="0000"<?php echo isset($tarifid) && $tarifid == "0000" ? " selected='selected'" : ""; ?>>Non Tarif</option>
                         <option value="1111"<?php echo isset($tarifid) && $tarifid == "1111" ? " selected='selected'" : " selected='selected'"; ?>>Tarif</option>
@@ -64,14 +80,14 @@
             <div class="form-group">
                 <label for="tarifnom" class="col-lg-2 control-label">Nominal</label>
                 <div class="col-lg-10">
-                    <input required type="number" id="tarifnom" class="form-control numberonly" name="tarifnom" placeholder="Nominal" value="<?php echo isset($tarifnom) ? $tarifnom : "0.00"; ?>">
+                    <input <?php echo $disabled; ?> required type="number" id="tarifnom" class="form-control numberonly" name="tarifnom" placeholder="Nominal" value="<?php echo isset($tarifnom) ? $tarifnom : "0.00"; ?>">
                 </div>
             </div>
             
             <div class="form-group">
                 <label for="tarifdesc" class="col-lg-2 control-label">Deskripsi</label>
                 <div class="col-lg-10">
-                    <input required type="text" id="tarifdesc" class="form-control" name="tarifdesc" placeholder="Tarif Description" value="<?php echo isset($tarifdesc) ? $tarifdesc : ""; ?>">
+                    <input <?php echo $disabled; ?> required type="text" id="tarifdesc" class="form-control" name="tarifdesc" placeholder="Tarif Description" value="<?php echo isset($tarifdesc) ? $tarifdesc : ""; ?>">
                 </div>
             </div>
             
@@ -79,7 +95,7 @@
             
             <div class="form-group">
                 <div class="col-lg-6 col-md-6" style="margin-bottom: 40px;">
-                    <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="input_tarif" value="Input tarif">Input Tarif</button>
+                    <button <?php echo $disabled; ?> style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="input_tarif" value="Input tarif">Input Tarif</button>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important;" type="button" class="btn btn-default bg-aqua-gradient" onclick="move_url('tarif');">Lihat Data</button>

@@ -24,6 +24,24 @@
         </script>
     </head>
     <body>
+        
+        <?php $CI =& get_instance(); ?>
+        <?php 
+
+        $disabled = "";
+        if(!isset($data_rincian_kegiatan_display)){
+            if($CI->allow_create == "0"){
+                $disabled = " disabled=''";
+            }
+        }
+        if(isset($data_rincian_kegiatan_display)){
+            if($CI->allow_update == "0"){
+                $disabled = " disabled=''";
+            }
+        }
+
+        ?>
+        
         <?php 
         
         $size_group_edit = 1;
@@ -73,11 +91,15 @@
                 $disabled_input = "";
                 if(isset($konfirmasi_hapus) && $konfirmasi_hapus){
                     $disabled_input = " disabled";
+                    $default_redaksi = "Jika anda yakin ingin menghapus data di bawah silahkan klik tombol <b>Hapus Anggaran</b>.";
+                    if($CI->allow_read == "1" && $CI->allow_delete == "0"){
+                        $default_redaksi = "Berikut adalah data detail <b>Anggaran</b>.";
+                    }
                     cetak_html("
                         <script type=\"text/javascript\">var konfirmasi_hapus = true;</script>
                         <div class=\"form-group\" style=\"position: sticky; top: 0px; z-index: 99;\">
                         <div class=\"col-xs-12\">
-                        <pre style='margin: 0px; border-radius: 0px; text-align: center; font-size: 20px; width: 100%; border: white 1px solid;'>Jika anda yakin ingin menghapus data di bawah silahkan klik tombol <b>Hapus Anggaran</b>.</pre>
+                        <pre style='margin: 0px; border-radius: 0px; text-align: center; font-size: 20px; width: 100%; border: white 1px solid;'>".$default_redaksi."</pre>
                         </div>
                         </div>
                     ");
@@ -260,11 +282,11 @@
                         <div class="form-group">
                             <div class="col-xs-6" style="padding-left: 0px; padding-right: 4px;">
                                 <?php if(isset($konfirmasi_hapus) && $konfirmasi_hapus){ ?>
-                                <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad; margin-top: 15px; border-radius: 0px;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="hapus_anggaran" id="hapus_anggaran" value="Hapus Anggaran">Hapus Anggaran</button>
+                                <button <?php echo $disabled; ?> style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad; margin-top: 15px; border-radius: 0px;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="hapus_anggaran" id="hapus_anggaran" value="Hapus Anggaran">Hapus Anggaran</button>
                                 <?php } else if(isset($update) && $update){ ?>
-                                <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad; margin-top: 15px; border-radius: 0px;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="update_anggaran" id="update_anggaran" value="Update Anggaran">Update Anggaran</button>
+                                <button <?php echo $disabled; ?> style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad; margin-top: 15px; border-radius: 0px;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="update_anggaran" id="update_anggaran" value="Update Anggaran">Update Anggaran</button>
                                 <?php } else { ?>
-                                <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad; margin-top: 15px; border-radius: 0px;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="add_anggaran" id="update_anggaran" value="Add Anggaran">Add Anggaran</button>
+                                <button <?php echo $disabled; ?> style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad; margin-top: 15px; border-radius: 0px;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="add_anggaran" id="update_anggaran" value="Add Anggaran">Add Anggaran</button>
                                 <?php } ?>
                             </div>
                             <div class="col-xs-6" style="padding-right: 0px; padding-left: 4px;">

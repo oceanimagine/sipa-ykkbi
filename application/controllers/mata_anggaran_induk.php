@@ -25,18 +25,27 @@ class mata_anggaran_induk extends CI_Controller {
     
     public function hapus($id){
         $_GET['id'] = $id;
-        
+        if($this->allow_delete == "0"){
+            Message::set("Delete Data not allowed.");
+            redirect('mata-anggaran-induk');
+            exit();
+        }
         $this->get_mata_anggaran_induk->process(array(
             'action' => 'delete',
             'table' => 'tblmastermainduk',
             'where' => 'satkerid = \''.$id.'\''
         ));
-        redirect('mata_anggaran_induk');
+        redirect('mata-anggaran-induk');
     }
     
     public function edit($id){
         if($this->input->post('kode')){
             $_GET['id'] = $id;
+            if($this->allow_update == "0"){
+                Message::set("Update Data not allowed.");
+                redirect('mata-anggaran-induk/edit/'.$id.'');
+                exit();
+            }
             
             $kode = $this->input->post('kode');
             $rekmainduk = $this->input->post('rekmainduk');
@@ -55,7 +64,7 @@ class mata_anggaran_induk extends CI_Controller {
                 'where' => 'rekmainduk = \''.$id.'\''
             ));
             
-            redirect('mata_anggaran_induk/edit/'.$id.'');
+            redirect('mata-anggaran-induk/edit/'.$id.'');
         }
         
         $this->get_mata_anggaran_induk->process(array(
@@ -81,7 +90,11 @@ class mata_anggaran_induk extends CI_Controller {
     
     public function add(){
         if($this->input->post('notiket')){
-            
+            if($this->allow_create == "0"){
+                Message::set("Insert Data not allowed.");
+                redirect('mata-anggaran-induk/add');
+                exit();
+            }
             $kode = $this->input->post('kode');
             $rekmainduk = $this->input->post('rekmainduk');
             $rekmainduknama = $this->input->post('rekmainduknama');
@@ -97,7 +110,7 @@ class mata_anggaran_induk extends CI_Controller {
                     'rekmagroup' => $rekmagroup
                 )
             ));
-            redirect('mata_anggaran_induk/add');
+            redirect('mata-anggaran-induk/add');
         }
         
         $this->layout->loadView('mata_anggaran_induk_form');

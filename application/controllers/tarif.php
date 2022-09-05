@@ -25,7 +25,11 @@ class tarif extends CI_Controller {
     
     public function hapus($id){
         $_GET['id'] = $id;
-        
+        if($this->allow_delete == "0"){
+            Message::set("Delete Data not allowed.");
+            redirect('tarif');
+            exit();
+        }
         $this->get_tarif->process(array(
             'action' => 'delete',
             'table' => 'tblmastertarif',
@@ -37,7 +41,11 @@ class tarif extends CI_Controller {
     public function edit($id){
         if($this->input->post('kode')){
             $_GET['id'] = $id;
-            
+            if($this->allow_update == "0"){
+                Message::set("Update Data not allowed.");
+                redirect('tarif/edit/'.$id.'');
+                exit();
+            }
             $kode = $this->input->post('kode');
             $satkerid = $this->input->post('satkerid');
             $tarifid = $this->input->post('tarifid');
@@ -100,7 +108,11 @@ class tarif extends CI_Controller {
     
     public function add(){
         if($this->input->post('notiket')){
-            
+            if($this->allow_create == "0"){
+                Message::set("Create Data not allowed.");
+                redirect('tarif/add');
+                exit();
+            }
             $kode = $this->input->post('kode');
             $satkerid = $this->input->post('satkerid');
             $tarifid = $this->input->post('tarifid');

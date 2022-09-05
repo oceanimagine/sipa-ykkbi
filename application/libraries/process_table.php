@@ -108,7 +108,12 @@ class process_table {
                 $slash = "";
                 if ($module_edit != "") {
 		    if(isset($GLOBALS['PRIV_ACTIVE']) && isset($_SESSION['PRI']) && isset($GLOBALS['PRIV_ACTIVE'][$_SESSION['PRI']]) && $GLOBALS['PRIV_ACTIVE'][$_SESSION['PRI']]){
-			$module[$count] = "<a href='" . $module_edit . "/" . urlencode($result[$ad][1]) . "'>Edit</a>";
+			$CI =& get_instance();
+                        $redaksi_edit = "Edit";
+                        if($CI->allow_update == "0" && $CI->allow_read == "1"){
+                            $redaksi_edit = "Detail";
+                        }
+                        $module[$count] = "<a href='" . $module_edit . "/" . urlencode($result[$ad][1]) . "'>".$redaksi_edit."</a>";
 			$count++;
 		    } else {
 			if(isset($_SESSION['PRI']) && $_SESSION['PRI'] == "Pimpinan"){
@@ -125,7 +130,12 @@ class process_table {
                 }
                 if ($module_hapus != "") {
 		    if(isset($GLOBALS['PRIV_ACTIVE']) && isset($_SESSION['PRI']) && isset($GLOBALS['PRIV_ACTIVE'][$_SESSION['PRI']]) && $GLOBALS['PRIV_ACTIVE'][$_SESSION['PRI']]){
-			$module[$count] = "<a href=\"" . $module_hapus . "/" . urlencode($result[$ad][1]) . "#\" onclick=\"confirm_delete('" . $module_hapus . "/" . urlencode($result[$ad][1]) . "')\" data-target=\"#modal-default\" data-toggle=\"modal\">Hapus</a>";
+                        $CI =& get_instance();
+                        $redaksi_hapus = "Hapus";
+                        if($CI->allow_update == "0" && $CI->allow_read == "1"){
+                            $redaksi_hapus = "Detail";
+                        }
+			$module[$count] = "<a href=\"" . $module_hapus . "/" . urlencode($result[$ad][1]) . "#\" onclick=\"confirm_delete('" . $module_hapus . "/" . urlencode($result[$ad][1]) . "')\" data-target=\"#modal-default\" data-toggle=\"modal\">".$redaksi_hapus."</a>";
 			$count++;
 		    }
                 }

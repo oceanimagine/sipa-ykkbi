@@ -51,7 +51,9 @@
                     <!-- Default panel contents -->
                     <div class="panel-heading" style="padding-bottom: 10px; color: black; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important;">
                         List Tarif
+                        <?php $CI =& get_instance(); if($CI->allow_create == "1"){ ?>
                         <a id="addData" href="../../../index.php/tarif/add" class="btn btn-primary btn-xs pull-right hidden-xs bg-green-gradient"><span class="glyphicon glyphicon-plus"></span>&nbsp;New Tarif</a>
+                        <?php } ?>
                     </div>
                     <table id="table-data" class="table table-bordered table-hover">
                         <thead>

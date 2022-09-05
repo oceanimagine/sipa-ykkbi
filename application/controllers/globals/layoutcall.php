@@ -27,4 +27,8 @@ class layoutcall extends CI_Controller {
     public function ajax_footer(){
         $this->load->view("ajax_footer");
     }
+    public function goto_project($project_id){
+        $_SESSION['PROJECT_ACTIVE'] = $project_id;
+        redirect("home");
+    }
 }

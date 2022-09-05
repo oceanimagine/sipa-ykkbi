@@ -10,7 +10,7 @@
             <div class="modal-body">
                 <ul style="list-style: none; padding: 0px; margin: 0px;">
                 <?php foreach($data_project as $data){ ?>
-                    <li style="cursor: pointer;"><i class="fa fa-book" style="margin-right: 15px; margin-left: 15px;"></i><span><?php echo $data->kode; ?></span></li>
+                    <li style="cursor: pointer;"><a href="../../../index.php/globals/layoutcall/goto_project/<?php echo $data->kode; ?>" style="text-decoration: none; color: black;"><i class="fa fa-book" style="margin-right: 15px; margin-left: 15px;"></i><span><?php echo $data->kode; ?></span></a></li>
                 <?php } ?>
                 </ul>
             </div>

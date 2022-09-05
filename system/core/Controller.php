@@ -56,8 +56,23 @@ class CI_Controller {
                 
                 // call function
                 get_current_project();
+                $this->check_allow_crud();
 	}
 
+        
+        public $allow_create = "";
+        public $allow_read = "";
+        public $allow_update = "";
+        public $allow_delete = "";
+        
+        public function check_allow_crud(){
+            $allowcrud_project = $GLOBALS['allowcrud_project'];
+            $this->allow_create = isset($allowcrud_project[0]) ? $allowcrud_project[0] : "0";
+            $this->allow_read = isset($allowcrud_project[1]) ? $allowcrud_project[1] : "0";
+            $this->allow_update = isset($allowcrud_project[2]) ? $allowcrud_project[2] : "0";
+            $this->allow_delete = isset($allowcrud_project[3]) ? $allowcrud_project[3] : "0";
+        }
+        
 	public static function &get_instance()
 	{
 		return self::$instance;
