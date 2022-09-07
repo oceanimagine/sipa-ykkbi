@@ -54,7 +54,7 @@ p {
 </style>
 </head>
 <body>
-	<div id="container">
+	<div id="container" style="white-space: break-spaces; overflow: auto;">
 		<h1><?php echo $heading; ?></h1>
 		<?php echo $message; ?>
 	</div>

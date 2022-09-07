@@ -71,7 +71,7 @@
                     <select <?php echo $disabled; ?> name="tarifid" id="tarifid" class="form-control">
                         <option value="">PILIH TARIF</option>
                         <option value="0000"<?php echo isset($tarifid) && $tarifid == "0000" ? " selected='selected'" : ""; ?>>Non Tarif</option>
-                        <option value="1111"<?php echo isset($tarifid) && $tarifid == "1111" ? " selected='selected'" : " selected='selected'"; ?>>Tarif</option>
+                        <option value="1111"<?php echo isset($tarifid) && $tarifid == "1111" ? " selected='selected'" : ""; ?>>Tarif</option>
                     </select>
                     <input type="hidden" name="tarifnama" id="tarifnama" value="<?php echo isset($tarifnama) ? $tarifnama : ""; ?>" />
                 </div>

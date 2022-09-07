@@ -12,6 +12,12 @@ class privilege {
         if(session_status() == PHP_SESSION_NONE) {
             session_start();
         }
+        $explode_get = explode("get", current_url());
+        $explode_check = explode("check", current_url());
+        $explode_report = explode("report", current_url());
+        if(sizeof($explode_get) == 1 && sizeof($explode_check) == 1 && sizeof($explode_report) == 1){
+            $_SESSION['URL_CURRENT'] = str_replace("?","/",current_url());
+        }
 	$same = 0;
         for($i = 0; $i < sizeof($jenis_privilege); $i++){
 	    if((isset($_SESSION['PRI']) && $_SESSION['PRI'] == $jenis_privilege[$i])){

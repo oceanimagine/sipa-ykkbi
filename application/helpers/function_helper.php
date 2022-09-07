@@ -422,7 +422,17 @@ function project_modal(){
     $data = $CI->all;
     $CI->project_modal = "UNDEFINED";
     if(sizeof($data) > 0){
-        $CI->project_modal = $data[0]->kode;
+        $CI->get_project->process(array(
+            'action' => 'select',
+            'table' => 'tblproject',
+            'column_value' => array(
+                'kode'
+            ),
+            'where' => (isset($_SESSION['PROJECT_ACTIVE']) && $_SESSION['PROJECT_ACTIVE'] != "" ? 'kode = \''.$_SESSION['PROJECT_ACTIVE'].'\'' : ''),
+            'order' => ' tahunanggaran desc'
+        ));
+        $data_where = $CI->all;
+        $CI->project_modal = $data_where[0]->kode;
     }
     return $CI->layout->loadView(array(
         "set_ob_view" => "dialog/dialog-project"
@@ -468,6 +478,14 @@ function kegiatan_modal(){
     $CI->layout = new layout('lite');
     return $CI->layout->loadView(array(
         "set_ob_view" => "dialog/dialog-kegiatan"
+    ));
+}
+
+function kode_ps_modal(){
+    $CI =& get_instance();
+    $CI->layout = new layout('lite');
+    return $CI->layout->loadView(array(
+        "set_ob_view" => "dialog/dialog-kode-ps"
     ));
 }
 

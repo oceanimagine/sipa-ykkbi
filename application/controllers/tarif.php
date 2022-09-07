@@ -33,7 +33,7 @@ class tarif extends CI_Controller {
         $this->get_tarif->process(array(
             'action' => 'delete',
             'table' => 'tblmastertarif',
-            'where' => 'satkerid = \''.$id.'\''
+            'where' => 'satkerid = \''.$id.'\' and kode = \''.$this->kode_project_scope_controller.'\''
         ));
         redirect('tarif');
     }
@@ -64,7 +64,7 @@ class tarif extends CI_Controller {
                     'tarifnom' => $tarifnom,
                     'tarifdesc' => $tarifdesc
                 ),
-                'where' => 'satkerid = \''.$id.'\''
+                'where' => 'satkerid = \''.$id.'\' and kode = \''.$this->kode_project_scope_controller.'\''
             ));
             
             redirect('tarif/edit/'.$id.'');
@@ -91,7 +91,8 @@ class tarif extends CI_Controller {
                 'tarifnama',
                 'tarifnom',
                 'tarifdesc'
-            )
+            ),
+            'where' => 'satkerid = \''.$id.'\' and kode = \''.$this->kode_project_scope_controller.'\''
         ));
         
         $this->layout->loadView('tarif_form', array(
@@ -107,7 +108,7 @@ class tarif extends CI_Controller {
     }
     
     public function add(){
-        if($this->input->post('notiket')){
+        if($this->input->post('kode')){
             if($this->allow_create == "0"){
                 Message::set("Create Data not allowed.");
                 redirect('tarif/add');

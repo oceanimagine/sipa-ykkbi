@@ -33,7 +33,7 @@ class mata_anggaran_individual_benchmarks extends CI_Controller {
         $this->get_mata_anggaran_individual_benchmarks->process(array(
             'action' => 'delete',
             'table' => 'tblmastermaindividual',
-            'where' => 'satkerid = \''.$id.'\''
+            'where' => 'rekmakode = \''.$id.'\' and kode = \''.$this->kode_project_scope_controller.'\''
         ));
         redirect('mata-anggaran-individual-benchmarks');
     }
@@ -65,7 +65,7 @@ class mata_anggaran_individual_benchmarks extends CI_Controller {
                     'benchmarkang' => $benchmarkang,
                     'benchmarkprog' => $benchmarkprog
                 ),
-                'where' => 'rekmakode = \''.$id.'\''
+                'where' => 'rekmakode = \''.$id.'\' and kode = \''.$this->kode_project_scope_controller.'\''
             ));
             
             redirect('mata-anggaran-individual-benchmarks/edit/'.$id.'');
@@ -78,7 +78,8 @@ class mata_anggaran_individual_benchmarks extends CI_Controller {
                 'kode',
                 'rekmainduk',
                 'rekmainduknama'
-            )
+            ),
+            'where' => 'kode = \''.$this->kode_project_scope_controller.'\''
         ));
         $data_tblmastermainduk = $this->all;
         
@@ -93,7 +94,7 @@ class mata_anggaran_individual_benchmarks extends CI_Controller {
                 'benchmarkang',
                 'benchmarkprog'
             ),
-            'where' => 'rekmakode = \''.$id.'\''
+            'where' => 'rekmakode = \''.$id.'\' and kode = \''.$this->kode_project_scope_controller.'\''
         ));
         
         $this->layout->loadView('mata_anggaran_individual_benchmarks_form', array(
@@ -109,7 +110,7 @@ class mata_anggaran_individual_benchmarks extends CI_Controller {
     }
     
     public function add(){
-        if($this->input->post('notiket')){
+        if($this->input->post('kode')){
             if($this->allow_create == "0"){
                 Message::set("Create Data not allowed.");
                 redirect('mata-anggaran-individual-benchmarks/add');
@@ -144,7 +145,8 @@ class mata_anggaran_individual_benchmarks extends CI_Controller {
                 'kode',
                 'rekmainduk',
                 'rekmainduknama'
-            )
+            ),
+            'where' => 'kode = \''.$this->kode_project_scope_controller.'\''
         ));
         $data_tblmastermainduk = $this->all;
         

@@ -33,7 +33,7 @@ class mata_anggaran_induk extends CI_Controller {
         $this->get_mata_anggaran_induk->process(array(
             'action' => 'delete',
             'table' => 'tblmastermainduk',
-            'where' => 'satkerid = \''.$id.'\''
+            'where' => 'rekmainduk = \''.$id.'\' and kode = \''.$this->kode_project_scope_controller.'\''
         ));
         redirect('mata-anggaran-induk');
     }
@@ -61,7 +61,7 @@ class mata_anggaran_induk extends CI_Controller {
                     'rekmainduknama' => $rekmainduknama,
                     'rekmagroup' => $rekmagroup
                 ),
-                'where' => 'rekmainduk = \''.$id.'\''
+                'where' => 'rekmainduk = \''.$id.'\' and kode = \''.$this->kode_project_scope_controller.'\''
             ));
             
             redirect('mata-anggaran-induk/edit/'.$id.'');
@@ -76,7 +76,7 @@ class mata_anggaran_induk extends CI_Controller {
                 'rekmainduknama',
                 'rekmagroup'
             ),
-            'where' => 'rekmainduk = \''.$id.'\''
+            'where' => 'rekmainduk = \''.$id.'\' and kode = \''.$this->kode_project_scope_controller.'\''
         ));
         
         $this->layout->loadView('mata_anggaran_induk_form', array(
@@ -89,7 +89,7 @@ class mata_anggaran_induk extends CI_Controller {
     }
     
     public function add(){
-        if($this->input->post('notiket')){
+        if($this->input->post('kode')){
             if($this->allow_create == "0"){
                 Message::set("Insert Data not allowed.");
                 redirect('mata-anggaran-induk/add');

@@ -3,6 +3,7 @@
 class dokumentasi extends CI_Controller {
     public function __construct() {
         parent::__construct();
+        Privilege::admin();
     }
     public function index() {
         $this->layout->loadView(

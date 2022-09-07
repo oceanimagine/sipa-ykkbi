@@ -87,7 +87,7 @@ class login extends CI_Controller {
                     $_SESSION['nomor_admin'] = "AB" . $user_active->nomor_karyawan; 
                     $_SESSION['username'] = $user_active->username;
                     $this->layout->render_alert("Welcome Admin.");
-                    Message::set("Berhasil login sebagai Admin.");
+                    Message::set("Berhasil login sebagai ".$user_active->nama_lengkap.".");
                     redirect("home");
                 }
 	    }

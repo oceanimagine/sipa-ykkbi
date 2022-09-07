@@ -148,14 +148,14 @@ window.addEventListener("load",function(){
         var preview_laporan_anggaran_berdasarkan_program_kerja = document.getElementById("preview_laporan_anggaran_berdasarkan_program_kerja");
         preview_laporan_anggaran_berdasarkan_program_kerja.onclick = function(){
             set_loading();
-            setIframeOS("ma_view");
+            setIframeOS("sbp_view");
         };
     }
     if(document.getElementById("preview_laporan_anggaran_berdasarkan_mata_anggaran")){
         var preview_laporan_anggaran_berdasarkan_mata_anggaran = document.getElementById("preview_laporan_anggaran_berdasarkan_mata_anggaran");
         preview_laporan_anggaran_berdasarkan_mata_anggaran.onclick = function(){
             set_loading();
-            setIframeOS("sbp_view");
+            setIframeOS("ma_view");
         };
     }
     if(document.getElementById("download_laporan_anggaran_berdasarkan_program_kerja")){

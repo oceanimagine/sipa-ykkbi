@@ -157,6 +157,7 @@ function isAlphaOrParen(str) {
 
 function is_tag(param){
     return param.substr(0,1) === "<" && isAlphaOrParen(param.substr(1,1));
+    
 }
 
 var oTable = {};
@@ -205,9 +206,11 @@ $(document).ready(function () {
                 var address = 0;
                 $.each($('td', row), function () {
                     if(address > 0){
-                        if(!is_tag(data[address + 1])){
-                            $(this).attr('title', data[address + 1]);
-                            $(this).html(data[address + 1].length > 80 ? data[address + 1].substr(0,80) + " ...." : data[address + 1]);
+                        if(data[address + 1] !== null){
+                            if(!is_tag(data[address + 1])){
+                                $(this).attr('title', data[address + 1]);
+                                $(this).html(data[address + 1].length > 80 ? data[address + 1].substr(0,80) + " ...." : data[address + 1]);
+                            }
                         }
                     }
                     address++;

@@ -208,3 +208,9 @@ hr {
      color: black;
      border-color: #222d32;
 }
+
+select{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}

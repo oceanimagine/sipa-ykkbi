@@ -22,6 +22,7 @@
 </head>
 <body>
     <div style="text-align: center;">
+        <?php /* echo str_replace("?","/",current_url()); */ ?>
         <img src="image/LOGOYKKBI.png" style="width: 25%;">
     </div>
 </body>

@@ -663,12 +663,216 @@ $(function () {
     
     $(".multiple").select2();
     resize_wrapper();
+    
 });
 
 $(window).resize(function(){
     /* console.log("COBA"); */
     resize_wrapper();
 });
+
+function do_increment(param, type){
+    var huruf_angka = [];
+    var angka_huruf = [];
+    if(type === "alp"){
+        huruf_angka = {
+            "A" :  0,
+            "B" :  1,
+            "C" :  2,
+            "D" :  3,
+            "E" :  4,
+            "F" :  5,
+            "G" :  6,
+            "H" :  7,
+            "I" :  8,
+            "J" :  9,
+            "K" : 10,
+            "L" : 11,
+            "M" : 12,
+            "N" : 13,
+            "O" : 14,
+            "P" : 15,
+            "Q" : 16,
+            "R" : 17,
+            "S" : 18,
+            "T" : 19,
+            "U" : 20,
+            "V" : 21,
+            "W" : 22,
+            "X" : 23,
+            "Y" : 24,
+            "Z" : 25
+        };
+        angka_huruf = {
+            0  : "A",
+            1  : "B",
+            2  : "C",
+            3  : "D",
+            4  : "E",
+            5  : "F",
+            6  : "G",
+            7  : "H",
+            8  : "I",
+            9  : "J",
+            10 : "K",
+            11 : "L",
+            12 : "M",
+            13 : "N",
+            14 : "O",
+            15 : "P",
+            16 : "Q",
+            17 : "R",
+            18 : "S",
+            19 : "T",
+            20 : "U",
+            21 : "V",
+            22 : "W",
+            23 : "X",
+            24 : "Y",
+            25 : "Z"
+        };
+    }
+    if(type === "hex"){
+        huruf_angka = {
+            "0" :  0,
+            "1" :  1,
+            "2" :  2,
+            "3" :  3,
+            "4" :  4,
+            "5" :  5,
+            "6" :  6,
+            "7" :  7,
+            "8" :  8,
+            "9" :  9,
+            "A" : 10,
+            "B" : 11,
+            "C" : 12,
+            "D" : 13,
+            "E" : 14,
+            "F" : 15
+        };
+        angka_huruf = {
+            0  : "0",
+            1  : "1",
+            2  : "2",
+            3  : "3",
+            4  : "4",
+            5  : "5",
+            6  : "6",
+            7  : "7",
+            8  : "8",
+            9  : "9",
+            10 : "A",
+            11 : "B",
+            12 : "C",
+            13 : "D",
+            14 : "E",
+            15 : "F"
+        };
+    }
+    if(type === "dec"){
+        huruf_angka = {
+            "0" :  0,
+            "1" :  1,
+            "2" :  2,
+            "3" :  3,
+            "4" :  4,
+            "5" :  5,
+            "6" :  6,
+            "7" :  7,
+            "8" :  8,
+            "9" :  9
+        };
+        angka_huruf = {
+            0  : "0",
+            1  : "1",
+            2  : "2",
+            3  : "3",
+            4  : "4",
+            5  : "5",
+            6  : "6",
+            7  : "7",
+            8  : "8",
+            9  : "9"
+        };
+    }
+    if(type === "oct"){
+        huruf_angka = {
+            "0" :  0,
+            "1" :  1,
+            "2" :  2,
+            "3" :  3,
+            "4" :  4,
+            "5" :  5,
+            "6" :  6,
+            "7" :  7
+        };
+        angka_huruf = {
+            0  : "0",
+            1  : "1",
+            2  : "2",
+            3  : "3",
+            4  : "4",
+            5  : "5",
+            6  : "6",
+            7  : "7"
+        };
+    }
+    if(type === "bin"){
+        huruf_angka = {
+            "0" :  0,
+            "1" :  1
+        };
+        angka_huruf = {
+            0  : "0",
+            1  : "1"
+        };
+    }
+    var lasts = "";
+    var awal = "";
+    for(var key in huruf_angka){
+        if(awal === ""){
+            awal = key;
+        }
+        lasts = key;
+    }
+    var param_string = param.toString();
+    var count_last = 0;
+    var result_reserve = "";
+    var result = "";
+    var after_f = 0;
+    for(var i = param_string.length - 1; i >= 0; i--){
+        if(!after_f){
+            if(param_string[i] === lasts){
+                result_reserve = result_reserve + awal;
+                count_last++;
+            } else {
+                var angka = huruf_angka[param_string[i]] + 1;
+                var huruf = angka_huruf[angka];
+                result_reserve = result_reserve + huruf;
+                after_f = 1;
+            }
+        } else {
+            result_reserve = result_reserve + param_string[i];
+        }
+    }
+    if(count_last === param_string.length){
+        result = awal === "0" ? ("1" + result_reserve) : (awal + result_reserve);
+    } else {
+        for(var i = result_reserve.length - 1; i >= 0; i--){
+            result = result + result_reserve[i];
+        }
+    }
+    return result;
+}
+
+function convert_number_alphabet(param){
+    var angka = "A";
+    for(var i = 1; i < param; i++){
+        angka = do_increment(angka, "alp");
+    }
+    return angka;
+}
 
 function checker(get_src, iframe_all, urutan){
     $.post(

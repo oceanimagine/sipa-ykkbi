@@ -29,6 +29,7 @@ class layoutcall extends CI_Controller {
     }
     public function goto_project($project_id){
         $_SESSION['PROJECT_ACTIVE'] = $project_id;
-        redirect("home");
+        header("location:" . $_SESSION['URL_CURRENT']);
+        exit();
     }
 }
