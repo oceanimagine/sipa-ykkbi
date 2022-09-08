@@ -15,7 +15,9 @@ class privilege {
         $explode_get = explode("get", current_url());
         $explode_check = explode("check", current_url());
         $explode_report = explode("report", current_url());
-        if(sizeof($explode_get) == 1 && sizeof($explode_check) == 1 && sizeof($explode_report) == 1){
+        $explode_add = explode("add", current_url());
+        $explode_edit = explode("edit", current_url());
+        if(sizeof($explode_get) == 1 && sizeof($explode_check) == 1 && sizeof($explode_report) == 1 && sizeof($explode_add) == 1 && sizeof($explode_edit) == 1){
             $_SESSION['URL_CURRENT'] = str_replace("?","/",current_url());
         }
 	$same = 0;

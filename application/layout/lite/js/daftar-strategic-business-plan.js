@@ -122,6 +122,8 @@ window.addEventListener("load", function () {
         var value_select = this.value;
         var sbp_nourut_display = document.getElementById("sbp_nourut_display");
         var sbp_nourut = document.getElementById("sbp_nourut");
+        var tempat_kode_pks_pkns = document.getElementById("tempat_kode_pks_pkns");
+        var tempat_nomor_pks_pkns = document.getElementById("tempat_nomor_pks_pkns");
         
         var get_option = kode_ps_program_strategis.getElementsByTagName("option");
         for(var i = 0; i < get_option; i++){
@@ -130,6 +132,10 @@ window.addEventListener("load", function () {
         kode_ps_program_strategis.value = "";
         
         if(value_select === "PS"){
+            
+            tempat_kode_pks_pkns.style.display = "none";
+            tempat_nomor_pks_pkns.style.display = "none";
+            
             sbp_nourut_display.value = "A";
             sbp_nourut.value = "A";
         }
@@ -167,8 +173,11 @@ window.addEventListener("load", function () {
             
             var tempat_kode_ps_pilih = document.getElementById("tempat_kode_ps_pilih");
             var get_input = tempat_kode_ps_pilih.getElementsByTagName("input");
-            get_input[1].setAttribute("disabled", "");
+            get_input[1].removeAttribute("disabled", "");
             tempat_kode_ps_pilih.style.display = "";
+            
+            tempat_kode_pks_pkns.style.display = "";
+            tempat_nomor_pks_pkns.style.display = "";
             
         }
         if(value_select === "PS"){

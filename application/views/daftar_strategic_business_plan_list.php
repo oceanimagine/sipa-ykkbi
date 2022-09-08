@@ -65,7 +65,6 @@
                                 <th>SBP Kode</th>
                                 <th>SBP Nourut</th>
                                 <th>SBP Desc</th>
-                                <th>SBP Order View</th>
                                 <th>Action</th>
                             </tr>
                         </thead>

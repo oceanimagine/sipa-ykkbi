@@ -67,7 +67,7 @@
             <div class="form-group" id="tempat_kode_ps_input" <?php echo isset($penanda_non_operasional) && ($penanda_non_operasional == "1" || $penanda_non_operasional == "2") ? " style='display: none;'" : ""; ?>>
                 <label for="kode_ps_program_strategis" class="col-xs-2 control-label">Kode PS</label>
                 <div class="col-xs-10">
-                    <select <?php echo $disabled; ?> required id="kode_ps_program_strategis" class="form-control" name="kode_ps">
+                    <select <?php echo $disabled; ?> required id="kode_ps_program_strategis" class="form-control" name="kode_ps" <?php echo isset($penanda_non_operasional) && ($penanda_non_operasional == "1" || $penanda_non_operasional == "2") ? " disabled=''" : ""; ?>>
                         <option value="">PILIH</option>
                         <?php 
                         for($i = 1; $i <= 99; $i++){
@@ -83,14 +83,14 @@
                 <label for="kode_ps_pilih" class="col-xs-2 control-label">Kode PS</label>
                 <div class="col-xs-9 autocomplete">
                     <input required="" type="text" id="kode_ps_pilih" class="form-control tambah-margin-bawah" name="kode_ps_pilih" placeholder="Kode PS" value="<?php echo isset($kode_ps_display) ? $kode_ps_display : ""; ?>" autocomplete="off" disabled="" <?php echo isset($merah) && $merah == "merah" ? " style='color: red;'" : ""; ?>>
-                    <input disabled="" required="" type="hidden" id="kode_ps_pilih_hidden" name="kode_ps" value="<?php echo isset($sbp_kode_param_edit) ? $sbp_kode_param_edit : ""; ?>">
+                    <input required="" type="hidden" id="kode_ps_pilih_hidden" name="kode_ps" value="<?php echo isset($sbp_kode_param_edit) ? $sbp_kode_param_edit : ""; ?>" <?php echo isset($penanda_non_operasional) && ($penanda_non_operasional == "1" || $penanda_non_operasional == "2") ? "" : " disabled=''"; ?>>
                 </div>
                 <div class="col-xs-1" style="padding-left:0px;">
                     <button <?php echo $disabled; ?> id="buka_dialog_kode_ps" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="search" value="Search"><i class="fa fa-search"></i></button>
                 </div>
             </div>
             
-            <div class="form-group">
+            <div class="form-group" id="tempat_kode_pks_pkns" <?php echo isset($penanda_non_operasional) && ($penanda_non_operasional == "1" || $penanda_non_operasional == "2") ? "" : " style='display: none;'"; ?>>
                 <label for="kode_pks_pkns_display" class="col-xs-2 control-label">Kode PKS/PKNS</label>
                 <div class="col-xs-10">
                     <input disabled="" type="text" id="kode_pks_pkns_display" pattern="\d*" class="form-control numberonly-no-comma" name="kode_pks_pkns_display" placeholder="Kode PKS/PKNS" value="<?php echo isset($penanda_non_operasional) ? $penanda_non_operasional : "0"; ?>" maxlength="1">
@@ -98,10 +98,10 @@
                 </div>
             </div>
             
-            <div class="form-group">
+            <div class="form-group" id="tempat_nomor_pks_pkns" <?php echo isset($penanda_non_operasional) && ($penanda_non_operasional == "1" || $penanda_non_operasional == "2") ? "" : " style='display: none;'"; ?>>
                 <label for="nomor_pks_pkns" class="col-xs-2 control-label">Nomor PKS/PKNS</label>
                 <div class="col-xs-10">
-                    <select disabled="" id="nomor_pks_pkns" name="nomor_pks_pkns" class="form-control">
+                    <select <?php echo isset($penanda_non_operasional) && ($penanda_non_operasional == "1" || $penanda_non_operasional == "2") ? "" : " disabled=''"; ?> id="nomor_pks_pkns" name="nomor_pks_pkns" class="form-control">
                         <option value="">PILIH</option>
                         <?php 
                         for($i = 1; $i <= 99; $i++){
@@ -132,7 +132,7 @@
             
             <div class="form-group">
                 <div class="col-xs-6" style="margin-bottom: 40px;">
-                    <button <?php echo $disabled; ?> style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="input_daftar_strategic_business_plan" value="Input Daftar Strategic Business Plan" disabled="">Input Daftar Strategic Business Plan</button>
+                    <button <?php echo $disabled; ?> style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="input_daftar_strategic_business_plan" value="Input Daftar Strategic Business Plan">Input Daftar Strategic Business Plan</button>
                 </div>
                 <div class="col-xs-6">
                     <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important;" type="button" class="btn btn-default bg-aqua-gradient" onclick="move_url('daftar-strategic-business-plan');">Lihat Data</button>

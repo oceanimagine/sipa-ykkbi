@@ -51,7 +51,7 @@ class Daftar_strategic_business_plan extends CI_Controller {
         redirect('daftar-strategic-business-plan');
     }
     
-    public function get_nomor_urut_sbp($nosbp){
+    public function get_nomor_urut_sbp($nosbp, $return = false){
         
         $this->get_daftar_strategic_business_plan->process(array(
             'action' => 'select',
@@ -62,6 +62,9 @@ class Daftar_strategic_business_plan extends CI_Controller {
             'where' => 'length(sbpkode) != 2 and sbpkode like \''.$nosbp.'%\'',
             'order' => 'sbpkode asc'
         ));
+        if($return){
+            return sizeof($this->all) + 1;
+        }
         echo sizeof($this->all) + 1;
     }
     
@@ -73,24 +76,88 @@ class Daftar_strategic_business_plan extends CI_Controller {
                 redirect('daftar-strategic-business-plan/edit/'.$id.'');
                 exit();
             }
-            $kode = $this->input->post('kode');
-            $sbpkode = $this->input->post('sbpkode');
-            $sbpnourut = $this->input->post('sbpnourut');
-            $sbpdesc = $this->input->post('sbpdesc');
-            $this->get_daftar_strategic_business_plan->process(array(
-                'action' => 'update',
-                'table' => 'tbldaftarsbpps',
-                'column_value' => array(
-
-                    'kode' => $kode,
-                    'sbpkode' => $sbpkode,
-                    'sbpnourut' => $sbpnourut,
-                    'sbpdesc' => $sbpdesc
-                ),
-                'where' => 'kode = \''.$this->kode.'\' and sbpkode = \''.$this->sbpkode.'\' and sbpnourut = \''.$this->sbpnourut.'\''
-            ));
             
-            redirect('daftar-strategic-business-plan/edit/'.$id.'');
+            $kode = $this->input->post('kode');
+            $jenis_entri = $this->input->post('jenis_entri');
+            $kode_ps = $this->input->post('kode_ps');
+            $kode_pks_pkns = $this->input->post('kode_pks_pkns');
+            $nomor_pks_pkns = $this->input->post('nomor_pks_pkns');
+            $sbp_nourut = $this->input->post('sbp_nourut');
+            $keterangan = $this->input->post('keterangan');
+            
+            $param_baru = $id;
+            $masuk_update = 0;
+            if($kode_ps != "" && $jenis_entri == "PS"){
+                $this->get_daftar_strategic_business_plan->process(array(
+                    'action' => 'select',
+                    'table' => 'tbldaftarsbpps',
+                    'column_value' => array(
+                        'sbpkode'
+                    ), 
+                    'where' => 'kode = \''.$kode.'\' and sbpkode = \''.$kode_ps.'\''
+                ));
+                $data = $this->all;
+                if(sizeof($data) == 0){
+                    $this->get_daftar_strategic_business_plan->process(array(
+                        'action' => 'update',
+                        'table' => 'tbldaftarsbpps',
+                        'column_value' => array(
+                            'kode' => $kode,
+                            'sbpkode' => $kode_ps,
+                            'sbpnourut' => $sbp_nourut,
+                            'sbpdesc' => $keterangan
+                        ),
+                        'where' => 'kode = \''.$this->kode.'\' and sbpkode = \''.$this->sbpkode.'\' and sbpnourut = \''.$this->sbpnourut.'\''
+                    ));
+                    $param_baru = $kode . "-" . $kode_ps . "-" . $sbp_nourut;
+                    $masuk_update = 1;
+                } else {
+                    Message::set("Kode PS sudah tersedia.");
+                }
+            }
+            
+            if($kode_ps != "" && ($jenis_entri == "PKS" || $jenis_entri == "PKNS")){
+                
+                $kode_ps_pks_pkns = $kode_ps . "." . $kode_pks_pkns . "." . $nomor_pks_pkns;
+                
+                $this->get_daftar_strategic_business_plan->process(array(
+                    'action' => 'select',
+                    'table' => 'tbldaftarsbpps',
+                    'column_value' => array(
+                        'sbpkode'
+                    ), 
+                    'where' => 'kode = \''.$kode.'\' and sbpkode = \''.$kode_ps_pks_pkns.'\''
+                ));
+                $data = $this->all;
+                
+                if(sizeof($data) == 0){
+                    $this->get_daftar_strategic_business_plan->process(array(
+                        'action' => 'update',
+                        'table' => 'tbldaftarsbpps',
+                        'column_value' => array(
+                            'kode' => $kode,
+                            'sbpkode' => $kode_ps_pks_pkns,
+                            'sbpnourut' => $sbp_nourut,
+                            'sbpdesc' => $keterangan
+                        ),
+                        'where' => 'kode = \''.$this->kode.'\' and sbpkode = \''.$this->sbpkode.'\' and sbpnourut = \''.$this->sbpnourut.'\''
+                    ));
+                    $param_baru = $kode . "-" . $kode_ps_pks_pkns . "-" . $sbp_nourut;
+                    $masuk_update = 1;
+                } else {
+                    Message::set("Kode PKS PKNS sudah tersedia.");
+                }
+            }
+            
+            if(!$masuk_update){
+                Message::set("Data yang sama tidak akan diproses.");
+            }
+            
+            if($kode_ps == ""){
+                Message::set("Kode PS tidak boleh kosong.");
+            }
+            
+            redirect('daftar-strategic-business-plan/edit/'.$param_baru.'');
         }
         
         $this->get_daftar_strategic_business_plan->process(array(
@@ -105,13 +172,14 @@ class Daftar_strategic_business_plan extends CI_Controller {
             'where' => 'kode = \''.$this->kode.'\' and sbpkode = \''.$this->sbpkode.'\' and sbpnourut = \''.$this->sbpnourut.'\''
         ));
         
+        $row_data = $this->row;
         $explode_sbpkode = explode(".", $this->sbpkode);
         $kode_program_strategis = $explode_sbpkode[0];
         $penanda_non_operasional = "";
         $nomor_pks_pkns = "";
         $sbp_kode_param_edit = "";
         $sbp_desc_param_edit = "";
-        $sbp_keterangan = $this->row->{'sbpdesc'};
+        $sbp_keterangan = $row_data->{'sbpdesc'};
         if(isset($explode_sbpkode[1]) && isset($explode_sbpkode[2])){
             
             $this->get_daftar_strategic_business_plan->process(array(
@@ -134,10 +202,10 @@ class Daftar_strategic_business_plan extends CI_Controller {
         
         $this->layout->loadView('daftar_strategic_business_plan_form', array(
             
-            'kode' => $this->row->{'kode'},
-            'sbpkode' => $this->row->{'sbpkode'},
-            'sbpnourut' => $this->row->{'sbpnourut'},
-            'sbpdesc' => $this->row->{'sbpdesc'},
+            'kode' => $row_data->{'kode'},
+            'sbpkode' => $row_data->{'sbpkode'},
+            'sbp_nourut' => $row_data->{'sbpnourut'},
+            'sbpdesc' => $row_data->{'sbpdesc'},
                     
             'sbp_keterangan' => $sbp_keterangan,
             'sbp_kode_param_edit' => $sbp_kode_param_edit,
@@ -156,19 +224,72 @@ class Daftar_strategic_business_plan extends CI_Controller {
                 exit();
             }
             $kode = $this->input->post('kode');
-            $sbpkode = $this->input->post('sbpkode');
-            $sbpnourut = $this->input->post('sbpnourut');
-            $sbpdesc = $this->input->post('sbpdesc');
-            $this->get_daftar_strategic_business_plan->process(array(
-                'action' => 'insert',
-                'table' => 'tbldaftarsbpps',
-                'column_value' => array(
-                    'kode' => $kode,
-                    'sbpkode' => $sbpkode,
-                    'sbpnourut' => $sbpnourut,
-                    'sbpdesc' => $sbpdesc
-                )
-            ));
+            $jenis_entri = $this->input->post('jenis_entri');
+            $kode_ps = $this->input->post('kode_ps');
+            $kode_pks_pkns = $this->input->post('kode_pks_pkns');
+            $nomor_pks_pkns = $this->input->post('nomor_pks_pkns');
+            $sbp_nourut = $this->input->post('sbp_nourut');
+            $keterangan = $this->input->post('keterangan');
+            
+            if($kode_ps != "" && $jenis_entri == "PS"){
+                $this->get_daftar_strategic_business_plan->process(array(
+                    'action' => 'select',
+                    'table' => 'tbldaftarsbpps',
+                    'column_value' => array(
+                        'sbpkode'
+                    ), 
+                    'where' => 'kode = \''.$kode.'\' and sbpkode = \''.$kode_ps.'\''
+                ));
+                $data = $this->all;
+                if(sizeof($data) == 0){
+                    $this->get_daftar_strategic_business_plan->process(array(
+                        'action' => 'insert',
+                        'table' => 'tbldaftarsbpps',
+                        'column_value' => array(
+                            'kode' => $kode,
+                            'sbpkode' => $kode_ps,
+                            'sbpnourut' => $sbp_nourut,
+                            'sbpdesc' => $keterangan
+                        )
+                    ));
+                } else {
+                    Message::set("Kode PS sudah tersedia.");
+                }
+            }
+            
+            if($kode_ps != "" && ($jenis_entri == "PKS" || $jenis_entri == "PKNS")){
+                
+                $kode_ps_pks_pkns = $kode_ps . "." . $kode_pks_pkns . "." . $nomor_pks_pkns;
+                
+                $this->get_daftar_strategic_business_plan->process(array(
+                    'action' => 'select',
+                    'table' => 'tbldaftarsbpps',
+                    'column_value' => array(
+                        'sbpkode'
+                    ), 
+                    'where' => 'kode = \''.$kode.'\' and sbpkode = \''.$kode_ps_pks_pkns.'\''
+                ));
+                $data = $this->all;
+                
+                if(sizeof($data) == 0){
+                    $this->get_daftar_strategic_business_plan->process(array(
+                        'action' => 'insert',
+                        'table' => 'tbldaftarsbpps',
+                        'column_value' => array(
+                            'kode' => $kode,
+                            'sbpkode' => $kode_ps_pks_pkns,
+                            'sbpnourut' => $sbp_nourut,
+                            'sbpdesc' => $keterangan
+                        )
+                    ));
+                } else {
+                    Message::set("Kode PKS PKNS sudah tersedia.");
+                }
+            }
+            
+            if($kode_ps == ""){
+                Message::set("Kode PS tidak boleh kosong.");
+            }
             
             redirect('daftar-strategic-business-plan/add');
         }
