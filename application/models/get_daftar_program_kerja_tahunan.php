@@ -64,7 +64,7 @@ class get_daftar_program_kerja_tahunan extends CI_Model {
                 pktoutput
             from tbldaftarpkt
         ) tbldaftarpkt ".
-        $clouse.$this->where_project($clouse)." order by kode asc offset $iDisplayStart limit " . $iDisplayLength;
+        $clouse.$this->where_project($clouse)." order by kode asc, sbpkode asc, substring(pktkode,1,4) asc, pktkode asc offset $iDisplayStart limit " . $iDisplayLength;
 
         $page = ($iDisplayStart / $iDisplayLength);
 

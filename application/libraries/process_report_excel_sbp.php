@@ -3,6 +3,8 @@
 include_once __DIR__ . '/../libraries/phpspreadsheet/vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Color;
 
 class process_report_excel_sbp {
     private $spreadsheet;
@@ -50,7 +52,8 @@ class process_report_excel_sbp {
         
         $highestColumn = $spreadsheet->getSheetByName($sheetname)->getHighestColumn();
         
-        $begin_row_start = 9;
+        $begin_row_delete = 9;
+        $begin_row_start = 20;
         $begin_row = $begin_row_start;
         
         $all_data = $this->CI->all;
@@ -82,6 +85,7 @@ class process_report_excel_sbp {
             $begin_row++;
             $no++;
         }
+        $spreadsheet->getSheetByName($sheetname)->removeRow(($begin_row_delete + 1),($begin_row_start - ($begin_row_delete + 1)));
         $this->spreadsheet = $spreadsheet;
     }
     
@@ -121,6 +125,13 @@ class process_report_excel_sbp {
             $this->unmerge_and_empty_cell('I:K', $begin_row_delete + 1, $sheetname);
         }
         for($i = 0; $i < sizeof($all_data); $i++){
+            for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
+                $styleArray = $spreadsheet->getSheetByName($sheetname)->getStyle(Coordinate::stringFromColumnIndex($col) . 8)->exportArray();
+                $spreadsheet->getSheetByName($sheetname)->getStyle(Coordinate::stringFromColumnIndex($col) . $begin_row)->applyFromArray($styleArray);
+                
+                // $style = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 8);
+                // $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
+            }
             $isi_kata = $all_data[$i]->nama;
             if($all_data[$i]->lvl == "1"){
                 $spreadsheet->getSheetByName($sheetname)->mergeCells('I'.$begin_row.':K'.$begin_row);
@@ -187,14 +198,28 @@ class process_report_excel_sbp {
         $no = 1;
         
         if(sizeof($all_data) > 0){
+            $row_end_default = 13;
+            if($sheetname == "PKT-K"){
+                $row_end_default = 12;
+            }
             for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
-                $style_last = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 13);
+                $style_last = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, $row_end_default);
                 $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style_last, Coordinate::stringFromColumnIndex($col) . ($begin_row_start + sizeof($all_data)));
             }
             $this->unmerge_and_empty_cell('I:M', $begin_row_delete + 1, $sheetname);
         }
         for($i = 0; $i < sizeof($all_data); $i++){
             $isi_kata = $all_data[$i]->nama;
+            for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
+                $styleArray = $spreadsheet->getSheetByName($sheetname)->getStyle(Coordinate::stringFromColumnIndex($col) . 8)->exportArray();
+                $spreadsheet->getSheetByName($sheetname)->getStyle(Coordinate::stringFromColumnIndex($col) . $begin_row)->applyFromArray($styleArray);
+                
+                // $style = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 8);
+                // $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
+            }
+            // $spreadsheet->getActiveSheet()->getStyle('G'.$begin_row)->getBorders()->getRight()->setBorderStyle(Border::BORDER_MEDIUM)->setColor(new Color('00000000'));;
+            // $spreadsheet->getActiveSheet()->getStyle('I'.$begin_row)->getBorders()->getLeft()->setBorderStyle(Border::BORDER_MEDIUM)->setColor(new Color('00000000'));;
+            $spreadsheet->getActiveSheet();
             if($all_data[$i]->lvl == "1"){
                 $spreadsheet->getSheetByName($sheetname)->mergeCells('I'.$begin_row.':M'.$begin_row);
                 $wrap_kata = wordwrap($isi_kata, $this->default_string, " ----- ");
@@ -293,6 +318,13 @@ class process_report_excel_sbp {
             $this->unmerge_and_empty_cell('J:O', $begin_row_delete + 1, $sheetname);
         }
         for($i = 0; $i < sizeof($all_data); $i++){
+            for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
+                $styleArray = $spreadsheet->getSheetByName($sheetname)->getStyle(Coordinate::stringFromColumnIndex($col) . 8)->exportArray();
+                $spreadsheet->getSheetByName($sheetname)->getStyle(Coordinate::stringFromColumnIndex($col) . $begin_row)->applyFromArray($styleArray);
+                
+                // $style = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 8);
+                // $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
+            }
             $isi_kata = $all_data[$i]->nama;
             if($all_data[$i]->lvl == "1"){
                 $spreadsheet->getSheetByName($sheetname)->mergeCells('J'.$begin_row.':O'.$begin_row);

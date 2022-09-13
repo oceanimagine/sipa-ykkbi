@@ -42,12 +42,31 @@ class Daftar_strategic_business_plan extends CI_Controller {
             exit();
         }
         $this->process_param($id);
+        $do_delete = true;
         
-        $this->get_daftar_strategic_business_plan->process(array(
-            'action' => 'delete',
-            'table' => 'tbldaftarsbpps',
-            'where' => 'kode = \''.$this->kode.'\' and sbpkode = \''.$this->sbpkode.'\' and sbpnourut = \''.$this->sbpnourut.'\''
-        ));
+        if(strlen($this->sbpkode) == 2){
+            $this->get_daftar_strategic_business_plan->process(array(
+                'action' => 'select',
+                'table' => 'tbldaftarsbpps',
+                'column_value' => array(
+                    'sbpkode'
+                ),
+                'where' => 'length(sbpkode) > 2 and substring(sbpkode from 1 for 2) = \''.$this->sbpkode.'\' and kode = \''.$this->kode.'\''
+            ));
+            if(sizeof($this->all) > 0){
+                $do_delete = false;
+            }
+        }
+        
+        if($do_delete){
+            $this->get_daftar_strategic_business_plan->process(array(
+                'action' => 'delete',
+                'table' => 'tbldaftarsbpps',
+                'where' => 'kode = \''.$this->kode.'\' and sbpkode = \''.$this->sbpkode.'\' and sbpnourut = \''.$this->sbpnourut.'\''
+            ));
+        } else {
+            Message::set("SBP Number Cannot Deleted because have some member.");
+        }
         redirect('daftar-strategic-business-plan');
     }
     
@@ -88,15 +107,18 @@ class Daftar_strategic_business_plan extends CI_Controller {
             $param_baru = $id;
             $masuk_update = 0;
             if($kode_ps != "" && $jenis_entri == "PS"){
-                $this->get_daftar_strategic_business_plan->process(array(
-                    'action' => 'select',
-                    'table' => 'tbldaftarsbpps',
-                    'column_value' => array(
-                        'sbpkode'
-                    ), 
-                    'where' => 'kode = \''.$kode.'\' and sbpkode = \''.$kode_ps.'\''
-                ));
-                $data = $this->all;
+                $data = array();
+                if($kode_ps != $this->sbpkode){
+                    $this->get_daftar_strategic_business_plan->process(array(
+                        'action' => 'select',
+                        'table' => 'tbldaftarsbpps',
+                        'column_value' => array(
+                            'sbpkode'
+                        ), 
+                        'where' => 'kode = \''.$kode.'\' and sbpkode = \''.$kode_ps.'\''
+                    ));
+                    $data = $this->all;
+                }
                 if(sizeof($data) == 0){
                     $this->get_daftar_strategic_business_plan->process(array(
                         'action' => 'update',
@@ -119,16 +141,18 @@ class Daftar_strategic_business_plan extends CI_Controller {
             if($kode_ps != "" && ($jenis_entri == "PKS" || $jenis_entri == "PKNS")){
                 
                 $kode_ps_pks_pkns = $kode_ps . "." . $kode_pks_pkns . "." . $nomor_pks_pkns;
-                
-                $this->get_daftar_strategic_business_plan->process(array(
-                    'action' => 'select',
-                    'table' => 'tbldaftarsbpps',
-                    'column_value' => array(
-                        'sbpkode'
-                    ), 
-                    'where' => 'kode = \''.$kode.'\' and sbpkode = \''.$kode_ps_pks_pkns.'\''
-                ));
-                $data = $this->all;
+                $data = array();
+                if($kode_ps_pks_pkns != $this->sbpkode){
+                    $this->get_daftar_strategic_business_plan->process(array(
+                        'action' => 'select',
+                        'table' => 'tbldaftarsbpps',
+                        'column_value' => array(
+                            'sbpkode'
+                        ), 
+                        'where' => 'kode = \''.$kode.'\' and sbpkode = \''.$kode_ps_pks_pkns.'\''
+                    ));
+                    $data = $this->all;
+                }
                 
                 if(sizeof($data) == 0){
                     $this->get_daftar_strategic_business_plan->process(array(
@@ -189,7 +213,7 @@ class Daftar_strategic_business_plan extends CI_Controller {
                     'sbpkode',
                     'sbpdesc'
                 ),
-                'where' => 'sbpkode = \''.$kode_program_strategis.'\''
+                'where' => 'kode = \''.$this->kode.'\' and sbpkode = \''.$kode_program_strategis.'\''
             ));
             $data_all = $this->all;
             

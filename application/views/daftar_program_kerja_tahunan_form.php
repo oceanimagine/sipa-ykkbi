@@ -121,6 +121,11 @@
                         <option value="<?php echo $data->satkerid; ?>"<?php echo $selected; ?>><?php echo "(" . $data->satkerid . ")" . " " . $data->nama1; ?></option>
                         <?php } ?>
                     </select>
+                    <?php 
+                    if(isset($satker_display)){
+                        ?><input type="hidden" name="satker_pkt_kode" value="<?php echo $satker_display ?>" /><?php
+                    }
+                    ?>
                 </div>
                 <div class="col-xs-5" id="tempat_nokegiatan_pkt_kode" style="padding-left: 6px;">
                     <select <?php echo $disabled; ?> name="nokegiatan_pkt_kode" id="nokegiatan_pkt_kode" class="form-control">
@@ -130,6 +135,11 @@
                         <option value="<?php echo samakan($i, 99); ?>"<?php echo $selected; ?>><?php echo samakan($i, 99); ?></option>
                         <?php } ?>
                     </select>
+                    <?php 
+                    if(isset($urutan_kegiatan)){
+                        ?><input type="hidden" name="nokegiatan_pkt_kode" value="<?php echo $urutan_kegiatan ?>" /><?php
+                    }
+                    ?>
                 </div>
                 <div class="col-xs-5" id="tempat_norinciankegiatan_pkt_kode" style="display: none;">
                     <select <?php echo $disabled; ?> name="norinciankegiatan_pkt_kode" id="norinciankegiatan_pkt_kode" class="form-control">
@@ -160,7 +170,7 @@
             
             <div class="form-group">
                 <div class="col-lg-6 col-md-6" style="margin-bottom: 40px;">
-                    <button <?php echo $disabled; ?> style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="input_daftar_program_kerja_tahunan" value="Input Daftar Program Kerja Tahunan" disabled>Input Daftar Program Kerja Tahunan</button>
+                    <button <?php echo $disabled; ?> style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="input_daftar_program_kerja_tahunan" value="Input Daftar Program Kerja Tahunan">Input Daftar Program Kerja Tahunan</button>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important;" type="button" class="btn btn-default bg-aqua-gradient" onclick="move_url('daftar-program-kerja-tahunan');">Lihat Data</button>

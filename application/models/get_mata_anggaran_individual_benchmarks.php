@@ -34,7 +34,7 @@ class get_mata_anggaran_individual_benchmarks extends CI_Model {
         $clouse = "";
 
         if ($sSearch != '') {
-            $clouse = " where rekmanama like '%" . $sSearch . "%' ";
+            $clouse = " where (rekmakode like '%" . $sSearch . "%' or rekmanama like '%" . $sSearch . "%' or rekmainduk like '%" . $sSearch . "%') ";
         }
 
         /* select id, harga, tanggal_harus_bayar, case status when '1' then 'Aktif' when '2' then 'Tidak Aktif' else 'Tidak Aktif' end as status from tbl_atur_bayar */
@@ -44,7 +44,7 @@ class get_mata_anggaran_individual_benchmarks extends CI_Model {
         $query_total = $this->db->query($sql_total);
         $total = $query_total->num_rows();
 
-        $sql = "select b.rekmakode as id, b.kode, b.rekmakode, b.rekmanama, b.rekmainduk, (select a.rekmainduknama from tblmastermainduk a where a.rekmainduk = b.rekmainduk) rekmainduknama, b.benchmarkang, b.benchmarkprog from tblmastermaindividual b ".$clouse.$this->where_project($clouse)." order by id asc offset $iDisplayStart limit $iDisplayLength";
+        $sql = "select b.rekmakode as id, b.kode, b.rekmakode, b.rekmanama, b.rekmainduk, (select a.rekmainduknama from tblmastermainduk a where a.rekmainduk = b.rekmainduk) rekmainduknama, b.benchmarkang, b.benchmarkprog from tblmastermaindividual b ".$clouse.$this->where_project($clouse)." order by id asc, kode asc, rekmainduk asc, rekmakode asc offset $iDisplayStart limit $iDisplayLength";
 
         $page = ($iDisplayStart / $iDisplayLength);
 

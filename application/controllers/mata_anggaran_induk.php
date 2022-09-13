@@ -30,11 +30,27 @@ class mata_anggaran_induk extends CI_Controller {
             redirect('mata-anggaran-induk');
             exit();
         }
+        $do_delete = true;
+        
         $this->get_mata_anggaran_induk->process(array(
-            'action' => 'delete',
-            'table' => 'tblmastermainduk',
+            'action' => 'select',
+            'table' => 'tblmastermaindividual',
+            'column_value' => array('rekmainduk'),
             'where' => 'rekmainduk = \''.$id.'\' and kode = \''.$this->kode_project_scope_controller.'\''
         ));
+        if(sizeof($this->all) > 0){
+            $do_delete = false;
+        }
+        
+        if($do_delete){
+            $this->get_mata_anggaran_induk->process(array(
+                'action' => 'delete',
+                'table' => 'tblmastermainduk',
+                'where' => 'rekmainduk = \''.$id.'\' and kode = \''.$this->kode_project_scope_controller.'\''
+            ));
+        } else {
+            Message::set("Rekma Induk Cannot Deleted because have some member.");
+        }
         redirect('mata-anggaran-induk');
     }
     

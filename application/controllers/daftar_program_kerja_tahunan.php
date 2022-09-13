@@ -33,7 +33,7 @@ class daftar_program_kerja_tahunan extends CI_Controller {
             'column_value' => array(
                 '*'
             ),
-            'where' => 'substring(pktkode from 1 for 1) in ('.$result_satker.') and length(pktkode) = 4' . $sbpkode_where,
+            'where' => 'kode = \''.$this->kode_project_scope_controller.'\' and substring(pktkode from 1 for 1) in ('.$result_satker.') and length(pktkode) = 4' . $sbpkode_where,
             'order' => 'sbpkode asc, pktkode asc'
         ));
         
@@ -50,11 +50,28 @@ class daftar_program_kerja_tahunan extends CI_Controller {
         }
         $id = urldecode($id);
         $this->process_param($id);
-        $this->get_daftar_program_kerja_tahunan->process(array(
-            'action' => 'delete',
-            'table' => 'tbldaftarikupkt',
-            'where' => 'kode = \''.$this->kode.'\' and ikukode = \''.$this->ikukode.'\' and sbpkode = \''.$this->sbppskode.'\' and pktkode = \''.$this->pktkode.'\''
-        ));
+        $do_delete = true;
+        if(strlen($this->pktkode) == 4){
+            $this->get_daftar_program_kerja_tahunan->process(array(
+                'action' => 'select',
+                'table' => 'tbldaftarpkt',
+                'column_value' => array('pktkode'),
+                'where' => 'kode = \''.$this->kode.'\' and sbpkode = \''.$this->sbppskode.'\' and length(pktkode) > 4 and substring(pktkode from 1 for 4) = \''.$this->pktkode.'\''
+            ));
+            if(sizeof($this->all) > 0){
+                $do_delete = false;
+            }
+        }
+        
+        if($do_delete){
+            $this->get_daftar_program_kerja_tahunan->process(array(
+                'action' => 'delete',
+                'table' => 'tbldaftarpkt',
+                'where' => 'kode = \''.$this->kode.'\' and sbpkode = \''.$this->sbppskode.'\' and pktkode = \''.$this->pktkode.'\''
+            ));
+        } else {
+            Message::set("Kegiatan Cannot Deleted because have some member.");
+        }
         redirect('daftar-program-kerja-tahunan');
     }
     
@@ -67,24 +84,63 @@ class daftar_program_kerja_tahunan extends CI_Controller {
                 redirect('daftar-program-kerja-tahunan/edit/'.$id.'');
                 exit();
             }
-            $kode = $this->input->post('kode');
-            $ikukode = $this->input->post('iku_kode_hidden');
-            $sbpkode = $this->input->post('sbpps_kode_hidden');
-            $pktkode = $this->input->post('pkt_kode');
-            $this->get_daftar_program_kerja_tahunan->process(array(
-                'action' => 'update',
-                'table' => 'tbldaftarikupkt',
-                'column_value' => array(
-
-                    'kode' => $kode,
-                    'ikukode' => $ikukode,
-                    'sbpkode' => $sbpkode,
-                    'pktkode' => $pktkode
-                ),
-                'where' => 'kode = \''.$this->kode.'\' and ikukode = \''.$this->ikukode.'\' and sbpkode = \''.$this->sbppskode.'\' and pktkode = \''.$this->pktkode.'\''
-            ));
             
-            redirect('daftar-program-kerja-tahunan/edit/'. urlencode($kode."-".$ikukode."-".$sbpkode."-".$pktkode).'');
+            $kode = $this->input->post('kode');
+            $sbpps_kode_hidden = $this->input->post('sbpps_kode_hidden');
+            $satker_pkt_kode = $this->input->post('satker_pkt_kode');
+            $nokegiatan_pkt_kode = $this->input->post('nokegiatan_pkt_kode');
+            $norinciankegiatan_pkt_kode = $this->input->post('norinciankegiatan_pkt_kode');
+            $pktkrk = $this->input->post('pktkrk');
+            $pktnama = $this->input->post('pktnama');
+            $pktoutput = $this->input->post('pktoutput');
+            $pktkode = $satker_pkt_kode . "." . $nokegiatan_pkt_kode . ($norinciankegiatan_pkt_kode != "" ? "." . $norinciankegiatan_pkt_kode : "");
+            
+            $do_update = true;
+            $data_tidak_sama = true;
+            
+            $this->get_daftar_program_kerja_tahunan->process(array(
+                'action' => 'select',
+                'table' => 'tbldaftarpkt',
+                'column_value' => array('pktnama','pktoutput'),
+                'where' => 'kode = \''.$this->kode_project_scope_controller.'\' and sbpkode = \''.$sbpps_kode_hidden.'\' and pktkode = \''.$pktkode.'\''
+            ));
+            $row_data = $this->row;
+            if($this->kode == $kode && $this->sbppskode == $sbpps_kode_hidden && $this->pktkode == $pktkode && $row_data->pktnama == $pktnama && $row_data->pktoutput == $pktoutput){
+                $data_tidak_sama = false;
+                Message::set("Data yang sama tidak akan diproses.");
+            }
+            
+            if($data_tidak_sama){
+                $this->get_daftar_program_kerja_tahunan->process(array(
+                    'action' => 'select',
+                    'table' => 'tbldaftarpkt',
+                    'column_value' => array('pktkode'),
+                    'where' => 'kode = \''.$this->kode_project_scope_controller.'\' and sbpkode = \''.$sbpps_kode_hidden.'\' and (pktkode != \''.$this->pktkode.'\' and pktkode = \''.$pktkode.'\')'
+                ));
+                if(sizeof($this->all) > 0){
+                    $do_update = false;
+                    Message::set("Update Data Failed PKT Kode sudah tersedia.");
+                }
+            }
+            
+            if($do_update && $data_tidak_sama){
+                $this->get_daftar_program_kerja_tahunan->process(array(
+                    'action' => 'update',
+                    'table' => 'tbldaftarpkt',
+                    'column_value' => array(
+                        'kode' => $kode,
+                        'sbpkode' => $sbpps_kode_hidden,
+                        'pktkode' => $pktkode,
+                        'pktkrk' => $pktkrk,
+                        'pktnama' => $pktnama,
+                        'pktoutput' => $pktoutput,
+                        'pktnourut' => 'X'
+                    ),
+                    'where' => 'kode = \''.$this->kode.'\' and sbpkode = \''.$this->sbppskode.'\' and pktkode = \''.$this->pktkode.'\''
+                ));
+            }
+            
+            redirect('daftar-program-kerja-tahunan/edit/'. urlencode($kode."-".$sbpps_kode_hidden."-".$pktkode).'');
         }
         
         // Get SBPPS
@@ -180,7 +236,8 @@ class daftar_program_kerja_tahunan extends CI_Controller {
                 'ikukode',
                 'ikunama',
                 'ikurincian'
-            )
+            ),
+            'where' => 'kode = \''.$this->kode_project_scope_controller.'\'',
         ));
         $this->load->view("regular/data_search_iku", array(
             "data_search" => $this->all
@@ -197,6 +254,7 @@ class daftar_program_kerja_tahunan extends CI_Controller {
                 'sbpnourut',
                 'sbpdesc'
             ),
+            'where' => 'kode = \''.$this->kode_project_scope_controller.'\'',
             'order' => 'sbpkode asc'
         ));
         $this->load->view("regular/data_search_sbpps", array(
@@ -212,19 +270,43 @@ class daftar_program_kerja_tahunan extends CI_Controller {
                 exit();
             }
             $kode = $this->input->post('kode');
-            $ikukode = $this->input->post('iku_kode_hidden');
-            $sbpkode = $this->input->post('sbpps_kode_hidden');
-            $pktkode = $this->input->post('pkt_kode');
+            $sbpps_kode_hidden = $this->input->post('sbpps_kode_hidden');
+            $satker_pkt_kode = $this->input->post('satker_pkt_kode');
+            $nokegiatan_pkt_kode = $this->input->post('nokegiatan_pkt_kode');
+            $norinciankegiatan_pkt_kode = $this->input->post('norinciankegiatan_pkt_kode');
+            $pktkrk = $this->input->post('pktkrk');
+            $pktnama = $this->input->post('pktnama');
+            $pktoutput = $this->input->post('pktoutput');
+            $pktkode = $satker_pkt_kode . "." . $nokegiatan_pkt_kode . ($norinciankegiatan_pkt_kode != "" ? "." . $norinciankegiatan_pkt_kode : "");
+            
+            $do_insert = true;
             $this->get_daftar_program_kerja_tahunan->process(array(
-                'action' => 'insert',
-                'table' => 'tbldaftarikupkt',
-                'column_value' => array(
-                    'kode' => $kode,
-                    'ikukode' => $ikukode,
-                    'sbpkode' => $sbpkode,
-                    'pktkode' => $pktkode
-                )
+                'action' => 'select',
+                'table' => 'tbldaftarpkt',
+                'column_value' => array('pktkode'),
+                'where' => 'kode = \''.$this->kode_project_scope_controller.'\' and sbpkode = \''.$sbpps_kode_hidden.'\' and pktkode = \''.$pktkode.'\''
             ));
+            if(sizeof($this->all) > 0){
+                $do_insert = false;
+            }
+            
+            if($do_insert){
+                $this->get_daftar_program_kerja_tahunan->process(array(
+                    'action' => 'insert',
+                    'table' => 'tbldaftarpkt',
+                    'column_value' => array(
+                        'kode' => $kode,
+                        'sbpkode' => $sbpps_kode_hidden,
+                        'pktkode' => $pktkode,
+                        'pktkrk' => $pktkrk,
+                        'pktnama' => $pktnama,
+                        'pktoutput' => $pktoutput,
+                        'pktnourut' => 'X'
+                    )
+                ));
+            } else {
+                Message::set("Insert Data Failed PKT Kode sudah tersedia.");
+            }
             
             redirect('daftar-program-kerja-tahunan/add');
         }

@@ -52,7 +52,7 @@ class get_daftar_strategic_business_plan extends CI_Model {
             sbpnourut,
             sbpdesc
         from tbldaftarsbpps ".
-        $clouse.$this->where_project($clouse)." order by kode asc offset $iDisplayStart limit " . $iDisplayLength;
+        $clouse.$this->where_project($clouse)." order by kode asc, substring(sbpkode,1,2) asc, sbpkode asc offset $iDisplayStart limit " . $iDisplayLength;
 
         $page = ($iDisplayStart / $iDisplayLength);
 

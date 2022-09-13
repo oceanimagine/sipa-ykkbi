@@ -48,7 +48,7 @@ class daftar_iku extends CI_Controller {
             'column_value' => array(
                 '*'
             ),
-            'where' => 'substring(pktkode from 1 for 1) in ('.$result_satker.') and length(pktkode) = 4' . $sbpkode_where,
+            'where' => 'kode = \''.$this->kode_project_scope_controller.'\' and substring(pktkode from 1 for 1) in ('.$result_satker.') and length(pktkode) = 4' . $sbpkode_where,
             'order' => 'sbpkode asc, pktkode asc'
         ));
         
@@ -138,7 +138,8 @@ class daftar_iku extends CI_Controller {
             'column_value' => array(
                 'ikukode'
             ),
-            'order' => 'ikukode desc'
+            'order' => 'ikukode desc',
+            'where' => 'kode = \''.$this->kode_project_scope_controller.'\''
         ));
         
         $this->layout->loadView('daftar_iku_form', array(
