@@ -8,6 +8,10 @@ class daftar_iku extends CI_Controller {
         Privilege::admin();
     }
     
+    public function coba_html(){
+        new process_spreadsheet_html_viewer(true);
+    }
+    
     public function get_daftar_iku() {
         $this->get_daftar_iku->get_data();
     }

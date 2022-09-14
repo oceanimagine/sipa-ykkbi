@@ -13,8 +13,10 @@ class process_report_excel_sbp {
     public $filename = "";
     public function __construct($all = "", $view_only = false){
         if($all == "all"){
-            ini_set("display_errors", "On");
-            error_reporting(E_ALL);
+            error_reporting(-1);
+            ini_set("display_errors", "1");
+            ini_set("log_errors", 1);
+            ini_set("error_log", "/tmp/php-error-2.log");
             $this->CI = & get_instance();
             $this->CI->load->model('get_report');
             $reader = IOFactory::createReader("Xlsx");
@@ -125,13 +127,6 @@ class process_report_excel_sbp {
             $this->unmerge_and_empty_cell('I:K', $begin_row_delete + 1, $sheetname);
         }
         for($i = 0; $i < sizeof($all_data); $i++){
-            for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
-                $styleArray = $spreadsheet->getSheetByName($sheetname)->getStyle(Coordinate::stringFromColumnIndex($col) . 8)->exportArray();
-                $spreadsheet->getSheetByName($sheetname)->getStyle(Coordinate::stringFromColumnIndex($col) . $begin_row)->applyFromArray($styleArray);
-                
-                // $style = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 8);
-                // $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
-            }
             $isi_kata = $all_data[$i]->nama;
             if($all_data[$i]->lvl == "1"){
                 $spreadsheet->getSheetByName($sheetname)->mergeCells('I'.$begin_row.':K'.$begin_row);
@@ -167,6 +162,7 @@ class process_report_excel_sbp {
             $no++;
         }
         $spreadsheet->getSheetByName($sheetname)->removeRow(($begin_row_delete + 1),($begin_row_start - ($begin_row_delete + 1)));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('A'.($begin_row_delete + 1).":".Coordinate::stringFromColumnIndex((Coordinate::columnIndexFromString($highestColumn) - 1)).(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
         $this->spreadsheet = $spreadsheet;
     }
     
@@ -208,17 +204,9 @@ class process_report_excel_sbp {
             }
             $this->unmerge_and_empty_cell('I:M', $begin_row_delete + 1, $sheetname);
         }
+        
         for($i = 0; $i < sizeof($all_data); $i++){
             $isi_kata = $all_data[$i]->nama;
-            for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
-                $styleArray = $spreadsheet->getSheetByName($sheetname)->getStyle(Coordinate::stringFromColumnIndex($col) . 8)->exportArray();
-                $spreadsheet->getSheetByName($sheetname)->getStyle(Coordinate::stringFromColumnIndex($col) . $begin_row)->applyFromArray($styleArray);
-                
-                // $style = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 8);
-                // $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
-            }
-            // $spreadsheet->getActiveSheet()->getStyle('G'.$begin_row)->getBorders()->getRight()->setBorderStyle(Border::BORDER_MEDIUM)->setColor(new Color('00000000'));;
-            // $spreadsheet->getActiveSheet()->getStyle('I'.$begin_row)->getBorders()->getLeft()->setBorderStyle(Border::BORDER_MEDIUM)->setColor(new Color('00000000'));;
             $spreadsheet->getActiveSheet();
             if($all_data[$i]->lvl == "1"){
                 $spreadsheet->getSheetByName($sheetname)->mergeCells('I'.$begin_row.':M'.$begin_row);
@@ -276,6 +264,12 @@ class process_report_excel_sbp {
         }
         
         $spreadsheet->getSheetByName($sheetname)->removeRow(($begin_row_delete + 1),($begin_row_start - ($begin_row_delete + 1)));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('A'.($begin_row_delete + 1).":".Coordinate::stringFromColumnIndex((Coordinate::columnIndexFromString($highestColumn) - 1)).(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        // $spreadsheet->getSheetByName($sheetname)->getStyle('I'.($begin_row_delete + 1).":M".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_NONE)->setColor(new Color('00000000'));
+        // for($i = ($begin_row_delete + 1); $i <= (($begin_row_delete + 1) + (sizeof($all_data) - 1)); $i++){
+            // $spreadsheet->getSheetByName($sheetname)->getStyle('I'.$i.":M".$i)->getBorders()->getTop()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+            // $spreadsheet->getSheetByName($sheetname)->getStyle('I'.$i.":M".$i)->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        // }
         $this->spreadsheet = $spreadsheet;   
     }
     
@@ -318,13 +312,6 @@ class process_report_excel_sbp {
             $this->unmerge_and_empty_cell('J:O', $begin_row_delete + 1, $sheetname);
         }
         for($i = 0; $i < sizeof($all_data); $i++){
-            for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
-                $styleArray = $spreadsheet->getSheetByName($sheetname)->getStyle(Coordinate::stringFromColumnIndex($col) . 8)->exportArray();
-                $spreadsheet->getSheetByName($sheetname)->getStyle(Coordinate::stringFromColumnIndex($col) . $begin_row)->applyFromArray($styleArray);
-                
-                // $style = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 8);
-                // $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style, Coordinate::stringFromColumnIndex($col) . $begin_row);
-            }
             $isi_kata = $all_data[$i]->nama;
             if($all_data[$i]->lvl == "1"){
                 $spreadsheet->getSheetByName($sheetname)->mergeCells('J'.$begin_row.':O'.$begin_row);
@@ -392,6 +379,7 @@ class process_report_excel_sbp {
         }
         
         $spreadsheet->getSheetByName($sheetname)->removeRow(($begin_row_delete + 1),($begin_row_start - ($begin_row_delete + 1)));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('A'.($begin_row_delete + 1).":".Coordinate::stringFromColumnIndex((Coordinate::columnIndexFromString($highestColumn) - 1)).(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
         $this->spreadsheet = $spreadsheet;   
     }
     

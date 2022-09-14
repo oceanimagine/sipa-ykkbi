@@ -61,6 +61,7 @@ $autoload['libraries'] = array(
     'process_param',
     'privilege',
     'process_menu',
+    'process_spreadsheet_html_viewer',
     'process_lucky_export',
     'process_kamus_excel',
     'process_kamus_report_excel',
