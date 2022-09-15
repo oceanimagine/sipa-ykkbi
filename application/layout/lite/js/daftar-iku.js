@@ -90,9 +90,10 @@ function delete_row(span_object){
     
     var count = 1;
     for(var i = 0; i < get_tr_.length; i++){
-        
         var get_td_inside = get_tr_[i].getElementsByTagName("td");
-        get_td_inside[0].innerHTML = count;
+        get_td_inside[0].style.textAlign = "right";
+        var temp = "<input" + get_td_inside[0].innerHTML.split("<input")[1];
+        get_td_inside[0].innerHTML = count.toString() + "." + temp;
         count++;
     }
     if(get_tr_.length === 0){
@@ -118,7 +119,8 @@ function set_to_table(attr_data,display_address,raw_attr_data){
     for(var i = 0; i < get_tr.length; i++){
         var get_td_inside = get_tr[i].getElementsByTagName("td");
         get_td_inside[0].style.textAlign = "right";
-        get_td_inside[0].innerHTML = count.toString() + ".";
+        var temp = "<input" + get_td_inside[0].innerHTML.split("<input")[1];
+        get_td_inside[0].innerHTML = count.toString() + "." + temp;
         count++;
     }
     var create_tr = document.createElement("tr");
@@ -126,8 +128,15 @@ function set_to_table(attr_data,display_address,raw_attr_data){
     var create_td_0 = document.createElement("td");
     create_td_0.innerHTML = count.toString() + ".";
     create_td_0.style.textAlign = "right";
-    create_td_0.setAttribute("attr_data",raw_attr_data)
+    create_td_0.setAttribute("attr_data",raw_attr_data);
+    var get_attr_data = JSON.parse(raw_attr_data);
+    var create_input = document.createElement("input");
+    create_input.setAttribute("type", "hidden");
+    create_input.setAttribute("name", "pkt_sbp[]");
+    create_input.setAttribute("value", get_attr_data[0] + "," + get_attr_data[2]);
+    create_td_0.appendChild(create_input);
     create_tr.appendChild(create_td_0);
+    
     for(var i = 0; i < split_address.length; i++){
         var create_td_1 = document.createElement("td");
         create_td_1.innerHTML = attr_data[Number(split_address[i])];

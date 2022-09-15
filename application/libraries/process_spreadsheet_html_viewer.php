@@ -8,6 +8,12 @@
 ## https://stackoverflow.com/questions/70207326/phpspreadsheet-how-to-copy-cell-with-formatting
 ## https://stackoverflow.com/questions/46959282/styling-cell-borders-with-phpspreadsheet-php
 ## https://practicum.com/id-idn/
+## https://www.yasir252.com/software/download-microsoft-office-2013-full-version-gratis/
+## https://www.yasir252.com/games/far-cry-5-full-crack/
+## https://www.yasir252.com/games/one-piece-unlimited-world-red-full-version-download/
+## https://www.yasir252.com/games/download-one-piece-pirate-warriors-4-full-version/
+## https://phpspreadsheet.readthedocs.io/en/latest/topics/recipes/#alignment-and-wrap-text
+## https://github.com/PHPOffice/PhpSpreadsheet/blob/master/docs/topics/recipes.md
 
 include_once __DIR__ . '/../libraries/phpspreadsheet/vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\IOFactory;

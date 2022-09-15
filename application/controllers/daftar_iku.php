@@ -27,11 +27,37 @@ class daftar_iku extends CI_Controller {
             exit();
         }
         $id = urldecode($id);
+        
+        $affected_delete_iku = 0;
+        $affected_delete_iku_pkt = 0;
+        
+        $this->db->trans_start();
+        $this->db->trans_strict(FALSE);
         $this->get_daftar_iku->process(array(
             'action' => 'delete',
             'table' => 'tbldaftariku',
-            'where' => 'ikukode = \''.$id.'\''
+            'where' => 'kode = \''.$this->kode_project_scope_controller.'\' and ikukode = \''.$id.'\''
         ));
+        if($this->affected){
+            $affected_delete_iku = 1;
+        }
+        
+        $this->get_daftar_iku->process(array(
+            'action' => 'delete',
+            'table' => 'tbldaftarikupkt',
+            'where' => 'kode = \''.$this->kode_project_scope_controller.'\' and ikukode = \''.$id.'\''
+        ));
+        if($this->affected){
+            $affected_delete_iku_pkt = 1;
+        }
+        
+        if($affected_delete_iku && $affected_delete_iku_pkt && $this->db->trans_status()){
+            $this->db->trans_commit();
+        } else {
+            $this->db->trans_rollback();
+            Message::set("Delete failed.");
+        }
+        
         redirect('daftar-iku');
     }
     
@@ -69,6 +95,12 @@ class daftar_iku extends CI_Controller {
                 redirect('daftar-iku/edit/'.$id.'');
                 exit();
             }
+            $affected_delete_iku_pkt = 0;
+            $affected_iku_pkt = 0;
+            
+            $this->db->trans_start();
+            $this->db->trans_strict(FALSE);
+            
             $kode = $this->input->post('kode');
             $ikukode = $this->input->post('ikukode');
             $ikunama = $this->input->post('ikunama');
@@ -83,10 +115,88 @@ class daftar_iku extends CI_Controller {
                     'ikunama' => $ikunama,
                     'ikurincian' => $ikurincian
                 ),
-                'where' => 'ikukode = \''.$id.'\''
+                'where' => 'kode = \''.$this->kode_project_scope_controller.'\' and ikukode = \''.$id.'\''
             ));
             
+            $this->get_daftar_iku->process(array(
+                'action' => 'delete',
+                'table' => 'tbldaftarikupkt',
+                'where' => 'kode = \''.$this->kode_project_scope_controller.'\' and ikukode = \''.$id.'\''
+            ));
+            if($this->affected){
+                $affected_delete_iku_pkt = 1;
+            }
+            
+            $count_iku_pkt = 0;
+            $pkt_sbp = $_POST['pkt_sbp'];
+            if(is_array($pkt_sbp) && sizeof($pkt_sbp) > 0){
+                for($i = 0; $i < sizeof($pkt_sbp); $i++){
+                    $explode_pkt_sbp = explode(",", $pkt_sbp[$i]);
+                    $sbp_kode = $explode_pkt_sbp[1];
+                    $pkt_kode = $explode_pkt_sbp[0];
+                    $this->get_daftar_iku->process(array(
+                        'action' => 'insert',
+                        'table' => 'tbldaftarikupkt',
+                        'column_value' => array(
+                            'kode' => $kode,
+                            'ikukode' => $ikukode,
+                            'sbpkode' => $sbp_kode,
+                            'pktkode' => $pkt_kode
+                        )
+                    ));
+                    if($this->affected){
+                        $count_iku_pkt++;
+                    }
+                }
+            }
+            if($count_iku_pkt == sizeof($pkt_sbp)){
+                $affected_iku_pkt = 1;
+            }
+            
+            if($affected_delete_iku_pkt && $affected_iku_pkt && $this->db->trans_status()){
+                $this->db->trans_commit();
+            } else {
+                $this->db->trans_rollback();
+                Message::set("Update failed.");
+            }
+            
             redirect('daftar-iku/edit/'.urlencode($id).'');
+        }
+        
+        $this->get_daftar_iku->process(array(
+            'action' => 'select',
+            'table' => 'tbldaftarikupkt',
+            'column_value' => array(
+                'kode',
+                'ikukode',
+                'sbpkode',
+                'pktkode'
+            ),
+            'where' => 'kode = \''.$this->kode_project_scope_controller.'\' and ikukode = \''.$id.'\''
+        ));
+        $data_iku_pkt = $this->all;
+        $collect_data_iku_pkt = array();
+        for($i = 0; $i < sizeof($data_iku_pkt); $i++){
+            
+            $this->get_daftar_iku->process(array(
+                'action' => 'select',
+                'table' => 'tbldaftarpkt',
+                'column_value' => array(
+                    'pktkode',
+                    'kode',
+                    'sbpkode',
+                    'pktkrk',
+                    'pktnourut',
+                    'pktnama',
+                    'pktoutput'
+                ),
+                'where' => 'kode = \''.$this->kode_project_scope_controller.'\' and pktkode = \''.$data_iku_pkt[$i]->pktkode.'\''
+            ));
+            $collect_data_iku_pkt[$i] = array();
+            $collect_data_iku_pkt[$i]['sbpkode'] = $this->all[0]->sbpkode;
+            $collect_data_iku_pkt[$i]['pktkode'] = $this->all[0]->pktkode;
+            $collect_data_iku_pkt[$i]['pktnama'] = $this->all[0]->pktnama;
+            $collect_data_iku_pkt[$i]['attr_info'] = json_encode(array($this->all[0]->pktkode, $this->all[0]->kode, $this->all[0]->sbpkode, $this->all[0]->pktkrk, $this->all[0]->pktnourut, $this->all[0]->pktnama, $this->all[0]->pktoutput));
         }
         
         $this->get_daftar_iku->process(array(
@@ -98,7 +208,7 @@ class daftar_iku extends CI_Controller {
                 'ikunama',
                 'ikurincian'
             ),
-            'where' => 'ikukode = \''.$id.'\''
+            'where' => 'kode = \''.$this->kode_project_scope_controller.'\' and ikukode = \''.$id.'\''
         ));
         
         $this->layout->loadView('daftar_iku_form', array(
@@ -106,7 +216,8 @@ class daftar_iku extends CI_Controller {
             'iku_kode' => $this->row->{'ikukode'},
             'iku_nama' => $this->row->{'ikunama'},
             'iku_rincian' => $this->row->{'ikurincian'},
-            'title' => 'Edit IKU'
+            'title' => 'Edit IKU',
+            'collect_data_iku_pkt' => $collect_data_iku_pkt
         ));
     }
     
@@ -117,6 +228,14 @@ class daftar_iku extends CI_Controller {
                 redirect('daftar-iku/add');
                 exit();
             }
+            $affected_iku = 0;
+            $affected_iku_pkt = 0;
+            // echo "<pre>\n";
+            // print_r($_POST['pkt_sbp']);
+            // exit();
+            $this->db->trans_start();
+            $this->db->trans_strict(FALSE);
+            
             $kode = $this->input->post('kode');
             $ikukode = $this->input->post('ikukode');
             $ikunama = $this->input->post('ikunama');
@@ -131,6 +250,42 @@ class daftar_iku extends CI_Controller {
                     'ikurincian' => $ikurincian
                 )
             ));
+            if($this->affected){
+                $affected_iku = 1;
+            }
+            
+            $count_iku_pkt = 0;
+            $pkt_sbp = $_POST['pkt_sbp'];
+            if(is_array($pkt_sbp) && sizeof($pkt_sbp) > 0){
+                for($i = 0; $i < sizeof($pkt_sbp); $i++){
+                    $explode_pkt_sbp = explode(",", $pkt_sbp[$i]);
+                    $sbp_kode = $explode_pkt_sbp[1];
+                    $pkt_kode = $explode_pkt_sbp[0];
+                    $this->get_daftar_iku->process(array(
+                        'action' => 'insert',
+                        'table' => 'tbldaftarikupkt',
+                        'column_value' => array(
+                            'kode' => $kode,
+                            'ikukode' => $ikukode,
+                            'sbpkode' => $sbp_kode,
+                            'pktkode' => $pkt_kode
+                        )
+                    ));
+                    if($this->affected){
+                        $count_iku_pkt++;
+                    }
+                }
+            }
+            if($count_iku_pkt == sizeof($pkt_sbp)){
+                $affected_iku_pkt = 1;
+            }
+            
+            if($affected_iku && $affected_iku_pkt && $this->db->trans_status()){
+                $this->db->trans_commit();
+            } else {
+                $this->db->trans_rollback();
+                Message::set("Insert failed.");
+            }
             
             redirect('daftar-iku/add');
         }

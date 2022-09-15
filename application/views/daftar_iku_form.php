@@ -96,6 +96,13 @@
                 </div>
             </div>
             
+            <?php if(isset($collect_data_iku_pkt) && is_array($collect_data_iku_pkt) && sizeof($collect_data_iku_pkt) > 0){ ?>
+            <script type="text/javascript">
+            <?php for($i = 0; $i < sizeof($collect_data_iku_pkt); $i++){ ?>
+            collection_array['<?php echo $collect_data_iku_pkt[$i]['attr_info']; ?>'] = true;
+            <?php } ?>
+            </script>
+            <?php } ?>
             <div class="form-group">
                 <label for="ikurincian" class="col-xs-2 control-label">IKU PKT</label>
                 <div class="col-xs-10">
@@ -111,9 +118,21 @@
 
                         </thead>
                         <tbody style="white-space: pre-wrap;" id="pkt_detail">
+                            <?php if(isset($collect_data_iku_pkt) && is_array($collect_data_iku_pkt) && sizeof($collect_data_iku_pkt) > 0){ ?>
+                            <?php $no = 1; for($i = 0; $i < sizeof($collect_data_iku_pkt); $i++){ ?>
+                            <tr>
+                                <td style="text-align: right;" attr_data='<?php echo $collect_data_iku_pkt[$i]['attr_info']; ?>'><?php echo $no ?>.<input type="hidden" name="pkt_sbp[]" value="<?php echo $collect_data_iku_pkt[$i]['pktkode']; ?>,<?php echo $collect_data_iku_pkt[$i]['sbpkode']; ?>" /></td>
+                                <td><?php echo $collect_data_iku_pkt[$i]['sbpkode']; ?></td>
+                                <td><?php echo $collect_data_iku_pkt[$i]['pktkode']; ?></td>
+                                <td><?php echo $collect_data_iku_pkt[$i]['pktnama']; ?></td>
+                                <td><i class="fa fa-trash" style="cursor: pointer;" onclick="delete_row(this);"></i></td>
+                            </tr>
+                            <?php $no++; } ?>
+                            <?php } else { ?>
                             <tr>
                                 <td colspan="5">No Data.</td>
                             </tr>
+                            <?php } ?>
                         </tbody>
                     </table>  
                 </div>
@@ -123,7 +142,7 @@
             
             <div class="form-group">
                 <div class="col-lg-6 col-md-6" style="margin-bottom: 40px;">
-                    <button <?php echo $disabled; ?> style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="input_daftar_iku" value="Input Daftar IKU" disabled="">Input Daftar IKU</button>
+                    <button <?php echo $disabled; ?> style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="input_daftar_iku" value="Input Daftar IKU">Input Daftar IKU</button>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important;" type="button" class="btn btn-default bg-aqua-gradient" onclick="move_url('daftar-iku');">Lihat Data</button>

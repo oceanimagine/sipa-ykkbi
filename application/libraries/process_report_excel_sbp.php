@@ -162,7 +162,11 @@ class process_report_excel_sbp {
             $no++;
         }
         $spreadsheet->getSheetByName($sheetname)->removeRow(($begin_row_delete + 1),($begin_row_start - ($begin_row_delete + 1)));
-        $spreadsheet->getSheetByName($sheetname)->getStyle('A'.($begin_row_delete + 1).":".Coordinate::stringFromColumnIndex((Coordinate::columnIndexFromString($highestColumn) - 1)).(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('A'.($begin_row_delete + 1).":C".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('N'.($begin_row_delete + 1).":Q".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('I'.($begin_row_delete).":K".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        
+        $spreadsheet->getActiveSheet()->getStyle('A'.($begin_row_delete + 1).':Q'.(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getAlignment()->setWrapText(true);
         $this->spreadsheet = $spreadsheet;
     }
     
@@ -264,12 +268,11 @@ class process_report_excel_sbp {
         }
         
         $spreadsheet->getSheetByName($sheetname)->removeRow(($begin_row_delete + 1),($begin_row_start - ($begin_row_delete + 1)));
-        $spreadsheet->getSheetByName($sheetname)->getStyle('A'.($begin_row_delete + 1).":".Coordinate::stringFromColumnIndex((Coordinate::columnIndexFromString($highestColumn) - 1)).(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
-        // $spreadsheet->getSheetByName($sheetname)->getStyle('I'.($begin_row_delete + 1).":M".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_NONE)->setColor(new Color('00000000'));
-        // for($i = ($begin_row_delete + 1); $i <= (($begin_row_delete + 1) + (sizeof($all_data) - 1)); $i++){
-            // $spreadsheet->getSheetByName($sheetname)->getStyle('I'.$i.":M".$i)->getBorders()->getTop()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
-            // $spreadsheet->getSheetByName($sheetname)->getStyle('I'.$i.":M".$i)->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
-        // }
+        $spreadsheet->getSheetByName($sheetname)->getStyle('A'.($begin_row_delete + 1).":H".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('N'.($begin_row_delete + 1).":S".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('I'.($begin_row_delete).":M".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        
+        $spreadsheet->getActiveSheet()->getStyle('A'.($begin_row_delete + 1).':S'.(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getAlignment()->setWrapText(true);
         $this->spreadsheet = $spreadsheet;   
     }
     
@@ -379,7 +382,14 @@ class process_report_excel_sbp {
         }
         
         $spreadsheet->getSheetByName($sheetname)->removeRow(($begin_row_delete + 1),($begin_row_start - ($begin_row_delete + 1)));
-        $spreadsheet->getSheetByName($sheetname)->getStyle('A'.($begin_row_delete + 1).":".Coordinate::stringFromColumnIndex((Coordinate::columnIndexFromString($highestColumn) - 1)).(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        // $spreadsheet->getSheetByName($sheetname)->getStyle('A'.($begin_row_delete + 1).":".Coordinate::stringFromColumnIndex((Coordinate::columnIndexFromString($highestColumn) - 1)).(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        
+        $spreadsheet->getSheetByName($sheetname)->getStyle('A'.($begin_row_delete + 1).":I".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('P'.($begin_row_delete + 1).":Z".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('J'.($begin_row_delete).":O".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        
+        $spreadsheet->getActiveSheet()->getStyle('A'.($begin_row_delete + 1).':Z'.(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getAlignment()->setWrapText(true);
+        
         $this->spreadsheet = $spreadsheet;   
     }
     
