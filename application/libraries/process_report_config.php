@@ -85,7 +85,8 @@ class process_report_config {
             "rppt3nom" => "W",
             "rppt3perc" => "X",
             "rppt4nom" => "Y",
-            "rppt4perc" => "Z"
+            "rppt4perc" => "Z",
+            "lvl" => "I"
         );
     }
     

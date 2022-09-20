@@ -3,6 +3,8 @@
 include_once __DIR__ . '/../libraries/phpspreadsheet/vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Color;
 
 class process_report_excel_ma {
     private $spreadsheet;
@@ -18,6 +20,7 @@ class process_report_excel_ma {
             $this->report_operasional_tahunan_dan_rppt();
             $this->report_operasional_tahunan_dan_rppt_rincian();
             $this->report_investasi_rencana_korporasi_dan_rppt();
+            $this->report_laporan_anggaran_investasi_rencana_korporasi_rincian();
             $this->report_kegiatan_rincian_anggaran_rppt_per_mata_anggaran();
             $this->remove_kamus_sheet();
             if($view_only){
@@ -50,18 +53,31 @@ class process_report_excel_ma {
         $default_height = 12;
         $begin_row_delete = 8;
         $begin_row_start = 20;
+        $limit_data = 3;
         $begin_row = $begin_row_start;
         
         $all_data = $this->CI->all;
         $no = 1;
         
-        if(sizeof($all_data) > 0){
-            for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
-                $style_last = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 12);
-                $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style_last, Coordinate::stringFromColumnIndex($col) . ($begin_row_start + sizeof($all_data)));
+        if(sizeof($all_data) < $limit_data){
+            for($i = 0; $i < $limit_data; $i++){
+                $all_data[$i] = isset($all_data[$i]) ? $all_data[$i] : new stdClass();
+                for($j = 0; $j < sizeof($key_row_col); $j++){
+                    $all_data[$i]->{$key_row_col[$j]} = isset($all_data[$i]->{$key_row_col[$j]}) ? $all_data[$i]->{$key_row_col[$j]} : "";
+                }
             }
-            $this->unmerge_and_empty_cell('D:F', $begin_row_delete + 1, $sheetname);
         }
+        
+        if(sizeof($all_data) > 0){
+            if(sizeof($all_data) > $limit_data){
+                for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
+                    $style_last = $spreadsheet->getSheetByName($sheetname)->getStyleByColumnAndRow($col, 12);
+                    $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style_last, Coordinate::stringFromColumnIndex($col) . ($begin_row_start + sizeof($all_data)));
+                }
+                $this->unmerge_and_empty_cell('D:F', $begin_row_delete + 1, $sheetname);
+            }
+        }
+        
         
         for($i = 0; $i < sizeof($all_data); $i++){
             $isi_kata = $all_data[$i]->rekmanama;
@@ -73,7 +89,7 @@ class process_report_excel_ma {
                 
                 $spreadsheet->getSheetByName($sheetname)->getRowDimension($begin_row)->setRowHeight($height_total);
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('D'.$begin_row, $isi_kata);
-                
+    
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('G'.$begin_row, "=C9");
                 
             }
@@ -108,6 +124,13 @@ class process_report_excel_ma {
             $no++;
         }
         $spreadsheet->getSheetByName($sheetname)->removeRow(($begin_row_delete + 1),($begin_row_start - ($begin_row_delete + 1)));
+        
+        $spreadsheet->getSheetByName($sheetname)->getStyle('A'.($begin_row_delete + 1).":C".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('G'.($begin_row_delete + 1).":Z".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('D'.($begin_row_delete).":F".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        
+        $spreadsheet->getActiveSheet()->getStyle('A'.($begin_row_delete + 1).':Z'.(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getAlignment()->setWrapText(true);
+        
         $this->spreadsheet = $spreadsheet;
     }
     
@@ -134,10 +157,20 @@ class process_report_excel_ma {
         $default_height = 12;
         $begin_row_delete = 8;
         $begin_row_start = 20;
+        $limit_data = 5;
         $begin_row = $begin_row_start;
         
         $all_data = $this->CI->all;
         $no = 1;
+        
+        if(sizeof($all_data) < $limit_data){
+            for($i = 0; $i < $limit_data; $i++){
+                $all_data[$i] = isset($all_data[$i]) ? $all_data[$i] : new stdClass();
+                for($j = 0; $j < sizeof($key_row_col); $j++){
+                    $all_data[$i]->{$key_row_col[$j]} = isset($all_data[$i]->{$key_row_col[$j]}) ? $all_data[$i]->{$key_row_col[$j]} : "";
+                }
+            }
+        }
         
         if(sizeof($all_data) > 0){
             for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
@@ -216,6 +249,13 @@ class process_report_excel_ma {
             $no++;
         }
         $spreadsheet->getSheetByName($sheetname)->removeRow(($begin_row_delete + 1),($begin_row_start - ($begin_row_delete + 1)));
+        
+        $spreadsheet->getSheetByName($sheetname)->getStyle('A'.($begin_row_delete + 1).":C".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('I'.($begin_row_delete + 1).":AB".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('D'.($begin_row_delete).":H".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        
+        $spreadsheet->getActiveSheet()->getStyle('A'.($begin_row_delete + 1).':AB'.(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getAlignment()->setWrapText(true);
+        
         $this->spreadsheet = $spreadsheet;
     }
     
@@ -241,6 +281,7 @@ class process_report_excel_ma {
         $default_height = 12;
         $begin_row_delete = 8;
         $begin_row_start = 20;
+        $limit_data = 3;
         $begin_row = $begin_row_start;
         
         $all_data = $this->CI->all;
@@ -252,6 +293,15 @@ class process_report_excel_ma {
                 $spreadsheet->getSheetByName($sheetname)->duplicateStyle($style_last, Coordinate::stringFromColumnIndex($col) . ($begin_row_start + sizeof($all_data)));
             }
             $this->unmerge_and_empty_cell('D:F', $begin_row_delete + 1, $sheetname);
+        }
+        
+        if(sizeof($all_data) < $limit_data){
+            for($i = 0; $i < $limit_data; $i++){
+                $all_data[$i] = isset($all_data[$i]) ? $all_data[$i] : new stdClass();
+                for($j = 0; $j < sizeof($key_row_col); $j++){
+                    $all_data[$i]->{$key_row_col[$j]} = isset($all_data[$i]->{$key_row_col[$j]}) ? $all_data[$i]->{$key_row_col[$j]} : "";
+                }
+            }
         }
         
         for($i = 0; $i < sizeof($all_data); $i++){
@@ -299,6 +349,13 @@ class process_report_excel_ma {
             $no++;
         }
         $spreadsheet->getSheetByName($sheetname)->removeRow(($begin_row_delete + 1),($begin_row_start - ($begin_row_delete + 1)));
+        
+        $spreadsheet->getSheetByName($sheetname)->getStyle('A'.($begin_row_delete + 1).":C".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('G'.($begin_row_delete + 1).":Z".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('D'.($begin_row_delete).":F".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        
+        $spreadsheet->getActiveSheet()->getStyle('A'.($begin_row_delete + 1).':Z'.(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getAlignment()->setWrapText(true);
+        
         $this->spreadsheet = $spreadsheet;
         
     }
@@ -325,10 +382,20 @@ class process_report_excel_ma {
         $default_height = 12;
         $begin_row_delete = 8;
         $begin_row_start = 20;
+        $limit_data = 5;
         $begin_row = $begin_row_start;
         
         $all_data = $this->CI->all;
         $no = 1;
+        
+        if(sizeof($all_data) < $limit_data){
+            for($i = 0; $i < $limit_data; $i++){
+                $all_data[$i] = isset($all_data[$i]) ? $all_data[$i] : new stdClass();
+                for($j = 0; $j < sizeof($key_row_col); $j++){
+                    $all_data[$i]->{$key_row_col[$j]} = isset($all_data[$i]->{$key_row_col[$j]}) ? $all_data[$i]->{$key_row_col[$j]} : "";
+                }
+            }
+        }
         
         if(sizeof($all_data) > 0){
             for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
@@ -407,6 +474,13 @@ class process_report_excel_ma {
             $no++;
         }
         $spreadsheet->getSheetByName($sheetname)->removeRow(($begin_row_delete + 1),($begin_row_start - ($begin_row_delete + 1)));
+        
+        $spreadsheet->getSheetByName($sheetname)->getStyle('A'.($begin_row_delete + 1).":C".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('I'.($begin_row_delete + 1).":AB".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('D'.($begin_row_delete).":H".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        
+        $spreadsheet->getActiveSheet()->getStyle('A'.($begin_row_delete + 1).':AB'.(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getAlignment()->setWrapText(true);
+        
         $this->spreadsheet = $spreadsheet;
     }
     
@@ -432,10 +506,20 @@ class process_report_excel_ma {
         $default_height = 12;
         $begin_row_delete = 7;
         $begin_row_start = 20;
+        $limit_data = 4;
         $begin_row = $begin_row_start;
         
         $all_data = $this->CI->all;
         $no = 1;
+        
+        if(sizeof($all_data) < $limit_data){
+            for($i = 0; $i < $limit_data; $i++){
+                $all_data[$i] = isset($all_data[$i]) ? $all_data[$i] : new stdClass();
+                for($j = 0; $j < sizeof($key_row_col); $j++){
+                    $all_data[$i]->{$key_row_col[$j]} = isset($all_data[$i]->{$key_row_col[$j]}) ? $all_data[$i]->{$key_row_col[$j]} : "";
+                }
+            }
+        }
         
         if(sizeof($all_data) > 0){
             for ($col = 1; $col <= Coordinate::columnIndexFromString($highestColumn); $col++){
@@ -500,6 +584,13 @@ class process_report_excel_ma {
             $no++;
         }
         $spreadsheet->getSheetByName($sheetname)->removeRow(($begin_row_delete + 1),($begin_row_start - ($begin_row_delete + 1)));
+        
+        $spreadsheet->getSheetByName($sheetname)->getStyle('A'.($begin_row_delete + 1).":I".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('N'.($begin_row_delete + 1).":Y".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('J'.($begin_row_delete).":M".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        
+        $spreadsheet->getActiveSheet()->getStyle('A'.($begin_row_delete + 1).':Y'.(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getAlignment()->setWrapText(true);
+        
         $this->spreadsheet = $spreadsheet;
     }
     
@@ -533,7 +624,7 @@ class process_report_excel_ma {
         header("Content-Type: application/force-download");
         header("Content-Type: application/octet-stream");
         header("Content-Type: application/download");
-        header('Content-Disposition: attachment;filename=Hasil Concate Sheet Excel.xlsx');
+        header('Content-Disposition: attachment;filename=Hasil Report MA.xlsx');
         $writer = IOFactory::createWriter($this->spreadsheet, 'Xlsx');
         $writer->save('php://output'); 
     }
