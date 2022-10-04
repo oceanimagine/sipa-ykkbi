@@ -49,7 +49,7 @@
                     <button id="download_laporan_anggaran_berdasarkan_mata_anggaran" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="download_laporan_anggaran_berdasarkan_mata_anggaran" value="Download">Download</button>
                 </div>
             </div>
-            
+            <?php /*
             <div class="form-group" style="margin-bottom: 5px;">
                 <label style="text-align: left; padding-top: 10px; overflow: hidden; text-overflow: ellipsis;" for="laporan_anggaran_berdasarkan_mata_anggaran" class="col-md-6 control-label">3. Laporan Proyeksi Aktivitas Keuangan</label>
                 <div class="col-md-3 button-preview" style="padding-right: 0px;">
@@ -79,6 +79,7 @@
                     <button id="download_data_upload_siaga" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="data_upload_siaga" value="Download">Download</button>
                 </div>
             </div>
+            */ ?>
         </div>
     </form>
 </body>

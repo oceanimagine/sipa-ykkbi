@@ -116,8 +116,8 @@
             <div class="form-group">
                 <label for="sbp_nourut" class="col-xs-2 control-label">SBP Nourut</label>
                 <div class="col-xs-10">
-                    <input disabled="" type="text" id="sbp_nourut_display" class="form-control numberonly-no-comma" name="sbp_nourut_display" placeholder="SBP Nourut" value="<?php echo isset($sbp_nourut) ? $sbp_nourut : "A"; ?>">
-                    <input type="hidden" name="sbp_nourut" id="sbp_nourut" value="<?php echo isset($sbp_nourut) ? $sbp_nourut : "A"; ?>" />
+                    <input disabled="" type="text" id="sbp_nourut_display" class="form-control numberonly-no-comma" name="sbp_nourut_display" placeholder="SBP Nourut" value="<?php echo isset($sbp_nourut) ? $sbp_nourut : $nomor_next; ?>">
+                    <input type="hidden" name="sbp_nourut" id="sbp_nourut" value="<?php echo isset($sbp_nourut) ? $sbp_nourut : $nomor_next; ?>" />
                 </div>
             </div>
             

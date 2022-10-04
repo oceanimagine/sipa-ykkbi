@@ -205,12 +205,12 @@ class daftar_program_kerja_tahunan extends CI_Controller {
                 'pktnama',
                 'pktoutput'
             ),
-            'where' => 'sbpkode = \''.$sbpkode.'\' and pktkode = \''.$this->pktkode.'\''
+            'where' => 'sbpkode = \''.$sbpkode.'\' and pktkode = \''.$this->pktkode.'\' and kode = \''.$this->kode_project_scope_controller.'\''
         ));
         $kegiatan_rincian = $this->row;
         $pktnama = $kegiatan_rincian->{'pktnama'};
         $pktoutput = $kegiatan_rincian->{'pktoutput'};
-        
+        // echo $pktnama;
         $this->layout->loadView('daftar_program_kerja_tahunan_form', array(
             'sbpkode_display' => $sbpkode_display,
             'sbpkode_hidden' => $sbpkode_hidden,
