@@ -73,6 +73,10 @@
                         <option value="">PILIH Rekma Group</option>
                         <option value="BIAYA"<?php echo isset($rekmagroup) ? ($rekmagroup == "BIAYA" ? " selected='selected'" : "") : ""; ?>>Biaya</option>
                         <option value="PENDAPATAN"<?php echo isset($rekmagroup) ? ($rekmagroup == "PENDAPATAN" ? " selected='selected'" : "") : ""; ?>>Pendapatan</option>
+                        <option value="BEBAN"<?php echo isset($rekmagroup) ? ($rekmagroup == "BEBAN" ? " selected='selected'" : "") : ""; ?>>BEBAN</option>
+                        <option value="BEBAN PAJAK"<?php echo isset($rekmagroup) ? ($rekmagroup == "BEBAN PAJAK" ? " selected='selected'" : "") : ""; ?>>BEBAN PAJAK</option>
+                        <option value="INVESTASI & RENCANA KORPORASI"<?php echo isset($rekmagroup) ? ($rekmagroup == "INVESTASI & RENCANA KORPORASI" ? " selected='selected'" : "") : ""; ?>>INVESTASI & RENCANA KORPORASI</option>
+                        <option value="INVESTASI"<?php echo isset($rekmagroup) ? ($rekmagroup == "INVESTASI" ? " selected='selected'" : "") : ""; ?>>INVESTASI</option>
                     </select>
                 </div>
             </div>

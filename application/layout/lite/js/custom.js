@@ -341,17 +341,19 @@ function set_tiga_titik_all_per_input(object_input){
 }
 
 function unset_tiga_titik_all(){
-    var table_anggaran_tahunan = document.getElementById("table-anggaran-tahunan");
-    var get_tbody = table_anggaran_tahunan.getElementsByTagName("tbody");
-    var get_tr = get_tbody[0].getElementsByTagName("tr");
-    for(var i = 0; i < get_tr.length; i++){
-        if(get_tr[i].getAttribute("class").substr(0,"anakan_group_".length) === "anakan_group_"){
-            var get_input_anakan = get_tr[i].getElementsByTagName("input");
-            for(var j = 1; j < get_input_anakan.length; j++){
-                if(get_input_anakan[j].getAttribute("class") === "numberonly"){
-                    var nilai = get_input_anakan[j].value;
-                    get_input_anakan[j].setAttribute("type", "number");
-                    get_input_anakan[j].value = nilai.split(",").join("");
+    if(document.getElementById("table-anggaran-tahunan")){
+        var table_anggaran_tahunan = document.getElementById("table-anggaran-tahunan");
+        var get_tbody = table_anggaran_tahunan.getElementsByTagName("tbody");
+        var get_tr = get_tbody[0].getElementsByTagName("tr");
+        for(var i = 0; i < get_tr.length; i++){
+            if(get_tr[i].getAttribute("class").substr(0,"anakan_group_".length) === "anakan_group_"){
+                var get_input_anakan = get_tr[i].getElementsByTagName("input");
+                for(var j = 1; j < get_input_anakan.length; j++){
+                    if(get_input_anakan[j].getAttribute("class") === "numberonly"){
+                        var nilai = get_input_anakan[j].value;
+                        get_input_anakan[j].setAttribute("type", "number");
+                        get_input_anakan[j].value = nilai.split(",").join("");
+                    }
                 }
             }
         }
@@ -628,11 +630,13 @@ $(function () {
     });
     $('.numberonly').blur(function () {
         unset_tiga_titik_all();
-        check_percent_nom_baris(this);
-        jumlahkan_nom_per_baris(this);
-        jumlahkan_nom(this);
-        check_nom_per_baris(this);
-        set_tiga_titik_all();
+        if(typeof check_percent_nom_baris !== "undefined"){
+            check_percent_nom_baris(this);
+            jumlahkan_nom_per_baris(this);
+            jumlahkan_nom(this);
+            check_nom_per_baris(this);
+            set_tiga_titik_all();
+        }
         var get_nama = this.getAttribute("name");
         if(get_nama.substr(0,1) === "Q" || get_nama.substr(0,1) === "F"){
             this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "" ? this.value : (this.value !== "" ? this.value + "" : ((this.value === "" ? "0" : this.value) + ""));
