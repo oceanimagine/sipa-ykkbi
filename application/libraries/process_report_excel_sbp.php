@@ -54,7 +54,7 @@ class process_report_excel_sbp {
         
         $highestColumn = $spreadsheet->getSheetByName($sheetname)->getHighestColumn();
         
-        $begin_row_delete = 9;
+        $begin_row_delete = 8;
         $begin_row_start = 20;
         $begin_row = $begin_row_start;
         
