@@ -7,6 +7,17 @@ class process_report_config {
     public $investasi_rencana_korporasi_dan_rppt = array();
     public $laporan_anggaran_investasi_rencana_korporasi_rincian = array();
     public $kegiatan_rincian_anggaran_rppt_per_mata_anggaran = array();
+    public $upload_data_siaga = array();
+    
+    // upload data siaga function
+    public function upload_data_siaga(){
+        $this->upload_data_siaga = array(
+            "kode" => "B",
+            "rekmanama" => "C",
+            "nom_debet_anggaran" => "D",
+            "nom_kredit_anggaran" => "E"
+        );
+    }
     
     // ma function
     public function operasional_tahunan_dan_rppt(){
@@ -14,6 +25,7 @@ class process_report_config {
             "kode" => "B",
             "rekmakode" => "C",
             "rekmanama" => "D",
+            "rekmakode" => "G",
             "rekmagroup" => "H",
             "lvl" => "I",
             "benchmarkang" => "J",

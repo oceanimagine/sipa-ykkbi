@@ -42,7 +42,7 @@ class process_report_excel_ma {
             'action' => 'select',
             'table' => 'sp_rpt_anggaran_mataanggaran(\''.$this->CI->kode_project_scope_controller.'\')',
             'column_value' => $key_row_col,
-            'where' => "rekmagroup in ('PENDAPATAN','BIAYA') and lvl::int <= 3"
+            'where' => "rekmagroup in ('PENDAPATAN','BEBAN','BEBAN PAJAK') and lvl::int <= 3"
         ));
         
         $sheetname = "OPERASIONAL";
@@ -146,7 +146,7 @@ class process_report_excel_ma {
             'action' => 'select',
             'table' => 'sp_rpt_anggaran_mataanggaran(\''.$this->CI->kode_project_scope_controller.'\')',
             'column_value' => $key_row_col,
-            'where' => "rekmagroup in ('PEDAPATAN','BIAYA') and lvl::int <= 5"
+            'where' => "rekmagroup in ('PENDAPATAN','BEBAN','BEBAN PAJAK') and lvl::int <= 5"
         ));
         
         $sheetname = "OPERASIONAL-RINCIAN";

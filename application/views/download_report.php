@@ -69,9 +69,10 @@
                     <button id="download_laporan_anggaran_iku" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="download_laporan_anggaran_iku" value="Download">Download</button>
                 </div>
             </div>
+            */ ?>
             
             <div class="form-group" style="margin-bottom: 5px;">
-                <label style="text-align: left; padding-top: 10px; overflow: hidden; text-overflow: ellipsis;" for=data_upload_siaga" class="col-md-6 control-label">5. Data Upload SIAGA</label>
+                <label style="text-align: left; padding-top: 10px; overflow: hidden; text-overflow: ellipsis;" for=data_upload_siaga" class="col-md-6 control-label">3. Data Upload SIAGA</label>
                 <div class="col-md-3 button-preview" style="padding-right: 0px;">
                     <button id="preview_data_upload_siaga" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="data_upload_siaga" value="Preview">Preview</button>
                 </div>
@@ -79,7 +80,6 @@
                     <button id="download_data_upload_siaga" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="data_upload_siaga" value="Download">Download</button>
                 </div>
             </div>
-            */ ?>
         </div>
     </form>
 </body>

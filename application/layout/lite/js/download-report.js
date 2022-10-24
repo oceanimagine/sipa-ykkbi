@@ -158,6 +158,13 @@ window.addEventListener("load",function(){
             setIframeOS("ma_view");
         };
     }
+    if(document.getElementById("preview_data_upload_siaga")){
+        var preview_data_upload_siaga = document.getElementById("preview_data_upload_siaga");
+        preview_data_upload_siaga.onclick = function(){
+            set_loading();
+            setIframeOS("siaga_upload_data_view");
+        };
+    }
     if(document.getElementById("download_laporan_anggaran_berdasarkan_program_kerja")){
         var download_laporan_anggaran_berdasarkan_program_kerja = document.getElementById("download_laporan_anggaran_berdasarkan_program_kerja");
         download_laporan_anggaran_berdasarkan_program_kerja.onclick = function(){
@@ -170,6 +177,13 @@ window.addEventListener("load",function(){
         download_laporan_anggaran_berdasarkan_mata_anggaran.onclick = function(){
             set_loading();
             setIframe("ma");
+        };
+    }
+    if(document.getElementById("download_data_upload_siaga")){
+        var download_data_upload_siaga = document.getElementById("download_data_upload_siaga");
+        download_data_upload_siaga.onclick = function(){
+            set_loading();
+            setIframe("siaga_upload_data");
         };
     }
 });
