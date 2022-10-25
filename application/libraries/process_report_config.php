@@ -8,6 +8,19 @@ class process_report_config {
     public $laporan_anggaran_investasi_rencana_korporasi_rincian = array();
     public $kegiatan_rincian_anggaran_rppt_per_mata_anggaran = array();
     public $upload_data_siaga = array();
+    public $anggaran_iku = array();
+    
+    public function anggaran_iku(){
+        $this->anggaran_iku = array(
+            "kode"=>"B",
+            "ikukode"=>"C",
+            "sbpkode"=>"D",
+            "pkt_k"=>"E",
+            "nama"=>"F",
+            "lvl"=>"I",
+            "anggaran"=>"J"
+        );
+    }
     
     // upload data siaga function
     public function upload_data_siaga(){
@@ -71,7 +84,8 @@ class process_report_config {
             "rppt3nom" => "Y",
             "rppt3perc" => "Z",
             "rppt4nom" => "AA",
-            "rppt4perc" => "AB"
+            "rppt4perc" => "AB",
+            "rekmakode" => "I"
         );
     }
     
@@ -98,7 +112,8 @@ class process_report_config {
             "rppt3perc" => "X",
             "rppt4nom" => "Y",
             "rppt4perc" => "Z",
-            "lvl" => "I"
+            "lvl" => "I",
+            "rekmakode" => "G"
         );
     }
     
@@ -125,7 +140,8 @@ class process_report_config {
             "rppt3nom" => "Y",
             "rppt3perc" => "Z",
             "rppt4nom" => "AA",
-            "rppt4perc" => "AB"
+            "rppt4perc" => "AB",
+            "rekmakode" => "I"
         );
     }
     

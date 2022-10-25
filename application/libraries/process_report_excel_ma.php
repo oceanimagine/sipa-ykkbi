@@ -130,6 +130,7 @@ class process_report_excel_ma {
         $spreadsheet->getSheetByName($sheetname)->getStyle('D'.($begin_row_delete).":F".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
         
         $spreadsheet->getActiveSheet()->getStyle('A'.($begin_row_delete + 1).':Z'.(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getAlignment()->setWrapText(true);
+        $spreadsheet->getSheetByName($sheetname)->setCellValue('B2',substr($this->CI->kode_project_scope_controller,0,4));
         
         $this->spreadsheet = $spreadsheet;
     }
@@ -255,7 +256,7 @@ class process_report_excel_ma {
         $spreadsheet->getSheetByName($sheetname)->getStyle('D'.($begin_row_delete).":H".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
         
         $spreadsheet->getActiveSheet()->getStyle('A'.($begin_row_delete + 1).':AB'.(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getAlignment()->setWrapText(true);
-        
+        $spreadsheet->getSheetByName($sheetname)->setCellValue('B2',substr($this->CI->kode_project_scope_controller,0,4));
         $this->spreadsheet = $spreadsheet;
     }
     
@@ -355,7 +356,7 @@ class process_report_excel_ma {
         $spreadsheet->getSheetByName($sheetname)->getStyle('D'.($begin_row_delete).":F".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
         
         $spreadsheet->getActiveSheet()->getStyle('A'.($begin_row_delete + 1).':Z'.(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getAlignment()->setWrapText(true);
-        
+        $spreadsheet->getSheetByName($sheetname)->setCellValue('B2',substr($this->CI->kode_project_scope_controller,0,4));
         $this->spreadsheet = $spreadsheet;
         
     }
@@ -480,7 +481,7 @@ class process_report_excel_ma {
         $spreadsheet->getSheetByName($sheetname)->getStyle('D'.($begin_row_delete).":H".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
         
         $spreadsheet->getActiveSheet()->getStyle('A'.($begin_row_delete + 1).':AB'.(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getAlignment()->setWrapText(true);
-        
+        $spreadsheet->getSheetByName($sheetname)->setCellValue('B2',substr($this->CI->kode_project_scope_controller,0,4));
         $this->spreadsheet = $spreadsheet;
     }
     
@@ -590,7 +591,7 @@ class process_report_excel_ma {
         $spreadsheet->getSheetByName($sheetname)->getStyle('J'.($begin_row_delete).":M".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
         
         $spreadsheet->getActiveSheet()->getStyle('A'.($begin_row_delete + 1).':Y'.(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getAlignment()->setWrapText(true);
-        
+        $spreadsheet->getSheetByName($sheetname)->setCellValue('B2',substr($this->CI->kode_project_scope_controller,0,4));
         $this->spreadsheet = $spreadsheet;
     }
     
@@ -625,6 +626,7 @@ class process_report_excel_ma {
         header("Content-Type: application/octet-stream");
         header("Content-Type: application/download");
         header('Content-Disposition: attachment;filename=Hasil Report MA.xlsx');
+        $this->spreadsheet->setActiveSheetIndexByName("OPERASIONAL");
         $writer = IOFactory::createWriter($this->spreadsheet, 'Xlsx');
         $writer->save('php://output'); 
     }

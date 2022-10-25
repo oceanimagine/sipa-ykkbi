@@ -165,6 +165,13 @@ window.addEventListener("load",function(){
             setIframeOS("siaga_upload_data_view");
         };
     }
+    if(document.getElementById("preview_laporan_anggaran_iku")){
+        var preview_laporan_anggaran_iku = document.getElementById("preview_laporan_anggaran_iku");
+        preview_laporan_anggaran_iku.onclick = function(){
+            set_loading();
+            setIframeOS("iku_view");
+        };
+    }
     if(document.getElementById("download_laporan_anggaran_berdasarkan_program_kerja")){
         var download_laporan_anggaran_berdasarkan_program_kerja = document.getElementById("download_laporan_anggaran_berdasarkan_program_kerja");
         download_laporan_anggaran_berdasarkan_program_kerja.onclick = function(){
@@ -184,6 +191,13 @@ window.addEventListener("load",function(){
         download_data_upload_siaga.onclick = function(){
             set_loading();
             setIframe("siaga_upload_data");
+        };
+    }
+    if(document.getElementById("download_laporan_anggaran_iku")){
+        var download_laporan_anggaran_iku = document.getElementById("download_laporan_anggaran_iku");
+        download_laporan_anggaran_iku.onclick = function(){
+            set_loading();
+            setIframe("iku");
         };
     }
 });

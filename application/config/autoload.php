@@ -70,6 +70,7 @@ $autoload['libraries'] = array(
     'process_report_excel_ma',
     'process_report_excel_sbp',
     'process_report_siaga_upload_data',
+    'process_report_excel_iku',
     'globals',
     'message'
 );
