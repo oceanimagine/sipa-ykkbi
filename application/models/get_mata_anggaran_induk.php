@@ -34,7 +34,7 @@ class get_mata_anggaran_induk extends CI_Model {
         $clouse = "";
 
         if ($sSearch != '') {
-            $clouse = " where rekmainduknama like '%" . $sSearch . "%' ";
+            $clouse = " where (lower(rekmainduk) like '%" . $sSearch . "%' or lower(rekmainduknama) like '%" . $sSearch . "%' or lower(rekmagroup) like '%" . $sSearch . "%') ";
         }
 
         /* select id, harga, tanggal_harus_bayar, case status when '1' then 'Aktif' when '2' then 'Tidak Aktif' else 'Tidak Aktif' end as status from tbl_atur_bayar */

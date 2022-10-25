@@ -145,7 +145,9 @@ function tambah_input(container_label_, name, variable_name){
 function resize_wrapper(){
     if(document.getElementById("div_box_info")){
         document.body.style.overflow = "hidden";
-        document.body.classList.add("sidebar-collapse");
+        if(typeof left_side_no_collapse === "undefined"){
+            document.body.classList.add("sidebar-collapse");
+        }
         setTimeout(function(){
             /* console.log(window.getComputedStyle(document.querySelector("#wrapper_div")).minHeight); */
             document.getElementById("div_box_info").style.height = window.getComputedStyle(document.querySelector("#wrapper_div")).minHeight;

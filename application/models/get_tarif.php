@@ -34,17 +34,17 @@ class get_tarif extends CI_Model {
         $clouse = "";
 
         if ($sSearch != '') {
-            $clouse = " where tarifdesc like '%" . $sSearch . "%' ";
+            $clouse = " where (lower((select a.nama1 from tblmastersatker a where a.satkerid = b.satkerid)) like '%" . $sSearch . "%' or lower(b.tarifnama) like '%" . $sSearch . "%' or lower(b.tarifnom::varchar) like '%" . $sSearch . "%' or lower(b.tarifdesc) like '%" . $sSearch . "%') ";
         }
 
         /* select id, harga, tanggal_harus_bayar, case status when '1' then 'Aktif' when '2' then 'Tidak Aktif' else 'Tidak Aktif' end as status from tbl_atur_bayar */
 
-        $sql_total = "select kode, satkerid, tarifid, tarifnama, tarifnom, tarifdesc from tblmastertarif" . $clouse . $this->where_project($clouse) . "";
+        $sql_total = "select b.kode, b.satkerid, b.tarifid, b.tarifnama, b.tarifnom, b.tarifdesc from tblmastertarif b" . $clouse . $this->where_project($clouse) . "";
 
         $query_total = $this->db->query($sql_total);
         $total = $query_total->num_rows();
 
-        $sql = "select b.satkerid as id, kode, (select a.nama1 from tblmastersatker a where a.satkerid = b.satkerid) satkerid, b.tarifnama, b.tarifnom, b.tarifdesc from tblmastertarif b".$clouse.$this->where_project($clouse)." order by id asc offset $iDisplayStart limit $iDisplayLength";
+        $sql = "select b.satkerid as id, kode, (select a.nama1 from tblmastersatker a where a.satkerid = b.satkerid) satkerid, b.tarifnama, b.tarifnom, b.tarifdesc from tblmastertarif b".$clouse.$this->where_project($clouse)." order by b.satkerid asc offset $iDisplayStart limit $iDisplayLength";
 
         $page = ($iDisplayStart / $iDisplayLength);
 

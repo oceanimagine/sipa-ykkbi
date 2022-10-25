@@ -214,3 +214,27 @@ select{
     -moz-appearance: none;
     appearance: none;
 }
+
+.dataTables_scrollBody {
+    height: 100% !important;
+}
+
+.dataTables_length {
+    padding: 0px !important;
+    padding-top: 5px !important;
+    padding-left: 5px !important;
+}
+
+.dataTables_length select {
+    line-height: inherit !important;
+}
+
+.dataTables_filter {
+    padding: 0px !important;
+    padding-top: 5px !important;
+    padding-right: 5px !important;
+}
+
+.dataTables_paginate  ul {
+    padding-right: 5px !important;
+}

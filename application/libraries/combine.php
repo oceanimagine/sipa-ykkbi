@@ -143,11 +143,18 @@ class combine {
         
         // $layout_content = file_get_contents(base_url . str_replace("{layout_active}", layout_use, layout_active) . "?base_url=" . base_url_get_param);
         
+        $script_no_collapse = "";
         $class_name = $this->CI->uri->segment(1);
-        if(isset($GLOBALS['body_custom']) && is_array($GLOBALS['body_custom']) && isset($GLOBALS['body_custom'][$class_name])){
-            $this->folder_body_custom = $GLOBALS['body_custom'][$class_name] . "/";
+        if($this->CI->uri->segment(2) == ""){
+            if(isset($GLOBALS['body_custom']) && is_array($GLOBALS['body_custom']) && isset($GLOBALS['body_custom'][$class_name])){
+                $explode_ = explode("-no-", $GLOBALS['body_custom'][$class_name]);
+                $folder_name = $explode_[0];
+                if(isset($explode_[1]) && $explode_[1] == "collapse"){
+                    $script_no_collapse = "<script type='text/javascript'>var left_side_no_collapse = true;</script>";
+                }
+                $this->folder_body_custom = $folder_name . "/";
+            }
         }
-        
         ob_start();
         include "application/layout/".layout_use."/index.php";
         $layout_content = ob_get_clean();
@@ -224,7 +231,8 @@ class combine {
             "{title}", 
             "<!-- {MENU_REPLACE} -->",
             $left_menu_under_logo_search,
-            "<!-- </add_more_dialog> -->"
+            "<!-- </add_more_dialog> -->",
+            "<!-- script no collapse inside body -->"
         );
         $array_replace = array(
             $isi_body, 
@@ -233,7 +241,8 @@ class combine {
             $title, 
             $menu_li[0],
             $left_menu_under_logo_replace,
-            $replace_more_dialog
+            $replace_more_dialog,
+            $script_no_collapse
         );
         
         $keys_add = array_keys($array_view);

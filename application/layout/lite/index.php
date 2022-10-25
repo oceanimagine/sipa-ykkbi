@@ -81,16 +81,17 @@ function get_url($param){
     <!-- sidebar-mini sidebar-collapse -->
     <body class="skin-black sidebar-mini" style="font-family: consolas, monospace !important; visibility: hidden;">
         
-         <?php 
-         $CI =& get_instance();
-         if($CI->allow_read == "0" && $CI->allow_update == "0" && $CI->allow_delete == "0"){
-             ?>
-            <script type="text/javascript">
-                var only_view_table = true;
-            </script>
-             <?php
-         }
-         ?>
+        <?php 
+        $CI =& get_instance();
+        if($CI->allow_read == "0" && $CI->allow_update == "0" && $CI->allow_delete == "0"){
+            ?>
+           <script type="text/javascript">
+               var only_view_table = true;
+           </script>
+            <?php
+        }
+        ?>
+        <!-- script no collapse inside body -->
         <form method="POST" id="set_lang">
             <input type="hidden" name="lang_id" id="lang_id" />
         </form>

@@ -52,7 +52,18 @@ $GLOBALS['prioritas_status'] = array(
 );
 
 $GLOBALS['body_custom'] = array(
-    "add-anggaran" => "custom"
+    "add-anggaran" => "custom",/*
+    "useradmin" => "custom-no-collapse",
+    "menu" => "custom-no-collapse", */
+    "mata-anggaran-induk" => "custom-no-collapse",
+    "mata-anggaran-individual-benchmarks" => "custom-no-collapse",
+    "tarif" => "custom-no-collapse",
+    "daftar-strategic-business-plan" => "custom-no-collapse",
+    "daftar-program-kerja-tahunan" => "custom-no-collapse",
+    "daftar-iku" => "custom-no-collapse",/*
+    "laporan-penyusunan-anggaran" => "custom-no-collapse",
+    "view-help" => "custom-no-collapse",
+    "dokumentasi" => "custom-no-collapse" */
 );
 
 /* Layout Replace Left Menu Under Logo */
