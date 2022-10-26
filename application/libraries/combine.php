@@ -155,6 +155,11 @@ class combine {
                 $this->folder_body_custom = $folder_name . "/";
             }
         }
+        
+        if($class_name == "home" || $class_name == ""){
+            $this->folder_body_custom = "custom-regular/";
+        }
+        
         ob_start();
         include "application/layout/".layout_use."/index.php";
         $layout_content = ob_get_clean();
