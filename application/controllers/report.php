@@ -10,6 +10,9 @@ class report extends CI_Controller {
     public function sbp(){
         new process_report_excel_sbp("all");
     }
+    public function ak(){
+        new process_report_excel_ak("all");
+    }
     public function iku(){
         new process_report_excel_iku("all");
     }
@@ -27,8 +30,8 @@ class report extends CI_Controller {
         $nama_file = $process->filename;
         echo "<div id='filename'>".$nama_file."</div>";
     }
-    public function siaga_upload_data_view(){
-        $process = new process_report_siaga_upload_data("all",true);
+    public function ak_view(){
+        $process = new process_report_excel_ak("all", true);
         $nama_file = $process->filename;
         echo "<div id='filename'>".$nama_file."</div>";
     }
@@ -37,4 +40,10 @@ class report extends CI_Controller {
         $nama_file = $process->filename;
         echo "<div id='filename'>".$nama_file."</div>";
     }
+    public function siaga_upload_data_view(){
+        $process = new process_report_siaga_upload_data("all",true);
+        $nama_file = $process->filename;
+        echo "<div id='filename'>".$nama_file."</div>";
+    }
+    
 }

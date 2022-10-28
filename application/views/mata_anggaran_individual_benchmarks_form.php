@@ -72,7 +72,7 @@
                     <select <?php echo $disabled; ?> name="rekmainduk" id="rekmainduk" class="form-control">
                         <option value="">PILIH Rekma Induk</option>
                         <?php foreach($data_tblmastermainduk as $data){ ?>
-                        <option value="<?php echo $data->rekmainduk; ?>"<?php echo isset($rekmainduk) && $rekmainduk == $data->rekmainduk ? " selected='selected'" : ""; ?>><?php echo "(" . $data->rekmainduk . ") " . $data->rekmainduknama; ?></option>
+                        <option value="<?php echo $data->rekmainduk; ?>"<?php echo isset($rekmainduk) && $rekmainduk == $data->rekmainduk ? " selected='selected'" : ""; ?>><?php echo "(" . $data->rekmainduk_display . ") " . $data->rekmainduknama; ?></option>
                         <?php } ?>
                     </select>
                 </div>

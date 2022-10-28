@@ -4,14 +4,13 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="image/LOGOYKKBI.png" class="img-circle" alt="User Image" style="max-width: 85px;">
+                <img src="image/LOGOYKKBI.png" class="img-circle" alt="User Image" style="max-width: 50px;">
             </div>
             <div class="pull-left info" style="left: 90px;">
                 <p>{user}</p>
                 <a href="<?php echo get_url("home"); ?>"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
-        <br />
         <!-- sidebar menu: : style can be found in sidebar.less -->
         
         <ul class="sidebar-menu">

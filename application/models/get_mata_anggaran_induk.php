@@ -44,7 +44,7 @@ class get_mata_anggaran_induk extends CI_Model {
         $query_total = $this->db->query($sql_total);
         $total = $query_total->num_rows();
 
-        $sql = "select rekmainduk as id, kode, rekmainduk, rekmainduknama, rekmagroup from tblmastermainduk ".$clouse.$this->where_project($clouse)." order by id asc offset $iDisplayStart limit $iDisplayLength";
+        $sql = "select rekmainduk as id, kode, CONCAT(substring(rekmainduk from 1 for 3), '.', substring(rekmainduk from 4 for 3), '.', substring(rekmainduk from 7 for 2)), rekmainduknama, rekmagroup from tblmastermainduk ".$clouse.$this->where_project($clouse)." order by id asc offset $iDisplayStart limit $iDisplayLength";
 
         $page = ($iDisplayStart / $iDisplayLength);
 

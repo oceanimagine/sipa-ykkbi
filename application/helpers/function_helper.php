@@ -516,7 +516,7 @@ function get_project(){
         $GLOBALS['kode_project'] = $data[0]->kode;
         $GLOBALS['allowcrud_project'] = $data[0]->allowcrud;
         $CI->kode_project_scope_controller = $GLOBALS['kode_project'];
-        return "<div id='button-project' style='cursor: pointer;'>Project " . $data[0]->kode . "</div>";
+        return "<div id='button-project' style='cursor: pointer; color: red;'>Project " . $data[0]->kode . "</div>";
     } else {
         return "No Project.";
     }

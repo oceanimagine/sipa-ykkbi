@@ -77,6 +77,7 @@ class mata_anggaran_individual_benchmarks extends CI_Controller {
             'column_value' => array(
                 'kode',
                 'rekmainduk',
+                'CONCAT(substring(rekmainduk from 1 for 3), \'.\', substring(rekmainduk from 4 for 3), \'.\', substring(rekmainduk from 7 for 2)) rekmainduk_display',
                 'rekmainduknama'
             ),
             'where' => 'kode = \''.$this->kode_project_scope_controller.'\''
@@ -144,6 +145,7 @@ class mata_anggaran_individual_benchmarks extends CI_Controller {
             'column_value' => array(
                 'kode',
                 'rekmainduk',
+                'CONCAT(substring(rekmainduk from 1 for 3), \'.\', substring(rekmainduk from 4 for 3), \'.\', substring(rekmainduk from 7 for 2)) rekmainduk_display',
                 'rekmainduknama'
             ),
             'where' => 'kode = \''.$this->kode_project_scope_controller.'\''

@@ -62,6 +62,24 @@ var temporary_tr = [];
 var adress_temporary_tr = 0;
 var input_search_temporary = {"value" : ""};
 
+function case_search(param_a, param_b){
+    var address = 0;
+    while(param_a[address]){
+        if(param_a.substr(address, param_b.length) === param_b){
+            return true;
+        }
+        address++;
+    }
+    return false;
+}
+
+function put_bold(tr_object, param_a, param_b){
+    var get_td = tr_object.getElementsByTagName("td");
+    for(var i = 0; i < get_td.length; i++){
+        
+    }
+}
+
 function search_from_tbody(tbody_object, input_object, colspan_number, input_active, id_dialog, address_display){
     var get_tr = tbody_object.getElementsByTagName("tr");
     var tampung_tr = [];
@@ -77,8 +95,9 @@ function search_from_tbody(tbody_object, input_object, colspan_number, input_act
     
     for(var i = 0; i < temporary_tr.length; i++){
         var get_td = temporary_tr[i].getElementsByTagName("td");
-        for(var j = 0; j < get_td.length; j++){
-            if(get_td[j].innerHTML.substr(0, value_search.length).toLowerCase() === value_search.toLowerCase()){
+        for(var j = 0; j < get_td.length; j++){/*
+            if(get_td[j].innerHTML.substr(0, value_search.length).toLowerCase() === value_search.toLowerCase()){*/
+            if(case_search(get_td[j].innerText.toLowerCase(), value_search.toLowerCase())){
                 tampung_tr[address_tr] = temporary_tr[i].cloneNode(true);
                 address_tr++;
                 break;

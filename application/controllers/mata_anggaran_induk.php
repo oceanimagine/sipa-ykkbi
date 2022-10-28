@@ -7,12 +7,20 @@
 class mata_anggaran_induk extends CI_Controller {
     
     public $layout;
-    
+    private $rekmagroup;
     public function __construct() {
         parent::__construct();
         $this->load->model('get_mata_anggaran_induk');
         $this->layout = new layout('lite');
         Privilege::admin();
+        
+        $this->get_mata_anggaran_induk->process(array(
+            'action' => 'select',
+            'table' => 'tblmastermainduk',
+            'column_value' => array('distinct rekmagroup')
+        ));
+        
+        $this->rekmagroup = $this->all;
     }
 
     public function get_mata_anggaran_induk() {
@@ -100,7 +108,8 @@ class mata_anggaran_induk extends CI_Controller {
             'kode' => $this->row->{'kode'},
             'rekmainduk' => $this->row->{'rekmainduk'},
             'rekmainduknama' => $this->row->{'rekmainduknama'},
-            'rekmagroup' => $this->row->{'rekmagroup'}
+            'rekmagroup' => $this->row->{'rekmagroup'},
+            'rekmagroup_data' => $this->rekmagroup
         ));
     }
     
@@ -129,7 +138,9 @@ class mata_anggaran_induk extends CI_Controller {
             redirect('mata-anggaran-induk/add');
         }
         
-        $this->layout->loadView('mata_anggaran_induk_form');
+        $this->layout->loadView('mata_anggaran_induk_form',array(
+            'rekmagroup_data' => $this->rekmagroup
+        ));
     }
     
     public function index() {

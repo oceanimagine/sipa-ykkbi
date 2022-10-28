@@ -452,7 +452,7 @@ class add_anggaran extends CI_Controller {
         
         if(sizeof($this->data_mata_anggaran_edit) > 0){
             $data_mata_anggaran_edit = $this->data_mata_anggaran_edit;
-            $this->data_mata_anggaran_display = $data_mata_anggaran_edit[0]->rekmakode . " # " . $data_mata_anggaran_edit[0]->nama_rekening;
+            $this->data_mata_anggaran_display = (substr($data_mata_anggaran_edit[0]->rekmakode,0,3) . "." . substr($data_mata_anggaran_edit[0]->rekmakode,3,3) . "." . substr($data_mata_anggaran_edit[0]->rekmakode,6)) . " # " . $data_mata_anggaran_edit[0]->nama_rekening;
             $this->data_mata_anggaran_hidden = $data_mata_anggaran_edit[0]->kode . " ---- " . $data_mata_anggaran_edit[0]->remagroup . " ---- " . $data_mata_anggaran_edit[0]->rekmakode . " ---- " . $data_mata_anggaran_edit[0]->nama_rekening;
         }
     }

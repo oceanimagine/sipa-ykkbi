@@ -9,6 +9,34 @@ class process_report_config {
     public $kegiatan_rincian_anggaran_rppt_per_mata_anggaran = array();
     public $upload_data_siaga = array();
     public $anggaran_iku = array();
+    public $proyeksi_ak = array();
+    
+    public function proyeksi_ak(){
+        $this->proyeksi_ak = array(
+            "kode" => "B",
+            "rekmakode" => "C",
+            "rekmanama" => "D",
+            "rekmagroup" => "H",
+            "lvl" => "I",
+            "benchmarkang" => "J",
+            "benchmarkprog" => "K",
+            "benchmark_delta_nom" => "L",
+            "benchmark_delta_perc" => "M",
+            "anggaran" => "N",
+            "anggaran_benchmarkang_nom" => "O",
+            "anggaran_benchmarkang_perc" => "P",
+            "anggaran_benchmarkprog_nom" => "Q",
+            "anggaran_benchmarkprog_perc" => "R",
+            "rppt1nom" => "S",
+            "rppt1perc" => "T",
+            "rppt2nom" => "U",
+            "rppt2perc" => "V",
+            "rppt3nom" => "W",
+            "rppt3perc" => "X",
+            "rppt4nom" => "Y",
+            "rppt4perc" => "Z"
+        );
+    }
     
     public function anggaran_iku(){
         $this->anggaran_iku = array(

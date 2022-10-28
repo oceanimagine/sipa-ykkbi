@@ -21,43 +21,73 @@
         </script>
     </head>
     <body>
+        <style type="text/css">
+            th {
+                white-space: nowrap;
+            }
+            td {
+                white-space: nowrap;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                max-width: 0;
+            }
+        </style>
         <div style="text-align: left;">
-            <?php /* echo str_replace("?","/",current_url());
-              <img src="image/LOGOYKKBI.png" style="width: 25%;"> */ ?>
-            <div class="row">
-                <?php foreach($data as $data_inside) { ?>
-                
-                <div class="col-md-6 col-sm-6  col-xs-12" style="padding-bottom: 10px;">
-                    <div class="card" style="border: 1px solid rgba(0,0,0,.125); border-radius: 0.4rem; padding: 2rem; background-color: white;">  
-                        <div class="card-body">
-                            <h4 class="card-title"><?php echo $data_inside->sbpkode; ?></h4>
-                            <p class="card-text"><?php echo $data_inside->sbpdesc; ?></p>
-                            <button type="button" class="btn btn-primary btn-sm" style="min-width: 190px;">
-                                PKS <span class="badge badge-light"><?php echo $data_inside->pks; ?></span>  Kegiatan <span class="badge badge-light"><?php echo $data_inside->keg_pks; ?></span>
-                            </button>
-                            <button type="button" class="btn btn-success btn-sm" style="min-width: 190px;">
-                                PKNS <span class="badge badge-light"><?php echo $data_inside->pkns; ?></span>  Kegiatan <span class="badge badge-light"><?php echo $data_inside->keg_pkns; ?></span>
-                            </button>
+            <div class="container" style="margin-left: 5px; margin-right: 5px; width: 100%;">
+                <div style="width: 100%; overflow-x: auto; overflow-y: hidden;">
+                    <div style="width: 100%; min-width: 1170px;">
+                        <div style="float: left;width: 50%;">
+                            <h4>Anggaran Program Strategis</h4>
+                        </div>
+                        <div style="float: left; width: 50%; text-align: right; height: 30px; display: table;">
+                            <span style="display: table-cell; vertical-align: bottom;"><i>(Rp.juta)</i></span>
                         </div>
                     </div>
+                    <table class="table table-condensed" style="background-color: white; min-width: 1170px;">
+                        <thead>
+                            <?php /*
+                            <tr>
+                                <th rowspan="2" style="vertical-align: middle;">Kode</th>
+                                <th rowspan="2" style="vertical-align: middle;">Nama</th>
+                                <th rowspan="2" style="vertical-align: middle; text-align: center;">PKS (Keg)</th>
+                                <th rowspan="2" style="vertical-align: middle; text-align: center; border-right: 2px solid #f4f4f4;">PKNS (Keg)</th>
+                                <th colspan="4" style="text-align: center;">Rp.(JUTA)</th>
+                            </tr>
+                            <tr>
+                                
+                                <th style="text-align: right;">Pendapatan</th>
+                                <th style="text-align: right;">Beban</th>
+                                <th style="text-align: right;">Investasi</th>
+                                <th style="text-align: right;">Renc.Korporasi</th>
+                            </tr> */ ?>
+                            <tr class="info" style="height: 40px;">
+                                <th style="vertical-align: middle;">Kode</th>
+                                <th style="vertical-align: middle;">Nama</th>
+                                <th style="vertical-align: middle; text-align: center;">PKS (Keg)</th>
+                                <th style="vertical-align: middle; text-align: center;">PKNS (Keg)</th>
+                                <th style="vertical-align: middle; text-align: right;">Pendapatan</th>
+                                <th style="vertical-align: middle; text-align: right;">Beban</th>
+                                <th style="vertical-align: middle; text-align: right;">Investasi</th>
+                                <th style="vertical-align: middle; text-align: right;">Renc.Korporasi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($data as $data_inside) { ?>
+                            <tr>
+                                <td style="width: 5%;"><?php echo $data_inside->sbpkode; ?></td>
+                                <td title="<?php echo $data_inside->sbpdesc; ?>"><?php echo $data_inside->sbpdesc; ?></td>
+                                <td style="width: 8%; text-align: center;"><?php echo $data_inside->pks; ?> <span class="badge badge-light"><?php echo $data_inside->keg_pks; ?></span></td>
+                                <td style="width: 8%; text-align: center;"><?php echo $data_inside->pkns; ?> <span class="badge badge-light"><?php echo $data_inside->keg_pkns; ?></span></td>
+                                <td style="width: 10%; text-align: right; background-color: rgb(0, 0, 255, 0.05);"><?php echo number_format($data_inside->nom_pendapatan,2); ?></td>
+                                <td style="width: 10%; text-align: right;"><?php echo number_format($data_inside->nom_biaya,2); ?></td>
+                                <td style="width: 10%; text-align: right; background-color: rgb(0, 0, 255, 0.05);"><?php echo number_format($data_inside->nom_investasi,2); ?></td>
+                                <td style="width: 10%; text-align: right;"><?php echo number_format($data_inside->nom_rencana_korporasi,2); ?></td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
                 </div>
-                
-                <?php } ?>
-                <?php /*
-                <div class="col-md-6 col-sm-6  col-xs-12" style="padding-bottom: 15px;">
-                    <div class="card" style="border: 2px solid rgba(0,0,0,.125); border-radius: 1rem; padding: 2rem; background-color: white;">  
-                        <div class="card-body">
-                            <h4 class="card-title">PS 02</h4>
-                            <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
-                            <button type="button" class="btn btn-primary">
-                                PKS <span class="badge badge-light">4</span>  Kegiatan <span class="badge badge-light">20</span>
-                            </button>
-                            <button type="button" class="btn btn-danger">
-                                PKNS <span class="badge badge-light">2</span>  Kegiatan <span class="badge badge-light">5</span>
-                            </button>
-                        </div>
-                    </div>
-                </div> */ ?>
             </div>
         </div>
     </body>

@@ -172,6 +172,14 @@ window.addEventListener("load",function(){
             setIframeOS("iku_view");
         };
     }
+    if(document.getElementById("preview_laporan_aktivitas_keuangan")){
+        var preview_laporan_aktivitas_keuangan = document.getElementById("preview_laporan_aktivitas_keuangan");
+        preview_laporan_aktivitas_keuangan.onclick = function(){
+            set_loading();
+            setIframeOS("ak_view");
+        };
+    }
+    
     if(document.getElementById("download_laporan_anggaran_berdasarkan_program_kerja")){
         var download_laporan_anggaran_berdasarkan_program_kerja = document.getElementById("download_laporan_anggaran_berdasarkan_program_kerja");
         download_laporan_anggaran_berdasarkan_program_kerja.onclick = function(){
@@ -198,6 +206,13 @@ window.addEventListener("load",function(){
         download_laporan_anggaran_iku.onclick = function(){
             set_loading();
             setIframe("iku");
+        };
+    }
+    if(document.getElementById("download_laporan_aktivitas_keuangan")){
+        var download_laporan_aktivitas_keuangan = document.getElementById("download_laporan_aktivitas_keuangan");
+        download_laporan_aktivitas_keuangan.onclick = function(){
+            set_loading();
+            setIframe("ak");
         };
     }
 });

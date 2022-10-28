@@ -30,8 +30,10 @@ function get_url($param){
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.5 -->
         <link rel="stylesheet" href="css/bootstrap.min.css">
-        <!-- Font Awesome -->
+        <!-- Font Awesome
         <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="../../../fontawesome/css/all.min.css"> -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
         <!-- DataTables -->
         <link rel="stylesheet" href="css/dataTables.bootstrap.css">
         <!-- Ionicons -->

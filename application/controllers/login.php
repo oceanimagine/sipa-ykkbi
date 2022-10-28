@@ -100,4 +100,12 @@ class login extends CI_Controller {
         ));
     }
     
+    public function check_login(){
+        if(isset($_SESSION['PRI']) && $_SESSION['PRI'] != ""){
+            echo "LOGIN";
+        } else {
+            echo "LOGOUT";
+        }
+    }
+    
 }

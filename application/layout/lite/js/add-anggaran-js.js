@@ -1277,6 +1277,28 @@ function removeLoading(message,loading_message){
     }
 }
 
+function removeLoading_regular(){
+    if(document.getElementById("div_loading")){
+        var div_loading = document.getElementById("div_loading");
+        div_loading.parentNode.removeChild(div_loading);
+    }
+}
+
+function detect_ma(value){
+    if(value.length === 8){
+        var jumlah_angka = 0;
+        for(var i = 0; i < value.length; i++){
+            if(!isNaN(parseFloat(value[i])) && isFinite(value[i])){
+                jumlah_angka++;
+            }
+        }
+        if(jumlah_angka === value.length){
+            return true;
+        }
+    }
+    return false;
+}
+
 function set_tr_click_inside_tbody(tbody_active,input_active,id_dialog,display_address){
     var get_tr = tbody_active.getElementsByTagName("tr");
     for(var i = 0; i < get_tr.length; i++){
@@ -1296,7 +1318,7 @@ function set_tr_click_inside_tbody(tbody_active,input_active,id_dialog,display_a
             }
             
             for(var i = 0; i < get_address.length; i++){
-                hasil_concate_display = hasil_concate_display + pemisah_display + get_attr_data[Number(get_address[i])];
+                hasil_concate_display = hasil_concate_display + pemisah_display + (detect_ma(get_attr_data[Number(get_address[i])]) ? (get_attr_data[Number(get_address[i])].substr(0,3) + "." + get_attr_data[Number(get_address[i])].substr(3,3) + "." + get_attr_data[Number(get_address[i])].substring(6)) : get_attr_data[Number(get_address[i])]);
                 pemisah_display = " # ";
             }
             
@@ -1336,7 +1358,7 @@ window.addEventListener("load", function () {
                         tbody_hasil_data.innerHTML = data;
                         $('#modal-rincian-kegiatan').modal('show');
                         set_tr_click_inside_tbody(tbody_hasil_data,kegiatan_program_kerja_rincian,'modal-rincian-kegiatan','3,4');
-                        removeLoading();
+                        removeLoading_regular();
                     }
                 }
             });
@@ -1356,7 +1378,7 @@ window.addEventListener("load", function () {
                     tbody_hasil_data_mata_anggaran.innerHTML = data;
                     $('#modal-mata-anggaran').modal('show');
                     set_tr_click_inside_tbody(tbody_hasil_data_mata_anggaran,mata_anggaran,'modal-mata-anggaran','2,3');
-                    removeLoading();
+                    removeLoading_regular();
                 }
             }
         });

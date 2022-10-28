@@ -145,7 +145,7 @@ class combine {
         
         $script_no_collapse = "";
         $class_name = $this->CI->uri->segment(1);
-        if($this->CI->uri->segment(2) == ""){
+        if($this->CI->uri->segment(2) == "" || $class_name == "add-anggaran"){
             if(isset($GLOBALS['body_custom']) && is_array($GLOBALS['body_custom']) && isset($GLOBALS['body_custom'][$class_name])){
                 $explode_ = explode("-no-", $GLOBALS['body_custom'][$class_name]);
                 $folder_name = $explode_[0];

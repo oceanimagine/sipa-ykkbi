@@ -232,6 +232,23 @@ $(document).ready(function () {
                 }, 1500);
             }
         });
+        
+        $.fn.dataTable.ext.errMode = function(obj,param,err){
+            var tableId = obj.sTableId;
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function(){
+                if(this.readyState === 4 && this.status === 200){
+                    if(this.responseText === "LOGOUT"){
+                        document.location = "../../../index.php/login";
+                    } else {
+                        $("#pesan_modal").html('Handling DataTable issue of Table ' + tableId + " " + param + "<br />" + err);
+                        $('#modal-success').modal('show');
+                    }
+                }
+            };
+            xmlhttp.open("GET", "../../../index.php/login/check-login");
+            xmlhttp.send(null);
+        };
 
         window.update_size = function () {
             $(oTable).css({width: $(oTable).parent().width()});

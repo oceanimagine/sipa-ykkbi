@@ -15,7 +15,7 @@
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
                 <!-- User Account: style can be found in dropdown.less -->
-		<li class="dropdown notifications-menu">
+		<li class="dropdown notifications-menu" style="border-right: #eee 1px solid;">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                         <i class="fa fa-bell-o"></i>
                         <span class="label label-warning" id="span_notif"></span>
@@ -27,9 +27,14 @@
                     </ul>
                 </li>
                 <li class="dropdown user user-menu">
-                    <a href="<?php echo get_url("home"); ?>" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="image/LOGOYKKBI.png" class="user-image" alt="User Image" style="width: 28px !important; height: inherit !important;">
-                        <span class="hidden-xs">{user}</span>
+                    <a href="<?php echo get_url("home"); ?>" class="dropdown-toggle" data-toggle="dropdown" style="padding-bottom: 6px; padding-top: 12px; border-left: 0px solid #eee;">
+                        <?php /*
+                        <img src="image/LOGOYKKBI.png" class="user-image" alt="User Image" style="width: 28px !important; height: inherit !important;"> */ ?>
+                        <div style="display: table;">
+                            <i class="fa fa-user-circle-o" aria-hidden="true" style="font-size: 25px;"></i>&nbsp;
+                            <span style="display: table-cell; vertical-align: middle;">{user}</span>
+                        </div><?php /*
+                        <span class="hidden-xs"></span> */ ?>
                     </a>
                     <ul class="dropdown-menu" style="right: 0px;">
                         <!-- User image -->
