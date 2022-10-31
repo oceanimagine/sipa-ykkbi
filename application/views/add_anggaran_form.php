@@ -230,6 +230,10 @@
                                 <tr <?php echo $no == $jumlah_rincian ? 'style="border-bottom: rgb(242,220,219) 2px solid;"' : ""; ?> class="anakan_group_<?php echo ($i + 1); ?>">
                                     <?php 
                                     
+                                    if($size_rincian_edit == 1){
+                                        $total_perkalian = $data_rincian_edit[$j]->rintotal;
+                                    }
+                                    
                                     if($size_rincian_edit > 1){
                                         $total_perkalian = ($data_rincian_edit[$j]->rinkuantitas * $data_rincian_edit[$j]->rinfrekwensi * $data_rincian_edit[$j]->rintarif); 
                                     }
@@ -252,6 +256,13 @@
                                     <td style="border-right: #f1f1f1 1px solid; text-align: center; width: 40px; padding: 0px; vertical-align: middle; width: 3%;"><i class="fa fa-minus" onclick="kurangi_anak_grup(this,'_<?php echo ($i + 1); ?>',<?php echo $jumlah_rincian; ?>);" style="cursor: pointer;"></i></td>
                                 </tr>
                                 <?php  
+                                if($size_rincian_edit == 1){
+                                    $total_rintotal = $data_rincian_edit[$j]->rintotal;
+                                    $total_rppt1nom = $data_rincian_edit[$j]->rppt1nom;
+                                    $total_rppt2nom = $data_rincian_edit[$j]->rppt2nom;
+                                    $total_rppt3nom = $data_rincian_edit[$j]->rppt3nom;
+                                    $total_rppt4nom = $data_rincian_edit[$j]->rppt4nom;
+                                }
                                 if($size_rincian_edit > 1){ $no++; 
                                     $total_rintotal = $total_rintotal + $total_perkalian;
                                     $total_rppt1nom = $total_rppt1nom + $data_rincian_edit[$j]->rppt1nom;

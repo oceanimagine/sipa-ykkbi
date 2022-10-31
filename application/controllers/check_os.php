@@ -7,7 +7,7 @@ class check_os extends CI_Controller {
     public function is_linux($file_name = ""){
         if($file_name){
             if(file_exists(__DIR__ . "/../../upload/xlsx_excel/temporary/".$file_name)){
-                shell_exec("/var/www/html/sipa/root/php_root libreoffice --invisible --convert-to html /var/www/html/sipa/application/controllers/../../upload/xlsx_excel/temporary/".$file_name." --outdir /var/www/html/sipa/application/controllers/../../upload/xlsx_excel/temporary/");
+                shell_exec("/var/www/html/sipadev/root/php_root libreoffice --invisible --convert-to html /var/www/html/sipadev/application/controllers/../../upload/xlsx_excel/temporary/".$file_name." --outdir /var/www/html/sipadev/application/controllers/../../upload/xlsx_excel/temporary/");
                 echo "<div id='command'>"."libreoffice --invisible --convert-to html ".__DIR__."/../../upload/xlsx_excel/temporary/".$file_name." --outdir ".__DIR__."/../../upload/xlsx_excel/temporary/"."</div>";
                 echo "<div id='result'>SUCCESS</div>\n";
             }

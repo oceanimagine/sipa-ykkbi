@@ -73,6 +73,9 @@ class add_anggaran extends CI_Controller {
             $sbpkode_at = $explode_kegiatan_program_kerja_rincian_hidden[5];
             $pktkode_at = $explode_kegiatan_program_kerja_rincian_hidden[1];
             $rekmakode_at = $explode_mata_anggaran_hidden[2];
+	    
+	    $pktkode_rk_rincian_ = $explode_kegiatan_program_kerja_rincian_hidden[3];
+
             $keterangan = "-";
             // cetak_html($explode_kegiatan_program_kerja_rincian_hidden);
             // print_query();
@@ -83,7 +86,7 @@ class add_anggaran extends CI_Controller {
                 'column_value' => array(
                     'kode' => $kode_at,
                     'sbpkode' => $sbpkode_at,
-                    'pktkode' => $pktkode_at,
+                    'pktkode' => /* $pktkode_at */ $pktkode_rk_rincian_,
                     'rekmakode' => $rekmakode_at,
                     'keterangan' => $keterangan
                 )
@@ -92,7 +95,7 @@ class add_anggaran extends CI_Controller {
             
             $this->redirect_kode_edit = $kode_at;
             $this->redirect_sbpkode_edit = $sbpkode_at;
-            $this->redirect_pktkode_edit = $pktkode_at;
+            $this->redirect_pktkode_edit = $pktkode_rk_rincian_;
             $this->redirect_rekmakode_edit = $rekmakode_at;
             
             // Table tbldaftaratgroup
@@ -107,13 +110,15 @@ class add_anggaran extends CI_Controller {
                 $rekmakode_group = $explode_mata_anggaran_hidden[2];
                 $group_group = $group_default;
                 
+		$pktkode_group = $pktkode_group;
+
                 $this->get_add_anggaran->process(array(
                     'action' => 'insert',
                     'table' => 'tbldaftaratgroup',
                     'column_value' => array(
                         '"kode"' => $kode_group,
                         '"sbpkode"' => $sbpkode_group,
-                        '"pktkode"' => $pktkode_group,
+                        '"pktkode"' => /* $pktkode_group */ $pktkode_rk_rincian_,
                         '"rekmakode"' => $rekmakode_group,
                         '"group"' => $group_group
                     )
@@ -324,7 +329,7 @@ class add_anggaran extends CI_Controller {
         $this->get_add_anggaran->process(array(
             'action' => 'delete',
             'table' => 'tbldaftaratrincian',
-            'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and pktkode = \''.$pktkode_rincian.'\' and rekmakode = \''.$this->rekmakode_at .'\''
+            'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and pktkode = \''.$this->pktkode_at .'\' and rekmakode = \''.$this->rekmakode_at .'\''
         ));
         $affected_3 = $this->affected;
         if($affected_1 && $affected_2 && $affected_3){
@@ -418,20 +423,26 @@ class add_anggaran extends CI_Controller {
             'action' => 'select',
             'table' => 'tbldaftaratrincian',
             'column_value' => array('*'),
-            'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and pktkode = \''.$pktkode_rincian.'\' and rekmakode = \''.$this->rekmakode_at .'\''
+            'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and rekmakode = \''.$this->rekmakode_at .'\''
         ));
         $this->data_rincian_edit = $this->all;
         
         // Get Rincian Kegiatan Edit
         $explode_pktkode_at = explode(".", $this->pktkode_at);
+        // print_query();
         $kode_satker = $explode_pktkode_at[0];
         $this->get_add_anggaran->process(array(
             'action' => 'select',
             'table' => 'sp_search_pkt(\''.$this->kode_at.'\',\''.$kode_satker.'\')',
             'column_value' => array('*'),
-            'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and pktkode_k = \''.$this->pktkode_at .'\' and pktkode_rk = \''.$pktkode_rincian.'\''
+            'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and pktkode_rk = \''.$this->pktkode_at .'\''
         ));
         
+        // echo "<pre>\n";
+        // echo $pktkode_rincian . "\n";
+        // print_r($this->all);
+        // echo "</pre>\n";
+        //exit();
         $this->id_satker_edit = $kode_satker;
         $this->data_rincian_kegiatan_edit = $this->all;
         

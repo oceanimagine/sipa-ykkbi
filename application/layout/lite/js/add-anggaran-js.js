@@ -421,6 +421,8 @@ function check_nom_all_row(){
             for(var k = 0; k < get_input_.length; k++){
                 if(get_input_[k].getAttribute("name").substr(0, "persen_tw1_".length) === "persen_tw1_"){
                     persen_tw1_ = ((tw1_ / jumlah_tw_perbandingan) * 100).toFixed(2);
+                    // console.log(tw1_);
+                    // console.log(persen_tw1_);
                     get_input_[k].value = isNaN(persen_tw1_) ? "0.00" : persen_tw1_;
                 }
                 if(get_input_[k].getAttribute("name").substr(0, "persen_tw2_".length) === "persen_tw2_"){
@@ -1122,6 +1124,13 @@ function add_group(object_button, inisial, jumlah_group){
             // console.log((jumlah_group + 1));
             get_tr_jumlah_i[i].setAttribute("urutan_grup", "tombol_anakan_" + (jumlah_group + 1));
             get_tr_jumlah_i[i].setAttribute("onclick", "tambah_anak_grup(this,'_"+(jumlah_group + 1)+"',1);");
+        }
+    }
+    
+    var get_tr_jumlah_td = clone_tr_jumlah_anakan.getElementsByTagName("td");
+    for(var i = 0; i < get_tr_jumlah_td.length; i++){
+        if(get_tr_jumlah_td[i].getAttribute("info") === "total_rintotal" || (get_tr_jumlah_td[i].getAttribute("info") !== null && get_tr_jumlah_td[i].getAttribute("info").substring(0,"total_rppt".length) === "total_rppt")){
+            get_tr_jumlah_td[i].innerHTML = "";
         }
     }
     

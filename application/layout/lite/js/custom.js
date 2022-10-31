@@ -598,6 +598,7 @@ $(function () {
     // https://stackoverflow.com/questions/9799505/allow-only-numbers-and-dot-in-script
     // https://www.outsystems.com/forums/discussion/53459/prevent-keyboard-arrow-key-up-and-down-using-javascript/
     // https://stackoverflow.com/questions/21177489/selectionstart-selectionend-on-input-type-number-no-longer-allowed-in-chrome
+    
     $('.numberonly').keydown(function (e) {
         
         var charCode = (e.which) ? e.which : event.keyCode;
@@ -650,6 +651,7 @@ $(function () {
         this.setAttribute("type", "number");
     });
     $('.numberonly').blur(function () {
+        
         unset_tiga_titik_all();
         if(typeof check_percent_nom_baris !== "undefined"){
             check_percent_nom_baris(this);
@@ -657,7 +659,7 @@ $(function () {
             jumlahkan_nom(this);
             check_nom_per_baris(this);
             set_tiga_titik_all();
-        }
+        } 
         var get_nama = this.getAttribute("name");
         if(get_nama.substr(0,1) === "Q" || get_nama.substr(0,1) === "F"){
             this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "" ? this.value : (this.value !== "" ? this.value + "" : ((this.value === "" ? "0" : this.value) + ""));

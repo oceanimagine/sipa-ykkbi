@@ -11,35 +11,6 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/models/get_add_anggaran.php</file>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/models/get_mata_anggaran_induk.php</file>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/views/mata_anggaran_induk_form.php</file>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/views/home.php</file>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/layout/lite/custom-regular/part_body.php</file>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/layout/lite/part_topmenu.php</file>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/controllers/mata_anggaran_induk.php</file>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/controllers/report.php</file>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/libraries/process_report_config.php</file>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/layout/lite/part_leftmenu.php</file>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/libraries/combine.php</file>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/controllers/login.php</file>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/views/regular/data_search_mataanggaran.php</file>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/config/autoload.php</file>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/libraries/process_report_excel_ak.php</file>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/libraries/jsfile/datatable.js</file>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/helpers/function_helper.php</file>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/controllers/mata_anggaran_individual_benchmarks.php</file>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/views/download_report.php</file>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/layout/lite/js/add-anggaran-js.js</file>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/controllers/add_anggaran.php</file>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/views/mata_anggaran_individual_benchmarks_form.php</file>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/layout/lite/js/custom.js</file>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/views/add_anggaran_form.php</file>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/models/get_mata_anggaran_individual_benchmarks.php</file>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/layout/lite/js/download-report.js</file>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/layout/lite/index.php</file>
-            <file>file:/C:/Users/ikhsanykkbi/Documents/WEBSITES-CORE/htdocs/project-ykkbi-sipa/application/views/home-backup.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

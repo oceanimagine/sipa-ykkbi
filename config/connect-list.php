@@ -14,8 +14,8 @@ $list_server = array(
         "host" => "200.60.4.93",
         "user" => "postgres",
         "pass" => "Ykkbi@2021",
-        "data" => "dbsiang_dev",
-        "base" => "/sipa/",
+        "data" => "dbsiang_2022",
+        "base" => "/sipadev/",
         "port" => "5431"
     ),
     "ykkbi.or.id" => array(
