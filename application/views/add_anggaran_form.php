@@ -166,7 +166,10 @@
                 </div>
                 
                 <div class="form-group">
-                    <div class="col-md-12">
+                    <div class="col-md-12" id="tempat_utama_table">
+                        <div style="border: #f1f1f1 1px solid; box-shadow: 0 0 20px rgb(0 0 0 / 15%); padding: 12px 15px; margin-bottom: 15px;">
+                            <i class="fa fa-plus" onclick="tambah_table();" style="cursor: pointer;"></i>&nbsp;&nbsp;Add Table
+                        </div>
                         <table class="styled-table" style="border: #f1f1f1 1px solid; min-width: 1300px;" id="table-anggaran-tahunan">
                             <thead>
                                 <tr>
@@ -290,7 +293,7 @@
                                 
                             </tbody>
                         </table>
-                        <div class="form-group">
+                        <div class="form-group" id="footer_utama_table">
                             <div class="col-xs-6" style="padding-left: 0px; padding-right: 4px;">
                                 <?php if(isset($konfirmasi_hapus) && $konfirmasi_hapus){ ?>
                                 <button <?php echo $disabled; ?> style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad; margin-top: 15px; border-radius: 0px;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="hapus_anggaran" id="hapus_anggaran" value="Hapus Anggaran">Hapus Anggaran</button>
@@ -308,5 +311,79 @@
                 </div>
             </div>
         </form>
+        <div id="duplikasi_table_raw" style="display: none;">
+            <table class="styled-table" style="border: #f1f1f1 1px solid; min-width: 1300px;" id="table-anggaran-tahunan{newname}">
+                <thead>
+                    <tr>
+                        <th colspan="7" style="text-align: center; border-right: #f1f1f1 1px solid; border-bottom: #f1f1f1 1px solid; white-space: nowrap;">Rincian Mata Anggaran</th>
+                        <th colspan="8" style="text-align: center; border-bottom: #f1f1f1 1px solid; white-space: nowrap; border-right: #f1f1f1 1px solid;">RPPT</th>
+                        <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;" rowspan="3"><i class="fa fa-info"></i></th>
+                    </tr>
+                    <tr>
+                        <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;" rowspan="2" colspan="2">Nomor</th>
+                        <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;" rowspan="2">Nama</th>
+                        <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;" rowspan="2">Q</th>
+                        <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;" rowspan="2">F</th>
+                        <th style="border-right: #f1f1f1 1px solid; text-align: center; border-bottom: #f1f1f1 1px solid; white-space: nowrap;">Tarif</th>
+                        <th style="border-right: #f1f1f1 1px solid; text-align: center; border-bottom: #f1f1f1 1px solid; white-space: nowrap;">Sub Total</th>
+                        <th style="border-right: #f1f1f1 1px solid; text-align: center; border-bottom: #f1f1f1 1px solid; white-space: nowrap;" colspan="2">TW I</th>
+                        <th style="border-right: #f1f1f1 1px solid; text-align: center; border-bottom: #f1f1f1 1px solid; white-space: nowrap;" colspan="2">TW II</th>
+                        <th style="border-right: #f1f1f1 1px solid; text-align: center; border-bottom: #f1f1f1 1px solid; white-space: nowrap;" colspan="2">TW III</th>
+                        <th style="border-bottom: #f1f1f1 1px solid; text-align: center; white-space: nowrap; border-right: #f1f1f1 1px solid;" colspan="2">TW IV</th>
+                    </tr>
+                    <tr>
+                        <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">Nom</th>
+                        <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">Nom</th>
+                        <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">%</th>
+                        <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">Nom</th>
+                        <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">%</th>
+                        <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">Nom</th>
+                        <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">%</th>
+                        <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">Nom</th>
+                        <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">%</th>
+                        <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">Nom</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="induk_group_1">
+                        <td style="border-left: #f1f1f1 1px solid; text-align: center; border-right: #f0f0f0 1px solid; border-bottom: #f0f0f0 1px solid;"><i class="fa fa-minus" onclick="min_group(this, '_1', 1);" style="cursor: pointer;"></i></td>
+                        <td style="text-align: center; border-right: #f0f0f0 1px solid; border-bottom: #f0f0f0 1px solid;"><i class="fa fa-plus" onclick="add_group(this, '_1', 1);" style="cursor: pointer;"></i></td>
+                        <td style="text-align: center; border-right: #f0f0f0 1px solid; border-bottom: #f0f0f0 1px solid; background-color: rgb(220,230,241);" colspan="14"><input required="" type="text" style="box-sizing: border-box;border: none;outline: none;height: 32px; width: 100%;background-color: rgb(220,230,241);color:  black;font-weight: bold;height: 100%;" placeholder="GROUP DEFAULT" name="group_{newname}_default[]" value=""></td>
+                    </tr>
+                    
+                    <tr style="border-bottom: rgb(242,220,219) 2px solid;" class="anakan_group_1">
+                        <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 3%;" colspan="2" class="td_number_1">1</td>
+                        <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 25%;"><input autocomplete="off" name="nama_{newname}_1[]" class="textinput" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; width: 88%;" placeholder="NAMA" value=""></td>
+                        <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 3%;"><input autocomplete="off" name="Q_{newname}_1[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="Q" value="0"></td>
+                        <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 3%;"><input autocomplete="off" name="F_{newname}_1[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="F" value="0"></td>
+                        <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 6%;"><input autocomplete="off" name="tarif_{newname}_1[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="0.00"></td>
+                        <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 6%;"><input autocomplete="off" name="subtotal_{newname}_1[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="0.00"></td>
+                        <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 3%;"><input autocomplete="off" name="persen_tw1_{newname}_1[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="0.00"></td>
+                        <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 6%;"><input autocomplete="off" name="tw1_{newname}_1[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="0.00"></td>
+                        <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 3%;"><input autocomplete="off" name="persen_tw2_{newname}_1[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="0.00"></td>
+                        <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 6%;"><input autocomplete="off" name="tw2_{newname}_1[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="0.00"></td>
+                        <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 3%;"><input autocomplete="off" name="persen_tw3_{newname}_1[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="0.00"></td>
+                        <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 6%;"><input autocomplete="off" name="tw3_{newname}_1[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="0.00"></td>
+                        <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 3%;"><input autocomplete="off" name="persen_tw4_{newname}_1[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="0.00"></td>
+                        <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 6%;"><input autocomplete="off" name="tw4_{newname}_1[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="0.00"></td>
+                        <td style="border-right: #f1f1f1 1px solid; text-align: center; width: 40px; padding: 0px; vertical-align: middle; width: 3%;"><i class="fa fa-minus" onclick="kurangi_anak_grup(this,'_1',1);" style="cursor: pointer;"></i></td>
+                    </tr>
+                    <tr class="jumlah_anakan_1" style="border-bottom: rgb(220,230,241) 2px solid; box-shadow: inset 0 1px 0 rgb(242 220 219), inset 0 -1px 0 rgb(220 230 241);">
+                        <td style="text-align: right; border-right: #f0f0f0 1px solid;" colspan="6">Total</td>
+                        <td style="text-align: right; border-right: #f0f0f0 1px solid; background-color: rgb(242,220,219);" info="total_rintotal"></td>
+                        <td style="text-align: center; border-right: #f0f0f0 1px solid;">&nbsp;</td>
+                        <td style="text-align: right; border-right: #f0f0f0 1px solid; background-color: rgb(242,220,219);" info="total_rppt1nom"></td>
+                        <td style="text-align: center; border-right: #f0f0f0 1px solid;">&nbsp;</td>
+                        <td style="text-align: right; border-right: #f0f0f0 1px solid; background-color: rgb(242,220,219);" info="total_rppt2nom"></td>
+                        <td style="text-align: center; border-right: #f0f0f0 1px solid;">&nbsp;</td>
+                        <td style="text-align: right; border-right: #f0f0f0 1px solid; background-color: rgb(242,220,219);" info="total_rppt3nom"></td>
+                        <td style="text-align: center; border-right: #f0f0f0 1px solid;">&nbsp;</td>
+                        <td style="text-align: right; border-right: #f0f0f0 1px solid; background-color: rgb(242,220,219);" info="total_rppt4nom"></td>
+                        <td style="border-right: #f1f1f1 1px solid; text-align: center; width: 40px"><i class="fa fa-plus" urutan_grup="tombol_anakan_1" style="cursor: pointer;" onclick="tambah_anak_grup(this,'_1',1);"></i></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
     </body>
 </html>

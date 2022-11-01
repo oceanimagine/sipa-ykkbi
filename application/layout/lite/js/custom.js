@@ -269,6 +269,7 @@ function re_trigger_numberonly_input(){
     });
     $(".numberonly").off('blur');
     $('.numberonly').blur(function () {  
+        // console.log("MASUK BLUR");
         unset_tiga_titik_all();
         check_percent_nom_baris(this);
         jumlahkan_nom_per_baris(this);
@@ -378,6 +379,7 @@ function unset_tiga_titik_all(){
                 }
             }
         }
+        unset_tiga_titik_all_extend();
     }
 }
 
@@ -395,6 +397,57 @@ function set_tiga_titik_all(){
                     var result_titik = set_tiga_titik({"value":split_nilai[0]});
                     get_input_anakan[j].setAttribute("type", "text");
                     get_input_anakan[j].value = result_titik + (split_nilai.length > 1 ? "." + split_nilai[1] : "");
+                }
+            }
+        }
+    }
+    set_tiga_titik_all_extend();
+}
+
+function set_tiga_titik_all_extend(){
+    for(var k = 2; k <= 100; k++){
+        var alphabet = convert_number_alphabet(k);
+        // console.log(alphabet);
+        if(document.getElementById("table-anggaran-tahunan"+alphabet)){
+            console.log(alphabet);
+            var table_anggaran_tahunan = document.getElementById("table-anggaran-tahunan"+alphabet);
+            var get_tbody = table_anggaran_tahunan.getElementsByTagName("tbody");
+            var get_tr = get_tbody[0].getElementsByTagName("tr");
+            for(var i = 0; i < get_tr.length; i++){
+                if(get_tr[i].getAttribute("class").substr(0,"anakan_group_".length) === "anakan_group_"){
+                    var get_input_anakan = get_tr[i].getElementsByTagName("input");
+                    for(var j = 1; j < get_input_anakan.length; j++){
+                        if(get_input_anakan[j].getAttribute("class") === "numberonly"){
+                            var nilai = get_input_anakan[j].value;
+                            var split_nilai = nilai.split(".");
+                            var result_titik = set_tiga_titik({"value":split_nilai[0]});
+                            get_input_anakan[j].setAttribute("type", "text");
+                            get_input_anakan[j].value = result_titik + (split_nilai.length > 1 ? "." + split_nilai[1] : "");
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+function unset_tiga_titik_all_extend(){
+    for(var k = 2; k <= 100; k++){
+        var alphabet = convert_number_alphabet(k);
+        if(document.getElementById("table-anggaran-tahunan"+alphabet)){
+            var table_anggaran_tahunan = document.getElementById("table-anggaran-tahunan"+alphabet);
+            var get_tbody = table_anggaran_tahunan.getElementsByTagName("tbody");
+            var get_tr = get_tbody[0].getElementsByTagName("tr");
+            for(var i = 0; i < get_tr.length; i++){
+                if(get_tr[i].getAttribute("class").substr(0,"anakan_group_".length) === "anakan_group_"){
+                    var get_input_anakan = get_tr[i].getElementsByTagName("input");
+                    for(var j = 1; j < get_input_anakan.length; j++){
+                        if(get_input_anakan[j].getAttribute("class") === "numberonly"){
+                            var nilai = get_input_anakan[j].value;
+                            get_input_anakan[j].setAttribute("type", "number");
+                            get_input_anakan[j].value = nilai.split(",").join("");
+                        }
+                    }
                 }
             }
         }
@@ -924,4 +977,41 @@ function remove_parent(){
             get_radio[i].checked = false;
         }
     }
+}
+
+var next_inisial = typeof next_inisial_global !== "undefined" ? next_inisial_global : 2;
+function tambah_table(){
+    console.log("Tambah Table");
+    var tempat_utama_table = document.getElementById("tempat_utama_table");
+    var footer_utama_table = document.getElementById("footer_utama_table");
+    var div = document.createElement("div");
+    div.setAttribute("style", "border: #f1f1f1 1px solid; box-shadow: 0 0 20px rgb(0 0 0 / 15%); padding: 12px 15px; margin-bottom: 15px; margin-top: 15px;");
+    div.innerHTML = '<i class="fa fa-minus" onclick="kurangi_table(\''+next_inisial+'\',this);" style="cursor: pointer;"></i>&nbsp;&nbsp;Remove Table';
+    var next_inisial_ = convert_number_alphabet(next_inisial);
+    var duplikasi_table_raw = document.getElementById("duplikasi_table_raw");
+    var get_table = duplikasi_table_raw.getElementsByTagName("table")[0];
+    var table_clone = get_table.cloneNode(true);
+    var old_id = table_clone.getAttribute("id");
+    var new_id = old_id.split("{newname}").join(next_inisial_);
+    table_clone.setAttribute("id", new_id);
+    table_clone.style.marginTop = "15px";
+    var get_input_element_inside_table = table_clone.getElementsByTagName("input");
+    for(var i = 0; i < get_input_element_inside_table.length; i++){
+        var old_name = get_input_element_inside_table[i].getAttribute("name");
+        var new_name = old_name.split("{newname}").join(next_inisial_);
+        get_input_element_inside_table[i].setAttribute("name",new_name);
+    }
+    tempat_utama_table.insertBefore(div, footer_utama_table);
+    tempat_utama_table.insertBefore(table_clone, footer_utama_table);
+    // re_trigger_input_with_class('textinput');
+    re_trigger_numberonly_input();
+    re_trigger_input_with_class('textinput');
+    next_inisial++;
+}
+
+function kurangi_table(inisial, object_i){
+    var parent_i = object_i.parentNode;
+    parent_i.parentNode.removeChild(parent_i);
+    var table_anggaran = document.getElementById("table-anggaran-tahunan" + convert_number_alphabet(inisial));
+    table_anggaran.parentNode.removeChild(table_anggaran);
 }

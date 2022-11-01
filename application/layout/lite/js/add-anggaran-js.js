@@ -650,9 +650,19 @@ function check_percent_nom_baris(object_input){
             }
         }
         for(var k = 0; k < get_input_.length; k++){
-            if(get_input_[k].getAttribute("name").substr(0,("tw"+get_input_source_tw+"_"+get_address).length) === "tw"+get_input_source_tw+"_"+get_address){
-                get_input_[k].value = (value_active_source / 100 * jumlah_tw_perbandingan).toFixed(2);
-                break;
+            var split_name = get_input_[k].getAttribute("name").split("_");
+            // console.log(split_name);
+            if(split_name.length === 2){
+                if(get_input_[k].getAttribute("name").substr(0,("tw"+get_input_source_tw+"_"+get_address).length) === "tw"+get_input_source_tw+"_"+get_address){
+                    get_input_[k].value = (value_active_source / 100 * jumlah_tw_perbandingan).toFixed(2);
+                    break;
+                }
+            }
+            if(split_name.length === 3){
+                if(get_input_[k].getAttribute("name").substr(0,("tw"+get_input_source_tw+"_"+split_name[1]+"_"+get_address).length) === "tw"+get_input_source_tw+"_"+split_name[1]+"_"+get_address){
+                    get_input_[k].value = (value_active_source / 100 * jumlah_tw_perbandingan).toFixed(2);
+                    break;
+                }
             }
         }
     }
