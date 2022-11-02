@@ -985,8 +985,25 @@ function tambah_table(){
     var tempat_utama_table = document.getElementById("tempat_utama_table");
     var footer_utama_table = document.getElementById("footer_utama_table");
     var div = document.createElement("div");
-    div.setAttribute("style", "border: #f1f1f1 1px solid; box-shadow: 0 0 20px rgb(0 0 0 / 15%); padding: 12px 15px; margin-bottom: 15px; margin-top: 15px;");
-    div.innerHTML = '<i class="fa fa-minus" onclick="kurangi_table(\''+next_inisial+'\',this);" style="cursor: pointer;"></i>&nbsp;&nbsp;Remove Table';
+    div.setAttribute("style", "border: #f1f1f1 1px solid; box-shadow: 0 0 20px rgb(0 0 0 / 15%); padding: 12px 15px; margin-bottom: 15px; margin-top: 15px; min-width: 1300px;");
+    div.innerHTML = `
+        <i class="fa fa-minus" onclick="kurangi_table('`+next_inisial+`',this);" style="cursor: pointer;"></i>&nbsp;&nbsp;Remove Table
+        <div class="form-group">
+            <div class="col-xs-12">
+                <div class="form-group" id="form_group_a" style="margin-bottom: 0px;">
+                    <label for="mata_anggaran`+convert_number_alphabet(next_inisial)+`" class="col-xs-2 control-label" style="padding-left: 8px;">Mata Anggaran</label>
+                    <div class="col-xs-9 autocomplete">
+                        <input required="" type="text" id="mata_anggaran`+convert_number_alphabet(next_inisial)+`" class="form-control tambah-margin-bawah" name="mata_anggaran`+convert_number_alphabet(next_inisial)+`" placeholder="Mata Anggaran" value="" title="" autocomplete="off" disabled="">
+                        <input required="" type="hidden" id="mata_anggaran`+convert_number_alphabet(next_inisial)+`_hidden" name="mata_anggaran`+convert_number_alphabet(next_inisial)+`_hidden" value="">
+                        <input required="" type="hidden" name="inisial_all`+convert_number_alphabet(next_inisial)+`" id="inisial_all`+convert_number_alphabet(next_inisial)+`" value="">
+                    </div>
+                    <div class="col-xs-1" style="padding:0px;">
+                        <button id="buka_dialog_mata_anggaran`+convert_number_alphabet(next_inisial)+`" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="search" value="Search"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
     var next_inisial_ = convert_number_alphabet(next_inisial);
     var duplikasi_table_raw = document.getElementById("duplikasi_table_raw");
     var get_table = duplikasi_table_raw.getElementsByTagName("table")[0];
@@ -1003,6 +1020,27 @@ function tambah_table(){
     }
     tempat_utama_table.insertBefore(div, footer_utama_table);
     tempat_utama_table.insertBefore(table_clone, footer_utama_table);
+    
+    var buka_dialog_mata_anggaran = document.getElementById("buka_dialog_mata_anggaran" + convert_number_alphabet(next_inisial));
+    buka_dialog_mata_anggaran.next_inisial = convert_number_alphabet(next_inisial);
+    $( "#buka_dialog_mata_anggaran" + convert_number_alphabet(next_inisial) ).click(function(){
+        set_loading();
+        var tombol = this;
+        $.get("../../../index.php/add-anggaran/get-sp-search-mataanggaran", function(data, status){
+            if(status === "success"){
+                if(check_session(data)){
+                    var mata_anggaran = document.getElementById("mata_anggaran" + tombol.next_inisial);
+                    console.log(mata_anggaran);
+                    var tbody_hasil_data_mata_anggaran = document.getElementById("tbody_hasil_data_mata_anggaran");
+                    tbody_hasil_data_mata_anggaran.innerHTML = data;
+                    $('#modal-mata-anggaran').modal('show');
+                    set_tr_click_inside_tbody(tbody_hasil_data_mata_anggaran,mata_anggaran,'modal-mata-anggaran','2,3');
+                    removeLoading_regular();
+                }
+            }
+        });
+    });
+    
     // re_trigger_input_with_class('textinput');
     re_trigger_numberonly_input();
     re_trigger_input_with_class('textinput');

@@ -86,7 +86,7 @@
         </style>
         <?php } ?>
         <form novalidate class="form-horizontal" method="POST" enctype="multipart/form-data" id="form-anggaran-tahunan">
-            <div class="box-body" style="min-width: 1400px; position: relative;">
+           
                 <?php 
                 $disabled_input = "";
                 if(isset($konfirmasi_hapus) && $konfirmasi_hapus){
@@ -105,70 +105,80 @@
                     ");
                 }
                 ?>
-                <div class="form-group">
-                    <div class="col-xs-2">
-                        <div class="form-group" style="margin-bottom:0px;">
-                            <label for="satuan_kerja" class="col-xs-4 control-label">Satker</label>
-                            <div class="col-xs-8 autocomplete">
-                                <?php if(isset($data_satker) && is_array($data_satker)){ ?>
-                                <?php if(sizeof($data_satker) > 1){ ?>
-                                <select <?php echo $disabled_input; ?> required="" id="satuan_kerja" class="form-control tambah-margin-bawah" name="satuan_kerja" value="">
-                                    <option value="">PILIH</option>
-                                    <?php
-                            
-                                    if(isset($data_satker) && is_array($data_satker)){
-                                        foreach($data_satker as $satker){
-                                            $selected = isset($id_satker_edit) && $id_satker_edit == $satker->satkerid ? " selected='selected'" : "";
-                                            echo "<option value='(".$satker->satkerid.") ".$satker->nama1."'".$selected.">(".$satker->satkerid.") ".$satker->nama1."</option>\n";
-                                        }
-                                    }
-                                    ?>
-                                </select>
-                                <?php } else if(sizeof($data_satker) > 0){ ?>
-                                <input required type="text" id="satuan_kerja_display" class="form-control tambah-margin-bawah" name="satuan_kerja_display" placeholder="Satuan Kerja" value="<?php echo "(" . $data_satker[0]->satkerid . ") " . $data_satker[0]->nama1; ?>" autocomplete="off" disabled>
-                                <input required="" type="hidden" id="satuan_kerja" name="satuan_kerja" value="<?php echo "(" . $data_satker[0]->satkerid . ") " . $data_satker[0]->nama1; ?>" />
-                                <?php } ?>
-                                <?php } ?>
-                                <input type="hidden" name="kode_project_hidden" value="{replace_project_modal}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-10">
-                        <div class="form-group" style="margin-bottom:0px;">
-                            <label for="kegiatan_program_kerja_rincian" class="col-xs-2 control-label">Rincian Kegiatan</label>
-                            <div class="col-xs-9 autocomplete">
-                                <input required="" type="text" id="kegiatan_program_kerja_rincian" class="form-control tambah-margin-bawah" name="kegiatan_program_kerja_rincian" placeholder="Rincian Kegiatan" value="<?php echo isset($data_rincian_kegiatan_display) ? $data_rincian_kegiatan_display : ""; ?>" title="<?php echo isset($data_rincian_kegiatan_display) ? $data_rincian_kegiatan_display : ""; ?>" autocomplete="off" disabled="">
-                                <input required="" type="hidden" id="kegiatan_program_kerja_rincian_hidden" name="kegiatan_program_kerja_rincian_hidden" value="<?php echo isset($data_rincian_kegiatan_hidden) ? $data_rincian_kegiatan_hidden : ""; ?>">
-                            </div>
-                            <div class="col-xs-1" style="padding: 0px;">
-                                <button <?php echo $disabled_input; ?> id="buka_dialog_rincian_kegiatan" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="search" value="Search"><i class="fa fa-search"></i></button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="form-group" style="min-width: 1300px;">
+                    <div class="col-md-12">
+                        <div style="border: #f1f1f1 1px solid; box-shadow: 0 0 20px rgb(0 0 0 / 15%); padding: 12px 15px; margin-top: 15px; min-width: 1300px;">
+                            <i class="fa fa-file" onclick="tambah_table();" style="cursor: pointer;"></i>&nbsp;&nbsp;Form Anggaran
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <div class="form-group" style="margin-bottom:0px;">
+                                    <label for="satuan_kerja" class="col-xs-2 control-label" style="padding-left: 8px;">Satker</label>
+                                        <div class="col-xs-10 autocomplete" style="padding-right: 0px;">
+                                            <?php if(isset($data_satker) && is_array($data_satker)){ ?>
+                                            <?php if(sizeof($data_satker) > 1){ ?>
+                                            <select <?php echo $disabled_input; ?> required="" id="satuan_kerja" class="form-control tambah-margin-bawah" name="satuan_kerja" value="">
+                                                <option value="">PILIH</option>
+                                                <?php
 
+                                                if(isset($data_satker) && is_array($data_satker)){
+                                                    foreach($data_satker as $satker){
+                                                        $selected = isset($id_satker_edit) && $id_satker_edit == $satker->satkerid ? " selected='selected'" : "";
+                                                        echo "<option value='(".$satker->satkerid.") ".$satker->nama1."'".$selected.">(".$satker->satkerid.") ".$satker->nama1."</option>\n";
+                                                    }
+                                                }
+                                                ?>
+                                            </select>
+                                            <?php } else if(sizeof($data_satker) > 0){ ?>
+                                            <input required type="text" id="satuan_kerja_display" class="form-control tambah-margin-bawah" name="satuan_kerja_display" placeholder="Satuan Kerja" value="<?php echo "(" . $data_satker[0]->satkerid . ") " . $data_satker[0]->nama1; ?>" autocomplete="off" disabled>
+                                            <input required="" type="hidden" id="satuan_kerja" name="satuan_kerja" value="<?php echo "(" . $data_satker[0]->satkerid . ") " . $data_satker[0]->nama1; ?>" />
+                                            <?php } ?>
+                                            <?php } ?>
+                                            <input type="hidden" name="kode_project_hidden" value="{replace_project_modal}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <div class="form-group" style="margin-bottom:0px;">
+                                        <label for="kegiatan_program_kerja_rincian" class="col-xs-2 control-label" style="padding-left: 8px;">Rincian Kegiatan</label>
+                                        <div class="col-xs-9 autocomplete">
+                                            <input required="" type="text" id="kegiatan_program_kerja_rincian" class="form-control tambah-margin-bawah" name="kegiatan_program_kerja_rincian" placeholder="Rincian Kegiatan" value="<?php echo isset($data_rincian_kegiatan_display) ? $data_rincian_kegiatan_display : ""; ?>" title="<?php echo isset($data_rincian_kegiatan_display) ? $data_rincian_kegiatan_display : ""; ?>" autocomplete="off" disabled="">
+                                            <input required="" type="hidden" id="kegiatan_program_kerja_rincian_hidden" name="kegiatan_program_kerja_rincian_hidden" value="<?php echo isset($data_rincian_kegiatan_hidden) ? $data_rincian_kegiatan_hidden : ""; ?>">
+                                        </div>
+                                        <div class="col-xs-1" style="padding: 0px;">
+                                            <button <?php echo $disabled_input; ?> id="buka_dialog_rincian_kegiatan" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="search" value="Search"><i class="fa fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                    
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="form-group">
-                    <div class="col-xs-2"></div>
-                    <div class="col-xs-10">
-                        <div class="form-group" id="form_group_a" style="margin-bottom: 0px;">
-                            <label for="mata_anggaran" class="col-xs-2 control-label">Mata Anggaran</label>
-                            <div class="col-xs-9 autocomplete">
-                                <input required="" type="text" id="mata_anggaran" class="form-control tambah-margin-bawah" name="mata_anggaran" placeholder="Mata Anggaran" value="<?php echo isset($data_mata_anggaran_display) ? $data_mata_anggaran_display : ""; ?>" title="<?php echo isset($data_mata_anggaran_display) ? $data_mata_anggaran_display : ""; ?>" autocomplete="off" disabled="">
-                                <input required="" type="hidden" id="mata_anggaran_hidden" name="mata_anggaran_hidden" value="<?php echo isset($data_mata_anggaran_hidden) ? $data_mata_anggaran_hidden : ""; ?>">
-                                <input required="" type="hidden" name="inisial_all" id="inisial_all" value="<?php echo $initial_hidden; ?>">
-                            </div>
-                            <div class="col-xs-1" style="padding:0px;">
-                                <button <?php echo $disabled_input; ?> id="buka_dialog_mata_anggaran" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="search" value="Search"><i class="fa fa-search"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 
                 <div class="form-group">
                     <div class="col-md-12" id="tempat_utama_table">
-                        <div style="border: #f1f1f1 1px solid; box-shadow: 0 0 20px rgb(0 0 0 / 15%); padding: 12px 15px; margin-bottom: 15px;">
+                        <div style="border: #f1f1f1 1px solid; box-shadow: 0 0 20px rgb(0 0 0 / 15%); padding: 12px 15px; margin-bottom: 15px; min-width: 1300px;">
                             <i class="fa fa-plus" onclick="tambah_table();" style="cursor: pointer;"></i>&nbsp;&nbsp;Add Table
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <div class="form-group" id="form_group_a" style="margin-bottom: 0px;">
+                                        <label for="mata_anggaran" class="col-xs-2 control-label" style="padding-left: 8px;">Mata Anggaran</label>
+                                        <div class="col-xs-9 autocomplete">
+                                            <input required="" type="text" id="mata_anggaran" class="form-control tambah-margin-bawah" name="mata_anggaran" placeholder="Mata Anggaran" value="<?php echo isset($data_mata_anggaran_display) ? $data_mata_anggaran_display : ""; ?>" title="<?php echo isset($data_mata_anggaran_display) ? $data_mata_anggaran_display : ""; ?>" autocomplete="off" disabled="">
+                                            <input required="" type="hidden" id="mata_anggaran_hidden" name="mata_anggaran_hidden" value="<?php echo isset($data_mata_anggaran_hidden) ? $data_mata_anggaran_hidden : ""; ?>">
+                                            <input required="" type="hidden" name="inisial_all" id="inisial_all" value="<?php echo $initial_hidden; ?>">
+                                        </div>
+                                        <div class="col-xs-1" style="padding:0px;">
+                                            <button <?php echo $disabled_input; ?> id="buka_dialog_mata_anggaran" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="search" value="Search"><i class="fa fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <table class="styled-table" style="border: #f1f1f1 1px solid; min-width: 1300px;" id="table-anggaran-tahunan">
                             <thead>
@@ -293,7 +303,7 @@
                                 
                             </tbody>
                         </table>
-                        <div class="form-group" id="footer_utama_table">
+                        <div class="form-group" id="footer_utama_table" style="min-width: 1300px;">
                             <div class="col-xs-6" style="padding-left: 0px; padding-right: 4px;">
                                 <?php if(isset($konfirmasi_hapus) && $konfirmasi_hapus){ ?>
                                 <button <?php echo $disabled; ?> style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad; margin-top: 15px; border-radius: 0px;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="hapus_anggaran" id="hapus_anggaran" value="Hapus Anggaran">Hapus Anggaran</button>
