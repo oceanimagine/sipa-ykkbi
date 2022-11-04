@@ -179,6 +179,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <input type="hidden" id="kumpulan_alphabet" name="kumpulan_alphabet" />
                         </div>
                         <table class="styled-table" style="border: #f1f1f1 1px solid; min-width: 1300px;" id="table-anggaran-tahunan">
                             <thead>

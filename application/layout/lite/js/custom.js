@@ -982,8 +982,15 @@ function remove_parent(){
 var next_inisial = typeof next_inisial_global !== "undefined" ? next_inisial_global : 2;
 function tambah_table(){
     console.log("Tambah Table");
+    var kumpulan_alphabet = document.getElementById("kumpulan_alphabet");
     var tempat_utama_table = document.getElementById("tempat_utama_table");
     var footer_utama_table = document.getElementById("footer_utama_table");
+    var value_alphabet = kumpulan_alphabet.value;
+    if(value_alphabet === ""){
+        kumpulan_alphabet.value = convert_number_alphabet(next_inisial);
+    } else {
+        kumpulan_alphabet.value = kumpulan_alphabet.value + "," + convert_number_alphabet(next_inisial);
+    }
     var div = document.createElement("div");
     div.setAttribute("style", "border: #f1f1f1 1px solid; box-shadow: 0 0 20px rgb(0 0 0 / 15%); padding: 12px 15px; margin-bottom: 15px; margin-top: 15px; min-width: 1300px;");
     div.innerHTML = `
@@ -1048,6 +1055,19 @@ function tambah_table(){
 }
 
 function kurangi_table(inisial, object_i){
+    var inisial_ = convert_number_alphabet(inisial);
+    var kumpulan_alphabet = document.getElementById("kumpulan_alphabet");
+    var value_alphabet = kumpulan_alphabet.value;
+    var split_value_alphabet = value_alphabet.split(",");
+    var new_value = "";
+    var comma = "";
+    for(var i = 0; i < split_value_alphabet.length; i++){
+        if(split_value_alphabet[i] !== inisial_){
+            new_value = new_value + comma + split_value_alphabet[i];
+            comma = ",";
+        }
+    }
+    kumpulan_alphabet.value = new_value;
     var parent_i = object_i.parentNode;
     parent_i.parentNode.removeChild(parent_i);
     var table_anggaran = document.getElementById("table-anggaran-tahunan" + convert_number_alphabet(inisial));

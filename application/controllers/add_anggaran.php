@@ -196,6 +196,16 @@ class add_anggaran extends CI_Controller {
         }
     }
     
+    public function insert_anggaran_process_lanjutan(){
+        if(isset($_POST['kumpulan_alphabet']) && $_POST['kumpulan_alphabet'] != ""){
+            $kumpulan_alphabet = $_POST['kumpulan_alphabet'];
+            $explode_kumpulan_alphabet = explode(",", $kumpulan_alphabet);
+            for($i = 0; $i < sizeof($explode_kumpulan_alphabet); $i++){
+                $alphabet = $explode_kumpulan_alphabet[$i];
+            }
+        }
+    }
+    
     public function insert_anggaran(){
         if($this->input->post("kode_project_hidden")){
             if($this->allow_delete == "0"){
