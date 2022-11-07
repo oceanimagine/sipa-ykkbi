@@ -479,10 +479,11 @@ $(function () {
             var kegiatan_program_kerja_rincian_hidden = document.getElementById("kegiatan_program_kerja_rincian_hidden");
             kegiatan_program_kerja_rincian_hidden.value = "";
             
+            /* 
             var mata_anggaran = document.getElementById("mata_anggaran");
             mata_anggaran.value = "";
             var mata_anggaran_hidden = document.getElementById("mata_anggaran_hidden");
-            mata_anggaran_hidden.value = "";
+            mata_anggaran_hidden.value = ""; */
         };
     }
     
@@ -991,6 +992,13 @@ function tambah_table(){
     } else {
         kumpulan_alphabet.value = kumpulan_alphabet.value + "," + convert_number_alphabet(next_inisial);
     }
+    var create_input = document.createElement("input");
+    create_input.setAttribute("type","hidden");
+    create_input.setAttribute("name","inisial_all_" + convert_number_alphabet(next_inisial));
+    create_input.setAttribute("id","inisial_all_" + convert_number_alphabet(next_inisial));
+    create_input.value = "_1";
+    var tempat_inisial_hidden = document.getElementById("tempat_inisial_hidden");
+    tempat_inisial_hidden.appendChild(create_input);
     var div = document.createElement("div");
     div.setAttribute("style", "border: #f1f1f1 1px solid; box-shadow: 0 0 20px rgb(0 0 0 / 15%); padding: 12px 15px; margin-bottom: 15px; margin-top: 15px; min-width: 1300px;");
     div.innerHTML = `
@@ -1037,11 +1045,11 @@ function tambah_table(){
             if(status === "success"){
                 if(check_session(data)){
                     var mata_anggaran = document.getElementById("mata_anggaran" + tombol.next_inisial);
-                    console.log(mata_anggaran);
+                    // console.log(mata_anggaran);
                     var tbody_hasil_data_mata_anggaran = document.getElementById("tbody_hasil_data_mata_anggaran");
                     tbody_hasil_data_mata_anggaran.innerHTML = data;
                     $('#modal-mata-anggaran').modal('show');
-                    set_tr_click_inside_tbody(tbody_hasil_data_mata_anggaran,mata_anggaran,'modal-mata-anggaran','2,3');
+                    set_tr_click_inside_tbody(tbody_hasil_data_mata_anggaran,mata_anggaran,'modal-mata-anggaran','2,3', tombol.next_inisial);
                     removeLoading_regular();
                 }
             }
@@ -1067,9 +1075,18 @@ function kurangi_table(inisial, object_i){
             comma = ",";
         }
     }
+    if(document.getElementById("inisial_all_" + inisial_)){
+        var inisial_all_ = document.getElementById("inisial_all_" + inisial_);
+        inisial_all_.parentNode.removeChild(inisial_all_);
+    }
     kumpulan_alphabet.value = new_value;
     var parent_i = object_i.parentNode;
     parent_i.parentNode.removeChild(parent_i);
     var table_anggaran = document.getElementById("table-anggaran-tahunan" + convert_number_alphabet(inisial));
     table_anggaran.parentNode.removeChild(table_anggaran);
+    // console.log("DELETE TABEL");
+    // console.log(convert_number_alphabet(inisial));
+    // console.log(choosen_ma[convert_number_alphabet(inisial)]);
+    delete choosen_ma[convert_number_alphabet(inisial)];
+    // console.log(choosen_ma[convert_number_alphabet(inisial)]);
 }

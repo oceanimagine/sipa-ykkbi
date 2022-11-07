@@ -1027,15 +1027,35 @@ function min_group(object_button, inisial, jumlah_group){
                 }
             }
         }
-    } 
-    var concate = "";
-    var comma = "";
-    for(var i = 0; i < arr_address.length; i++){
-        concate = concate + comma + arr_address[i];
-        comma = ",";
     }
-    var inisial_all = document.getElementById("inisial_all");
-    inisial_all.value = concate;
+    
+    var get_tr_inisial = object_button.parentNode.parentNode;
+    var get_td_inisial = get_tr_inisial.getElementsByTagName("td");
+    
+    if(typeof get_td_inisial[2] !== "undefined"){
+        var get_input_inisial = get_td_inisial[2].getElementsByTagName("input");
+        var get_name = get_input_inisial[0].getAttribute("name");
+        var split_get_name = get_name.split("_");
+        if(split_get_name.length === 3){
+            var concate = "";
+            var comma = "";
+            for(var i = 0; i < arr_address.length; i++){
+                concate = concate + comma + arr_address[i];
+                comma = ",";
+            }
+            var inisial_all = document.getElementById("inisial_all_" + split_get_name[1]);
+            inisial_all.value = concate;
+        } else {
+            var concate = "";
+            var comma = "";
+            for(var i = 0; i < arr_address.length; i++){
+                concate = concate + comma + arr_address[i];
+                comma = ",";
+            }
+            var inisial_all = document.getElementById("inisial_all");
+            inisial_all.value = concate;
+        }
+    }
 }
 
 function add_group(object_button, inisial, jumlah_group){
@@ -1175,14 +1195,34 @@ function add_group(object_button, inisial, jumlah_group){
             }
         }
     }
-    var concate = "";
-    var comma = "";
-    for(var i = 0; i < arr_address.length; i++){
-        concate = concate + comma + arr_address[i];
-        comma = ",";
+    
+    var get_tr_inisial = object_button.parentNode.parentNode;
+    var get_td_inisial = get_tr_inisial.getElementsByTagName("td");
+    
+    if(typeof get_td_inisial[2] !== "undefined"){
+        var get_input_inisial = get_td_inisial[2].getElementsByTagName("input");
+        var get_name = get_input_inisial[0].getAttribute("name");
+        var split_get_name = get_name.split("_");
+        if(split_get_name.length === 3){
+            var concate = "";
+            var comma = "";
+            for(var i = 0; i < arr_address.length; i++){
+                concate = concate + comma + arr_address[i];
+                comma = ",";
+            }
+            var inisial_all = document.getElementById("inisial_all_" + split_get_name[1]);
+            inisial_all.value = concate;
+        } else {
+            var concate = "";
+            var comma = "";
+            for(var i = 0; i < arr_address.length; i++){
+                concate = concate + comma + arr_address[i];
+                comma = ",";
+            }
+            var inisial_all = document.getElementById("inisial_all");
+            inisial_all.value = concate;
+        }
     }
-    var inisial_all = document.getElementById("inisial_all");
-    inisial_all.value = concate;
 }
 
 function autocomplete(inp, arr) {
@@ -1318,39 +1358,74 @@ function detect_ma(value){
     return false;
 }
 
-function set_tr_click_inside_tbody(tbody_active,input_active,id_dialog,display_address){
+var choosen_ma = [];
+function set_tr_click_inside_tbody(tbody_active,input_active,id_dialog,display_address,inisial){
     var get_tr = tbody_active.getElementsByTagName("tr");
+    var choosen_ma_inside = [];
+    // console.log(choosen_ma);
+    
+    if(id_dialog === "modal-mata-anggaran"){
+        for(var i = 0; i < get_tr.length; i++){
+            get_tr[i].onclick = '';
+        }
+    }
+    
+    for(var key in choosen_ma){
+        for(var i = 0; i < get_tr.length; i++){
+            var get_td_ = get_tr[i].getElementsByTagName("td");
+            if(choosen_ma[key] === get_td_[0].innerText){
+                choosen_ma_inside[get_td_[0].innerText] = true;
+            }
+        }
+    }
+    
     for(var i = 0; i < get_tr.length; i++){
+        var get_td_ = get_tr[i].getElementsByTagName("td");
+        if(typeof choosen_ma_inside[get_td_[0].innerText] !== "undefined" && choosen_ma_inside[get_td_[0].innerText]){
+            // console.log("COBA");
+            get_tr[i].setAttribute("style","color: rgba(0,0,0,0.2);");
+        }
         get_tr[i].onclick = function(){
-            set_loading();
             var get_td = this.getElementsByTagName("td");
-            var get_div = get_td[0].getElementsByTagName("div");
-            var get_attr_data = JSON.parse(get_div[0].getAttribute("attr_data"));
-            var get_address = display_address.split(",");
-            var hasil_concate = "";
-            var pemisah = "";
-            var hasil_concate_display = "";
-            var pemisah_display = "";
-            for(var i = 0; i < get_attr_data.length; i++){
-                hasil_concate = hasil_concate + pemisah + get_attr_data[i];
-                pemisah = " ---- ";
+            if(typeof choosen_ma_inside[get_td[0].innerText] === "undefined"){
+                set_loading();
+                // console.log(get_td[0].innerText);
+                // choosen_ma[get_td[0].innerText] = true;
+                if(id_dialog === "modal-mata-anggaran"){
+                    if(typeof inisial === "undefined"){
+                        choosen_ma['default'] = get_td[0].innerText;
+                    } else {
+                        choosen_ma[inisial] = get_td[0].innerText;
+                    }
+                }
+                var get_div = get_td[0].getElementsByTagName("div");
+                var get_attr_data = JSON.parse(get_div[0].getAttribute("attr_data"));
+                var get_address = display_address.split(",");
+                var hasil_concate = "";
+                var pemisah = "";
+                var hasil_concate_display = "";
+                var pemisah_display = "";
+                for(var i = 0; i < get_attr_data.length; i++){
+                    hasil_concate = hasil_concate + pemisah + get_attr_data[i];
+                    pemisah = " ---- ";
+                }
+
+                for(var i = 0; i < get_address.length; i++){
+                    hasil_concate_display = hasil_concate_display + pemisah_display + (detect_ma(get_attr_data[Number(get_address[i])]) ? (get_attr_data[Number(get_address[i])].substr(0,3) + "." + get_attr_data[Number(get_address[i])].substr(3,3) + "." + get_attr_data[Number(get_address[i])].substring(6)) : get_attr_data[Number(get_address[i])]);
+                    pemisah_display = " # ";
+                }
+
+                removeLoading();
+                setTimeout(function(){
+                    var get_id = input_active.getAttribute("id");
+                    var hidden_id = get_id + "_hidden";
+                    var hidden_active = document.getElementById(hidden_id);
+                    hidden_active.value = hasil_concate;
+                    /* console.log(hasil_concate); */
+                    input_active.value = hasil_concate_display;
+                    $('#'+id_dialog).modal('hide');
+                },2000);
             }
-            
-            for(var i = 0; i < get_address.length; i++){
-                hasil_concate_display = hasil_concate_display + pemisah_display + (detect_ma(get_attr_data[Number(get_address[i])]) ? (get_attr_data[Number(get_address[i])].substr(0,3) + "." + get_attr_data[Number(get_address[i])].substr(3,3) + "." + get_attr_data[Number(get_address[i])].substring(6)) : get_attr_data[Number(get_address[i])]);
-                pemisah_display = " # ";
-            }
-            
-            removeLoading();
-            setTimeout(function(){
-                var get_id = input_active.getAttribute("id");
-                var hidden_id = get_id + "_hidden";
-                var hidden_active = document.getElementById(hidden_id);
-                hidden_active.value = hasil_concate;
-                /* console.log(hasil_concate); */
-                input_active.value = hasil_concate_display;
-                $('#'+id_dialog).modal('hide');
-            },2000);
             
         };
     }

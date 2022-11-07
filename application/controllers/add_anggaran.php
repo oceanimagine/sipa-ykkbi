@@ -202,6 +202,7 @@ class add_anggaran extends CI_Controller {
             $explode_kumpulan_alphabet = explode(",", $kumpulan_alphabet);
             for($i = 0; $i < sizeof($explode_kumpulan_alphabet); $i++){
                 $alphabet = $explode_kumpulan_alphabet[$i];
+                
             }
         }
     }

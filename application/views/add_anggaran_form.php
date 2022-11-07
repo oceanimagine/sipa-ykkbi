@@ -168,7 +168,7 @@
                                 <div class="col-xs-12">
                                     <div class="form-group" id="form_group_a" style="margin-bottom: 0px;">
                                         <label for="mata_anggaran" class="col-xs-2 control-label" style="padding-left: 8px;">Mata Anggaran</label>
-                                        <div class="col-xs-9 autocomplete">
+                                        <div class="col-xs-9 autocomplete" id="tempat_inisial_hidden">
                                             <input required="" type="text" id="mata_anggaran" class="form-control tambah-margin-bawah" name="mata_anggaran" placeholder="Mata Anggaran" value="<?php echo isset($data_mata_anggaran_display) ? $data_mata_anggaran_display : ""; ?>" title="<?php echo isset($data_mata_anggaran_display) ? $data_mata_anggaran_display : ""; ?>" autocomplete="off" disabled="">
                                             <input required="" type="hidden" id="mata_anggaran_hidden" name="mata_anggaran_hidden" value="<?php echo isset($data_mata_anggaran_hidden) ? $data_mata_anggaran_hidden : ""; ?>">
                                             <input required="" type="hidden" name="inisial_all" id="inisial_all" value="<?php echo $initial_hidden; ?>">
