@@ -418,6 +418,9 @@ function set_tiga_titik_all_extend(){
                     var get_input_anakan = get_tr[i].getElementsByTagName("input");
                     for(var j = 1; j < get_input_anakan.length; j++){
                         if(get_input_anakan[j].getAttribute("class") === "numberonly"){
+                            if(get_input_anakan[j].getAttribute("name").substr(0,"tarif_".length) === "tarif_"){
+                                // console.log(get_input_anakan[j].getAttribute("name") + " = " + get_input_anakan[j].value);
+                            }
                             var nilai = get_input_anakan[j].value;
                             var split_nilai = nilai.split(".");
                             var result_titik = set_tiga_titik({"value":split_nilai[0]});
@@ -443,6 +446,7 @@ function unset_tiga_titik_all_extend(){
                     var get_input_anakan = get_tr[i].getElementsByTagName("input");
                     for(var j = 1; j < get_input_anakan.length; j++){
                         if(get_input_anakan[j].getAttribute("class") === "numberonly"){
+                            
                             var nilai = get_input_anakan[j].value;
                             get_input_anakan[j].setAttribute("type", "number");
                             get_input_anakan[j].value = nilai.split(",").join("");

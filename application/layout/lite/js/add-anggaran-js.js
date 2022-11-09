@@ -1358,8 +1358,9 @@ function detect_ma(value){
     return false;
 }
 
-var choosen_ma = [];
+var choosen_ma = typeof choosen_ma !== "undefined" ? choosen_ma : [];
 function set_tr_click_inside_tbody(tbody_active,input_active,id_dialog,display_address,inisial){
+    // console.log(choosen_ma);
     var get_tr = tbody_active.getElementsByTagName("tr");
     var choosen_ma_inside = [];
     // console.log(choosen_ma);

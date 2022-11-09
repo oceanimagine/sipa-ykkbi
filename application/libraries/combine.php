@@ -156,6 +156,13 @@ class combine {
             }
         }
         
+        $search_flex = "";
+        $replace_flex = "";
+        if(($this->CI->uri->segment(2) == "add" && $class_name == "add-anggaran") || ($this->CI->uri->segment(2) == "edit" && $class_name == "add-anggaran")){
+            $search_flex = "/* display-flex */";
+            $replace_flex = " display: flex;";
+        }
+        
         if($class_name == "home" || $class_name == ""){
             $this->folder_body_custom = "custom-regular/";
         }
@@ -237,7 +244,8 @@ class combine {
             "<!-- {MENU_REPLACE} -->",
             $left_menu_under_logo_search,
             "<!-- </add_more_dialog> -->",
-            "<!-- script no collapse inside body -->"
+            "<!-- script no collapse inside body -->",
+            $search_flex
         );
         $array_replace = array(
             $isi_body, 
@@ -247,7 +255,8 @@ class combine {
             $menu_li[0],
             $left_menu_under_logo_replace,
             $replace_more_dialog,
-            $script_no_collapse
+            $script_no_collapse,
+            $replace_flex
         );
         
         $keys_add = array_keys($array_view);

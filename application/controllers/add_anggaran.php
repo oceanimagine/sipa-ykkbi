@@ -74,6 +74,8 @@ class add_anggaran extends CI_Controller {
             $pktkode_at = $explode_kegiatan_program_kerja_rincian_hidden[1];
             $rekmakode_at = $explode_mata_anggaran_hidden[2];
 	    
+            $pktkode_at = $pktkode_at;
+            
 	    $pktkode_rk_rincian_ = $explode_kegiatan_program_kerja_rincian_hidden[3];
 
             $keterangan = "-";
@@ -190,7 +192,7 @@ class add_anggaran extends CI_Controller {
                 }
             }
             
-            if($affected_at && $affected_group && $affected_rincian){
+            if($affected_at && $affected_group && $affected_rincian && $this->insert_anggaran_process_lanjutan()){
                 $this->commit_insert = TRUE;
             }
         }
@@ -198,13 +200,106 @@ class add_anggaran extends CI_Controller {
     
     public function insert_anggaran_process_lanjutan(){
         if(isset($_POST['kumpulan_alphabet']) && $_POST['kumpulan_alphabet'] != ""){
+            // echo "<pre>\n";
+            // print_r($_POST);
+            // exit();
             $kumpulan_alphabet = $_POST['kumpulan_alphabet'];
             $explode_kumpulan_alphabet = explode(",", $kumpulan_alphabet);
+            $explode_kegiatan_program_kerja_rincian_hidden = explode(" ---- ", $_POST['kegiatan_program_kerja_rincian_hidden']);
+            $kode_group = $_POST['kode_project_hidden'];
+            $sbpkode_group = $explode_kegiatan_program_kerja_rincian_hidden[5];
+            $pktkode_rk_rincian_ = $explode_kegiatan_program_kerja_rincian_hidden[3];
+            
+            $affected_group = 0;
+            $affected_rincian = 0;
             for($i = 0; $i < sizeof($explode_kumpulan_alphabet); $i++){
                 $alphabet = $explode_kumpulan_alphabet[$i];
+                $explode_inisial_all = explode(",", $_POST['inisial_all_' . $alphabet]);
                 
+                $explode_mata_anggaran_hidden = explode(" ---- ", $_POST['mata_anggaran'.$alphabet.'_hidden']);
+                $rekmakode_group = $explode_mata_anggaran_hidden[2];
+                for($j = 0; $j < sizeof($_POST['group_'.$alphabet.'_default']); $j++){
+                    $group_default = $_POST['group_'.$alphabet.'_default'][$j];
+                    $group_group = $group_default;
+                    $this->get_add_anggaran->process(array(
+                        'action' => 'insert',
+                        'table' => 'tbldaftaratgroup',
+                        'column_value' => array(
+                            '"kode"' => $kode_group,
+                            '"sbpkode"' => $sbpkode_group,
+                            '"pktkode"' => $pktkode_rk_rincian_,
+                            '"rekmakode"' => $rekmakode_group,
+                            '"group"' => $group_group
+                        )
+                    ));
+                    $affected_group = 0;
+                    if($this->affected){
+                        $affected_group = 1;
+                    }
+                }
+                
+                $info_satker = $explode_kegiatan_program_kerja_rincian_hidden[0];
+                $explode_satker = explode("(", $info_satker);
+                $explode_satker_2 = explode(")", $explode_satker[1]);
+                $id_satker = $explode_satker_2[0];
+                $pktkode_rk_rincian = $explode_kegiatan_program_kerja_rincian_hidden[3];
+                
+                for($j = 0; $j < sizeof($explode_inisial_all); $j++){
+                    $inisial_name = $explode_inisial_all[$j];
+                    $nama = $_POST['nama_'.$alphabet.$inisial_name];
+                    $Q = $_POST['Q_'.$alphabet.$inisial_name];
+                    $F = $_POST['F_'.$alphabet.$inisial_name];
+                    $tarif = $_POST['tarif_'.$alphabet.$inisial_name];
+                    $subtotal = $_POST['subtotal_'.$alphabet.$inisial_name];
+                    $persen_tw1 = $_POST['persen_tw1_'.$alphabet.$inisial_name];
+                    $tw1 = $_POST['tw1_'.$alphabet.$inisial_name];
+                    $persen_tw2 = $_POST['persen_tw2_'.$alphabet.$inisial_name];
+                    $tw2 = $_POST['tw2_'.$alphabet.$inisial_name];
+                    $persen_tw3 = $_POST['persen_tw3_'.$alphabet.$inisial_name];
+                    $tw3 = $_POST['tw3_'.$alphabet.$inisial_name];
+                    $persen_tw4 = $_POST['persen_tw4_'.$alphabet.$inisial_name];
+                    $tw4 = $_POST['tw4_'.$alphabet.$inisial_name];
+                    $group_default = $_POST['group_'.$alphabet.'_default'][$j];
+                    for($k = 0; $k < sizeof($nama); $k++){
+
+                        $this->get_add_anggaran->process(array(
+                            'action' => 'insert',
+                            'table' => 'tbldaftaratrincian',
+                            'column_value' => array(
+                                '"kode"' => $kode_group,
+                                '"sbpkode"' => $sbpkode_group,
+                                '"pktkode"' => $pktkode_rk_rincian,
+                                '"rekmakode"' => $rekmakode_group,
+                                '"group"' => $group_default,
+                                '"satkerid"' => $id_satker,
+                                '"nourut"' => ($k + 1),
+                                '"rincian"' => $nama[$k],
+                                '"tarifid"' => 0,
+                                '"taridnom"' => $tarif[$k],
+                                '"rinkuantitas"' => $Q[$k],
+                                '"rinfrekwensi"' => $F[$k],
+                                '"rintarif"' => $tarif[$k],
+                                '"rintotal"' => $subtotal[$k],
+                                '"rppt1perc"' => $persen_tw1[$k],
+                                '"rppt2perc"' => $persen_tw2[$k],
+                                '"rppt3perc"' => $persen_tw3[$k],
+                                '"rppt4perc"' => $persen_tw4[$k],
+                                '"rppt1nom"' => $tw1[$k],
+                                '"rppt2nom"' => $tw2[$k],
+                                '"rppt3nom"' => $tw3[$k],
+                                '"rppt4nom"' => $tw4[$k]
+                            )
+                        ));
+                        $affected_rincian = 0;
+                        if($this->affected){
+                            $affected_rincian = 1;
+                        }
+                    }
+                }   
             }
+            return $affected_group && $affected_rincian;
         }
+        return false;
     }
     
     public function insert_anggaran(){
@@ -310,6 +405,36 @@ class add_anggaran extends CI_Controller {
     
     public function hapus_process($param_id){
         $this->process_param($param_id);
+        
+        $this->get_add_anggaran->process(array(
+            'action' => 'delete',
+            'table' => 'tbldaftarat',
+            'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and pktkode = \''.$this->pktkode_at .'\''
+        ));
+        $affected_1 = $this->affected;
+        
+        $this->get_add_anggaran->process(array(
+            'action' => 'delete',
+            'table' => 'tbldaftaratgroup',
+            'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and pktkode = \''.$this->pktkode_at .'\''
+        ));
+        $affected_2 = $this->affected;
+        
+        $this->get_add_anggaran->process(array(
+            'action' => 'delete',
+            'table' => 'tbldaftaratrincian',
+            'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and pktkode = \''.$this->pktkode_at .'\''
+        ));
+        $affected_3 = $this->affected;
+        
+        if($affected_1 && $affected_2 && $affected_3){
+            $this->commit_delete = TRUE;
+        }
+        
+    }
+    
+    public function hapus_process_old($param_id){
+        $this->process_param($param_id);
         $this->get_add_anggaran->process(array(
             'action' => 'delete',
             'table' => 'tbldaftarat',
@@ -374,6 +499,7 @@ class add_anggaran extends CI_Controller {
             exit();
         }
         $this->get_data_edit($param_id);
+        $this->get_data_edit_lanjutan($param_id);
         $this->layout->loadView(
             'add_anggaran_form',
             array(
@@ -390,7 +516,13 @@ class add_anggaran extends CI_Controller {
                 'data_rincian_kegiatan_hidden' => $this->data_rincian_kegiatan_hidden,
                 'data_mata_anggaran_display' => $this->data_mata_anggaran_display,
                 'data_mata_anggaran_hidden' => $this->data_mata_anggaran_hidden,
-                'konfirmasi_hapus' => true
+                'konfirmasi_hapus' => true,
+                
+                // Edit Lanjutan
+                'group_lanjutan' => $this->group_lanjutan,
+                'mata_anggaran_lanjutan_display' => $this->mata_anggaran_lanjutan_display,
+                'mata_anggaran_lanjutan_hidden' => $this->mata_anggaran_lanjutan_hidden,
+                'rincian_lanjutan' => $this->rincian_lanjutan
             )
         );
     }
@@ -479,9 +611,81 @@ class add_anggaran extends CI_Controller {
         }
     }
     
+    private $group_lanjutan = array();
+    private $rincian_lanjutan = array();
+    private $mata_anggaran_lanjutan_display = array();
+    private $mata_anggaran_lanjutan_hidden = array();
+    public function get_data_edit_lanjutan($param_id){
+        $this->process_param($param_id);
+        
+        // Get Group
+        $this->get_add_anggaran->process(array(
+            'action' => 'select',
+            'table' => 'tbldaftaratgroup',
+            'column_value' => array('*'),
+            'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and pktkode = \''.$this->pktkode_at .'\' and rekmakode != \''.$this->rekmakode_at .'\''
+        ));
+        $group_lanjutan = $this->all;
+        for($i = 0; $i < sizeof($group_lanjutan); $i++){
+            if(!isset($this->group_lanjutan[$group_lanjutan[$i]->rekmakode])){
+                $address_group_lanjutan = 0;
+                $this->group_lanjutan[$group_lanjutan[$i]->rekmakode] = array();
+                $this->group_lanjutan[$group_lanjutan[$i]->rekmakode][$address_group_lanjutan] = $group_lanjutan[$i];
+                $address_group_lanjutan++;
+            } else {
+                $this->group_lanjutan[$group_lanjutan[$i]->rekmakode][$address_group_lanjutan] = $group_lanjutan[$i];
+                $address_group_lanjutan++;
+            }
+        }
+        
+        $keys_mata_anggaran = array_keys($this->group_lanjutan);
+        for($i = 0; $i < sizeof($keys_mata_anggaran); $i++){
+            $this->get_add_anggaran->process(array(
+                'action' => 'select',
+                'table' => 'sp_search_mataanggaran(\''.$this->kode_at.'\',\''.$this->id_satker_edit.'\')',
+                'column_value' => array('*'),
+                'where' => 'rekmakode = \''.$keys_mata_anggaran[$i].'\''
+            ));
+            $data_mata_anggaran_edit = $this->all;
+            if(sizeof($data_mata_anggaran_edit) > 0){
+                $this->mata_anggaran_lanjutan_display[$keys_mata_anggaran[$i]] = (substr($data_mata_anggaran_edit[0]->rekmakode,0,3) . "." . substr($data_mata_anggaran_edit[0]->rekmakode,3,3) . "." . substr($data_mata_anggaran_edit[0]->rekmakode,6)) . " # " . $data_mata_anggaran_edit[0]->nama_rekening;
+                $this->mata_anggaran_lanjutan_hidden[$keys_mata_anggaran[$i]] = $data_mata_anggaran_edit[0]->kode . " ---- " . $data_mata_anggaran_edit[0]->remagroup . " ---- " . $data_mata_anggaran_edit[0]->rekmakode . " ---- " . $data_mata_anggaran_edit[0]->nama_rekening;
+            }
+        }
+        
+        // Get Rincian
+        $this->get_add_anggaran->process(array(
+            'action' => 'select',
+            'table' => 'tbldaftaratrincian',
+            'column_value' => array('*'),
+            'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and rekmakode != \''.$this->rekmakode_at .'\''
+        ));
+        $rincian_lanjutan = $this->all;
+        for($i = 0; $i < sizeof($rincian_lanjutan); $i++){
+            if(!isset($this->rincian_lanjutan[$rincian_lanjutan[$i]->rekmakode . $rincian_lanjutan[$i]->group])){
+                $address_rincian_lanjutan = 0;
+                $this->rincian_lanjutan[$rincian_lanjutan[$i]->rekmakode . $rincian_lanjutan[$i]->group] = array();
+                $this->rincian_lanjutan[$rincian_lanjutan[$i]->rekmakode . $rincian_lanjutan[$i]->group][$address_rincian_lanjutan] = $rincian_lanjutan[$i];
+                $address_rincian_lanjutan++;
+            } else {
+                $this->rincian_lanjutan[$rincian_lanjutan[$i]->rekmakode . $rincian_lanjutan[$i]->group][$address_rincian_lanjutan] = $rincian_lanjutan[$i];
+                $address_rincian_lanjutan++;
+            }
+        }
+        
+        // echo "<div style='display: none;'>\n";
+        // print_r($this->group_lanjutan);
+        // print_r($this->mata_anggaran_lanjutan_display);
+        // print_r($this->mata_anggaran_lanjutan_hidden);
+        // print_r($this->rincian_lanjutan);
+        // echo "</div>\n";
+        
+    }
+    
     public function edit($param_id){
         $this->update_anggaran($param_id);
         $this->get_data_edit($param_id);
+        $this->get_data_edit_lanjutan($param_id);
         $this->layout->loadView(
             'add_anggaran_form',
             array(
@@ -497,7 +701,14 @@ class add_anggaran extends CI_Controller {
                 'data_rincian_kegiatan_display' => $this->data_rincian_kegiatan_display,
                 'data_rincian_kegiatan_hidden' => $this->data_rincian_kegiatan_hidden,
                 'data_mata_anggaran_display' => $this->data_mata_anggaran_display,
-                'data_mata_anggaran_hidden' => $this->data_mata_anggaran_hidden
+                'data_mata_anggaran_hidden' => $this->data_mata_anggaran_hidden,
+                
+                // Edit Lanjutan
+                'group_lanjutan' => $this->group_lanjutan,
+                'mata_anggaran_lanjutan_display' => $this->mata_anggaran_lanjutan_display,
+                'mata_anggaran_lanjutan_hidden' => $this->mata_anggaran_lanjutan_hidden,
+                'rincian_lanjutan' => $this->rincian_lanjutan
+                
             )
         );
     }
