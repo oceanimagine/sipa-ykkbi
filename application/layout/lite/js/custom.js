@@ -261,6 +261,7 @@ function re_trigger_numberonly_input(){
     
     $(".numberonly").off('focus');
     $('.numberonly').focus(function () {
+        unset_comma_view_all(this.parentNode.parentNode.parentNode.parentNode.getAttribute("id"));
         unset_tiga_titik_all_per_input(this);
         this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "00" ? this.value : (this.value.split(".").length > 1 && this.value.split(".")[1] === "00" ? (this.value.substr(0,this.value.length - 3) === "0" ? "" : this.value.substr(0,this.value.length - 3)) : this.value);
         this.setAttribute("type", "text");
@@ -270,6 +271,7 @@ function re_trigger_numberonly_input(){
     $(".numberonly").off('blur');
     $('.numberonly').blur(function () {  
         // console.log("MASUK BLUR");
+        unset_comma_view_all_all(this.parentNode.parentNode.parentNode.parentNode.getAttribute("id"));
         unset_tiga_titik_all();
         check_percent_nom_baris(this);
         jumlahkan_nom_per_baris(this);
@@ -282,6 +284,7 @@ function re_trigger_numberonly_input(){
         } else {
             this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "" ? this.value : (this.value !== "" ? this.value + ".00" : ((this.value === "" ? "0" : this.value) + ".00"));
         }
+        set_comma_view_all_all("");
     });
 }
 
@@ -364,6 +367,7 @@ function set_tiga_titik_all_per_input(object_input){
 
 function unset_tiga_titik_all(){
     if(document.getElementById("table-anggaran-tahunan")){
+        // unset_comma_view_all("table-anggaran-tahunan");
         var table_anggaran_tahunan = document.getElementById("table-anggaran-tahunan");
         var get_tbody = table_anggaran_tahunan.getElementsByTagName("tbody");
         var get_tr = get_tbody[0].getElementsByTagName("tr");
@@ -380,6 +384,135 @@ function unset_tiga_titik_all(){
             }
         }
         unset_tiga_titik_all_extend();
+    }
+}
+
+function set_comma_view_all(id_table){
+    var table_anggaran_tahunan = document.getElementById(id_table);
+    var get_tbody = table_anggaran_tahunan.getElementsByTagName("tbody");
+    var get_tr = get_tbody[0].getElementsByTagName("tr");
+    for(var i = 0; i < get_tr.length; i++){
+        if(get_tr[i].getAttribute("class").substr(0,"anakan_group_".length) === "anakan_group_"){
+            var get_input_anakan = get_tr[i].getElementsByTagName("input");
+            for(var j = 1; j < get_input_anakan.length; j++){
+                if(get_input_anakan[j].getAttribute("class") === "numberonly"){
+                    if(get_input_anakan[j].value !== ""){
+                        get_input_anakan[j].value = get_input_anakan[j].value.split(',').join('a').split('.').join(',').split('a').join('.');
+                    }
+                }
+            }
+        }
+    }
+}
+
+function unset_comma_view_all(id_table){
+    var table_anggaran_tahunan = document.getElementById(id_table);
+    var get_tbody = table_anggaran_tahunan.getElementsByTagName("tbody");
+    var get_tr = get_tbody[0].getElementsByTagName("tr");
+    for(var i = 0; i < get_tr.length; i++){
+        if(get_tr[i].getAttribute("class").substr(0,"anakan_group_".length) === "anakan_group_"){
+            var get_input_anakan = get_tr[i].getElementsByTagName("input");
+            for(var j = 1; j < get_input_anakan.length; j++){
+                if(get_input_anakan[j].getAttribute("class") === "numberonly"){
+                    if(get_input_anakan[j].value !== ""){
+                        get_input_anakan[j].value = get_input_anakan[j].value.split('.').join('a').split(',').join('.').split('a').join(',');
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+function unset_comma_view_all_all(id_table){
+    if(id_table !== "table-anggaran-tahunan"){
+        var table_anggaran_tahunan = document.getElementById("table-anggaran-tahunan");
+        var get_tbody = table_anggaran_tahunan.getElementsByTagName("tbody");
+        var get_tr = get_tbody[0].getElementsByTagName("tr");
+        for(var i = 0; i < get_tr.length; i++){
+            if(get_tr[i].getAttribute("class").substr(0,"anakan_group_".length) === "anakan_group_"){
+                var get_input_anakan = get_tr[i].getElementsByTagName("input");
+                for(var j = 1; j < get_input_anakan.length; j++){
+                    if(get_input_anakan[j].getAttribute("class") === "numberonly"){
+                        get_input_anakan[j].value = get_input_anakan[j].value.split('.').join('a').split(',').join('.').split('a').join(',');
+                    }
+                }
+            }
+        }
+    }
+    unset_comma_view_all_all_extend(id_table);
+}
+
+function unset_comma_view_all_all_extend(id_table){
+    for(var k = 2; k <= 100; k++){
+        var alphabet = convert_number_alphabet(k);
+        // console.log(alphabet);
+        if(id_table !== "table-anggaran-tahunan"+alphabet){
+            if(document.getElementById("table-anggaran-tahunan"+alphabet)){
+                // console.log(alphabet);
+                var table_anggaran_tahunan = document.getElementById("table-anggaran-tahunan"+alphabet);
+                var get_tbody = table_anggaran_tahunan.getElementsByTagName("tbody");
+                var get_tr = get_tbody[0].getElementsByTagName("tr");
+                for(var i = 0; i < get_tr.length; i++){
+                    if(get_tr[i].getAttribute("class").substr(0,"anakan_group_".length) === "anakan_group_"){
+                        var get_input_anakan = get_tr[i].getElementsByTagName("input");
+                        for(var j = 1; j < get_input_anakan.length; j++){
+                            if(get_input_anakan[j].getAttribute("class") === "numberonly"){
+                                get_input_anakan[j].value = get_input_anakan[j].value.split('.').join('a').split(',').join('.').split('a').join(',');
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+function set_comma_view_all_all(id_table){
+    if(id_table !== "table-anggaran-tahunan"){
+        var table_anggaran_tahunan = document.getElementById("table-anggaran-tahunan");
+        var get_tbody = table_anggaran_tahunan.getElementsByTagName("tbody");
+        var get_tr = get_tbody[0].getElementsByTagName("tr");
+        for(var i = 0; i < get_tr.length; i++){
+            if(get_tr[i].getAttribute("class").substr(0,"anakan_group_".length) === "anakan_group_"){
+                var get_input_anakan = get_tr[i].getElementsByTagName("input");
+                for(var j = 1; j < get_input_anakan.length; j++){
+                    if(get_input_anakan[j].getAttribute("class") === "numberonly"){
+                        if(get_input_anakan[j].value !== ""){
+                            get_input_anakan[j].value = get_input_anakan[j].value.split(',').join('a').split('.').join(',').split('a').join('.');
+                        }
+                    }
+                }
+            }
+        }
+    }
+    set_comma_view_all_all_extend(id_table);
+}
+
+function set_comma_view_all_all_extend(id_table){
+    for(var k = 2; k <= 100; k++){
+        var alphabet = convert_number_alphabet(k);
+        // console.log(alphabet);
+        if(id_table !== "table-anggaran-tahunan"+alphabet){
+            if(document.getElementById("table-anggaran-tahunan"+alphabet)){
+                // console.log(alphabet);
+                var table_anggaran_tahunan = document.getElementById("table-anggaran-tahunan"+alphabet);
+                var get_tbody = table_anggaran_tahunan.getElementsByTagName("tbody");
+                var get_tr = get_tbody[0].getElementsByTagName("tr");
+                for(var i = 0; i < get_tr.length; i++){
+                    if(get_tr[i].getAttribute("class").substr(0,"anakan_group_".length) === "anakan_group_"){
+                        var get_input_anakan = get_tr[i].getElementsByTagName("input");
+                        for(var j = 1; j < get_input_anakan.length; j++){
+                            if(get_input_anakan[j].getAttribute("class") === "numberonly"){
+                                if(get_input_anakan[j].value !== ""){
+                                    get_input_anakan[j].value = get_input_anakan[j].value.split(',').join('a').split('.').join(',').split('a').join('.');
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -409,7 +542,7 @@ function set_tiga_titik_all_extend(){
         var alphabet = convert_number_alphabet(k);
         // console.log(alphabet);
         if(document.getElementById("table-anggaran-tahunan"+alphabet)){
-            console.log(alphabet);
+            // console.log(alphabet);
             var table_anggaran_tahunan = document.getElementById("table-anggaran-tahunan"+alphabet);
             var get_tbody = table_anggaran_tahunan.getElementsByTagName("tbody");
             var get_tr = get_tbody[0].getElementsByTagName("tr");
@@ -438,6 +571,7 @@ function unset_tiga_titik_all_extend(){
     for(var k = 2; k <= 100; k++){
         var alphabet = convert_number_alphabet(k);
         if(document.getElementById("table-anggaran-tahunan"+alphabet)){
+            // unset_comma_view_all("table-anggaran-tahunan"+alphabet);
             var table_anggaran_tahunan = document.getElementById("table-anggaran-tahunan"+alphabet);
             var get_tbody = table_anggaran_tahunan.getElementsByTagName("tbody");
             var get_tr = get_tbody[0].getElementsByTagName("tr");
@@ -601,6 +735,7 @@ $(function () {
                         $('#modal-success').modal('show');
                         tombol_submit.removeAttribute("disabled");
                     } else {
+                        unset_comma_view_all_all("");
                         unset_tiga_titik_all();
                         this.submit();
                     }
@@ -682,7 +817,8 @@ $(function () {
             }
         }
         if(charCode === 9 && typeof detect_address_input === "function"){
-            /* console.log("MASUK FUNGSI KEYDOWN TAB."); */
+            // console.log("MASUK FUNGSI KEYDOWN TAB."); 
+            // console.log(this.getAttribute("name"));
             detect_address_input(this);
         }
         if(charCode === 27 && typeof detect_address_input_delete === "function"){
@@ -702,6 +838,9 @@ $(function () {
     });   
     $('.numberonly').keyup(function () {});
     $('.numberonly').focus(function () {
+        if(typeof check_percent_nom_baris !== "undefined"){
+            unset_comma_view_all(this.parentNode.parentNode.parentNode.parentNode.getAttribute("id"));
+        }
         unset_tiga_titik_all_per_input(this);
         this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "00" ? this.value : (this.value.split(".").length > 1 && this.value.split(".")[1] === "00" ? (this.value.substr(0,this.value.length - 3) === "0" ? "" : this.value.substr(0,this.value.length - 3)) : this.value);
         this.setAttribute("type", "text");
@@ -709,7 +848,9 @@ $(function () {
         this.setAttribute("type", "number");
     });
     $('.numberonly').blur(function () {
-        
+        if(typeof check_percent_nom_baris !== "undefined"){
+            unset_comma_view_all_all(this.parentNode.parentNode.parentNode.parentNode.getAttribute("id"));
+        }
         unset_tiga_titik_all();
         if(typeof check_percent_nom_baris !== "undefined"){
             check_percent_nom_baris(this);
@@ -717,12 +858,18 @@ $(function () {
             jumlahkan_nom(this);
             check_nom_per_baris(this);
             set_tiga_titik_all();
+            
         } 
+        
+        
         var get_nama = this.getAttribute("name");
         if(get_nama.substr(0,1) === "Q" || get_nama.substr(0,1) === "F"){
             this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "" ? this.value : (this.value !== "" ? this.value + "" : ((this.value === "" ? "0" : this.value) + ""));
         } else {
             this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "" ? this.value : (this.value !== "" ? this.value + ".00" : ((this.value === "" ? "0" : this.value) + ".00"));
+        }
+        if(typeof check_percent_nom_baris !== "undefined"){
+            set_comma_view_all_all("");
         }
     });
     
@@ -738,8 +885,17 @@ $(function () {
     });
     
     if(document.getElementById("table-anggaran-tahunan")){
-        check_nom_all_row();
-        set_tiga_titik_all();
+        if(kondisi_page === "edit"){
+            check_nom_all_row();
+            set_tiga_titik_all();
+            set_comma_view_all("table-anggaran-tahunan");
+            if(kumpulan_alphabet !== ""){
+                var split_alphabet = kumpulan_alphabet.split(",");
+                for(var i = 0; i < split_alphabet.length; i++){
+                    set_comma_view_all("table-anggaran-tahunan" + split_alphabet[i].toString());
+                }
+            }
+        }
     }
     $("#tarifid").change(function(){
         // https://stackoverflow.com/questions/1643227/get-selected-text-from-a-drop-down-list-select-box-using-jquery
@@ -986,6 +1142,12 @@ function remove_parent(){
 
 var next_inisial = typeof next_inisial_global !== "undefined" ? next_inisial_global : 2;
 function tambah_table(){
+    if(typeof konfirmasi_hapus !== "undefined" && konfirmasi_hapus){
+        var pesan_modal = document.getElementById("pesan_modal");
+        pesan_modal.innerHTML = "Tombol disabled sedang dalam mode konfirmasi hapus.";
+        $('#modal-success').modal('show');
+        return false;
+    }
     console.log("Tambah Table");
     var kumpulan_alphabet = document.getElementById("kumpulan_alphabet");
     var tempat_utama_table = document.getElementById("tempat_utama_table");
@@ -1004,14 +1166,17 @@ function tambah_table(){
     var tempat_inisial_hidden = document.getElementById("tempat_inisial_hidden");
     tempat_inisial_hidden.appendChild(create_input);
     var div = document.createElement("div");
-    div.setAttribute("style", "border: #f1f1f1 1px solid; box-shadow: 0 0 20px rgb(0 0 0 / 15%); padding: 12px 15px; margin-bottom: 15px; margin-top: 15px; min-width: 1300px;");
+    div.setAttribute("style", "border: #f1f1f1 1px solid; box-shadow: 0 0 20px rgb(0 0 0 / 15%); padding: 12px 15px; /* margin-bottom: 15px; */ margin-top: 15px; min-width: 1300px;");
+    
+    /*
+    <i class="fa fa-minus" onclick="kurangi_table('`+next_inisial+`',this);" style="cursor: pointer;"></i>&nbsp;&nbsp;Remove Table */
     div.innerHTML = `
-        <i class="fa fa-minus" onclick="kurangi_table('`+next_inisial+`',this);" style="cursor: pointer;"></i>&nbsp;&nbsp;Remove Table
-        <div class="form-group">
-            <div class="col-xs-12">
+        
+        <div class="form-group" style="margin-bottom: 0px;">
+            <div class="col-xs-12" style="padding-left: 0px;">
                 <div class="form-group" id="form_group_a" style="margin-bottom: 0px;">
-                    <label for="mata_anggaran`+convert_number_alphabet(next_inisial)+`" class="col-xs-2 control-label" style="padding-left: 8px;">Mata Anggaran</label>
-                    <div class="col-xs-9 autocomplete">
+                    <label for="mata_anggaran`+convert_number_alphabet(next_inisial)+`" class="col-xs-2 control-label" style="padding-left: 0px;"><i class="fa fa-minus" onclick="kurangi_table('`+next_inisial+`',this);" style="cursor: pointer;"></i>&nbsp;&nbsp;Mata Anggaran</label>
+                    <div class="col-xs-9 autocomplete" style='padding-left: 30px;'>
                         <input required="" type="text" id="mata_anggaran`+convert_number_alphabet(next_inisial)+`" class="form-control tambah-margin-bawah" name="mata_anggaran`+convert_number_alphabet(next_inisial)+`" placeholder="Mata Anggaran" value="" title="" autocomplete="off" disabled="">
                         <input required="" type="hidden" id="mata_anggaran`+convert_number_alphabet(next_inisial)+`_hidden" name="mata_anggaran`+convert_number_alphabet(next_inisial)+`_hidden" value="">
                         <input required="" type="hidden" name="inisial_all`+convert_number_alphabet(next_inisial)+`" id="inisial_all`+convert_number_alphabet(next_inisial)+`" value="">
@@ -1030,7 +1195,7 @@ function tambah_table(){
     var old_id = table_clone.getAttribute("id");
     var new_id = old_id.split("{newname}").join(next_inisial_);
     table_clone.setAttribute("id", new_id);
-    table_clone.style.marginTop = "15px";
+    // table_clone.style.marginTop = "15px";
     var get_input_element_inside_table = table_clone.getElementsByTagName("input");
     for(var i = 0; i < get_input_element_inside_table.length; i++){
         var old_name = get_input_element_inside_table[i].getAttribute("name");
@@ -1067,6 +1232,12 @@ function tambah_table(){
 }
 
 function kurangi_table(inisial, object_i){
+    if(typeof konfirmasi_hapus !== "undefined" && konfirmasi_hapus){
+        var pesan_modal = document.getElementById("pesan_modal");
+        pesan_modal.innerHTML = "Tombol disabled sedang dalam mode konfirmasi hapus.";
+        $('#modal-success').modal('show');
+        return false;
+    }
     var inisial_ = convert_number_alphabet(inisial);
     var kumpulan_alphabet = document.getElementById("kumpulan_alphabet");
     var value_alphabet = kumpulan_alphabet.value;
@@ -1084,7 +1255,7 @@ function kurangi_table(inisial, object_i){
         inisial_all_.parentNode.removeChild(inisial_all_);
     }
     kumpulan_alphabet.value = new_value;
-    var parent_i = object_i.parentNode;
+    var parent_i = object_i.parentNode.parentNode.parentNode.parentNode.parentNode;
     parent_i.parentNode.removeChild(parent_i);
     var table_anggaran = document.getElementById("table-anggaran-tahunan" + convert_number_alphabet(inisial));
     table_anggaran.parentNode.removeChild(table_anggaran);

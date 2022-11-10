@@ -243,8 +243,10 @@ function detect_address_input(object_input){
     if(get_tr.getAttribute("style") === "border-bottom: rgb(242,220,219) 2px solid;" || get_tr.getAttribute("style") === "border-bottom: 2px solid rgb(242, 220, 219);"){
         detect_tr = 1;
     }
+    // console.log("Masuk Detect Address = " + count_amount + " = " + count_active);
+    // console.log(get_tr);
     if(detect_tr && count_amount === count_active){
-        // console.log("Masuk");
+        // console.log("Masuk Sama");
         // console.log(inisial);
 
         var get_i_tbody = get_tbody.getElementsByTagName("i");

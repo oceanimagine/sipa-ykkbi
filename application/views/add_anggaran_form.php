@@ -47,6 +47,7 @@
         $size_group_edit = 1;
         $size_rincian_edit = 1;
         $initial_hidden = "_1";
+        $kumpulan_alphabet = "";
         if(isset($data_rincian_edit)){
             // cetak_html($data_rincian_edit);
             // cetak_html($data_group_edit);
@@ -67,7 +68,6 @@
             $inisial_lanjutan = array();
             $alphabet_lanjutan = array();
             $keys_ma = array_keys($mata_anggaran_lanjutan_display);
-            $kumpulan_alphabet = "";
             for($i = 0; $i < sizeof($keys_ma); $i++){
                 $keys_rincian_lanjutan = array_keys($rincian_lanjutan);
                 for($j = 0; $j < sizeof($keys_rincian_lanjutan); $j++){
@@ -140,7 +140,7 @@
                 <div class="form-group" style="min-width: 1300px;">
                     <div class="col-md-12">
                         <div style="border: #f1f1f1 1px solid; box-shadow: 0 0 20px rgb(0 0 0 / 15%); padding: 12px 15px; margin-top: 15px; min-width: 1300px;">
-                            <i class="fa fa-file" onclick="tambah_table();" style="cursor: pointer;"></i>&nbsp;&nbsp;Form Anggaran
+                            <?php /* <i class="fa fa-file" onclick="tambah_table();" style="cursor: pointer;"></i>&nbsp;&nbsp;Form Anggaran */ ?>
                             <div class="form-group">
                                 <div class="col-xs-12">
                                     <div class="form-group" style="margin-bottom:0px;">
@@ -199,6 +199,7 @@
                     $nilai_ma = $explode_[0];
                     ?>
                     <script type="text/javascript">
+                        
                         choosen_ma['default'] = '<?php echo $nilai_ma; ?>';
                     </script>
                     <?php 
@@ -208,13 +209,13 @@
             
                 <div class="form-group">
                     <div class="col-md-12" id="tempat_utama_table">
-                        <div style="border: #f1f1f1 1px solid; box-shadow: 0 0 20px rgb(0 0 0 / 15%); padding: 12px 15px; margin-bottom: 15px; min-width: 1300px;">
-                            <i class="fa fa-plus" onclick="tambah_table();" style="cursor: pointer;"></i>&nbsp;&nbsp;Add Table
-                            <div class="form-group">
-                                <div class="col-xs-12">
+                        <div style="border: #f1f1f1 1px solid; box-shadow: 0 0 20px rgb(0 0 0 / 15%); padding: 12px 15px; /* margin-bottom: 15px; */ min-width: 1300px;">
+                            <?php /* <i class="fa fa-plus" onclick="tambah_table();" style="cursor: pointer;"></i>&nbsp;&nbsp;Add Table */ ?>
+                            <div class="form-group" style="margin-bottom: 0px;">
+                                <div class="col-xs-12" style="padding-left: 0px;">
                                     <div class="form-group" style="margin-bottom: 0px;">
-                                        <label for="mata_anggaran" class="col-xs-2 control-label" style="padding-left: 8px;">Mata Anggaran</label>
-                                        <div class="col-xs-9 autocomplete" id="tempat_inisial_hidden">
+                                        <label for="mata_anggaran" class="col-xs-2 control-label" style="padding-left: 0px;"><i class="fa fa-plus" onclick="tambah_table();" style="cursor: pointer;"></i>&nbsp;&nbsp;Mata Anggaran</label>
+                                        <div class="col-xs-9 autocomplete" id="tempat_inisial_hidden" style="padding-left: 30px;">
                                             <input required="" type="text" id="mata_anggaran" class="form-control tambah-margin-bawah" name="mata_anggaran" placeholder="Mata Anggaran" value="<?php echo isset($data_mata_anggaran_display) ? $data_mata_anggaran_display : ""; ?>" title="<?php echo isset($data_mata_anggaran_display) ? $data_mata_anggaran_display : ""; ?>" autocomplete="off" disabled="">
                                             <input required="" type="hidden" id="mata_anggaran_hidden" name="mata_anggaran_hidden" value="<?php echo isset($data_mata_anggaran_hidden) ? $data_mata_anggaran_hidden : ""; ?>">
                                             <input required="" type="hidden" name="inisial_all" id="inisial_all" value="<?php echo $initial_hidden; ?>">
@@ -270,7 +271,7 @@
                                 <?php $no = 1; ?>
                                 
                                 <?php 
-                                $jumlah_rincian = ($size_group_edit > 1) ? 0 : 1;
+                                $jumlah_rincian = /* ($size_group_edit > 1) ? 0 : 1 */ 0;
                                 for($j = 0; $j < $size_rincian_edit; $j++){
                                     if((isset($data_rincian_edit) && $data_rincian_edit[$j]->group == $data_group_edit[$i]->group)){
                                         $jumlah_rincian++;
@@ -301,18 +302,18 @@
                                     ?>
                                     <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 3%;" colspan="2" class="td_number_<?php echo ($i + 1); ?>"><?php echo $no; ?></td>
                                     <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 25%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="nama_<?php echo ($i + 1); ?>[]" class="textinput" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; width: 88%;" placeholder="NAMA" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rincian) ? $data_rincian_edit[$j]->rincian : ""; ?>"></td>
-                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 3%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="Q_<?php echo ($i + 1); ?>[]" class="numberonly" type="number" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="Q" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rinkuantitas) ? $data_rincian_edit[$j]->rinkuantitas : "0"; ?>"></td>
-                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 3%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="F_<?php echo ($i + 1); ?>[]" class="numberonly" type="number" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="F" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rinfrekwensi) ? $data_rincian_edit[$j]->rinfrekwensi : "0"; ?>"></td>
-                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 6%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="tarif_<?php echo ($i + 1); ?>[]" class="numberonly" type="number" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rintarif) ? $data_rincian_edit[$j]->rintarif : "0.00"; ?>"></td>
-                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 6%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="subtotal_<?php echo ($i + 1); ?>[]" class="numberonly" type="number" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rintotal) ? $total_perkalian : "0.00"; ?>"></td>
-                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 3%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="persen_tw1_<?php echo ($i + 1); ?>[]" class="numberonly" type="number" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rppt1perc) ? $data_rincian_edit[$j]->rppt1perc : "0.00"; ?>"></td>
-                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 6%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="tw1_<?php echo ($i + 1); ?>[]" class="numberonly" type="number" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rppt1nom) ? $data_rincian_edit[$j]->rppt1nom : "0.00"; ?>"></td>
-                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 3%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="persen_tw2_<?php echo ($i + 1); ?>[]" class="numberonly" type="number" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rppt2perc) ? $data_rincian_edit[$j]->rppt2perc : "0.00"; ?>"></td>
-                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 6%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="tw2_<?php echo ($i + 1); ?>[]" class="numberonly" type="number" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rppt2nom) ? $data_rincian_edit[$j]->rppt2nom : "0.00"; ?>"></td>
-                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 3%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="persen_tw3_<?php echo ($i + 1); ?>[]" class="numberonly" type="number" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rppt3perc) ? $data_rincian_edit[$j]->rppt3perc : "0.00"; ?>"></td>
-                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 6%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="tw3_<?php echo ($i + 1); ?>[]" class="numberonly" type="number" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rppt3nom) ? $data_rincian_edit[$j]->rppt3nom : "0.00"; ?>"></td>
-                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 3%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="persen_tw4_<?php echo ($i + 1); ?>[]" class="numberonly" type="number" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rppt4perc) ? $data_rincian_edit[$j]->rppt4perc : "0.00"; ?>"></td>
-                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 6%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="tw4_<?php echo ($i + 1); ?>[]" class="numberonly" type="number" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rppt4nom) ? $data_rincian_edit[$j]->rppt4nom : "0.00"; ?>"></td>
+                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 3%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="Q_<?php echo ($i + 1); ?>[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="Q" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rinkuantitas) ? $data_rincian_edit[$j]->rinkuantitas : "0"; ?>"></td>
+                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 3%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="F_<?php echo ($i + 1); ?>[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="F" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rinfrekwensi) ? $data_rincian_edit[$j]->rinfrekwensi : "0"; ?>"></td>
+                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 6%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="tarif_<?php echo ($i + 1); ?>[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rintarif) ? $data_rincian_edit[$j]->rintarif : "0,00"; ?>"></td>
+                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 6%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="subtotal_<?php echo ($i + 1); ?>[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rintotal) ? $total_perkalian : "0,00"; ?>"></td>
+                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 3%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="persen_tw1_<?php echo ($i + 1); ?>[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rppt1perc) ? str_replace(".", ",", $data_rincian_edit[$j]->rppt1perc) : "0,00"; ?>"></td>
+                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 6%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="tw1_<?php echo ($i + 1); ?>[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rppt1nom) ? $data_rincian_edit[$j]->rppt1nom : "0,00"; ?>"></td>
+                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 3%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="persen_tw2_<?php echo ($i + 1); ?>[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rppt2perc) ? $data_rincian_edit[$j]->rppt2perc : "0,00"; ?>"></td>
+                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 6%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="tw2_<?php echo ($i + 1); ?>[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rppt2nom) ? $data_rincian_edit[$j]->rppt2nom : "0,00"; ?>"></td>
+                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 3%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="persen_tw3_<?php echo ($i + 1); ?>[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rppt3perc) ? $data_rincian_edit[$j]->rppt3perc : "0,00"; ?>"></td>
+                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 6%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="tw3_<?php echo ($i + 1); ?>[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rppt3nom) ? $data_rincian_edit[$j]->rppt3nom : "0,00"; ?>"></td>
+                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 3%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="persen_tw4_<?php echo ($i + 1); ?>[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rppt4perc) ? $data_rincian_edit[$j]->rppt4perc : "0,00"; ?>"></td>
+                                    <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 6%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="tw4_<?php echo ($i + 1); ?>[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rppt4nom) ? $data_rincian_edit[$j]->rppt4nom : "0,00"; ?>"></td>
                                     <td style="border-right: #f1f1f1 1px solid; text-align: center; width: 40px; padding: 0px; vertical-align: middle; width: 3%;"><i class="fa fa-minus" onclick="kurangi_anak_grup(this,'_<?php echo ($i + 1); ?>',<?php echo $jumlah_rincian; ?>);" style="cursor: pointer;"></i></td>
                                 </tr>
                                 <?php  
@@ -351,9 +352,26 @@
                             </tbody>
                         </table>
                         
+                        <script type="text/javascript">
+                            var kumpulan_alphabet = "<?php echo $kumpulan_alphabet; ?>";
+                            var kondisi_page = "add";
+                        </script>
                         <?php 
                         
+                        if(isset($data_mata_anggaran_display)){
+                            ?>
+                            <script type="text/javascript">
+                                kondisi_page = "edit";
+                            </script>
+                            <?php
+                        }
+                        
                         if(isset($keys_ma)){
+                            ?>
+                            <script type="text/javascript">
+                                next_inisial_global = 2;
+                            </script>
+                            <?php 
                             for($i = 0; $i < sizeof($keys_ma); $i++){
                                 
                                 $explode_ = explode(" # ", $mata_anggaran_lanjutan_display[$keys_ma[$i]]);
@@ -363,16 +381,16 @@
                                     choosen_ma['<?php echo $alphabet_lanjutan[$keys_ma[$i]]; ?>'] = '<?php echo $nilai_ma; ?>';
                                 </script>
                                 
-                                <div style="border: #f1f1f1 1px solid; box-shadow: 0 0 20px rgb(0 0 0 / 15%); padding: 12px 15px; margin-bottom: 15px; margin-top: 15px; min-width: 1300px;">
-                                    <i class="fa fa-minus" onclick="kurangi_table('<?php echo ($i + 2); ?>',this);" style="cursor: pointer;"></i>&nbsp;&nbsp;Remove Table
-                                    <div class="form-group">
-                                        <div class="col-xs-12">
+                                <div style="border: #f1f1f1 1px solid; box-shadow: 0 0 20px rgb(0 0 0 / 15%); padding: 12px 15px; /* margin-bottom: 15px; */ margin-top: 15px; min-width: 1300px;">
+                                    <?php /* <i class="fa fa-minus" onclick="kurangi_table('<?php echo ($i + 2); ?>',this);" style="cursor: pointer;"></i>&nbsp;&nbsp;Remove Table */ ?>
+                                    <div class="form-group" style="margin-bottom: 0px;">
+                                        <div class="col-xs-12" style="padding-left: 0px;">
                                             <div class="form-group" style="margin-bottom: 0px;">
-                                                <label for="mata_anggaran<?php echo $alphabet_lanjutan[$keys_ma[$i]]; ?>" class="col-xs-2 control-label" style="padding-left: 8px;">Mata Anggaran</label>
-                                                <div class="col-xs-9 autocomplete" id="tempat_inisial_hidden">
+                                                <label for="mata_anggaran<?php echo $alphabet_lanjutan[$keys_ma[$i]]; ?>" class="col-xs-2 control-label" style="padding-left: 0px;"><i class="fa fa-minus" onclick="kurangi_table('<?php echo ($i + 2); ?>',this);" style="cursor: pointer;"></i>&nbsp;&nbsp;Mata Anggaran</label>
+                                                <div class="col-xs-9 autocomplete" id="tempat_inisial_hidden" style="padding-left: 30px;">
                                                     <input required="" type="text" id="mata_anggaran<?php echo $alphabet_lanjutan[$keys_ma[$i]]; ?>" class="form-control tambah-margin-bawah" name="mata_anggaran<?php echo $alphabet_lanjutan[$keys_ma[$i]]; ?>" placeholder="Mata Anggaran" value="<?php echo $mata_anggaran_lanjutan_display[$keys_ma[$i]]; ?>" title="<?php echo $mata_anggaran_lanjutan_display[$keys_ma[$i]]; ?>" autocomplete="off" disabled="">
                                                     <input required="" type="hidden" id="mata_anggaran<?php echo $alphabet_lanjutan[$keys_ma[$i]]; ?>_hidden" name="mata_anggaran<?php echo $alphabet_lanjutan[$keys_ma[$i]]; ?>_hidden" value="<?php echo $mata_anggaran_lanjutan_hidden[$keys_ma[$i]]; ?>">
-                                                    <input required="" type="hidden" name="inisial_all<?php echo $alphabet_lanjutan[$keys_ma[$i]]; ?>" id="inisial_all<?php echo $alphabet_lanjutan[$keys_ma[$i]]; ?>" value="<?php echo $inisial_lanjutan[$keys_ma[$i]]; ?>">
+                                                    <input required="" type="hidden" name="inisial_all_<?php echo $alphabet_lanjutan[$keys_ma[$i]]; ?>" id="inisial_all_<?php echo $alphabet_lanjutan[$keys_ma[$i]]; ?>" value="<?php echo $inisial_lanjutan[$keys_ma[$i]]; ?>">
                                                 </div>
                                                 <div class="col-xs-1" style="padding:0px;">
                                                     <button <?php echo $disabled_input; ?> id="buka_dialog_mata_anggaran<?php echo $alphabet_lanjutan[$keys_ma[$i]]; ?>" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="search" value="Search"><i class="fa fa-search"></i></button>
@@ -432,7 +450,7 @@
                                         // print_r($data_rincian_edit_);
                                         // echo "</pre>\n";
                                         $size_rincian_edit = sizeof($data_rincian_edit_);
-                                        $jumlah_rincian = ($size_group_edit > 1) ? 0 : 1;
+                                        $jumlah_rincian = 0;
                                         for($k = 0; $k < $size_rincian_edit; $k++){
                                             if($data_rincian_edit_[$k]->group == $data_group_edit_[$j]->group){
                                                 $jumlah_rincian++;
@@ -540,7 +558,9 @@
                                 });
 
                                 </script>
-                        
+                                <script type="text/javascript">
+                                    next_inisial_global++;
+                                </script>
                                 <?php
                             }
                         }

@@ -192,7 +192,12 @@ class add_anggaran extends CI_Controller {
                 }
             }
             
-            if($affected_at && $affected_group && $affected_rincian && $this->insert_anggaran_process_lanjutan()){
+            $lanjutan = true;
+            if(isset($_POST['kumpulan_alphabet']) && $_POST['kumpulan_alphabet'] != ""){
+                $lanjutan = $this->insert_anggaran_process_lanjutan();
+            }
+            
+            if($affected_at && $affected_group && $affected_rincian && $lanjutan){
                 $this->commit_insert = TRUE;
             }
         }
@@ -203,6 +208,26 @@ class add_anggaran extends CI_Controller {
             // echo "<pre>\n";
             // print_r($_POST);
             // exit();
+            
+            $debug = false;
+            
+            $output = "";
+            $output = $output . "kumpulan_alphabet";
+            $output = $output . "\n";
+            $output = $output . print_r($_POST['kumpulan_alphabet'], true);
+            $output = $output . "<br />\n";
+            
+            $output = $output . "kegiatan_program_kerja_rincian_hidden";
+            $output = $output . "\n";
+            $output = $output . print_r($_POST['kegiatan_program_kerja_rincian_hidden'], true);
+            $output = $output . "<br />\n";
+            
+            $output = $output . "kode_project_hidden";
+            $output = $output . "\n";
+            $output = $output . print_r($_POST['kode_project_hidden'], true);
+            $output = $output . "<br />\n";
+            
+            
             $kumpulan_alphabet = $_POST['kumpulan_alphabet'];
             $explode_kumpulan_alphabet = explode(",", $kumpulan_alphabet);
             $explode_kegiatan_program_kerja_rincian_hidden = explode(" ---- ", $_POST['kegiatan_program_kerja_rincian_hidden']);
@@ -214,7 +239,31 @@ class add_anggaran extends CI_Controller {
             $affected_rincian = 0;
             for($i = 0; $i < sizeof($explode_kumpulan_alphabet); $i++){
                 $alphabet = $explode_kumpulan_alphabet[$i];
+                
+                $output = $output . 'inisial_all_' . $alphabet;
+                $output = $output . "\n";
+                $output = $output . print_r($_POST['inisial_all_' . $alphabet], true);
+                $output = $output . "<br />\n";
+                
+                $output = $output . 'mata_anggaran'.$alphabet.'_hidden';
+                $output = $output . "\n";
+                $output = $output . print_r($_POST['mata_anggaran'.$alphabet.'_hidden'], true);
+                $output = $output . "<br />\n";
+                
+                $output = $output . 'group_'.$alphabet.'_default';
+                $output = $output . "\n";
+                $output = $output . print_r($_POST['group_'.$alphabet.'_default'], true);
+                $output = $output . "<br />\n";
+                
+                $output = $output . 'group_'.$alphabet.'_default';
+                $output = $output . "\n";
+                $output = $output . print_r($_POST['group_'.$alphabet.'_default'], true);
+                $output = $output . "<br />\n";
+                
                 $explode_inisial_all = explode(",", $_POST['inisial_all_' . $alphabet]);
+                
+                
+                
                 
                 $explode_mata_anggaran_hidden = explode(" ---- ", $_POST['mata_anggaran'.$alphabet.'_hidden']);
                 $rekmakode_group = $explode_mata_anggaran_hidden[2];
@@ -246,6 +295,72 @@ class add_anggaran extends CI_Controller {
                 
                 for($j = 0; $j < sizeof($explode_inisial_all); $j++){
                     $inisial_name = $explode_inisial_all[$j];
+                    
+                    $output = $output . 'nama_'.$alphabet.$inisial_name;
+                    $output = $output . "\n";
+                    $output = $output . print_r($_POST['nama_'.$alphabet.$inisial_name], true);
+                    $output = $output . "<br />\n";
+                    
+                    $output = $output . 'Q_'.$alphabet.$inisial_name;
+                    $output = $output . "\n";
+                    $output = $output . print_r($_POST['Q_'.$alphabet.$inisial_name], true);
+                    $output = $output . "<br />\n";
+                    
+                    $output = $output . 'F_'.$alphabet.$inisial_name;
+                    $output = $output . "\n";
+                    $output = $output . print_r($_POST['F_'.$alphabet.$inisial_name], true);
+                    $output = $output . "<br />\n";
+                    
+                    $output = $output . 'tarif_'.$alphabet.$inisial_name;
+                    $output = $output . "\n";
+                    $output = $output . print_r($_POST['tarif_'.$alphabet.$inisial_name], true);
+                    $output = $output . "<br />\n";
+                    
+                    $output = $output . 'subtotal_'.$alphabet.$inisial_name;
+                    $output = $output . "\n";
+                    $output = $output . print_r($_POST['subtotal_'.$alphabet.$inisial_name], true);
+                    $output = $output . "<br />\n";
+                    
+                    $output = $output . 'persen_tw1_'.$alphabet.$inisial_name;
+                    $output = $output . "\n";
+                    $output = $output . print_r($_POST['persen_tw1_'.$alphabet.$inisial_name], true);
+                    $output = $output . "<br />\n";
+                    
+                    $output = $output . 'tw1_'.$alphabet.$inisial_name;
+                    $output = $output . "\n";
+                    $output = $output . print_r($_POST['tw1_'.$alphabet.$inisial_name], true);
+                    $output = $output . "<br />\n";
+                    
+                    $output = $output . 'persen_tw2_'.$alphabet.$inisial_name;
+                    $output = $output . "\n";
+                    $output = $output . print_r($_POST['persen_tw2_'.$alphabet.$inisial_name], true);
+                    $output = $output . "<br />\n";
+                    
+                    $output = $output . 'tw2_'.$alphabet.$inisial_name;
+                    $output = $output . "\n";
+                    $output = $output . print_r($_POST['tw2_'.$alphabet.$inisial_name], true);
+                    $output = $output . "<br />\n";
+                    
+                    $output = $output . 'persen_tw3_'.$alphabet.$inisial_name;
+                    $output = $output . "\n";
+                    $output = $output . print_r($_POST['persen_tw3_'.$alphabet.$inisial_name], true);
+                    $output = $output . "<br />\n";
+                    
+                    $output = $output . 'tw3_'.$alphabet.$inisial_name;
+                    $output = $output . "\n";
+                    $output = $output . print_r($_POST['tw3_'.$alphabet.$inisial_name], true);
+                    $output = $output . "<br />\n";
+                    
+                    $output = $output . 'persen_tw4_'.$alphabet.$inisial_name;
+                    $output = $output . "\n";
+                    $output = $output . print_r($_POST['persen_tw4_'.$alphabet.$inisial_name], true);
+                    $output = $output . "<br />\n";
+                    
+                    $output = $output . 'tw4_'.$alphabet.$inisial_name;
+                    $output = $output . "\n";
+                    $output = $output . print_r($_POST['tw4_'.$alphabet.$inisial_name], true);
+                    $output = $output . "<br />\n";
+                    
                     $nama = $_POST['nama_'.$alphabet.$inisial_name];
                     $Q = $_POST['Q_'.$alphabet.$inisial_name];
                     $F = $_POST['F_'.$alphabet.$inisial_name];
@@ -295,7 +410,15 @@ class add_anggaran extends CI_Controller {
                             $affected_rincian = 1;
                         }
                     }
-                }   
+                }
+                
+            }
+            
+            if($debug){
+                echo "<pre>";
+                echo $output;
+                echo "</pre>";
+                exit();
             }
             return $affected_group && $affected_rincian;
         }
@@ -406,12 +529,14 @@ class add_anggaran extends CI_Controller {
     public function hapus_process($param_id){
         $this->process_param($param_id);
         
+        
         $this->get_add_anggaran->process(array(
             'action' => 'delete',
             'table' => 'tbldaftarat',
             'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and pktkode = \''.$this->pktkode_at .'\''
         ));
         $affected_1 = $this->affected;
+        
         
         $this->get_add_anggaran->process(array(
             'action' => 'delete',
@@ -420,6 +545,7 @@ class add_anggaran extends CI_Controller {
         ));
         $affected_2 = $this->affected;
         
+        // print_query();
         $this->get_add_anggaran->process(array(
             'action' => 'delete',
             'table' => 'tbldaftaratrincian',
@@ -538,7 +664,9 @@ class add_anggaran extends CI_Controller {
     private $data_mata_anggaran_hidden = "";
     public function get_data_edit($param_id){
         $this->process_param($param_id);
-        
+        $ada_data_1 = 0;
+        $ada_data_2 = 0;
+        $ada_data_3 = 0;
         // Get Group
         $this->get_add_anggaran->process(array(
             'action' => 'select',
@@ -560,6 +688,7 @@ class add_anggaran extends CI_Controller {
         $data_rincian = $this->all;
         if(sizeof($data_rincian) > 0){
             $pktkode_rincian = $data_rincian[0]->pktkode;
+            $ada_data_1 = 1;
         }
         
         $this->get_add_anggaran->process(array(
@@ -593,6 +722,7 @@ class add_anggaran extends CI_Controller {
             $data_rincian_kegiatan_edit = $this->data_rincian_kegiatan_edit;
             $this->data_rincian_kegiatan_display = $data_rincian_kegiatan_edit[0]->pktkode_rk . " # " . $data_rincian_kegiatan_edit[0]->nama_rinciankegiatan;
             $this->data_rincian_kegiatan_hidden = $data_rincian_kegiatan_edit[0]->nama_satker . " ---- " . $data_rincian_kegiatan_edit[0]->pktkode_k . " ---- " . $data_rincian_kegiatan_edit[0]->nama_kegiatan . " ---- " . $data_rincian_kegiatan_edit[0]->pktkode_rk . " ---- " . $data_rincian_kegiatan_edit[0]->nama_rinciankegiatan . " ---- " . $data_rincian_kegiatan_edit[0]->sbpkode;
+            $ada_data_2 = 1;
         }
         
         // Get Mata Anggaran Edit
@@ -608,6 +738,10 @@ class add_anggaran extends CI_Controller {
             $data_mata_anggaran_edit = $this->data_mata_anggaran_edit;
             $this->data_mata_anggaran_display = (substr($data_mata_anggaran_edit[0]->rekmakode,0,3) . "." . substr($data_mata_anggaran_edit[0]->rekmakode,3,3) . "." . substr($data_mata_anggaran_edit[0]->rekmakode,6)) . " # " . $data_mata_anggaran_edit[0]->nama_rekening;
             $this->data_mata_anggaran_hidden = $data_mata_anggaran_edit[0]->kode . " ---- " . $data_mata_anggaran_edit[0]->remagroup . " ---- " . $data_mata_anggaran_edit[0]->rekmakode . " ---- " . $data_mata_anggaran_edit[0]->nama_rekening;
+            $ada_data_3 = 1;
+        }
+        if($ada_data_1 && $ada_data_2 && $ada_data_3){} else {
+            header('location: '.$GLOBALS['base_administrator'].'index.php/add-anggaran');
         }
     }
     

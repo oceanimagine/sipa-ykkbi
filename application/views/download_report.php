@@ -36,19 +36,21 @@
                     1. Laporan Anggaran Berdasarkan Program Kerja
                     <ul style="color: green; font-weight: 400;">
                         <li style="margin-bottom: 4px; margin-top: 4px; white-space: normal;">
-                            Laporan Program Strategis
+                            Laporan Anggaran berdasarkan Program Strategis
                         </li>
                         <li style="margin-bottom: 4px; white-space: normal;">
-                            Laporan Program Kerja
+                            Laporan Anggaran berdasarkan Program Kerja 	
+
+                            
                         </li>
                         <li style="margin-bottom: 4px; white-space: normal;">
-                            Laporan PKT Kegiatan
+                            Laporan Anggaran berdasarkan Kegiatan
                         </li>
                         <li style="margin-bottom: 4px; white-space: normal;">
-                            Laporan PKT Rincian Kegiatan
+                            Laporan Anggaran berdasarkan Rincian Kegiatan
                         </li>
                         <li style="margin-bottom: 4px; white-space: normal; ">
-                            Laporan Program Strategis PKT Mata Anggaran
+                            Laporan Anggaran per Mata Anggaran berdasarkan Rincian Kegiatan
                         </li>
                     </ul>
                 </label>
@@ -65,19 +67,20 @@
                     2. Laporan Anggaran Berdasarkan Mata Anggaran
                     <ul style="color: green; font-weight: 400;">
                         <li style="margin-bottom: 4px; margin-top: 4px; white-space: normal;">
-                            Laporan Operasional
+                            Laporan Anggaran Operasional
+
                         </li>
                         <li style="margin-bottom: 4px; white-space: normal;">
-                            Laporan Operasional Rincian
+                            Laporan Rincian Anggaran Operasional
                         </li>
                         <li style="margin-bottom: 4px; white-space: normal;">
-                            Laporan Ivestasi Rencana Korporasi
+                            Laporan Anggaran Investasi dan Rencana Korporasi
                         </li>
                         <li style="margin-bottom: 4px; white-space: normal;">
-                            Laporan Investasi Rencana Korporasi Rincian
+                            Laporan Rincian Anggaran Investasi dan Rencana Korporasi
                         </li>
                         <li style="margin-bottom: 4px; white-space: normal; ">
-                            Laporan Mata Anggaran Kegiatan
+                            Laporan Rincian Anggaran per Mata Anggaran
                         </li>
                     </ul>
                 </label>
@@ -113,7 +116,7 @@
             </div>
             
             <div class="form-group" style="margin-bottom: 5px;">
-                <label style="text-align: left; padding-top: 10px; overflow: hidden; text-overflow: ellipsis;" for=laporan_anggaran_iku" class="col-md-6 control-label">4. Laporan Anggaran IKU</label>
+                <label style="text-align: left; padding-top: 10px; overflow: hidden; text-overflow: ellipsis;" for=laporan_anggaran_iku" class="col-md-6 control-label">4. Laporan Anggaran Berdasarkan IKU</label>
                 <div class="col-md-3 button-preview" style="padding-right: 0px;">
                     <button id="preview_laporan_anggaran_iku" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="preview_laporan_anggaran_iku" value="Preview">Preview</button>
                 </div>
