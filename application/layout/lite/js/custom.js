@@ -1148,7 +1148,7 @@ function tambah_table(){
         $('#modal-success').modal('show');
         return false;
     }
-    console.log("Tambah Table");
+    // console.log("Tambah Table");
     var kumpulan_alphabet = document.getElementById("kumpulan_alphabet");
     var tempat_utama_table = document.getElementById("tempat_utama_table");
     var footer_utama_table = document.getElementById("footer_utama_table");

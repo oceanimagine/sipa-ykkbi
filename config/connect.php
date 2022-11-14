@@ -78,7 +78,8 @@ $GLOBALS['add_more_dialog'] = array(
     "iku_pkt_modal",
     "sbpps_pkt_modal",
     "kegiatan_modal",
-    "kode_ps_modal"
+    "kode_ps_modal",
+    "master_tarif"
 );
 
 /* Additional Function */

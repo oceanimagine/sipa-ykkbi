@@ -1421,11 +1421,16 @@ function set_tr_click_inside_tbody(tbody_active,input_active,id_dialog,display_a
                 removeLoading();
                 setTimeout(function(){
                     var get_id = input_active.getAttribute("id");
-                    var hidden_id = get_id + "_hidden";
-                    var hidden_active = document.getElementById(hidden_id);
-                    hidden_active.value = hasil_concate;
-                    /* console.log(hasil_concate); */
+                    if(get_id !== null){
+                        var hidden_id = get_id + "_hidden";
+                        var hidden_active = document.getElementById(hidden_id);
+                        hidden_active.value = hasil_concate;
+                        /* console.log(hasil_concate); */
+                    }
                     input_active.value = hasil_concate_display;
+                    if(get_id === null){
+                        input_active.focus();
+                    }
                     $('#'+id_dialog).modal('hide');
                 },2000);
             }
@@ -1486,4 +1491,33 @@ window.addEventListener("load", function () {
     $("#search_text_dialog_mata_kegiatan").bind("keypress keyup keydown", function () {
         search_from_tbody(document.getElementById('tbody_hasil_data_mata_anggaran'), this, '2', document.getElementById('mata_anggaran'), 'modal-mata-anggaran', '2,3');
     });
+    $("#search_text_dialog_master_tarif").bind("keypress keyup keydown", function () {
+        search_from_tbody(document.getElementById('tbody_hasil_data_master_tarif'), this, '6', temporary_object_input_master_anggaran, 'modal-master-tarif', '4');
+    });
 });
+
+var temporary_object_input_master_anggaran;
+
+function show_master_tarif(object_input){
+    // console.log(object_input);
+    if(typeof konfirmasi_hapus !== "undefined" && konfirmasi_hapus){
+        var pesan_modal = document.getElementById("pesan_modal");
+        pesan_modal.innerHTML = "Tombol disabled sedang dalam mode konfirmasi hapus.";
+        $('#modal-success').modal('show');
+        return false;
+    }
+    temporary_object_input_master_anggaran = object_input;
+    set_loading();
+    $.get("../../../index.php/add-anggaran/get_master_anggaran", function(data, status){
+        if(status === "success"){
+            if(check_session(data)){
+                // var mata_anggaran = document.getElementById("mata_anggaran");
+                var tbody_hasil_data_master_tarif = document.getElementById("tbody_hasil_data_master_tarif");
+                tbody_hasil_data_master_tarif.innerHTML = data;
+                $('#modal-master-tarif').modal('show');
+                set_tr_click_inside_tbody(tbody_hasil_data_master_tarif,object_input,'modal-master-tarif','4');
+                removeLoading_regular();
+            }
+        }
+    });
+}

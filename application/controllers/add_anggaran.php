@@ -30,6 +30,28 @@ class add_anggaran extends CI_Controller {
         return $this->layout->loadjs("add_anggaran/get_add_anggaran");
     }
     
+    public function get_master_anggaran(){
+        // print_query();
+        $this->get_add_anggaran->process(array(
+            'action' => 'select',
+            'table' => 'tblmastertarif b',
+            'column_value' => array(
+                'b.kode',
+                '(select a.nama1 from tblmastersatker a where a.satkerid = b.satkerid) satkernama',
+                'satkerid',
+                'b.tarifid',
+                'b.tarifnama',
+                'b.tarifnom',
+                'b.tarifdesc'
+            ),
+            'where' => 'b.kode = \''.$this->kode_project_scope_controller.'\' and b.satkerid::int in ('.$this->aplikasi->data->satker_string.')',
+            'order' => 'satkerid asc'
+        ));
+        $this->load->view("regular/data_master_anggaran", array(
+            "data_search" => $this->all
+        ));
+    }
+    
     public function get_sp_search_pkt_based_satker($satker){
         $this->get_add_anggaran->process(array(
             'action' => 'select',

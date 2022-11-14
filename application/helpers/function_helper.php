@@ -497,6 +497,14 @@ function project_test(){
     ));
 }
 
+function master_tarif(){
+    $CI =& get_instance();
+    $CI->layout = new layout('lite');
+    return $CI->layout->loadView(array(
+        "set_ob_view" => "dialog/dialog-master-tarif"
+    ));
+}
+
 // function onload
 function get_project(){
     $CI =& get_instance();
