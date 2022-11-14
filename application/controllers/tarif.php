@@ -7,6 +7,9 @@
 class tarif extends CI_Controller {
     
     public $layout;
+    private $kode = "";
+    private $satkerid = "";
+    private $tarifid = "";
     
     public function __construct() {
         parent::__construct();
@@ -14,7 +17,19 @@ class tarif extends CI_Controller {
         $this->layout = new layout('lite');
         Privilege::admin();
     }
-
+    
+    public function process_param($param){
+        if($this->router->routes['translate_uri_dashes']){
+            $param = str_replace("_", "-", $param);
+        }
+        $explode_dash = explode("-", $param);
+        if(sizeof($explode_dash) == 3){
+            $this->kode = $explode_dash[0];
+            $this->satkerid = $explode_dash[1];
+            $this->tarifid = $explode_dash[2];
+        }
+    }
+    
     public function get_tarif() {
         $this->get_tarif->get_data();
     }
@@ -24,6 +39,7 @@ class tarif extends CI_Controller {
     }
     
     public function hapus($id){
+        $this->process_param($id);
         $_GET['id'] = $id;
         if($this->allow_delete == "0"){
             Message::set("Delete Data not allowed.");
@@ -33,12 +49,13 @@ class tarif extends CI_Controller {
         $this->get_tarif->process(array(
             'action' => 'delete',
             'table' => 'tblmastertarif',
-            'where' => 'satkerid = \''.$id.'\' and kode = \''.$this->kode_project_scope_controller.'\''
+            'where' => 'tarifid = \''.$this->tarifid.'\' and satkerid = \''.$this->satkerid.'\' and kode = \''.$this->kode.'\''
         ));
         redirect('tarif');
     }
     
     public function edit($id){
+        $this->process_param($id);
         if($this->input->post('kode')){
             $_GET['id'] = $id;
             if($this->allow_update == "0"){
@@ -64,10 +81,10 @@ class tarif extends CI_Controller {
                     'tarifnom' => $tarifnom,
                     'tarifdesc' => $tarifdesc
                 ),
-                'where' => 'satkerid = \''.$id.'\' and kode = \''.$this->kode_project_scope_controller.'\''
+                'where' => 'tarifid = \''.$this->tarifid.'\' and satkerid = \''.$this->satkerid.'\' and kode = \''.$this->kode.'\''
             ));
             
-            redirect('tarif/edit/'.$id.'');
+            redirect('tarif/edit/'.$kode."-".$satkerid."-".$tarifid.'');
         }
         
         $this->get_tarif->process(array(
@@ -92,8 +109,12 @@ class tarif extends CI_Controller {
                 'tarifnom',
                 'tarifdesc'
             ),
-            'where' => 'satkerid = \''.$id.'\' and kode = \''.$this->kode_project_scope_controller.'\''
+            'where' => 'tarifid = \''.$this->tarifid.'\' and satkerid = \''.$this->satkerid.'\' and kode = \''.$this->kode.'\''
         ));
+        
+        if(!isset($this->row->kode)){
+            redirect('tarif');
+        }
         
         $this->layout->loadView('tarif_form', array(
             

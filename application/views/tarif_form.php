@@ -72,6 +72,14 @@
                         <option value="">PILIH TARIF</option>
                         <option value="0000"<?php echo isset($tarifid) && $tarifid == "0000" ? " selected='selected'" : ""; ?>>Non Tarif</option>
                         <option value="1111"<?php echo isset($tarifid) && $tarifid == "1111" ? " selected='selected'" : ""; ?>>Tarif</option>
+                        <option value="0001"<?php echo isset($tarifid) && $tarifid == "0001" ? " selected='selected'" : ""; ?>>Akomodasi Perjalan Dinas Menginap Kadiv</option>
+                        <option value="0002"<?php echo isset($tarifid) && $tarifid == "0002" ? " selected='selected'" : ""; ?>>Akomodasi Perjalan Dinas Menginap DepKadiv</option>
+                        <option value="0003"<?php echo isset($tarifid) && $tarifid == "0003" ? " selected='selected'" : ""; ?>>Akomodasi Perjalan Dinas Menginap Kasie</option>
+                        <option value="0004"<?php echo isset($tarifid) && $tarifid == "0004" ? " selected='selected'" : ""; ?>>Akomodasi Perjalan Dinas Menginap Staf</option>
+                        <option value="0005"<?php echo isset($tarifid) && $tarifid == "0005" ? " selected='selected'" : ""; ?>>Akomodasi Perjalan Dinas Menginap PTU</option>
+                        <option value="0006"<?php echo isset($tarifid) && $tarifid == "0006" ? " selected='selected'" : ""; ?>>Transportasi Pesawat Perjalan Dinas Menginap</option>
+                        <option value="0007"<?php echo isset($tarifid) && $tarifid == "0007" ? " selected='selected'" : ""; ?>>Transportasi Kereta Perjalan Dinas Menginap</option>
+                        <option value="0008"<?php echo isset($tarifid) && $tarifid == "0008" ? " selected='selected'" : ""; ?>>Transportasi Taxi Perjalan Dinas Menginap</option>
                     </select>
                     <input type="hidden" name="tarifnama" id="tarifnama" value="<?php echo isset($tarifnama) ? $tarifnama : ""; ?>" />
                 </div>
