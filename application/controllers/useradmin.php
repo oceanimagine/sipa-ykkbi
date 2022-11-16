@@ -49,6 +49,69 @@ class Useradmin extends CI_Controller {
         redirect('useradmin');
     }
     
+    public function profile($id){
+        $id = isset($_GET['id']) && is_numeric($_GET['id']) ? $_GET['id'] : $id;
+        $_GET['id'] = $id;
+        if($this->input->post('password_baru')){
+            $nama_lengkap = $this->input->post('nama_lengkap');
+            $password_baru = $this->input->post('password_baru');
+            upload_file("photo_user_admin");
+            $this->get_useradmin->process(array(
+                'action' => 'update',
+                'table' => 'tbl_user_admin',
+                'column_value' => array(
+                    'nama_lengkap' => $nama_lengkap,
+                    'password' => md5($password_baru),
+                    'photo_user_admin' => $this->name_file_upload
+                ),
+                'where' => 'id = \'' . $id . '\''
+            ));
+            $_SESSION['photo_admin'] = $this->name_file_upload;
+            redirect('useradmin/profile/' . $id);
+        }
+        else if($this->input->post('nama_lengkap')){
+            $nama_lengkap = $this->input->post('nama_lengkap');
+            upload_file("photo_user_admin");
+            $this->get_useradmin->process(array(
+                'action' => 'update',
+                'table' => 'tbl_user_admin',
+                'column_value' => array(
+                    'nama_lengkap' => $nama_lengkap,
+                    'photo_user_admin' => $this->name_file_upload
+                ),
+                'where' => 'id = \'' . $id . '\''
+            ));
+            $_SESSION['photo_admin'] = $this->name_file_upload;
+            message::set("Update berhasil password masih yang lama.");
+            redirect('useradmin/profile/' . $id);
+        }
+        $this->get_useradmin->process(array(
+            'action' => 'select',
+            'table' => 'tbl_user_admin',
+            'column_value' => array(
+                'username',
+                'nama_lengkap',
+                'photo_user_admin',
+                'nomor_karyawan',
+                'satker'
+            ),
+            'where' => 'id = \''.$id.'\''
+        ));
+        if(!isset($this->row->satker) || $this->row->satker == '0'){
+            redirect('home');
+        }
+        $this->layout->loadView('useradmin_form', array(
+            'username' => $this->row->username,
+            'nama_lengkap' => $this->row->nama_lengkap,
+            'photo_user_admin' => $this->row->photo_user_admin,
+            'nomor_karyawan' => $this->row->nomor_karyawan,
+            'judul' => "User Admin Edit",
+            'satker' => $this->row->satker,
+            'satker_all' => $this->satker_all,
+            'profile' => true
+        ));
+    }
+    
     public function edit($id){
         $id = isset($_GET['id']) && is_numeric($_GET['id']) ? $_GET['id'] : $id;
         $_GET['id'] = $id;

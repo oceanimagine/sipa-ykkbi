@@ -39,12 +39,12 @@ class get_tarif extends CI_Model {
 
         /* select id, harga, tanggal_harus_bayar, case status when '1' then 'Aktif' when '2' then 'Tidak Aktif' else 'Tidak Aktif' end as status from tbl_atur_bayar */
 
-        $sql_total = "select b.kode, b.satkerid, b.tarifid, b.tarifnama, b.tarifnom, b.tarifdesc from tblmastertarif b" . $clouse . $this->where_project($clouse) . "";
+        $sql_total = "select b.kode, b.satkerid, b.tarifid, b.tarifnama, b.tarifnom, b.tarifdesc from tblmastertarif b" . $clouse . $this->where_project($clouse) . " and b.satkerid::int in (".$_SESSION['data_satker_comma'].")";
 
         $query_total = $this->db->query($sql_total);
         $total = $query_total->num_rows();
 
-        $sql = "select CONCAT(b.kode,'-',b.satkerid,'-',b.tarifid) as id, b.kode, (select a.nama1 from tblmastersatker a where a.satkerid = b.satkerid) satkerid, b.tarifnama, b.tarifnom, b.tarifdesc from tblmastertarif b".$clouse.$this->where_project($clouse)." order by b.satkerid asc offset $iDisplayStart limit $iDisplayLength";
+        $sql = "select CONCAT(b.kode,'-',b.satkerid,'-',b.tarifid) as id, b.kode, (select a.nama1 from tblmastersatker a where a.satkerid = b.satkerid) satkerid, b.tarifnama, b.tarifnom, b.tarifdesc from tblmastertarif b".$clouse.$this->where_project($clouse)." and b.satkerid::int in (".$_SESSION['data_satker_comma'].") order by b.satkerid asc offset $iDisplayStart limit $iDisplayLength";
 
         $page = ($iDisplayStart / $iDisplayLength);
 

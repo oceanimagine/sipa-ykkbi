@@ -39,7 +39,15 @@
                     <ul class="dropdown-menu" style="right: 0px;">
                         <!-- User image -->
                         <li class="user-header" style="white-space: nowrap;">
+                            <?php if($_SESSION['PRI'] == "SUPERADMIN"){ ?>
                             <img src="image/LOGOYKKBI.png" class="img-circle" alt="User Image">
+                            <?php } else { ?>
+                            <?php if($_SESSION['photo_admin'] != "" && file_exists("upload/photo_user_admin/" . $_SESSION['photo_admin'])){ ?>
+                            <img src="../../../upload/photo_user_admin/<?php echo $_SESSION['photo_admin']; ?>" class="img-circle" alt="User Image" style="width: inherit;">
+                            <?php } else { ?>
+                            <img src="image/LOGOYKKBI.png" class="img-circle" alt="User Image">
+                            <?php } ?>
+                            <?php } ?>
                             <p>
                                 {priviledge}
                                 <small>Location : <?php echo "Jakarta"; ?></small>
@@ -52,8 +60,8 @@
                                 <a href="<?php echo get_url("logout"); ?>" class="btn btn-default btn-flat" style="width: 100%;">Sign out</a>
                             </div>
                             <?php } else { ?>
-                            <div class="pull-right" style="width: 48%;">
-                                <a href="<?php echo get_url("useradmin/profile"); ?>" class="btn btn-default btn-flat" style="width: 100%;">Profile</a>
+                            <div class="pull-left" style="width: 48%;">
+                                <a href="<?php echo get_url("useradmin/profile/" . $_SESSION['id']); ?>" class="btn btn-default btn-flat" style="width: 100%;">Profile</a>
                             </div>
                             <div class="pull-right" style="width: 48%;">
                                 <a href="<?php echo get_url("logout"); ?>" class="btn btn-default btn-flat" style="width: 100%;">Sign out</a>

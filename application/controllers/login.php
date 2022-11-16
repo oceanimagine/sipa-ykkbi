@@ -77,13 +77,19 @@ class login extends CI_Controller {
                         'where' => 'satkerid::int in ('.$user_active->satker.')'
                     ));
                     $data_satker = $this->all;
+                    $data_satker_session = "";
+                    $comma = "";
+                    for($i = 0; $i < sizeof($data_satker); $i++){
+                        $data_satker_session = $data_satker_session . $comma . $data_satker[$i]->satkerid;
+                        $comma = ",";
+                    }
                     $_SESSION['PRI'] = "ADMIN";
                     $_SESSION['USR'] = $user_active->id;
                     $_SESSION['id'] = $user_active->id;
                     $_SESSION['data_satker'] = $data_satker;
-                    $_SESSION['data_satker_comma'] = $user_active->satker;
+                    $_SESSION['data_satker_comma'] = $data_satker_session;
                     $_SESSION['nama_lengkap'] = $user_active->nama_lengkap;
-                    $_SESSION['photo_admin'] = $user_active->photo_admin;
+                    $_SESSION['photo_admin'] = $user_active->photo_user_admin;
                     $_SESSION['nomor_admin'] = "AB" . $user_active->nomor_karyawan; 
                     $_SESSION['username'] = $user_active->username;
                     $this->layout->render_alert("Welcome Admin.");

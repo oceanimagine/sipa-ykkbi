@@ -94,7 +94,8 @@ class tarif extends CI_Controller {
                 'satkerid',
                 'nama1',
                 'nama2'
-            )
+            ),
+            'where' => 'satkerid::int in ('.$_SESSION['data_satker_comma'].')'
         ));
         $data_satker = $this->all;
         
@@ -164,7 +165,8 @@ class tarif extends CI_Controller {
                 'satkerid',
                 'nama1',
                 'nama2'
-            )
+            ),
+            'where' => 'satkerid::int in ('.$_SESSION['data_satker_comma'].')'
         ));
         $data_satker = $this->all;
         $this->layout->loadView('tarif_form', array(

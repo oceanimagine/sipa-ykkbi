@@ -39,7 +39,7 @@ class get_daftar_program_kerja_tahunan extends CI_Model {
 
         /* select id, harga, tanggal_harus_bayar, case status when '1' then 'Aktif' when '2' then 'Tidak Aktif' else 'Tidak Aktif' end as status from tbl_atur_bayar */
 
-        $sql_total = "select * from tbldaftarpkt" . $clouse . $this->where_project($clouse) . "";
+        $sql_total = "select * from tbldaftarpkt" . $clouse . $this->where_project($clouse) . "  and substring(pktkode from 1 for 1)::int in (".$_SESSION['data_satker_comma'].")";
 
         $query_total = $this->db->query($sql_total);
         $total = $query_total->num_rows();
@@ -64,7 +64,7 @@ class get_daftar_program_kerja_tahunan extends CI_Model {
                 pktoutput
             from tbldaftarpkt
         ) tbldaftarpkt ".
-        $clouse.$this->where_project($clouse)." order by kode asc, sbpkode asc, substring(pktkode,1,4) asc, pktkode asc offset $iDisplayStart limit " . $iDisplayLength;
+        $clouse.$this->where_project($clouse)." and substring(pktkode from 1 for 1)::int in (".$_SESSION['data_satker_comma'].") order by kode asc, sbpkode asc, substring(pktkode,1,4) asc, pktkode asc offset $iDisplayStart limit " . $iDisplayLength;
 
         $page = ($iDisplayStart / $iDisplayLength);
 

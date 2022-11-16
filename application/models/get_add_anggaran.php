@@ -51,7 +51,23 @@ class get_add_anggaran extends CI_Model {
 
         /* select id, harga, tanggal_harus_bayar, case status when '1' then 'Aktif' when '2' then 'Tidak Aktif' else 'Tidak Aktif' end as status from tbl_atur_bayar */
 
-        $sql_total = "select CONCAT(a.kode, '-', a.sbpkode, '-', a.pktkode, '-', a.rekmakode) as id from tbldaftarat a where a.kode='".$GLOBALS['kode_project']."'" . $clouse . $this->where_project($clouse) . "";
+        $sql_total = "
+            select 
+                CONCAT(a.kode, '-', a.sbpkode, '-', a.pktkode, '-', a.rekmakode) as id
+            from tbldaftarat a
+                left join 
+                tblmastersatker b on b.satkerid = left(a.pktkode,1)
+                left join
+                tbldaftarpkt c on c.pktkode = a.pktkode
+                left join
+                tblmastermaindividual d on d.rekmakode=a.rekmakode		 
+            where 
+                a.kode='".$GLOBALS['kode_project']."'
+                and c.kode='".$GLOBALS['kode_project']."'
+                and d.kode='".$GLOBALS['kode_project']."'
+                and b.satkerid::int in (".$_SESSION['data_satker_comma'].")
+            ".$clouse." 
+        ";
 
         $query_total = $this->db->query($sql_total);
         $total = $query_total->num_rows();
@@ -93,6 +109,7 @@ class get_add_anggaran extends CI_Model {
                 a.kode='".$GLOBALS['kode_project']."'
                 and c.kode='".$GLOBALS['kode_project']."'
                 and d.kode='".$GLOBALS['kode_project']."'
+                and b.satkerid::int in (".$_SESSION['data_satker_comma'].")
             ".$clouse." 
             order by a.pktkode asc 
             offset $iDisplayStart limit $iDisplayLength";

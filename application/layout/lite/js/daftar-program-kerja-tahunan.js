@@ -210,7 +210,10 @@ function set_click_checkbox(div_container){
                 this.checked = false;
                 get_filter_sbp = false;
             }
-        } 
+        } else {
+            // console.log(this.checked);
+            get_filter_sbp = false;
+        }
     };
 }
 
@@ -280,10 +283,11 @@ window.addEventListener("load", function () {
     $( "#buka_dialog_kegiatan_kode" ).click(function(){
         set_loading();
         var sbpkode_filter = "";
+        // console.log(get_filter_sbp);
         if(get_filter_sbp){
             var sbpps_kode_hidden = document.getElementById("sbpps_kode_hidden");
             sbpkode_filter = sbpps_kode_hidden.value;
-            console.log(sbpkode_filter);
+            // console.log(sbpkode_filter);
         }
         $.get("../../../index.php/daftar-program-kerja-tahunan/get-kegiatan-only/" + sbpkode_filter, function(data, status){
             if(status === "success"){
