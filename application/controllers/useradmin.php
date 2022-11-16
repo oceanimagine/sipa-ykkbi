@@ -104,6 +104,9 @@ class Useradmin extends CI_Controller {
             ),
             'where' => 'id = \''.$id.'\''
         ));
+        if(!isset($this->row->satker) || $this->row->satker == '0'){
+            redirect('useradmin');
+        }
         $this->layout->loadView('useradmin_form', array(
             'username' => $this->row->username,
             'nama_lengkap' => $this->row->nama_lengkap,

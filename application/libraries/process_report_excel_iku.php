@@ -16,7 +16,7 @@ class process_report_excel_iku {
             $this->CI = & get_instance();
             $this->CI->load->model('get_add_anggaran');
             $reader = IOFactory::createReader("Xlsx");
-            $this->spreadsheet = $reader->load(__DIR__."/../../upload/xlsx_excel/TEMPLATE08.xlsx");
+            $this->spreadsheet = $reader->load(__DIR__."/../../upload/xlsx_excel/template_live_iku.xlsx");
             $this->anggaran_iku();
             $this->remove_kamus_sheet();
             if($view_only){
@@ -116,9 +116,10 @@ class process_report_excel_iku {
         }
         $spreadsheet->getSheetByName($sheetname)->removeRow(($begin_row_delete + 1),($begin_row_start - ($begin_row_delete + 1)));
         
-        $spreadsheet->getSheetByName($sheetname)->getStyle('A'.($begin_row_delete + 1).":E".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
-        $spreadsheet->getSheetByName($sheetname)->getStyle('I'.($begin_row_delete + 1).":J".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
-        $spreadsheet->getSheetByName($sheetname)->getStyle('F'.($begin_row_delete).":H".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        $color_border = $spreadsheet->getSheetByName($sheetname)->getStyle('A4')->getBorders()->getTop()->getColor()->getARGB();
+        $spreadsheet->getSheetByName($sheetname)->getStyle('A'.($begin_row_delete + 1).":E".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color($color_border));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('I'.($begin_row_delete + 1).":J".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color($color_border));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('F'.($begin_row_delete).":H".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color($color_border));
         
         $spreadsheet->getActiveSheet()->getStyle('A'.($begin_row_delete + 1).':J'.(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getAlignment()->setWrapText(true);
         $spreadsheet->getSheetByName($sheetname)->setCellValue('B2',substr($this->CI->kode_project_scope_controller,0,4));

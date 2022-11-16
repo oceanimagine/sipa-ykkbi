@@ -20,7 +20,7 @@ class process_report_excel_sbp {
             $this->CI = & get_instance();
             $this->CI->load->model('get_report');
             $reader = IOFactory::createReader("Xlsx");
-            $this->spreadsheet = $reader->load(__DIR__."/../../upload/xlsx_excel/TEMPLATE04.xlsx");
+            $this->spreadsheet = $reader->load(__DIR__."/../../upload/xlsx_excel/template_live_sbp.xlsx");
             $this->report_program_strategis_ps();
             $this->report_program_kerja_strategis_pks_non_strategis_pkns();
             $this->report_program_kerja_tahunan_pkt_kegiatan_k(4,"PKT-K");
@@ -162,10 +162,12 @@ class process_report_excel_sbp {
             $begin_row++;
             $no++;
         }
+        
+        $color_border = $spreadsheet->getSheetByName($sheetname)->getStyle('A4')->getBorders()->getTop()->getColor()->getARGB();
         $spreadsheet->getSheetByName($sheetname)->removeRow(($begin_row_delete + 1),($begin_row_start - ($begin_row_delete + 1)));
-        $spreadsheet->getSheetByName($sheetname)->getStyle('A'.($begin_row_delete + 1).":C".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
-        $spreadsheet->getSheetByName($sheetname)->getStyle('N'.($begin_row_delete + 1).":Q".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
-        $spreadsheet->getSheetByName($sheetname)->getStyle('I'.($begin_row_delete).":K".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('A'.($begin_row_delete + 1).":C".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color($color_border));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('N'.($begin_row_delete + 1).":Q".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color($color_border));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('I'.($begin_row_delete).":K".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color($color_border));
         
         $spreadsheet->getActiveSheet()->getStyle('A'.($begin_row_delete + 1).':Q'.(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getAlignment()->setWrapText(true);
         $spreadsheet->getSheetByName($sheetname)->setCellValue('B2',substr($this->CI->kode_project_scope_controller,0,4));
@@ -269,10 +271,11 @@ class process_report_excel_sbp {
             $no++; 
         }
         
+        $color_border = $spreadsheet->getSheetByName($sheetname)->getStyle('A4')->getBorders()->getTop()->getColor()->getARGB();
         $spreadsheet->getSheetByName($sheetname)->removeRow(($begin_row_delete + 1),($begin_row_start - ($begin_row_delete + 1)));
-        $spreadsheet->getSheetByName($sheetname)->getStyle('A'.($begin_row_delete + 1).":H".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
-        $spreadsheet->getSheetByName($sheetname)->getStyle('N'.($begin_row_delete + 1).":S".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
-        $spreadsheet->getSheetByName($sheetname)->getStyle('I'.($begin_row_delete).":M".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('A'.($begin_row_delete + 1).":H".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color($color_border));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('N'.($begin_row_delete + 1).":S".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color($color_border));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('I'.($begin_row_delete).":M".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color($color_border));
         
         $spreadsheet->getSheetByName($sheetname)->getStyle('C'.($begin_row_delete + 1).":G".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_TEXT);
         
@@ -388,10 +391,10 @@ class process_report_excel_sbp {
         
         $spreadsheet->getSheetByName($sheetname)->removeRow(($begin_row_delete + 1),($begin_row_start - ($begin_row_delete + 1)));
         // $spreadsheet->getSheetByName($sheetname)->getStyle('A'.($begin_row_delete + 1).":".Coordinate::stringFromColumnIndex((Coordinate::columnIndexFromString($highestColumn) - 1)).(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
-        
-        $spreadsheet->getSheetByName($sheetname)->getStyle('A'.($begin_row_delete + 1).":I".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
-        $spreadsheet->getSheetByName($sheetname)->getStyle('P'.($begin_row_delete + 1).":Z".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
-        $spreadsheet->getSheetByName($sheetname)->getStyle('J'.($begin_row_delete).":O".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        $color_border = $spreadsheet->getSheetByName($sheetname)->getStyle('A4')->getBorders()->getTop()->getColor()->getARGB();
+        $spreadsheet->getSheetByName($sheetname)->getStyle('A'.($begin_row_delete + 1).":I".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color($color_border));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('P'.($begin_row_delete + 1).":Z".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color($color_border));
+        $spreadsheet->getSheetByName($sheetname)->getStyle('J'.($begin_row_delete).":O".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color($color_border));
         $spreadsheet->getSheetByName($sheetname)->getStyle('C'.($begin_row_delete + 1).":E".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_TEXT);
         
         $spreadsheet->getActiveSheet()->getStyle('A'.($begin_row_delete + 1).':Z'.(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getAlignment()->setWrapText(true);

@@ -34,7 +34,7 @@ class get_useradmin extends CI_Model {
         $query_total = $this->db->query($sql_total);
         $total = $query_total->num_rows();
 
-        $sql = "select id, nama_lengkap, photo_user_admin, nomor_karyawan, username from tbl_user_admin".$clouse." order by id asc offset $iDisplayStart limit $iDisplayLength";
+        $sql = "select id, nama_lengkap, photo_user_admin, nomor_karyawan, username from tbl_user_admin".$clouse.(($clouse == "" ? " where " : " and ") . " satker != '0' ")." order by id asc offset $iDisplayStart limit $iDisplayLength";
 
         $page = ($iDisplayStart / $iDisplayLength);
 

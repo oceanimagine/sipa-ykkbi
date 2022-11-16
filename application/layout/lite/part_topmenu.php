@@ -47,10 +47,18 @@
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
-                            
+                            <?php if($_SESSION['PRI'] == "SUPERADMIN"){ ?>
                             <div class="pull-right" style="width: 100%;">
                                 <a href="<?php echo get_url("logout"); ?>" class="btn btn-default btn-flat" style="width: 100%;">Sign out</a>
                             </div>
+                            <?php } else { ?>
+                            <div class="pull-right" style="width: 48%;">
+                                <a href="<?php echo get_url("useradmin/profile"); ?>" class="btn btn-default btn-flat" style="width: 100%;">Profile</a>
+                            </div>
+                            <div class="pull-right" style="width: 48%;">
+                                <a href="<?php echo get_url("logout"); ?>" class="btn btn-default btn-flat" style="width: 100%;">Sign out</a>
+                            </div>
+                            <?php } ?>
                         </li>
                     </ul>
                 </li>
