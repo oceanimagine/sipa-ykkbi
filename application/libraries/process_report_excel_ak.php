@@ -179,11 +179,10 @@ class process_report_excel_ak {
         $spreadsheet->getSheetByName($sheetname)->setCellValue("W" . ($begin_row + 6), "=W".($begin_row + 4)."-W".($begin_row + 5));
         $spreadsheet->getSheetByName($sheetname)->setCellValue("Y" . ($begin_row + 6), "=Y".($begin_row + 4)."-Y".($begin_row + 5));
         
-        $spreadsheet->getSheetByName($sheetname)->getStyle('A'.($begin_row + 2).":Z".($begin_row + 6))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('00000000'));
+        $color_border = $spreadsheet->getSheetByName($sheetname)->getStyle('A4')->getBorders()->getTop()->getColor()->getARGB();
+        $spreadsheet->getSheetByName($sheetname)->getStyle('A'.($begin_row + 2).":Z".($begin_row + 6))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color($color_border));
         
         $spreadsheet->getSheetByName($sheetname)->removeRow(($begin_row_delete + 1),($begin_row_start - ($begin_row_delete + 1)));
-        
-        $color_border = $spreadsheet->getSheetByName($sheetname)->getStyle('A4')->getBorders()->getTop()->getColor()->getARGB();
         $spreadsheet->getSheetByName($sheetname)->getStyle('A'.($begin_row_delete + 1).":C".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color($color_border));
         $spreadsheet->getSheetByName($sheetname)->getStyle('G'.($begin_row_delete + 1).":Z".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color($color_border));
         $spreadsheet->getSheetByName($sheetname)->getStyle('D'.($begin_row_delete).":F".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color($color_border));
