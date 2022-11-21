@@ -1,6 +1,12 @@
 @media (max-width: 991.9px){
+    select {
+        height: inherit !important;
+        padding: 5px !important;
+        text-align: left !important;
+    }
     .button-preview {
         padding-right: 15px !important;
+        padding-left: 15px !important;
     }
     .button-button-preview {
         margin-top: 5px;

@@ -32,7 +32,7 @@
         <div class="box-body">
             
             <div class="form-group" style="margin-bottom: 5px;">
-                <label style="text-align: left; padding-top: 10px; overflow: hidden; text-overflow: ellipsis;" for="laporan_anggaran_berdasarkan_program_kerja" class="col-md-6 control-label">
+                <label style="text-align: left; padding-top: 10px; overflow: hidden; text-overflow: ellipsis;" for="laporan_anggaran_berdasarkan_program_kerja" class="col-md-8 control-label">
                     1. Laporan Anggaran Berdasarkan Program Kerja
                     <ul style="color: green; font-weight: 400;">
                         <li style="margin-bottom: 4px; margin-top: 4px; white-space: normal;">
@@ -54,16 +54,22 @@
                         </li>
                     </ul>
                 </label>
-                <div class="col-md-3 button-preview" style="padding-right: 0px;">
-                    <button id="preview_laporan_anggaran_berdasarkan_program_kerja" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="preview_laporan_anggaran_berdasarkan_program_kerja" value="Preview">Preview</button>
+                <div class="col-md-2 button-preview" style="padding-right: 6px;">
+                    <select class="form-group" style="margin-bottom: 0px; margin-right: 0px; width: 100%; padding: 0px; text-align: center; margin-left: 0px; height: 126px;">
+                        <option value="">PILIH</option>
+                        <option value="DSD">DSD</option>
+                    </select>
                 </div>
-                <div class="col-md-3 button-download" style="padding-left: 5px;">
-                    <button id="download_laporan_anggaran_berdasarkan_program_kerja" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="download_laporan_anggaran_berdasarkan_program_kerja" value="Download">Download</button>
+                <div class="col-md-1 button-preview" style="padding-right: 0px; padding-left: 0px;">
+                    <button id="preview_laporan_anggaran_berdasarkan_program_kerja" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="preview_laporan_anggaran_berdasarkan_program_kerja" value="Preview"><i class="fa fa-lg fa-file-excel-o"></i></button>
+                </div>
+                <div class="col-md-1 button-download" style="padding-left: 5px;">
+                    <button id="download_laporan_anggaran_berdasarkan_program_kerja" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="download_laporan_anggaran_berdasarkan_program_kerja" value="Download"><i class="fa fa-lg fa-download"></i></button>
                 </div>
             </div>
             
             <div class="form-group" style="margin-bottom: 5px;">
-                <label style="text-align: left; padding-top: 10px; overflow: hidden; text-overflow: ellipsis;" for="laporan_anggaran_berdasarkan_mata_anggaran" class="col-md-6 control-label">
+                <label style="text-align: left; padding-top: 10px; overflow: hidden; text-overflow: ellipsis;" for="laporan_anggaran_berdasarkan_mata_anggaran" class="col-md-8 control-label">
                     2. Laporan Anggaran Berdasarkan Mata Anggaran
                     <ul style="color: green; font-weight: 400;">
                         <li style="margin-bottom: 4px; margin-top: 4px; white-space: normal;">
@@ -84,11 +90,17 @@
                         </li>
                     </ul>
                 </label>
-                <div class="col-md-3 button-preview" style="padding-right: 0px;">
-                    <button id="preview_laporan_anggaran_berdasarkan_mata_anggaran" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="preview_laporan_anggaran_berdasarkan_mata_anggaran" value="Preview">Preview</button>
+                <div class="col-md-2 button-preview" style="padding-right: 6px;">
+                    <select class="form-group" style="margin-bottom: 0px; margin-right: 0px; width: 100%; padding: 0px; text-align: center; margin-left: 0px; height: 126px;">
+                        <option value="">PILIH</option>
+                        <option value="DSD">DSD</option>
+                    </select>
                 </div>
-                <div class="col-md-3 button-download" style="padding-left: 5px;">
-                    <button id="download_laporan_anggaran_berdasarkan_mata_anggaran" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="download_laporan_anggaran_berdasarkan_mata_anggaran" value="Download">Download</button>
+                <div class="col-md-1 button-preview" style="padding-right: 0px; padding-left: 0px;">
+                    <button id="preview_laporan_anggaran_berdasarkan_mata_anggaran" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="preview_laporan_anggaran_berdasarkan_mata_anggaran" value="Preview"><i class="fa fa-lg fa-file-excel-o"></i></button>
+                </div>
+                <div class="col-md-1 button-download" style="padding-left: 5px;">
+                    <button id="download_laporan_anggaran_berdasarkan_mata_anggaran" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="download_laporan_anggaran_berdasarkan_mata_anggaran" value="Download"><i class="fa fa-lg fa-download"></i></button>
                 </div>
             </div>
             <?php /*
@@ -106,31 +118,31 @@
             */ ?>
             
             <div class="form-group" style="margin-bottom: 5px;">
-                <label style="text-align: left; padding-top: 10px; overflow: hidden; text-overflow: ellipsis;" for=laporan_aktivitas_keuangan" class="col-md-6 control-label">3. Laporan Aktivitas Keuangan</label>
-                <div class="col-md-3 button-preview" style="padding-right: 0px;">
+                <label style="text-align: left; padding-top: 10px; overflow: hidden; text-overflow: ellipsis;" for=laporan_aktivitas_keuangan" class="col-md-8 control-label">3. Laporan Aktivitas Keuangan</label>
+                <div class="col-md-2 button-preview" style="padding-right: 5px;">
                     <button id="preview_laporan_aktivitas_keuangan" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="preview_laporan_aktivitas_keuangan" value="Preview">Preview</button>
                 </div>
-                <div class="col-md-3 button-download" style="padding-left: 5px;">
+                <div class="col-md-2 button-download" style="padding-left: 0px;">
                     <button id="download_laporan_aktivitas_keuangan" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="download_laporan_aktivitas_keuangan" value="Download">Download</button>
                 </div>
             </div>
             
             <div class="form-group" style="margin-bottom: 5px;">
-                <label style="text-align: left; padding-top: 10px; overflow: hidden; text-overflow: ellipsis;" for=laporan_anggaran_iku" class="col-md-6 control-label">4. Laporan Anggaran Berdasarkan IKU</label>
-                <div class="col-md-3 button-preview" style="padding-right: 0px;">
+                <label style="text-align: left; padding-top: 10px; overflow: hidden; text-overflow: ellipsis;" for=laporan_anggaran_iku" class="col-md-8 control-label">4. Laporan Anggaran Berdasarkan IKU</label>
+                <div class="col-md-2 button-preview" style="padding-right: 5px;">
                     <button id="preview_laporan_anggaran_iku" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="preview_laporan_anggaran_iku" value="Preview">Preview</button>
                 </div>
-                <div class="col-md-3 button-download" style="padding-left: 5px;">
+                <div class="col-md-2 button-download" style="padding-left: 0px;">
                     <button id="download_laporan_anggaran_iku" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="download_laporan_anggaran_iku" value="Download">Download</button>
                 </div>
             </div>
             
             <div class="form-group" style="margin-bottom: 5px;">
-                <label style="text-align: left; padding-top: 10px; overflow: hidden; text-overflow: ellipsis;" for=data_upload_siaga" class="col-md-6 control-label">5. Data Upload SIAGA</label>
-                <div class="col-md-3 button-preview" style="padding-right: 0px;">
+                <label style="text-align: left; padding-top: 10px; overflow: hidden; text-overflow: ellipsis;" for=data_upload_siaga" class="col-md-8 control-label">5. Data Upload SIAGA</label>
+                <div class="col-md-2 button-preview" style="padding-right: 5px;">
                     <button id="preview_data_upload_siaga" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="data_upload_siaga" value="Preview">Preview</button>
                 </div>
-                <div class="col-md-3 button-download" style="padding-left: 5px;">
+                <div class="col-md-2 button-download" style="padding-left: 0px;">
                     <button id="download_data_upload_siaga" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="data_upload_siaga" value="Download">Download</button>
                 </div>
             </div>
