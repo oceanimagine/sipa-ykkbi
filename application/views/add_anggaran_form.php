@@ -271,7 +271,8 @@
                                 <?php $no = 1; ?>
                                 
                                 <?php 
-                                $jumlah_rincian = /* ($size_group_edit > 1) ? 0 : 1 */ 0;
+                                
+                                $jumlah_rincian = /* ($size_group_edit > 1) ? 0 : 1 */ isset($data_rincian_edit) ? 0 : 1;
                                 for($j = 0; $j < $size_rincian_edit; $j++){
                                     if((isset($data_rincian_edit) && $data_rincian_edit[$j]->group == $data_group_edit[$i]->group)){
                                         $jumlah_rincian++;
@@ -307,7 +308,7 @@
                                     <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 6%;">
                                         <input <?php echo $disabled_input; ?> autocomplete="off" name="tarif_<?php echo ($i + 1); ?>[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 78%;" placeholder="NOM" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rintarif) ? $data_rincian_edit[$j]->rintarif : "0,00"; ?>">
                                         &nbsp;
-                                        <i class="fa fa-ellipsis-v" onclick="show_master_tarif(this.parentNode.getElementsByTagName('input')[0]);" style="cursor: pointer; font-size: 10px;"></i>
+                                        <a class="fa fa-ellipsis-v" onclick="show_master_tarif(this.parentNode.getElementsByTagName('input')[0]);" style="cursor: pointer; font-size: 10px;"></a>
                                         &nbsp;
                                     </td>
                                     <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 6%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="subtotal_<?php echo ($i + 1); ?>[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="<?php echo isset($data_rincian_edit) && isset($data_rincian_edit[$j]->rintotal) ? $total_perkalian : "0,00"; ?>"></td>
@@ -491,7 +492,7 @@
                                             <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 6%;">
                                                 <input <?php echo $disabled_input; ?> autocomplete="off" name="tarif_<?php echo $alphabet_lanjutan[$keys_ma[$i]]; ?>_<?php echo ($j + 1); ?>[]" class="numberonly" type="number" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 78%;" placeholder="NOM" value="<?php echo $data_rincian_edit_[$k]->rintarif; ?>">
                                                 &nbsp;
-                                                <i class="fa fa-ellipsis-v" onclick="show_master_tarif(this.parentNode.getElementsByTagName('input')[0]);" style="cursor: pointer; font-size: 10px;"></i>
+                                                <a class="fa fa-ellipsis-v" onclick="show_master_tarif(this.parentNode.getElementsByTagName('input')[0]);" style="cursor: pointer; font-size: 10px;"></a>
                                                 &nbsp;
                                             </td>
                                             <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 6%;"><input <?php echo $disabled_input; ?> autocomplete="off" name="subtotal_<?php echo $alphabet_lanjutan[$keys_ma[$i]]; ?>_<?php echo ($j + 1); ?>[]" class="numberonly" type="number" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="<?php echo $total_perkalian; ?>"></td>
@@ -644,7 +645,7 @@
                         <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 6%;">
                             <input autocomplete="off" name="tarif_{newname}_1[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 78%;" placeholder="NOM" value="0.00">
                             &nbsp;
-                            <i class="fa fa-ellipsis-v" onclick="show_master_tarif(this.parentNode.getElementsByTagName('input')[0]);" style="cursor: pointer; font-size: 10px;"></i>
+                            <a class="fa fa-ellipsis-v" onclick="show_master_tarif(this.parentNode.getElementsByTagName('input')[0]);" style="cursor: pointer; font-size: 10px;"></a>
                             &nbsp;
                         </td>
                         <td style="text-align: center; border-right: #f0f0f0 1px solid; padding: 0px; vertical-align: middle; width: 6%;"><input autocomplete="off" name="subtotal_{newname}_1[]" class="numberonly" type="text" style="background-color: white; box-sizing: border-box; border: none; outline: none;height: 32px; text-align: right;width: 88%;" placeholder="NOM" value="0.00"></td>

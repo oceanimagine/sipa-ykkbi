@@ -56,8 +56,14 @@
                 </label>
                 <div class="col-md-2 button-preview" style="padding-right: 6px;">
                     <select class="form-group" style="margin-bottom: 0px; margin-right: 0px; width: 100%; padding: 0px; text-align: center; margin-left: 0px; height: 126px;">
-                        <option value="">PILIH</option>
-                        <option value="DSD">DSD</option>
+                        <option value="">ALL SATKER</option>
+                        <?php
+                        if(isset($data_satker) && is_array($data_satker)){
+                            foreach($data_satker as $satker){
+                                echo "<option value='".$satker->satkerid."'>".$satker->nama1."</option>\n";
+                            }
+                        }
+                        ?>
                     </select>
                 </div>
                 <div class="col-md-1 button-preview" style="padding-right: 0px; padding-left: 0px;">
@@ -92,8 +98,14 @@
                 </label>
                 <div class="col-md-2 button-preview" style="padding-right: 6px;">
                     <select class="form-group" style="margin-bottom: 0px; margin-right: 0px; width: 100%; padding: 0px; text-align: center; margin-left: 0px; height: 126px;">
-                        <option value="">PILIH</option>
-                        <option value="DSD">DSD</option>
+                        <option value="">ALL SATKER</option>
+                        <?php
+                        if(isset($data_satker) && is_array($data_satker)){
+                            foreach($data_satker as $satker){
+                                echo "<option value='".$satker->satkerid."'>".$satker->nama1."</option>\n";
+                            }
+                        }
+                        ?>
                     </select>
                 </div>
                 <div class="col-md-1 button-preview" style="padding-right: 0px; padding-left: 0px;">
