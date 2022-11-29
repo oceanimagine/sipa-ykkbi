@@ -73,18 +73,46 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach($data as $data_inside) { ?>
+                            
+                            <?php 
+                            $jumlah_pks = 0;
+                            $jumlah_pkns = 0;
+                            $jumlah_pks_keg = 0;
+                            $jumlah_pkns_keg = 0;
+                            $nom_pendapatan = 0;
+                            $nom_biaya = 0;
+                            $nom_investasi = 0;
+                            $nom_rencana_korporasi = 0;
+                            foreach($data as $data_inside) { 
+                            $jumlah_pks = $jumlah_pks + $data_inside->pks;
+                            $jumlah_pkns = $jumlah_pkns + $data_inside->pkns;
+                            $jumlah_pks_keg = $jumlah_pks_keg + $data_inside->keg_pks;
+                            $jumlah_pkns_keg = $jumlah_pkns_keg + $data_inside->keg_pkns;
+                            $nom_pendapatan = $nom_pendapatan + tolong_jadiin_dua_angka_aja_di_belakang_koma($data_inside->nom_pendapatan);
+                            $nom_biaya = $nom_biaya + tolong_jadiin_dua_angka_aja_di_belakang_koma($data_inside->nom_biaya);
+                            $nom_investasi = $nom_investasi + tolong_jadiin_dua_angka_aja_di_belakang_koma($data_inside->nom_investasi);
+                            $nom_rencana_korporasi = $nom_rencana_korporasi + tolong_jadiin_dua_angka_aja_di_belakang_koma($data_inside->nom_rencana_korporasi);
+                            ?>
                             <tr>
                                 <td style="width: 5%;"><?php echo $data_inside->sbpkode; ?></td>
                                 <td title="<?php echo $data_inside->sbpdesc; ?>"><?php echo $data_inside->sbpdesc; ?></td>
                                 <td style="width: 8%; text-align: center;"><?php echo $data_inside->pks; ?> <span class="badge badge-light"><?php echo $data_inside->keg_pks; ?></span></td>
                                 <td style="width: 8%; text-align: center;"><?php echo $data_inside->pkns; ?> <span class="badge badge-light"><?php echo $data_inside->keg_pkns; ?></span></td>
-                                <td style="width: 10%; text-align: right; background-color: rgb(0, 0, 255, 0.05);"><?php echo number_format($data_inside->nom_pendapatan,2); ?></td>
-                                <td style="width: 10%; text-align: right;"><?php echo number_format($data_inside->nom_biaya,2); ?></td>
-                                <td style="width: 10%; text-align: right; background-color: rgb(0, 0, 255, 0.05);"><?php echo number_format($data_inside->nom_investasi,2); ?></td>
-                                <td style="width: 10%; text-align: right;"><?php echo number_format($data_inside->nom_rencana_korporasi,2); ?></td>
+                                <td style="width: 10%; text-align: right; background-color: rgb(0, 0, 255, 0.05);"><?php echo set_titik_gaya_indonesia($data_inside->nom_pendapatan, true); ?></td>
+                                <td style="width: 10%; text-align: right;"><?php echo set_titik_gaya_indonesia($data_inside->nom_biaya, true); ?></td>
+                                <td style="width: 10%; text-align: right; background-color: rgb(0, 0, 255, 0.05);"><?php echo set_titik_gaya_indonesia($data_inside->nom_investasi, true); ?></td>
+                                <td style="width: 10%; text-align: right;"><?php echo set_titik_gaya_indonesia($data_inside->nom_rencana_korporasi, true); ?></td>
                             </tr>
                             <?php } ?>
+                            <tr>
+                                <td colspan="2" style="text-align: right;">Total : </td>
+                                <td style="text-align: center;"><?php echo $jumlah_pks; ?> <span class="badge badge-light"><?php echo $jumlah_pks_keg; ?></span></td>
+                                <td style="text-align: center;"><?php echo $jumlah_pkns; ?> <span class="badge badge-light"><?php echo $jumlah_pkns_keg; ?></span></td>
+                                <td style="text-align: right; background-color: rgb(0, 0, 255, 0.05);"><?php echo set_titik_gaya_indonesia($nom_pendapatan, true); ?></td>
+                                <td style="text-align: right;"><?php echo set_titik_gaya_indonesia($nom_biaya, true); ?></td>
+                                <td style="text-align: right; background-color: rgb(0, 0, 255, 0.05);"><?php echo set_titik_gaya_indonesia($nom_investasi, true); ?></td>
+                                <td style="text-align: right;"><?php echo set_titik_gaya_indonesia($nom_rencana_korporasi, true); ?></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

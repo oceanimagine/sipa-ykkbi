@@ -112,7 +112,8 @@ class add_anggaran extends CI_Controller {
                     'sbpkode' => $sbpkode_at,
                     'pktkode' => /* $pktkode_at */ $pktkode_rk_rincian_,
                     'rekmakode' => $rekmakode_at,
-                    'keterangan' => $keterangan
+                    'keterangan' => $keterangan,
+                    'svrtime' => date("Y-m-d H:i:s")
                 )
             )); 
             $affected_at = $this->affected;

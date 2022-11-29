@@ -136,7 +136,7 @@
                         <?php } ?>
                     </select>
                     <?php 
-                    if(isset($urutan_kegiatan)){
+                    if(isset($urutan_rincian_kegiatan) && $urutan_rincian_kegiatan != ""){
                         ?><input type="hidden" name="nokegiatan_pkt_kode" value="<?php echo $urutan_kegiatan ?>" /><?php
                     }
                     ?>
@@ -153,14 +153,14 @@
             </div>
             
             <div class="form-group">
-                <label for="pktnama" class="col-xs-2 control-label">PKT Nama</label>
+                <label for="pktnama" class="col-xs-2 control-label">Nama</label>
                 <div class="col-xs-10">
                     <input <?php echo $disabled; ?> type="text" id="pktnama" class="form-control" name="pktnama" placeholder="PKT Nama" value="<?php echo isset($pktnama) ? $pktnama : ""; ?>" />
                 </div>
             </div>
             
             <div class="form-group">
-                <label for="pktoutput" class="col-xs-2 control-label">PKT Output</label>
+                <label for="pktoutput" class="col-xs-2 control-label">Output</label>
                 <div class="col-xs-10">
                     <input <?php echo $disabled; ?> type="text" id="pktoutput" class="form-control" name="pktoutput" placeholder="PKT Output" value="<?php echo isset($pktoutput) ? $pktoutput : ""; ?>" />
                 </div>

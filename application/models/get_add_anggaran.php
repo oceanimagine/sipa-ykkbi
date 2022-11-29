@@ -97,7 +97,12 @@ class get_add_anggaran extends CI_Model {
                 -- a.kode, 
                 b.nama1, 
                 a.pktkode ||' # '|| c.pktnama xxx,
-                overlay(overlay(d.rekmakode placing '.' from 4 for 0) placing '.' from 8 for 0)  ||' # '|| d.rekmanama yyy
+                overlay(overlay(d.rekmakode placing '.' from 4 for 0) placing '.' from 8 for 0)  ||' # '|| d.rekmanama yyy,
+                CONCAT(
+                    trim(to_char(a.svrtime, 'Dy')), ' ', 
+                    to_char(a.svrtime, 'Mon DD YYYY'), ' at ', 
+                    to_char(a.svrtime, 'HH24:MI:SS')
+                ) tanggal 
             from tbldaftarat a
                 left join 
                 tblmastersatker b on b.satkerid = left(a.pktkode,1)

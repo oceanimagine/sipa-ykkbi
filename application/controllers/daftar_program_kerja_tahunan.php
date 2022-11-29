@@ -95,9 +95,31 @@ class daftar_program_kerja_tahunan extends CI_Controller {
             $pktoutput = $this->input->post('pktoutput');
             $pktkode = $satker_pkt_kode . "." . $nokegiatan_pkt_kode . ($norinciankegiatan_pkt_kode != "" ? "." . $norinciankegiatan_pkt_kode : "");
             
+            
+            if($satker_pkt_kode == "" || $nokegiatan_pkt_kode == "" || $pktnama == "" || $pktoutput == "" || $sbpps_kode_hidden == ""){
+                message::set("Mohon Lengkapi Isian Data Kegiatan.");
+                redirect('daftar-program-kerja-tahunan/edit/' . $id);
+                exit();
+            }
+            
+            if($pktkrk == "RK"){
+                if($norinciankegiatan_pkt_kode == ""){
+                    message::set("Mohon Lengkapi Isian Data Rincian Kegiatan.");
+                    redirect('daftar-program-kerja-tahunan/edit/' . $id);
+                    exit();
+                }
+            }
+            
+            
+            /* 
+            echo "<pre>\n";
+            print_r($_POST);
+            echo "</pre>\n"; */
+            
             $do_update = true;
             $data_tidak_sama = true;
             
+            // print_query();
             $this->get_daftar_program_kerja_tahunan->process(array(
                 'action' => 'select',
                 'table' => 'tbldaftarpkt',
@@ -118,6 +140,7 @@ class daftar_program_kerja_tahunan extends CI_Controller {
                     'where' => 'kode = \''.$this->kode_project_scope_controller.'\' and sbpkode = \''.$sbpps_kode_hidden.'\' and (pktkode != \''.$this->pktkode.'\' and pktkode = \''.$pktkode.'\')'
                 ));
                 if(sizeof($this->all) > 0){
+                    $pktkode = $this->pktkode;
                     $do_update = false;
                     Message::set("Update Data Failed PKT Kode sudah tersedia.");
                 }
@@ -210,6 +233,10 @@ class daftar_program_kerja_tahunan extends CI_Controller {
         $kegiatan_rincian = $this->row;
         $pktnama = $kegiatan_rincian->{'pktnama'};
         $pktoutput = $kegiatan_rincian->{'pktoutput'};
+        if(!isset($kegiatan_rincian->{'pktnama'})){
+            Message::set("Data Tidak Ditemukan.");
+            redirect('daftar-program-kerja-tahunan');
+        }
         // echo $pktnama;
         $this->layout->loadView('daftar_program_kerja_tahunan_form', array(
             'sbpkode_display' => $sbpkode_display,
@@ -279,6 +306,27 @@ class daftar_program_kerja_tahunan extends CI_Controller {
             $pktoutput = $this->input->post('pktoutput');
             $pktkode = $satker_pkt_kode . "." . $nokegiatan_pkt_kode . ($norinciankegiatan_pkt_kode != "" ? "." . $norinciankegiatan_pkt_kode : "");
             
+            if($satker_pkt_kode == "" || $nokegiatan_pkt_kode == "" || $pktnama == "" || $pktoutput == "" || $sbpps_kode_hidden == ""){
+                message::set("Mohon Lengkapi Isian Data Kegiatan.");
+                redirect('daftar-program-kerja-tahunan/add');
+                exit();
+            }
+            
+            if($pktkrk == "RK"){
+                if($norinciankegiatan_pkt_kode == ""){
+                    message::set("Mohon Lengkapi Isian Data Rincian Kegiatan.");
+                    redirect('daftar-program-kerja-tahunan/add');
+                    exit();
+                }
+            }
+            
+            /* 
+            echo "<pre>\n";
+            print_r($_POST);
+            echo "</pre>\n";
+            echo $pktkode;
+            exit(); */
+            
             $do_insert = true;
             $this->get_daftar_program_kerja_tahunan->process(array(
                 'action' => 'select',
@@ -323,7 +371,7 @@ class daftar_program_kerja_tahunan extends CI_Controller {
     private $pktkode_kegiatan;
     private $satker_display;
     private $urutan_kegiatan;
-    private $urutan_rincian_kegiatan;
+    private $urutan_rincian_kegiatan = "";
     public function process_param($param_id){
         if($this->router->routes['translate_uri_dashes']){
             $param_id = str_replace("_", "-", $param_id);

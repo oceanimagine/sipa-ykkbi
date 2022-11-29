@@ -9,12 +9,14 @@ use PhpOffice\PhpSpreadsheet\Style\Color;
 class process_report_excel_ma {
     private $spreadsheet;
     public $filename = "";
-    public function __construct($all = "", $view_only = false){
+    public $ada_satker = "";
+    public function __construct($all = "", $view_only = false, $satker = ""){
         if($all == "all"){
             ini_set("display_errors", "On");
             error_reporting(E_ALL);
             $this->CI = & get_instance();
             $this->CI->load->model('get_add_anggaran');
+            $this->ada_satker = $satker;
             $reader = IOFactory::createReader("Xlsx");
             $this->spreadsheet = $reader->load(__DIR__."/../../upload/xlsx_excel/template_live_ma.xlsx");
             $this->report_operasional_tahunan_dan_rppt();
@@ -37,13 +39,22 @@ class process_report_excel_ma {
         $row_col = $process_report_config->operasional_tahunan_dan_rppt;
         
         $key_row_col = array_keys($row_col);
-        
-        $this->CI->get_add_anggaran->process(array(
-            'action' => 'select',
-            'table' => 'sp_rpt_anggaran_mataanggaran(\''.$this->CI->kode_project_scope_controller.'\')',
-            'column_value' => $key_row_col,
-            'where' => "rekmagroup in ('PENDAPATAN','BEBAN','BEBAN PAJAK') and lvl::int <= 3"
-        ));
+        // print_query();
+        if($this->ada_satker == ""){
+            $this->CI->get_add_anggaran->process(array(
+                'action' => 'select',
+                'table' => 'sp_rpt_anggaran_mataanggaran(\''.$this->CI->kode_project_scope_controller.'\')',
+                'column_value' => $key_row_col,
+                'where' => "rekmagroup in ('PENDAPATAN','BEBAN','BEBAN PAJAK') and lvl::int <= 3"
+            ));
+        } else {
+            $this->CI->get_add_anggaran->process(array(
+                'action' => 'select',
+                'table' => 'sp_rpt_anggaran_mataanggaran(\''.$this->CI->kode_project_scope_controller.'\', \''.$this->ada_satker.'\')',
+                'column_value' => $key_row_col,
+                'where' => "rekmagroup in ('PENDAPATAN','BEBAN','BEBAN PAJAK') and lvl::int <= 3"
+            ));
+        }
         
         $sheetname = "OPERASIONAL";
         $spreadsheet = $this->spreadsheet;
@@ -144,12 +155,21 @@ class process_report_excel_ma {
         
         $key_row_col = array_keys($row_col);
         
-        $this->CI->get_add_anggaran->process(array(
-            'action' => 'select',
-            'table' => 'sp_rpt_anggaran_mataanggaran(\''.$this->CI->kode_project_scope_controller.'\')',
-            'column_value' => $key_row_col,
-            'where' => "rekmagroup in ('PENDAPATAN','BEBAN','BEBAN PAJAK') and lvl::int <= 5"
-        ));
+        if($this->ada_satker == ""){
+            $this->CI->get_add_anggaran->process(array(
+                'action' => 'select',
+                'table' => 'sp_rpt_anggaran_mataanggaran(\''.$this->CI->kode_project_scope_controller.'\')',
+                'column_value' => $key_row_col,
+                'where' => "rekmagroup in ('PENDAPATAN','BEBAN','BEBAN PAJAK') and lvl::int <= 5"
+            ));
+        } else {
+            $this->CI->get_add_anggaran->process(array(
+                'action' => 'select',
+                'table' => 'sp_rpt_anggaran_mataanggaran(\''.$this->CI->kode_project_scope_controller.'\', \''.$this->ada_satker.'\')',
+                'column_value' => $key_row_col,
+                'where' => "rekmagroup in ('PENDAPATAN','BEBAN','BEBAN PAJAK') and lvl::int <= 5"
+            ));
+        }
         
         $sheetname = "OPERASIONAL-RINCIAN";
         $spreadsheet = $this->spreadsheet;
@@ -269,12 +289,21 @@ class process_report_excel_ma {
         
         $key_row_col = array_keys($row_col);
         
-        $this->CI->get_add_anggaran->process(array(
-            'action' => 'select',
-            'table' => 'sp_rpt_anggaran_mataanggaran(\''.$this->CI->kode_project_scope_controller.'\')',
-            'column_value' => $key_row_col,
-            'where' => "rekmagroup in ('INVESTASI','RENCANA KORPORASI') and lvl::int <= 3"
-        ));
+        if($this->ada_satker == ""){
+            $this->CI->get_add_anggaran->process(array(
+                'action' => 'select',
+                'table' => 'sp_rpt_anggaran_mataanggaran(\''.$this->CI->kode_project_scope_controller.'\')',
+                'column_value' => $key_row_col,
+                'where' => "rekmagroup in ('INVESTASI','RENCANA KORPORASI') and lvl::int <= 3"
+            ));
+        } else {
+            $this->CI->get_add_anggaran->process(array(
+                'action' => 'select',
+                'table' => 'sp_rpt_anggaran_mataanggaran(\''.$this->CI->kode_project_scope_controller.'\', \''.$this->ada_satker.'\')',
+                'column_value' => $key_row_col,
+                'where' => "rekmagroup in ('INVESTASI','RENCANA KORPORASI') and lvl::int <= 3"
+            ));
+        }
         
         $sheetname = "INV-RENKORP";
         $spreadsheet = $this->spreadsheet;
@@ -371,12 +400,21 @@ class process_report_excel_ma {
         
         $key_row_col = array_keys($row_col);
         
-        $this->CI->get_add_anggaran->process(array(
-            'action' => 'select',
-            'table' => 'sp_rpt_anggaran_mataanggaran(\''.$this->CI->kode_project_scope_controller.'\')',
-            'column_value' => $key_row_col,
-            'where' => "rekmagroup in ('INVESTASI','RENCANA KORPORASI') and lvl::int <= 5"
-        ));
+        if($this->ada_satker == ""){
+            $this->CI->get_add_anggaran->process(array(
+                'action' => 'select',
+                'table' => 'sp_rpt_anggaran_mataanggaran(\''.$this->CI->kode_project_scope_controller.'\')',
+                'column_value' => $key_row_col,
+                'where' => "rekmagroup in ('INVESTASI','RENCANA KORPORASI') and lvl::int <= 5"
+            ));
+        } else {
+            $this->CI->get_add_anggaran->process(array(
+                'action' => 'select',
+                'table' => 'sp_rpt_anggaran_mataanggaran(\''.$this->CI->kode_project_scope_controller.'\', \''.$this->ada_satker.'\')',
+                'column_value' => $key_row_col,
+                'where' => "rekmagroup in ('INVESTASI','RENCANA KORPORASI') and lvl::int <= 5"
+            ));
+        }
         
         $sheetname = "INV-RENKORP-RINCIAN";
         $spreadsheet = $this->spreadsheet;
@@ -496,12 +534,21 @@ class process_report_excel_ma {
         
         $key_row_col = array_keys($row_col);
         
-        $this->CI->get_add_anggaran->process(array(
-            'action' => 'select',
-            'table' => 'sp_rpt_anggaran_mataanggaran_kegiatan(\''.$this->CI->kode_project_scope_controller.'\')',
-            'column_value' => array("*"),
-            'where' => "lvl::int <= 5"
-        ));
+        if($this->ada_satker == ""){
+            $this->CI->get_add_anggaran->process(array(
+                'action' => 'select',
+                'table' => 'sp_rpt_anggaran_mataanggaran_kegiatan(\''.$this->CI->kode_project_scope_controller.'\')',
+                'column_value' => array("*"),
+                'where' => "lvl::int <= 5"
+            ));
+        } else {
+            $this->CI->get_add_anggaran->process(array(
+                'action' => 'select',
+                'table' => 'sp_rpt_anggaran_mataanggaran_kegiatan(\''.$this->CI->kode_project_scope_controller.'\', \''.$this->ada_satker.'\')',
+                'column_value' => array("*"),
+                'where' => "lvl::int <= 5"
+            ));
+        }
         
         $sheetname = "MA-KEGIATAN";
         $spreadsheet = $this->spreadsheet;

@@ -160,6 +160,10 @@ function is_tag(param){
     
 }
 
+function isNumeric(param){
+    return !isNaN(parseFloat(param)) && isFinite(param);
+}
+
 var oTable = {};
 $(document).ready(function () {
     
@@ -210,6 +214,18 @@ $(document).ready(function () {
                             if(!is_tag(data[address + 1])){
                                 $(this).attr('title', data[address + 1]);
                                 $(this).html(data[address + 1].length > 80 ? data[address + 1].substr(0,80) + " ...." : data[address + 1]);
+                            }
+                            if(typeof kolom_angka !== "undefined" && typeof kolom_angka === "object"){
+                                for(var i = 0; i < kolom_angka.length; i++){
+                                    /* console.log(data[kolom_angka[i]]); */
+                                    var get_tr = this.parentNode;
+                                    var get_td = get_tr.getElementsByTagName("td");
+                                    get_td[kolom_angka[i] - 1].style.textAlign = "right";
+                                    get_td[kolom_angka[i] - 1].innerHTML = set_tiga_titik_versi_indonesia(data[kolom_angka[i]]);
+                                }
+                            }
+                            if(isNumeric($(this).html())){
+                                /* console.log(this); */
                             }
                         }
                     }

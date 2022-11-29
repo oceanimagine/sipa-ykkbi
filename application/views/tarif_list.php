@@ -40,6 +40,7 @@
 </head>
 <body>
     <script type="text/javascript" id="tempat_script">
+    var kolom_angka = [5];
     if(typeof $ !== "undefined"){
         <?php echo $script; ?>
     }

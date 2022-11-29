@@ -65,6 +65,7 @@
                                 <th>Satker</th>
                                 <th>Rincian Kegiatan</th>
                                 <th>Mata Anggaran</th>
+                                <th>Tanggal Input</th>
                                 <th>Action</th>
                             </tr>
                         </thead>

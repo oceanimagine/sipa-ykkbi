@@ -406,6 +406,52 @@ function set_titik($param){
     return $hasil;
 }
 
+function tolong_jadiin_dua_angka_aja_di_belakang_koma($param){
+    $param = (string) $param;
+    $explode_param = explode(".", $param);
+    $angka_asli = $explode_param[0];
+    $angka_koma = isset($explode_param[1]) ? $explode_param[1] : "";
+    return $angka_asli . ($angka_koma != "" ? "." . (strlen($angka_koma) > 2 ? $angka_koma[0] . $angka_koma[1] : $angka_koma . "0") : "");
+}
+
+function set_titik_gaya_indonesia($param,$angka_di_belakang_koma_default = false){
+    $param = (string) $param;
+    $explode_param = explode(".", $param);
+    $angka_asli = $explode_param[0];
+    $angka_koma = isset($explode_param[1]) ? $explode_param[1] : "";
+    $hasil = "";
+    $jumlah = strlen($angka_asli);
+    while(true){
+        if($jumlah > 3){
+            $jumlah = $jumlah - 3;
+            $hasil = "." . substr($angka_asli, $jumlah, 3) . $hasil;
+        } else {
+            $hasil = substr($angka_asli, 0, $jumlah) . $hasil;
+            break;
+            
+        }
+    }
+    return $hasil . ($angka_koma != "" ? "," . (strlen($angka_koma) > 2 ? $angka_koma[0] . $angka_koma[1] : $angka_koma) : ($angka_di_belakang_koma_default ? ",00" : ""));
+}
+
+function remove_comma_decimal($param){
+    $explode_titik = explode(".", $param);
+    $hasil = true;
+    if(isset($explode_titik[1]) && $explode_titik[1] != ""){
+        for($i = 0; $i < strlen($explode_titik[1]); $i++){
+            if($explode_titik[1][$i] != 0){
+                $hasil = false;
+                break;
+            }
+        }
+    }
+    if($hasil && $explode_titik[0] != 0){
+        return $explode_titik[0];
+    } else {
+        return $param;
+    }
+}
+
 // Project Modal
 function project_modal(){
     $CI =& get_instance();

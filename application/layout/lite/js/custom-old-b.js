@@ -80,7 +80,7 @@ function put_bold(tr_object, param_a, param_b){
     }
 }
 
-function search_from_tbody(tbody_object, input_object, colspan_number, input_active, id_dialog, address_display, inisial_temp){
+function search_from_tbody(tbody_object, input_object, colspan_number, input_active, id_dialog, address_display){
     var get_tr = tbody_object.getElementsByTagName("tr");
     var tampung_tr = [];
     var address_tr = 0;
@@ -125,7 +125,7 @@ function search_from_tbody(tbody_object, input_object, colspan_number, input_act
         }
     }
     if(data_ketemu){
-        set_tr_click_inside_tbody(tbody_object,input_active,id_dialog,address_display,inisial_temp);
+        set_tr_click_inside_tbody(tbody_object,input_active,id_dialog,address_display);
     }
 }
 
@@ -279,7 +279,7 @@ function re_trigger_numberonly_input(){
         check_nom_per_baris(this);
         set_tiga_titik_all();
         var get_nama = this.getAttribute("name");
-        if(get_nama.substr(0,1) === "Q" || get_nama.substr(0,1) === "F"/* || get_nama.substr(0,"tarif_".length) === "tarif_" */ || get_nama.substr(0,"subtotal_".length) === "subtotal_" || get_nama.substr(0,"tw1_".length) === "tw1_" || get_nama.substr(0,"tw2_".length) === "tw2_" || get_nama.substr(0,"tw3_".length) === "tw3_" || get_nama.substr(0,"tw4_".length) === "tw4_"){
+        if(get_nama.substr(0,1) === "Q" || get_nama.substr(0,1) === "F"){
             this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "" ? this.value : (this.value !== "" ? this.value + "" : ((this.value === "" ? "0" : this.value) + ""));
         } else {
             this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "" ? this.value : (this.value !== "" ? this.value + ".00" : ((this.value === "" ? "0" : this.value) + ".00"));
@@ -328,8 +328,7 @@ function re_trigger_input_with_class(classname){
 }
 
 function set_tiga_titik(object_input){
-    var nilai_all = object_input.value.split(".");
-    var nilai = nilai_all[0];
+    var nilai = object_input.value;
     var hasil = typeof nilai !== "undefined" ? nilai : "";
     if(typeof nilai !== "undefined"){
         hasil = "";
@@ -344,28 +343,9 @@ function set_tiga_titik(object_input){
             }
         }
     }
-    return hasil + (typeof nilai_all[1] !== "undefined" && nilai_all[1] !== "" ? "." + nilai_all[1] : "");
+    return hasil;
 }
 
-function set_tiga_titik_versi_indonesia(nilai_bukan_input_text){
-    var nilai_all = nilai_bukan_input_text;
-    var split_nilai = nilai_all.split(".");
-    var nilai = split_nilai[0];
-    var hasil =  "";
-    var jumlah_string = nilai.length;
-    while(true){
-        if(jumlah_string > 3){
-            jumlah_string = jumlah_string - 3;
-            hasil = "." + nilai.substr(jumlah_string, 3) + hasil;
-        } else {
-            hasil = nilai.substr(0, jumlah_string) + hasil;
-            break;
-        }
-    }
-    return hasil + (typeof split_nilai[1] !== "undefined" && split_nilai[1] !== "" ? "," + split_nilai[1] : "");
-}
-
-// console.log(set_tiga_titik_versi_indonesia("10000000000.00"));
 
 function unset_tiga_titik_all_per_input(object_input){
     if(object_input.getAttribute("class") === "numberonly"){
@@ -883,7 +863,7 @@ $(function () {
         
         
         var get_nama = this.getAttribute("name");
-        if(get_nama.substr(0,1) === "Q" || get_nama.substr(0,1) === "F"/* || get_nama.substr(0,"tarif_".length) === "tarif_" */ || get_nama.substr(0,"subtotal_".length) === "subtotal_" || get_nama.substr(0,"tw1_".length) === "tw1_" || get_nama.substr(0,"tw2_".length) === "tw2_" || get_nama.substr(0,"tw3_".length) === "tw3_" || get_nama.substr(0,"tw4_".length) === "tw4_"){
+        if(get_nama.substr(0,1) === "Q" || get_nama.substr(0,1) === "F"){
             this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "" ? this.value : (this.value !== "" ? this.value + "" : ((this.value === "" ? "0" : this.value) + ""));
         } else {
             this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "" ? this.value : (this.value !== "" ? this.value + ".00" : ((this.value === "" ? "0" : this.value) + ".00"));
@@ -1234,8 +1214,6 @@ function tambah_table(){
             if(status === "success"){
                 if(check_session(data)){
                     var mata_anggaran = document.getElementById("mata_anggaran" + tombol.next_inisial);
-                    temporary_input_mata_anggaran_ = mata_anggaran;
-                    temporary_inisial_mata_anggaran_ = tombol.next_inisial;
                     // console.log(mata_anggaran);
                     var tbody_hasil_data_mata_anggaran = document.getElementById("tbody_hasil_data_mata_anggaran");
                     tbody_hasil_data_mata_anggaran.innerHTML = data;

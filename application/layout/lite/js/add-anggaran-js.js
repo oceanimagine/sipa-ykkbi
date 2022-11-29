@@ -826,7 +826,7 @@ function jumlahkan_nom_per_baris(object_input){
              tarif_ = Number(get_input[k].value);
          }
          if(get_input[k].getAttribute("name").substr(0, "subtotal_".length) === "subtotal_"){
-             get_input[k].value = Q_ * F_ *tarif_;
+             get_input[k].value = (Q_ * F_ *tarif_).toFixed(2);
          }
     }
 }
@@ -1429,6 +1429,16 @@ function set_tr_click_inside_tbody(tbody_active,input_active,id_dialog,display_a
                     }
                     input_active.value = hasil_concate_display;
                     if(get_id === null){
+                        if(input_active.getAttribute("name") !== null && input_active.getAttribute("name").substr(0, "tarif_".length) === "tarif_" && input_active.getAttribute("class") !== null && input_active.getAttribute("class") === "numberonly"){
+                            var get_tr = input_active.parentNode.parentNode;
+                            // console.log(get_tr);
+                            var get_input_tr = get_tr.getElementsByTagName("input");
+                            for(var i = 0; i < get_input_tr.length; i++){
+                                if(get_input_tr[i].getAttribute("name").substr(0, "nama_".length) === "nama_" && get_input_tr[i].getAttribute("class") === "textinput"){
+                                    get_input_tr[i].value = typeof get_attr_data[3] !== "undefined" && get_attr_data[3] !== "" ? get_attr_data[3] : "Anggaran Default.";
+                                }
+                            }
+                        }
                         input_active.focus();
                     }
                     $('#'+id_dialog).modal('hide');
@@ -1439,6 +1449,8 @@ function set_tr_click_inside_tbody(tbody_active,input_active,id_dialog,display_a
     }
 }
 
+var temporary_input_mata_anggaran_;
+var temporary_inisial_mata_anggaran_;
 var data_json = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua & Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia & Herzegovina","Botswana","Brazil","British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central Arfrican Republic","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica","Cote D Ivoire","Croatia","Cuba","Curacao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauro","Nepal","Netherlands","Netherlands Antilles","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","North Korea","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre & Miquelon","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","St Kitts & Nevis","St Lucia","St Vincent","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad & Tobago","Tunisia","Turkey","Turkmenistan","Turks & Caicos","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States of America","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe"];
 window.addEventListener("load", function () {
     autocomplete("satuan_kerja", data_json);
@@ -1476,6 +1488,8 @@ window.addEventListener("load", function () {
             if(status === "success"){
                 if(check_session(data)){
                     var mata_anggaran = document.getElementById("mata_anggaran");
+                    temporary_input_mata_anggaran_ = mata_anggaran;
+                    temporary_inisial_mata_anggaran_ = "default";
                     var tbody_hasil_data_mata_anggaran = document.getElementById("tbody_hasil_data_mata_anggaran");
                     tbody_hasil_data_mata_anggaran.innerHTML = data;
                     $('#modal-mata-anggaran').modal('show');
@@ -1489,7 +1503,7 @@ window.addEventListener("load", function () {
         search_from_tbody(document.getElementById('tbody_hasil_data'), this, '3', document.getElementById('kegiatan_program_kerja_rincian'), 'modal-rincian-kegiatan', '3,4');
     });
     $("#search_text_dialog_mata_kegiatan").bind("keypress keyup keydown", function () {
-        search_from_tbody(document.getElementById('tbody_hasil_data_mata_anggaran'), this, '2', document.getElementById('mata_anggaran'), 'modal-mata-anggaran', '2,3');
+        search_from_tbody(document.getElementById('tbody_hasil_data_mata_anggaran'), this, '2', temporary_input_mata_anggaran_, 'modal-mata-anggaran', '2,3', temporary_inisial_mata_anggaran_);
     });
     $("#search_text_dialog_master_tarif").bind("keypress keyup keydown", function () {
         search_from_tbody(document.getElementById('tbody_hasil_data_master_tarif'), this, '6', temporary_object_input_master_anggaran, 'modal-master-tarif', '4');

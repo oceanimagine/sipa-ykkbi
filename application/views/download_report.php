@@ -55,7 +55,7 @@
                     </ul>
                 </label>
                 <div class="col-md-2 button-preview" style="padding-right: 6px;">
-                    <select class="form-group" style="margin-bottom: 0px; margin-right: 0px; width: 100%; padding: 0px; text-align: center; margin-left: 0px; height: 126px;">
+                    <select id="select_laporan_anggaran_berdasarkan_program_kerja" class="form-group" style="margin-bottom: 0px; margin-right: 0px; width: 100%; padding: 0px; text-align: center; margin-left: 0px; height: 126px;">
                         <option value="">ALL SATKER</option>
                         <?php
                         if(isset($data_satker) && is_array($data_satker)){
@@ -67,7 +67,10 @@
                     </select>
                 </div>
                 <div class="col-md-1 button-preview" style="padding-right: 0px; padding-left: 0px;">
-                    <button id="preview_laporan_anggaran_berdasarkan_program_kerja" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="preview_laporan_anggaran_berdasarkan_program_kerja" value="Preview"><i class="fa fa-lg fa-file-excel-o"></i></button>
+                    <button id="preview_laporan_anggaran_berdasarkan_program_kerja" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="preview_laporan_anggaran_berdasarkan_program_kerja" value="Preview">
+                        <?php /* <i class="fa fa-lg fa-file-excel-o"></i> */ ?>
+                        <img src="image/logo-button-preview.png" style="width: 32px;" />
+                    </button>
                 </div>
                 <div class="col-md-1 button-download" style="padding-left: 5px;">
                     <button id="download_laporan_anggaran_berdasarkan_program_kerja" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="download_laporan_anggaran_berdasarkan_program_kerja" value="Download"><i class="fa fa-lg fa-download"></i></button>
@@ -97,7 +100,7 @@
                     </ul>
                 </label>
                 <div class="col-md-2 button-preview" style="padding-right: 6px;">
-                    <select class="form-group" style="margin-bottom: 0px; margin-right: 0px; width: 100%; padding: 0px; text-align: center; margin-left: 0px; height: 126px;">
+                    <select id="select_laporan_anggaran_berdasarkan_mata_anggaran" class="form-group" style="margin-bottom: 0px; margin-right: 0px; width: 100%; padding: 0px; text-align: center; margin-left: 0px; height: 126px;">
                         <option value="">ALL SATKER</option>
                         <?php
                         if(isset($data_satker) && is_array($data_satker)){
@@ -109,7 +112,10 @@
                     </select>
                 </div>
                 <div class="col-md-1 button-preview" style="padding-right: 0px; padding-left: 0px;">
-                    <button id="preview_laporan_anggaran_berdasarkan_mata_anggaran" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="preview_laporan_anggaran_berdasarkan_mata_anggaran" value="Preview"><i class="fa fa-lg fa-file-excel-o"></i></button>
+                    <button id="preview_laporan_anggaran_berdasarkan_mata_anggaran" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="preview_laporan_anggaran_berdasarkan_mata_anggaran" value="Preview">
+                        <?php /* <i class="fa fa-lg fa-file-excel-o"></i> */ ?>
+                        <img src="image/logo-button-preview.png" style="width: 32px;" />
+                    </button>
                 </div>
                 <div class="col-md-1 button-download" style="padding-left: 5px;">
                     <button id="download_laporan_anggaran_berdasarkan_mata_anggaran" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="download_laporan_anggaran_berdasarkan_mata_anggaran" value="Download"><i class="fa fa-lg fa-download"></i></button>

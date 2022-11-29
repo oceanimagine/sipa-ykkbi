@@ -148,14 +148,18 @@ window.addEventListener("load",function(){
         var preview_laporan_anggaran_berdasarkan_program_kerja = document.getElementById("preview_laporan_anggaran_berdasarkan_program_kerja");
         preview_laporan_anggaran_berdasarkan_program_kerja.onclick = function(){
             set_loading();
-            setIframeOS("sbp_view");
+            var select_laporan_anggaran_berdasarkan_program_kerja = document.getElementById("select_laporan_anggaran_berdasarkan_program_kerja");
+            var nilai_select = select_laporan_anggaran_berdasarkan_program_kerja.value;
+            setIframeOS("sbp_view/" + nilai_select);
         };
     }
     if(document.getElementById("preview_laporan_anggaran_berdasarkan_mata_anggaran")){
         var preview_laporan_anggaran_berdasarkan_mata_anggaran = document.getElementById("preview_laporan_anggaran_berdasarkan_mata_anggaran");
         preview_laporan_anggaran_berdasarkan_mata_anggaran.onclick = function(){
             set_loading();
-            setIframeOS("ma_view");
+            var select_laporan_anggaran_berdasarkan_mata_anggaran = document.getElementById("select_laporan_anggaran_berdasarkan_mata_anggaran");
+            var nilai_select = select_laporan_anggaran_berdasarkan_mata_anggaran.value;
+            setIframeOS("ma_view/" + nilai_select);
         };
     }
     if(document.getElementById("preview_data_upload_siaga")){
@@ -184,14 +188,18 @@ window.addEventListener("load",function(){
         var download_laporan_anggaran_berdasarkan_program_kerja = document.getElementById("download_laporan_anggaran_berdasarkan_program_kerja");
         download_laporan_anggaran_berdasarkan_program_kerja.onclick = function(){
             set_loading();
-            setIframe("sbp");
+            var select_laporan_anggaran_berdasarkan_program_kerja = document.getElementById("select_laporan_anggaran_berdasarkan_program_kerja");
+            var nilai_select = select_laporan_anggaran_berdasarkan_program_kerja.value;
+            setIframe("sbp/" + nilai_select);
         };
     }
     if(document.getElementById("download_laporan_anggaran_berdasarkan_mata_anggaran")){
         var download_laporan_anggaran_berdasarkan_mata_anggaran = document.getElementById("download_laporan_anggaran_berdasarkan_mata_anggaran");
         download_laporan_anggaran_berdasarkan_mata_anggaran.onclick = function(){
             set_loading();
-            setIframe("ma");
+            var select_laporan_anggaran_berdasarkan_mata_anggaran = document.getElementById("select_laporan_anggaran_berdasarkan_mata_anggaran");
+            var nilai_select = select_laporan_anggaran_berdasarkan_mata_anggaran.value;
+            setIframe("ma/" + nilai_select);
         };
     }
     if(document.getElementById("download_data_upload_siaga")){

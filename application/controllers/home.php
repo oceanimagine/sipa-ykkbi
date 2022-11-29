@@ -17,7 +17,8 @@ class home extends CI_Controller {
         $this->get_home->process(array(
             'action' => 'select',
             'table' => 'sp_dashboard_sbpcount(\''.$this->kode_project_scope_controller.'\')',
-            'column_value' => array('*')
+            'column_value' => array('*'),
+            'order' => 'sbpkode asc'
         ));
         $this->layout->loadView("home", array( "data" => $this->all ));
     }

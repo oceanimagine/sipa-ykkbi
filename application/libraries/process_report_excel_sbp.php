@@ -11,7 +11,8 @@ class process_report_excel_sbp {
     private $default_height = 18;
     private $default_string = 78;
     public $filename = "";
-    public function __construct($all = "", $view_only = false){
+    public $ada_satker = "";
+    public function __construct($all = "", $view_only = false, $satker = ""){
         if($all == "all"){
             error_reporting(-1);
             ini_set("display_errors", "1");
@@ -19,6 +20,7 @@ class process_report_excel_sbp {
             ini_set("error_log", "/tmp/php-error-2.log");
             $this->CI = & get_instance();
             $this->CI->load->model('get_report');
+            $this->ada_satker = $satker;
             $reader = IOFactory::createReader("Xlsx");
             $this->spreadsheet = $reader->load(__DIR__."/../../upload/xlsx_excel/template_live_sbp.xlsx");
             $this->report_program_strategis_ps();
@@ -42,12 +44,22 @@ class process_report_excel_sbp {
         
         $key_row_col = array_keys($row_col);
         
-        $this->CI->get_report->process(array(
-            'action' => 'select',
-            'table' => 'sp_rpt_sbpps_kegiatan_rincian(\''.$this->CI->kode_project_scope_controller.'\')',
-            'column_value' => $key_row_col,
-            'where' => 'lvl::int = 1'
-        ));
+        
+        if($this->ada_satker == ""){
+            $this->CI->get_report->process(array(
+                'action' => 'select',
+                'table' => 'sp_rpt_sbpps_kegiatan_rincian(\''.$this->CI->kode_project_scope_controller.'\')',
+                'column_value' => $key_row_col,
+                'where' => 'lvl::int = 1'
+            ));
+        } else {
+            $this->CI->get_report->process(array(
+                'action' => 'select',
+                'table' => 'sp_rpt_sbpps_kegiatan_rincian(\''.$this->CI->kode_project_scope_controller.'\', \''.$this->ada_satker.'\')',
+                'column_value' => $key_row_col,
+                'where' => 'lvl::int = 1'
+            ));
+        }
         
         $sheetname = "PROG-STRATEGIS";
         $spreadsheet = $this->spreadsheet;
@@ -100,12 +112,21 @@ class process_report_excel_sbp {
         
         $key_row_col = array_keys($row_col);
         
-        $this->CI->get_report->process(array(
-            'action' => 'select',
-            'table' => 'sp_rpt_sbpps_kegiatan_rincian(\''.$this->CI->kode_project_scope_controller.'\')',
-            'column_value' => $key_row_col,
-            'where' => "lvl::int <= 3"
-        ));
+        if($this->ada_satker == ""){
+            $this->CI->get_report->process(array(
+                'action' => 'select',
+                'table' => 'sp_rpt_sbpps_kegiatan_rincian(\''.$this->CI->kode_project_scope_controller.'\')',
+                'column_value' => $key_row_col,
+                'where' => "lvl::int <= 3"
+            ));
+        } else {
+            $this->CI->get_report->process(array(
+                'action' => 'select',
+                'table' => 'sp_rpt_sbpps_kegiatan_rincian(\''.$this->CI->kode_project_scope_controller.'\', \''.$this->ada_satker.'\')',
+                'column_value' => $key_row_col,
+                'where' => "lvl::int <= 3"
+            ));
+        }
         
         $sheetname = "PROG-KERJA";
         $spreadsheet = $this->spreadsheet;
@@ -181,13 +202,21 @@ class process_report_excel_sbp {
         
         $key_row_col = array_keys($row_col);
         
-        $this->CI->get_report->process(array(
-            'action' => 'select',
-            'table' => 'sp_rpt_sbpps_kegiatan_rincian(\''.$this->CI->kode_project_scope_controller.'\')',
-            'column_value' => $key_row_col,
-            'where' => "lvl::int <= " . $level
-        ));
-        
+        if($this->ada_satker == ""){
+            $this->CI->get_report->process(array(
+                'action' => 'select',
+                'table' => 'sp_rpt_sbpps_kegiatan_rincian(\''.$this->CI->kode_project_scope_controller.'\')',
+                'column_value' => $key_row_col,
+                'where' => "lvl::int <= " . $level
+            ));
+        } else {
+            $this->CI->get_report->process(array(
+                'action' => 'select',
+                'table' => 'sp_rpt_sbpps_kegiatan_rincian(\''.$this->CI->kode_project_scope_controller.'\', \''.$this->ada_satker.'\')',
+                'column_value' => $key_row_col,
+                'where' => "lvl::int <= " . $level . " and left(pktkode,1) = '".$this->ada_satker."'"
+            ));
+        }
         $sheetname = $sheet;
         $spreadsheet = $this->spreadsheet;
         
@@ -294,13 +323,22 @@ class process_report_excel_sbp {
         $row_col = $process_report_config->mata_anggaran_per_rincian_kegiatan;
         
         $key_row_col = array_keys($row_col);
-        
-        $this->CI->get_report->process(array(
-            'action' => 'select',
-            'table' => 'sp_rpt_sbpps_kegiatan_mataanggaran(\''.$this->CI->kode_project_scope_controller.'\')',
-            'column_value' => $key_row_col,
-            'where' => "lvl::int <= 6"
-        ));
+        // print_query();
+        if($this->ada_satker == ""){
+            $this->CI->get_report->process(array(
+                'action' => 'select',
+                'table' => 'sp_rpt_sbpps_kegiatan_mataanggaran(\''.$this->CI->kode_project_scope_controller.'\')',
+                'column_value' => $key_row_col,
+                'where' => "lvl::int <= 6"
+            ));
+        } else {
+            $this->CI->get_report->process(array(
+                'action' => 'select',
+                'table' => 'sp_rpt_sbpps_kegiatan_mataanggaran(\''.$this->CI->kode_project_scope_controller.'\', \''.$this->ada_satker.'\')',
+                'column_value' => $key_row_col,
+                'where' => "lvl::int <= 6 and left(pktkode,1) = '".$this->ada_satker."'"
+            ));
+        }
         
         $sheetname = "PS-PKT-MA";
         $spreadsheet = $this->spreadsheet;
