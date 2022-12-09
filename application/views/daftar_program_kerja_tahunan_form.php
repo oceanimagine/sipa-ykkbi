@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Add Program Kerja Tahunan</title>
+	<title>Program Kerja Tahunan</title>
         <style type="text/css">
             html, body {
                 font-family: consolas, monospace;
@@ -71,9 +71,9 @@
             </div>
             
             <div class="form-group">
-                <label for="sbpps_kode" class="col-xs-2 control-label">SBPPS Kode</label>
+                <label for="sbpps_kode" class="col-xs-2 control-label">Kode PKS/PKNS</label>
                 <div class="col-xs-9 autocomplete">
-                    <input required="" type="text" id="sbpps_kode" class="form-control tambah-margin-bawah" name="sbpps_kode" placeholder="SBPPS Kode" value="<?php echo isset($sbpkode_display) ? $sbpkode_display : ""; ?>" autocomplete="off" disabled="">
+                    <input required="" type="text" id="sbpps_kode" class="form-control tambah-margin-bawah" name="sbpps_kode" placeholder="Kode PKS/PKNS" value="<?php echo isset($sbpkode_display) ? $sbpkode_display : ""; ?>" autocomplete="off" disabled="">
                     <input required="" type="hidden" id="sbpps_kode_hidden" name="sbpps_kode_hidden" value="<?php echo isset($sbpkode_hidden) ? $sbpkode_hidden : ""; ?>">
                     <div style="display: table; width: 100%; margin-top: 15px; display: none;" id="filter_sbp_container">
                         <div style="width: 2.5%; float: left;">
@@ -91,7 +91,7 @@
             </div>
             
             <div class="form-group">
-                <label for="pktkrk" class="col-xs-2 control-label">Tipe</label>
+                <label for="pktkrk" class="col-xs-2 control-label">Jenis Entri</label>
                 <div class="col-xs-10">
                     <select <?php echo $disabled; ?> name="pktkrk" id="pktkrk" class="form-control">
                         <option value="K" <?php echo isset($pktkrk) && $pktkrk == "K" ? " selected" : ""; ?>>Kegiatan</option>
@@ -112,10 +112,10 @@
             </div>
             
             <div class="form-group">
-                <label for="satker_pkt_kode" class="col-xs-2 control-label">PKT Kode</label>
+                <label for="satker_pkt_kode" class="col-xs-2 control-label">Kode PKT</label>
                 <div class="col-xs-5" id="tempat_satker_pkt_kode" style="padding-right: 6px;">
                     <select <?php echo $disabled; ?> name="satker_pkt_kode" id="satker_pkt_kode" class="form-control">
-                        <option value="">PILIH SATKER</option>
+                        <option value="">Pilih Satker</option>
                         <?php foreach($satker_view as $data){ ?>
                         <?php $selected = isset($satker_display) && $satker_display == $data->satkerid ? " selected='selected'" : ""; ?>
                         <option value="<?php echo $data->satkerid; ?>"<?php echo $selected; ?>><?php echo "(" . $data->satkerid . ")" . " " . $data->nama1; ?></option>
@@ -129,7 +129,7 @@
                 </div>
                 <div class="col-xs-5" id="tempat_nokegiatan_pkt_kode" style="padding-left: 6px;">
                     <select <?php echo $disabled; ?> name="nokegiatan_pkt_kode" id="nokegiatan_pkt_kode" class="form-control">
-                        <option value="">NOKEGIATAN</option>
+                        <option value="">No. Kegiatan</option>
                         <?php for($i = 1; $i <= 99; $i++){ ?>
                         <?php $selected = isset($urutan_kegiatan) && $urutan_kegiatan == samakan($i, 99) ? " selected='selected'" : ""; ?>
                         <option value="<?php echo samakan($i, 99); ?>"<?php echo $selected; ?>><?php echo samakan($i, 99); ?></option>
@@ -143,7 +143,7 @@
                 </div>
                 <div class="col-xs-5" id="tempat_norinciankegiatan_pkt_kode" style="display: none;">
                     <select <?php echo $disabled; ?> name="norinciankegiatan_pkt_kode" id="norinciankegiatan_pkt_kode" class="form-control">
-                        <option value="">NORINCIANKEGIATAN</option>
+                        <option value="">No. Rincian Kegiatan</option>
                         <?php for($i = 1; $i <= 99; $i++){ ?>
                         <?php $selected = isset($urutan_rincian_kegiatan) && $urutan_rincian_kegiatan == samakan($i, 99) ? " selected='selected'" : ""; ?>
                         <option value="<?php echo samakan($i, 99); ?>"<?php echo $selected; ?>><?php echo samakan($i, 99); ?></option>
@@ -155,14 +155,14 @@
             <div class="form-group">
                 <label for="pktnama" class="col-xs-2 control-label">Nama</label>
                 <div class="col-xs-10">
-                    <input <?php echo $disabled; ?> type="text" id="pktnama" class="form-control" name="pktnama" placeholder="PKT Nama" value="<?php echo isset($pktnama) ? $pktnama : ""; ?>" />
+                    <input <?php echo $disabled; ?> type="text" id="pktnama" class="form-control" name="pktnama" placeholder="Nama Kegiatan/ Rincian Kegiatan" value="<?php echo isset($pktnama) ? $pktnama : ""; ?>" />
                 </div>
             </div>
             
             <div class="form-group">
                 <label for="pktoutput" class="col-xs-2 control-label">Output</label>
                 <div class="col-xs-10">
-                    <input <?php echo $disabled; ?> type="text" id="pktoutput" class="form-control" name="pktoutput" placeholder="PKT Output" value="<?php echo isset($pktoutput) ? $pktoutput : ""; ?>" />
+                    <input <?php echo $disabled; ?> type="text" id="pktoutput" class="form-control" name="pktoutput" placeholder="Output" value="<?php echo isset($pktoutput) ? $pktoutput : ""; ?>" />
                 </div>
             </div>
             

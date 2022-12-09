@@ -584,7 +584,7 @@
                                 <?php } else if(isset($update) && $update){ ?>
                                 <button <?php echo $disabled; ?> style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad; margin-top: 15px; border-radius: 0px;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="update_anggaran" id="update_anggaran" value="Update Anggaran">Update Anggaran</button>
                                 <?php } else { ?>
-                                <button <?php echo $disabled; ?> style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad; margin-top: 15px; border-radius: 0px;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="add_anggaran" id="update_anggaran" value="Add Anggaran">Add Anggaran</button>
+                                <button <?php echo $disabled; ?> style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad; margin-top: 15px; border-radius: 0px;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="add_anggaran" id="update_anggaran" value="Add Anggaran">Input Anggaran</button>
                                 <?php } ?>
                             </div>
                             <div class="col-xs-6" style="padding-right: 0px; padding-left: 4px;">

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Add Strategic Business Plan</title>
+	<title>Strategic Business Plan</title>
         <style type="text/css">
             html, body {
                 font-family: consolas, monospace;
@@ -68,7 +68,7 @@
                 <label for="kode_ps_program_strategis" class="col-xs-2 control-label">Kode PS</label>
                 <div class="col-xs-10">
                     <select <?php echo $disabled; ?> required id="kode_ps_program_strategis" class="form-control" name="kode_ps" <?php echo isset($penanda_non_operasional) && ($penanda_non_operasional == "1" || $penanda_non_operasional == "2") ? " disabled=''" : ""; ?>>
-                        <option value="">PILIH</option>
+                        <option value="">Pilih</option>
                         <?php 
                         for($i = 1; $i <= 99; $i++){
                             $selected = isset($sbpkode) && $sbpkode == samakan($i, 99) ? " selected=''" : "";
@@ -91,7 +91,7 @@
             </div>
             
             <div class="form-group" id="tempat_kode_pks_pkns" <?php echo isset($penanda_non_operasional) && ($penanda_non_operasional == "1" || $penanda_non_operasional == "2") ? "" : " style='display: none;'"; ?>>
-                <label for="kode_pks_pkns_display" class="col-xs-2 control-label">Kode PKS/PKNS</label>
+                <label for="kode_pks_pkns_display" class="col-xs-2 control-label">Jenis PKS/PKNS</label>
                 <div class="col-xs-10">
                     <input disabled="" type="text" id="kode_pks_pkns_display" pattern="\d*" class="form-control numberonly-no-comma" name="kode_pks_pkns_display" placeholder="Kode PKS/PKNS" value="<?php echo isset($penanda_non_operasional) ? $penanda_non_operasional : "0"; ?>" maxlength="1">
                     <input type="hidden" name="kode_pks_pkns" id="kode_pks_pkns" value="<?php echo isset($penanda_non_operasional) ? $penanda_non_operasional : "0"; ?>" />
@@ -102,7 +102,7 @@
                 <label for="nomor_pks_pkns" class="col-xs-2 control-label">Nomor PKS/PKNS</label>
                 <div class="col-xs-10">
                     <select <?php echo isset($penanda_non_operasional) && ($penanda_non_operasional == "1" || $penanda_non_operasional == "2") ? "" : " disabled=''"; ?> id="nomor_pks_pkns" name="nomor_pks_pkns" class="form-control">
-                        <option value="">PILIH</option>
+                        <option value="">Pilih</option>
                         <?php 
                         for($i = 1; $i <= 99; $i++){
                             $selected = isset($nomor_pks_pkns) && $nomor_pks_pkns == samakan($i, 99) ? " selected=''" : "";
@@ -114,7 +114,7 @@
             </div>
             
             <div class="form-group">
-                <label for="sbp_nourut" class="col-xs-2 control-label">SBP Nourut</label>
+                <label for="sbp_nourut" class="col-xs-2 control-label">No. Urut</label>
                 <div class="col-xs-10">
                     <input disabled="" type="text" id="sbp_nourut_display" class="form-control numberonly-no-comma" name="sbp_nourut_display" placeholder="SBP Nourut" value="<?php echo isset($sbp_nourut) ? $sbp_nourut : $nomor_next; ?>">
                     <input type="hidden" name="sbp_nourut" id="sbp_nourut" value="<?php echo isset($sbp_nourut) ? $sbp_nourut : $nomor_next; ?>" />

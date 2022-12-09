@@ -10,6 +10,7 @@ class process_report_excel_ma {
     private $spreadsheet;
     public $filename = "";
     public $ada_satker = "";
+    public $satker_active = "All Satker";
     public function __construct($all = "", $view_only = false, $satker = ""){
         if($all == "all"){
             ini_set("display_errors", "On");
@@ -17,6 +18,15 @@ class process_report_excel_ma {
             $this->CI = & get_instance();
             $this->CI->load->model('get_add_anggaran');
             $this->ada_satker = $satker;
+            if($satker != ""){
+                $this->CI->get_add_anggaran->process(array(
+                    'action' => 'select',
+                    'table' => 'tblmastersatker',
+                    'column_value' => array('nama2'),
+                    'where' => "satkerid = '".$this->ada_satker."'"
+                ));
+                $this->satker_active = $this->CI->row->nama2;
+            }
             $reader = IOFactory::createReader("Xlsx");
             $this->spreadsheet = $reader->load(__DIR__."/../../upload/xlsx_excel/template_live_ma.xlsx");
             $this->report_operasional_tahunan_dan_rppt();
@@ -142,8 +152,9 @@ class process_report_excel_ma {
         $spreadsheet->getSheetByName($sheetname)->getStyle('D'.($begin_row_delete).":F".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color($color_border));
         
         $spreadsheet->getActiveSheet()->getStyle('A'.($begin_row_delete + 1).':Z'.(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getAlignment()->setWrapText(true);
+        $spreadsheet->getSheetByName($sheetname)->setCellValue('B3', $this->satker_active);
         $spreadsheet->getSheetByName($sheetname)->setCellValue('B2',substr($this->CI->kode_project_scope_controller,0,4));
-        
+        $spreadsheet->getSheetByName($sheetname)->setSelectedCell('A1');
         $this->spreadsheet = $spreadsheet;
     }
     
@@ -278,7 +289,9 @@ class process_report_excel_ma {
         $spreadsheet->getSheetByName($sheetname)->getStyle('D'.($begin_row_delete).":H".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color($color_border));
         
         $spreadsheet->getActiveSheet()->getStyle('A'.($begin_row_delete + 1).':AB'.(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getAlignment()->setWrapText(true);
+        $spreadsheet->getSheetByName($sheetname)->setCellValue('B3', $this->satker_active);
         $spreadsheet->getSheetByName($sheetname)->setCellValue('B2',substr($this->CI->kode_project_scope_controller,0,4));
+        $spreadsheet->getSheetByName($sheetname)->setSelectedCell('A1');
         $this->spreadsheet = $spreadsheet;
     }
     
@@ -388,7 +401,9 @@ class process_report_excel_ma {
         $spreadsheet->getSheetByName($sheetname)->getStyle('D'.($begin_row_delete).":F".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color($color_border));
         
         $spreadsheet->getActiveSheet()->getStyle('A'.($begin_row_delete + 1).':Z'.(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getAlignment()->setWrapText(true);
+        $spreadsheet->getSheetByName($sheetname)->setCellValue('B3', $this->satker_active);
         $spreadsheet->getSheetByName($sheetname)->setCellValue('B2',substr($this->CI->kode_project_scope_controller,0,4));
+        $spreadsheet->getSheetByName($sheetname)->setSelectedCell('A1');
         $this->spreadsheet = $spreadsheet;
         
     }
@@ -523,7 +538,9 @@ class process_report_excel_ma {
         $spreadsheet->getSheetByName($sheetname)->getStyle('D'.($begin_row_delete).":H".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color($color_border));
         
         $spreadsheet->getActiveSheet()->getStyle('A'.($begin_row_delete + 1).':AB'.(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getAlignment()->setWrapText(true);
+        $spreadsheet->getSheetByName($sheetname)->setCellValue('B3', $this->satker_active);
         $spreadsheet->getSheetByName($sheetname)->setCellValue('B2',substr($this->CI->kode_project_scope_controller,0,4));
+        $spreadsheet->getSheetByName($sheetname)->setSelectedCell('A1');
         $this->spreadsheet = $spreadsheet;
     }
     
@@ -643,7 +660,9 @@ class process_report_excel_ma {
         $spreadsheet->getSheetByName($sheetname)->getStyle('J'.($begin_row_delete).":M".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color($color_border));
         
         $spreadsheet->getActiveSheet()->getStyle('A'.($begin_row_delete + 1).':Y'.(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getAlignment()->setWrapText(true);
+        $spreadsheet->getSheetByName($sheetname)->setCellValue('B3', $this->satker_active);
         $spreadsheet->getSheetByName($sheetname)->setCellValue('B2',substr($this->CI->kode_project_scope_controller,0,4));
+        $spreadsheet->getSheetByName($sheetname)->setSelectedCell('A1');
         $this->spreadsheet = $spreadsheet;
     }
     

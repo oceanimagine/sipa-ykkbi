@@ -64,9 +64,9 @@
                                 <th>Kode</th>
                                 <th>SBP Kode</th>
                                 <th>Tipe</th>
-                                <th>PKT Kode</th>
-                                <th>PKT Nama</th>
-                                <th>PKT Output</th>
+                                <th>Kode PKT</th>
+                                <th>Nama Kegiatan/ Rincian Kegiatan</th>
+                                <th>Output</th>
                                 
                                 <th>Action</th>
                             </tr>

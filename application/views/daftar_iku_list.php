@@ -62,9 +62,9 @@
                                 <th>No</th>
                                 <th>ID</th>
                                 <th>Kode</th>
-                                <th>IKU Kode</th>
-                                <th>IKU Nama</th>
-                                <th>IKU Rincian</th>
+                                <th>Kode IKU</th>
+                                <th>Nama</th>
+                                <th>Rincian</th>
                                 <th>Action</th>
                             </tr>
                         </thead>

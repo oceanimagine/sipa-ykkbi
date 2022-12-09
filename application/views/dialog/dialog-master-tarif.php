@@ -5,7 +5,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">MASTER TARIF</h4>
+                <h4 class="modal-title">Daftar Tarif</h4>
             </div>
             <div class="modal-body" style="height: 60vh; overflow: auto; padding: 0px; margin: 0px;">
                 
@@ -13,11 +13,11 @@
                     <thead style="background-color: white;">
                         <tr>
                             <th style="white-space: nowrap;">Kode</th>
-                            <th style="white-space: nowrap;">Nama Satker</th>
-                            <th style="white-space: nowrap;">Tarif ID</th>
-                            <th style="white-space: nowrap;">Tarif Nama</th>
-                            <th style="white-space: nowrap;">Tarif NOM</th>
-                            <th style="white-space: nowrap;">Tarif Desc</th>
+                            <th style="white-space: nowrap;">Satker</th>
+                            <th style="white-space: nowrap;">ID Tarif</th>
+                            <th style="white-space: nowrap;">Nama</th>
+                            <th style="white-space: nowrap;">Nominal</th>
+                            <th style="white-space: nowrap;">Deskripsi</th>
                         </tr>
                         <tr>
                             <th style="white-space: nowrap;padding-top: 0px; padding-bottom:0px;" colspan="6">

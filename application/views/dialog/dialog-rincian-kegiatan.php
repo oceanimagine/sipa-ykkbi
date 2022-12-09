@@ -5,7 +5,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">RINCIAN KEGIATAN</h4>
+                <h4 class="modal-title">Rincian Kegiatan</h4>
             </div>
             <div class="modal-body" style="height: 60vh; overflow: auto; padding: 0px; margin: 0px;">
                 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Module Mata Anggaran Individual Benchmarks Form</title>
+	<title>Mata Anggaran Individual</title>
         <style type="text/css">
             html, body {
                 font-family: consolas, monospace;
@@ -53,24 +53,24 @@
             </div>
             
             <div class="form-group">
-                <label for="rekmakode" class="col-lg-2 control-label">Rekma Kode</label>
+                <label for="rekmakode" class="col-lg-2 control-label">Kode Rek. MA Individual</label>
                 <div class="col-lg-10">
-                    <input <?php echo $disabled; ?> required type="number" id="rekmakode" class="form-control numberonly-no-comma" name="rekmakode" placeholder="Rekma Kode" value="<?php echo isset($rekmakode) ? $rekmakode : "0"; ?>">
+                    <input <?php echo $disabled; ?> required type="number" id="rekmakode" class="form-control numberonly-no-comma" name="rekmakode" placeholder="Kode Rek. MA" value="<?php echo isset($rekmakode) ? $rekmakode : "0"; ?>">
                 </div>
             </div>
             
             <div class="form-group">
-                <label for="rekmanama" class="col-lg-2 control-label">Rekma Nama</label>
+                <label for="rekmanama" class="col-lg-2 control-label">Nama Rek. MA Individual</label>
                 <div class="col-lg-10">
-                    <input <?php echo $disabled; ?> required type="text" id="rekmanama" class="form-control" name="rekmanama" placeholder="Rekma Nama" value="<?php echo isset($rekmanama) ? $rekmanama : ""; ?>">
+                    <input <?php echo $disabled; ?> required type="text" id="rekmanama" class="form-control" name="rekmanama" placeholder="Nama Rek.MA" value="<?php echo isset($rekmanama) ? $rekmanama : ""; ?>">
                 </div>
             </div>
             
             <div class="form-group">
-                <label for="rekmainduk" class="col-lg-2 control-label">Rekma Induk</label>
+                <label for="rekmainduk" class="col-lg-2 control-label">Kode Rek. MA Induk</label>
                 <div class="col-lg-10">
                     <select <?php echo $disabled; ?> name="rekmainduk" id="rekmainduk" class="form-control">
-                        <option value="">PILIH Rekma Induk</option>
+                        <option value="">Pilih Rek. MA Induk</option>
                         <?php foreach($data_tblmastermainduk as $data){ ?>
                         <option value="<?php echo $data->rekmainduk; ?>"<?php echo isset($rekmainduk) && $rekmainduk == $data->rekmainduk ? " selected='selected'" : ""; ?>><?php echo "(" . $data->rekmainduk . ") " . $data->rekmainduknama; ?></option>
                         <?php } ?>
@@ -79,14 +79,14 @@
             </div>
             
             <div class="form-group">
-                <label for="benchmarkang" class="col-lg-2 control-label">Benchmark Angka</label>
+                <label for="benchmarkang" class="col-lg-2 control-label">Nominal Anggaran (T-1)</label>
                 <div class="col-lg-10">
                     <input <?php echo $disabled; ?> required type="number" id="benchmarkang" class="form-control numberonly" name="benchmarkang" placeholder="Benchmark Angka" value="<?php echo isset($benchmarkang) ? $benchmarkang : "0.00"; ?>">
                 </div>
             </div>
             
             <div class="form-group">
-                <label for="benchmarkprog" class="col-lg-2 control-label">Benchmark Program</label>
+                <label for="benchmarkprog" class="col-lg-2 control-label">Nominal Prognosa (T-1)</label>
                 <div class="col-lg-10">
                     <input <?php echo $disabled; ?> required type="number" id="benchmarkprog" class="form-control numberonly" name="benchmarkprog" placeholder="Benchmark Program" value="<?php echo isset($benchmarkprog) ? $benchmarkprog : "0.00"; ?>">
                 </div>
@@ -96,7 +96,7 @@
             
             <div class="form-group">
                 <div class="col-lg-6 col-md-6" style="margin-bottom: 40px;">
-                    <button <?php echo $disabled; ?> style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="input_mata_anggaran_individual_bencharks" value="Input mata anggaran individual benchmarks">Input Mata Anggaran Individual Benchmarks</button>
+                    <button <?php echo $disabled; ?> style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="input_mata_anggaran_individual_bencharks" value="Input mata anggaran individual benchmarks">Input Mata Anggaran Individual</button>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <button style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important;" type="button" class="btn btn-default bg-aqua-gradient" onclick="move_url('mata-anggaran-individual-benchmarks');">Lihat Data</button>

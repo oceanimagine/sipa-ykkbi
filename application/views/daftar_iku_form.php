@@ -64,24 +64,24 @@
             </div>
             
             <div class="form-group">
-                <label for="ikukode_display" class="col-xs-2 control-label">IKU Kode</label>
+                <label for="ikukode_display" class="col-xs-2 control-label">Kode IKU</label>
                 <div class="col-xs-10">
-                    <input type="text" id="ikukode_display" class="form-control" name="ikukode_display" placeholder="IKU Kode" value="<?php echo isset($iku_kode) ? $iku_kode : ""; ?>" disabled>
+                    <input type="text" id="ikukode_display" class="form-control" name="ikukode_display" placeholder="Kode IKU" value="<?php echo isset($iku_kode) ? $iku_kode : ""; ?>" disabled>
                     <input type="hidden" id="ikukode" name="ikukode" value="<?php echo isset($iku_kode) ? $iku_kode : ""; ?>">
                 </div>
             </div>
             
             <div class="form-group">
-                <label for="ikunama" class="col-xs-2 control-label">IKU Nama</label>
+                <label for="ikunama" class="col-xs-2 control-label">Nama</label>
                 <div class="col-xs-10">
-                    <input <?php echo $disabled; ?> type="text" id="ikunama" class="form-control" name="ikunama" placeholder="IKU Nama" value="<?php echo isset($iku_nama) ? $iku_nama : ""; ?>">
+                    <input <?php echo $disabled; ?> type="text" id="ikunama" class="form-control" name="ikunama" placeholder="Nama" value="<?php echo isset($iku_nama) ? $iku_nama : ""; ?>">
                 </div>
             </div>
             
             <div class="form-group">
-                <label for="ikurincian" class="col-xs-2 control-label">IKU Rincian</label>
+                <label for="ikurincian" class="col-xs-2 control-label">Rincian</label>
                 <div class="col-xs-10">
-                    <textarea <?php echo $disabled; ?> class="form-control" id="ikurincian" name="ikurincian" placeholder="IKU Rincian" style="height: 150px;"><?php echo isset($iku_rincian) ? $iku_rincian : ""; ?></textarea>
+                    <textarea <?php echo $disabled; ?> class="form-control" id="ikurincian" name="ikurincian" placeholder="Rincian" style="height: 150px;"><?php echo isset($iku_rincian) ? $iku_rincian : ""; ?></textarea>
                 </div>
             </div>
             
@@ -104,15 +104,15 @@
             </script>
             <?php } ?>
             <div class="form-group">
-                <label for="ikurincian" class="col-xs-2 control-label">IKU PKT</label>
+                <label for="ikurincian" class="col-xs-2 control-label">Kegiatan IKU</label>
                 <div class="col-xs-10">
                     <table class="table table-bordered table-hover">
                         <thead style="background-color: white;">
                             <tr>
                                 <th style="white-space: nowrap; width: 5%;">No</th>
-                                <th style="white-space: nowrap; width: 10%;">SBP Kode</th>
-                                <th style="white-space: nowrap; width: 10%;">PKT Kode</th>                      
-                                <th style="white-space: nowrap; width: 70%;">PKT Nama</th>
+                                <th style="white-space: nowrap; width: 10%;">Kode PKS/PKNS</th>
+                                <th style="white-space: nowrap; width: 10%;">Kode Kegiatan</th>                      
+                                <th style="white-space: nowrap; width: 70%;">Nama Kegiatan</th>
                                 <th style="white-space: nowrap; width: 5%;">Action</th>
                             </tr>
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Module Mata Anggaran Induk Form</title>
+	<title>Mata Anggaran Induk</title>
         <style type="text/css">
             html, body {
                 font-family: consolas, monospace;
@@ -53,24 +53,24 @@
             </div>
             
             <div class="form-group">
-                <label for="rekmainduk" class="col-lg-2 control-label">Rekma Induk</label>
+                <label for="rekmainduk" class="col-lg-2 control-label">Kode Rek. MA Induk</label>
                 <div class="col-lg-10">
                     <input <?php echo $disabled; ?> required type="number" id="rekmainduk" class="form-control numberonly-no-comma" name="rekmainduk" placeholder="Rekma Induk" value="<?php echo isset($rekmainduk) ? $rekmainduk : "0"; ?>">
                 </div>
             </div>
             
             <div class="form-group">
-                <label for="rekmainduknama" class="col-lg-2 control-label">Rekma Induk Nama</label>
+                <label for="rekmainduknama" class="col-lg-2 control-label">Nama Rek. MA Induk</label>
                 <div class="col-lg-10">
-                    <input <?php echo $disabled; ?> required type="text" id="rekmainduknama" class="form-control" name="rekmainduknama" placeholder="Rekma Induk Nama" value="<?php echo isset($rekmainduknama) ? $rekmainduknama : ""; ?>">
+                    <input <?php echo $disabled; ?> required type="text" id="rekmainduknama" class="form-control" name="rekmainduknama" placeholder="Nama Rek. MA Induk" value="<?php echo isset($rekmainduknama) ? $rekmainduknama : ""; ?>">
                 </div>
             </div>
             
             <div class="form-group">
-                <label for="rekmagroup" class="col-lg-2 control-label">Rekma Group</label>
+                <label for="rekmagroup" class="col-lg-2 control-label">Group Rek. MA</label>
                 <div class="col-lg-10">
                     <select <?php echo $disabled; ?> name="rekmagroup" id="rekmagroup" class="form-control">
-                        <option value="">PILIH REKMA GROUP</option><?php /*
+                        <option value="">Pilih Group Rek. MA</option><?php /*
                         <?php foreach($rekmagroup_data as $data){ ?>
                         <?php $selected = isset($rekmagroup) && $rekmagroup == $data->rekmagroup ? " selected='selected'" : ""; ?>
                         <option value="<?php echo $data->rekmagroup; ?>"<?php echo $selected; ?>><?php echo $data->rekmagroup; ?></option>

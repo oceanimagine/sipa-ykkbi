@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Module Tarif Form</title>
+	<title>Tarif</title>
         <style type="text/css">
             html, body {
                 font-family: consolas, monospace;
@@ -56,7 +56,7 @@
                 <label for="satkerid" class="col-lg-2 control-label">Satker</label>
                 <div class="col-lg-10">
                     <select <?php echo $disabled; ?> name="satkerid" id="satkerid" class="form-control">
-                        <option value="">PILIH Satker</option>
+                        <option value="">Pilih Satker</option>
                         <?php foreach($data_satker as $data){ ?>
                         <?php $selected = (isset($satkerid) && $satkerid == $data->satkerid) ? " selected='selected'" : ""; ?>
                         <option value="<?php echo $data->satkerid; ?>" <?php echo $selected; ?>><?php echo $data->nama2 . " (" . $data->nama1 . ")"; ?></option>
@@ -69,7 +69,7 @@
                 <label for="tarifid" class="col-lg-2 control-label">Tipe Tarif</label>
                 <div class="col-lg-10">
                     <select <?php echo $disabled; ?> name="tarifid" id="tarifid" class="form-control">
-                        <option value="">PILIH TARIF</option>
+                        <option value="">Pilih Tarif</option>
                         <option value="0000"<?php echo isset($tarifid) && $tarifid == "0000" ? " selected='selected'" : ""; ?>>Non Tarif</option>
                         <option value="1111"<?php echo isset($tarifid) && $tarifid == "1111" ? " selected='selected'" : ""; ?>>Tarif</option>
                         <option value="0001"<?php echo isset($tarifid) && $tarifid == "0001" ? " selected='selected'" : ""; ?>>Akomodasi Perjalan Dinas Menginap Kadiv</option>
@@ -95,7 +95,7 @@
             <div class="form-group">
                 <label for="tarifdesc" class="col-lg-2 control-label">Deskripsi</label>
                 <div class="col-lg-10">
-                    <input <?php echo $disabled; ?> required type="text" id="tarifdesc" class="form-control" name="tarifdesc" placeholder="Tarif Description" value="<?php echo isset($tarifdesc) ? $tarifdesc : ""; ?>">
+                    <input <?php echo $disabled; ?> required type="text" id="tarifdesc" class="form-control" name="tarifdesc" placeholder="Deskripsi Tarif" value="<?php echo isset($tarifdesc) ? $tarifdesc : ""; ?>">
                 </div>
             </div>
             

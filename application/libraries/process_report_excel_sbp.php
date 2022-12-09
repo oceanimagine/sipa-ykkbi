@@ -12,6 +12,7 @@ class process_report_excel_sbp {
     private $default_string = 78;
     public $filename = "";
     public $ada_satker = "";
+    public $satker_active = "All Satker";
     public function __construct($all = "", $view_only = false, $satker = ""){
         if($all == "all"){
             error_reporting(-1);
@@ -21,6 +22,15 @@ class process_report_excel_sbp {
             $this->CI = & get_instance();
             $this->CI->load->model('get_report');
             $this->ada_satker = $satker;
+            if($satker != ""){
+                $this->CI->get_add_anggaran->process(array(
+                    'action' => 'select',
+                    'table' => 'tblmastersatker',
+                    'column_value' => array('nama2'),
+                    'where' => "satkerid = '".$this->ada_satker."'"
+                ));
+                $this->satker_active = $this->CI->row->nama2;
+            }
             $reader = IOFactory::createReader("Xlsx");
             $this->spreadsheet = $reader->load(__DIR__."/../../upload/xlsx_excel/template_live_sbp.xlsx");
             $this->report_program_strategis_ps();
@@ -100,7 +110,9 @@ class process_report_excel_sbp {
             $no++;
         }
         $spreadsheet->getSheetByName($sheetname)->removeRow(($begin_row_delete + 1),($begin_row_start - ($begin_row_delete + 1)));
+        $spreadsheet->getSheetByName($sheetname)->setCellValue('B3', $this->satker_active);
         $spreadsheet->getSheetByName($sheetname)->setCellValue('B2',substr($this->CI->kode_project_scope_controller,0,4));
+        $spreadsheet->getSheetByName($sheetname)->setSelectedCell('A1');
         $this->spreadsheet = $spreadsheet;
     }
     
@@ -191,7 +203,9 @@ class process_report_excel_sbp {
         $spreadsheet->getSheetByName($sheetname)->getStyle('I'.($begin_row_delete).":K".(($begin_row_delete + 1) + (sizeof($all_data))))->getBorders()->getHorizontal()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color($color_border));
         
         $spreadsheet->getActiveSheet()->getStyle('A'.($begin_row_delete + 1).':Q'.(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getAlignment()->setWrapText(true);
+        $spreadsheet->getSheetByName($sheetname)->setCellValue('B3', $this->satker_active);
         $spreadsheet->getSheetByName($sheetname)->setCellValue('B2',substr($this->CI->kode_project_scope_controller,0,4));
+        $spreadsheet->getSheetByName($sheetname)->setSelectedCell('A1');
         $this->spreadsheet = $spreadsheet;
     }
     
@@ -309,7 +323,9 @@ class process_report_excel_sbp {
         $spreadsheet->getSheetByName($sheetname)->getStyle('C'.($begin_row_delete + 1).":G".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_TEXT);
         
         $spreadsheet->getActiveSheet()->getStyle('A'.($begin_row_delete + 1).':S'.(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getAlignment()->setWrapText(true);
+        $spreadsheet->getSheetByName($sheetname)->setCellValue('B3', $this->satker_active);
         $spreadsheet->getSheetByName($sheetname)->setCellValue('B2',substr($this->CI->kode_project_scope_controller,0,4));
+        $spreadsheet->getSheetByName($sheetname)->setSelectedCell('A1');
         $this->spreadsheet = $spreadsheet;   
     }
     
@@ -436,7 +452,9 @@ class process_report_excel_sbp {
         $spreadsheet->getSheetByName($sheetname)->getStyle('C'.($begin_row_delete + 1).":E".(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_TEXT);
         
         $spreadsheet->getActiveSheet()->getStyle('A'.($begin_row_delete + 1).':Z'.(($begin_row_delete + 1) + (sizeof($all_data) - 1)))->getAlignment()->setWrapText(true);
+        $spreadsheet->getSheetByName($sheetname)->setCellValue('B3', $this->satker_active);
         $spreadsheet->getSheetByName($sheetname)->setCellValue('B2',substr($this->CI->kode_project_scope_controller,0,4));
+        $spreadsheet->getSheetByName($sheetname)->setSelectedCell('A1');
         $this->spreadsheet = $spreadsheet;   
     }
     

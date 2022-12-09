@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Mata Anggaran Individual Benchmarks</title>
+	<title>Mata Anggaran Individual</title>
         <style type="text/css">
             html, body {
                 font-family: consolas, monospace;
@@ -51,9 +51,9 @@
                 <div class="panel panel-success" style="border-color: #adadad;">
                     <!-- Default panel contents -->
                     <div class="panel-heading" style="padding-bottom: 10px; color: black; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important;">
-                        List Mata Anggaran Individual Benchmarks
+                        List Mata Anggaran Individual
                         <?php $CI =& get_instance(); if($CI->allow_create == "1"){ ?>
-                        <a id="addData" href="../../../index.php/mata-anggaran-individual-benchmarks/add" class="btn btn-primary btn-xs pull-right hidden-xs bg-green-gradient"><span class="glyphicon glyphicon-plus"></span>&nbsp;New Mata Anggaran Individual Benchmarks</a>
+                        <a id="addData" href="../../../index.php/mata-anggaran-individual-benchmarks/add" class="btn btn-primary btn-xs pull-right hidden-xs bg-green-gradient"><span class="glyphicon glyphicon-plus"></span>&nbsp;New Mata Anggaran Individual</a>
                         <?php } ?>
                     </div>
                     <table id="table-data" class="table table-bordered table-hover">

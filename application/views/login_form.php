@@ -38,7 +38,7 @@
                         </div><!-- /.col -->
                     </div>
                 </form>
-                <p class="footer"</p>
+                <p class="footer"></p>
 
                 <div class="social-auth-links text-center">
                     <hr />

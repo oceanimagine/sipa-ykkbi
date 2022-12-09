@@ -313,7 +313,7 @@ class daftar_iku extends CI_Controller {
         
         $this->layout->loadView('daftar_iku_form', array(
             "iku_kode" => $this->next_iku($this->all[0]->ikukode),
-            'title' => 'Add IKU'
+            'title' => 'IKU'
         ));
     }
     
