@@ -38,21 +38,21 @@ function removeLoading(message,loading_message){
     }
 }
 
-function setWindowPreview(){
+function setWindowPreview(param_file){
     setTimeout(function(){
         removeLoading();
         setTimeout(function(){
-            window.open("../../../upload/SIPA-HELP.pdf", '_blank');
+            window.open("../../../upload/" + param_file, '_blank');
         }, 1000);
     }, 1000);
 }
 
-function setDownload(){
+function setDownload(param_file){
     if (!window.ActiveXObject) {
         var save = document.createElement('a');
-        save.href = "../../../upload/SIPA-HELP.pdf";
+        save.href = "../../../upload/" + param_file;
         save.target = '_blank';
-        save.download = 'HELP.pdf' || 'unknown';
+        save.download = param_file || 'unknown';
 
         var evt = new MouseEvent('click', {
             'view': window,
@@ -73,14 +73,28 @@ window.addEventListener("load",function(){
         var preview_view_help_aplikasi_sipa = document.getElementById("preview_view_help_aplikasi_sipa");
         preview_view_help_aplikasi_sipa.onclick = function(){
             set_loading();
-            setWindowPreview();
+            setWindowPreview("SIPA-HELP.pdf");
         };
     }
     if(document.getElementById("download_view_help_aplikasi_sipa")){
         var download_view_help_aplikasi_sipa = document.getElementById("download_view_help_aplikasi_sipa");
         download_view_help_aplikasi_sipa.onclick = function(){
             set_loading();
-            setDownload();
+            setDownload("SIPA-HELP.pdf");
+        };
+    }
+    if(document.getElementById("preview_view_pengembangan_aplikasi_sipa")){
+        var preview_view_pengembangan_aplikasi_sipa = document.getElementById("preview_view_pengembangan_aplikasi_sipa");
+        preview_view_pengembangan_aplikasi_sipa.onclick = function(){
+            set_loading();
+            setWindowPreview("SIPA-DOKUMENTASI.pdf");
+        };
+    }
+    if(document.getElementById("download_view_pengembangan_aplikasi_sipa")){
+        var download_view_pengembangan_aplikasi_sipa = document.getElementById("download_view_pengembangan_aplikasi_sipa");
+        download_view_pengembangan_aplikasi_sipa.onclick = function(){
+            set_loading();
+            setDownload("SIPA-DOKUMENTASI.pdf");
         };
     }
 });

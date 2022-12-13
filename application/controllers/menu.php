@@ -55,7 +55,7 @@ class Menu extends CI_Controller {
             $nama_menu = $this->input->post('nama_menu');
             $module = $this->input->post('module');
             $select_menu = $this->input->post('select_menu');
-            $id_parent_ = $select_menu;
+            $id_parent_ = $select_menu == "" ? "0" : $select_menu;
             $this->get_menu->process(array(
                 'action' => 'update',
                 'table' => 'tbl_menu',

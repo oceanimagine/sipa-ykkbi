@@ -81,7 +81,7 @@
                                <button id="preview_laporan_anggaran_berdasarkan_program_kerja" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="preview_laporan_anggaran_berdasarkan_program_kerja" value="Preview">Preview</button>            
                            </div>
                             <div class="col-md-6 button-preview" style="padding: 5px;">
-                               <button id="download_laporan_anggaran_berdasarkan_program_kerja"  style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="download_laporan_anggaran_berdasarkan_program_kerja" value="Print">Print</button>            
+                               <button id="download_laporan_anggaran_berdasarkan_program_kerja"  style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="download_laporan_anggaran_berdasarkan_program_kerja" value="Print">Download</button>            
                            </div> 
                         </div>
                    </div>
@@ -137,7 +137,7 @@
                                <button id="preview_laporan_anggaran_berdasarkan_mata_anggaran" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="preview_laporan_anggaran_berdasarkan_mata_anggaran" value="Preview">Preview</button>            
                            </div>
                             <div class="col-md-6 button-preview" style="padding: 5px;">
-                               <button id="download_laporan_anggaran_berdasarkan_mata_anggaran"  style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="download_laporan_anggaran_berdasarkan_mata_anggaran" value="Print">Print</button>            
+                               <button id="download_laporan_anggaran_berdasarkan_mata_anggaran"  style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="download_laporan_anggaran_berdasarkan_mata_anggaran" value="Print">Download</button>            
                            </div> 
                         </div>
                    </div>
@@ -156,7 +156,7 @@
                                <button id="preview_laporan_aktivitas_keuangan" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="preview_laporan_aktivitas_keuangan" value="Preview">Preview</button>            
                            </div>
                             <div class="col-md-6 button-preview" style="padding: 5px; padding-bottom: 0px;">
-                               <button id="download_laporan_aktivitas_keuangan"  style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="download_laporan_aktivitas_keuangan" value="Print">Print</button>            
+                               <button id="download_laporan_aktivitas_keuangan"  style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="download_laporan_aktivitas_keuangan" value="Print">Download</button>            
                            </div> 
                         </div>
                     </div>
@@ -174,7 +174,7 @@
                                <button id="preview_laporan_anggaran_iku" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="preview_laporan_anggaran_iku" value="Preview">Preview</button>            
                            </div>
                             <div class="col-md-6 button-preview" style="padding: 5px; padding-bottom: 0px;">
-                               <button id="download_laporan_anggaran_iku"  style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="download_laporan_anggaran_iku" value="Print">Print</button>            
+                               <button id="download_laporan_anggaran_iku"  style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="download_laporan_anggaran_iku" value="Print">Download</button>            
                            </div> 
                         </div>
                     </div>
@@ -192,7 +192,7 @@
                                <button id="preview_data_upload_siaga" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="data_upload_siaga" value="Preview">Preview</button>            
                            </div>
                             <div class="col-md-6 button-preview" style="padding: 5px; padding-bottom: 0px;">
-                               <button id="download_data_upload_siaga"  style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="download_data_upload_siaga" value="Print">Print</button>            
+                               <button id="download_data_upload_siaga"  style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="download_data_upload_siaga" value="Print">Download</button>            
                            </div> 
                         </div>
                     </div>

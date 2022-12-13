@@ -31,7 +31,17 @@
         <div class="box-body">
             
             <div class="form-group" style="margin-bottom: 5px;">
-                <label style="text-align: left; padding-top: 10px; overflow: hidden; text-overflow: ellipsis;" for="view_help_aplikasi_sipa" class="col-md-6 control-label">1. Dokumen Help Aplikasi Sipa</label>
+                <label style="text-align: left; padding-top: 10px; overflow: hidden; text-overflow: ellipsis;" for="view_help_aplikasi_sipa" class="col-md-6 control-label">1. Dokumen Pengembangan Aplikasi</label>
+                <div class="col-md-3 button-preview" style="padding-right: 0px;">
+                    <button id="preview_view_pengembangan_aplikasi_sipa" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="preview_view_pengembangan_aplikasi_sipa" value="Preview">Preview</button>
+                </div>
+                <div class="col-md-3 button-download" style="padding-left: 5px;">
+                    <button id="download_view_pengembangan_aplikasi_sipa" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient" name="download_view_pengembangan_aplikasi_sipa" value="Download">Download</button>
+                </div>
+            </div>
+            
+            <div class="form-group" style="margin-bottom: 5px;">
+                <label style="text-align: left; padding-top: 10px; overflow: hidden; text-overflow: ellipsis;" for="view_help_aplikasi_sipa" class="col-md-6 control-label">1. Dokumen User Manual / Panduan Penggunaan</label>
                 <div class="col-md-3 button-preview" style="padding-right: 0px;">
                     <button id="preview_view_help_aplikasi_sipa" style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad;" type="button" class="btn btn-info pull-right bg-light-blue-gradient button-button-preview" name="preview_view_help_aplikasi_sipa" value="Preview">Preview</button>
                 </div>
