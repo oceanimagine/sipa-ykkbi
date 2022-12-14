@@ -61,8 +61,11 @@ function upload_file($key_folder){
             $rest_name_ = $rest_name_ . "_" . $explode_key[$i];
         }
         $name_table = "tbl" . $rest_name_;
-        $id_data = isset($_GET['id']) ? $_GET['id'] : "";
+        $id_data = isset($_GET['id']) && $_GET['id'] != "" ? $_GET['id'] : "0";
         $name_kolom = $key_folder;
+        // echo "AAAA";
+        // echo "select ".$name_kolom." from ".$name_table." where id = '".$id_data."'";
+        // exit();
         $query_data = $CI->db->query("select ".$name_kolom." from ".$name_table." where id = '".$id_data."'");
         if(sizeof($query_data->result_array()) > 0){
             $hasil_data = $query_data->result_array();

@@ -73,28 +73,28 @@ window.addEventListener("load",function(){
         var preview_view_help_aplikasi_sipa = document.getElementById("preview_view_help_aplikasi_sipa");
         preview_view_help_aplikasi_sipa.onclick = function(){
             set_loading();
-            setWindowPreview("SIPA-HELP.pdf");
+            setWindowPreview("SIPA-UserManual-202212.pdf");
         };
     }
     if(document.getElementById("download_view_help_aplikasi_sipa")){
         var download_view_help_aplikasi_sipa = document.getElementById("download_view_help_aplikasi_sipa");
         download_view_help_aplikasi_sipa.onclick = function(){
             set_loading();
-            setDownload("SIPA-HELP.pdf");
+            setDownload("SIPA-UserManual-202212.pdf");
         };
     }
     if(document.getElementById("preview_view_pengembangan_aplikasi_sipa")){
         var preview_view_pengembangan_aplikasi_sipa = document.getElementById("preview_view_pengembangan_aplikasi_sipa");
         preview_view_pengembangan_aplikasi_sipa.onclick = function(){
             set_loading();
-            setWindowPreview("SIPA-DOKUMENTASI.pdf");
+            setWindowPreview("SIPA-BUSReq-202204.pdf");
         };
     }
     if(document.getElementById("download_view_pengembangan_aplikasi_sipa")){
         var download_view_pengembangan_aplikasi_sipa = document.getElementById("download_view_pengembangan_aplikasi_sipa");
         download_view_pengembangan_aplikasi_sipa.onclick = function(){
             set_loading();
-            setDownload("SIPA-DOKUMENTASI.pdf");
+            setDownload("SIPA-BUSReq-202204.pdf");
         };
     }
 });
