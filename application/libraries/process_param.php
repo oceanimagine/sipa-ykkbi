@@ -92,6 +92,31 @@ class process_param {
         Message::set("Delete data has been done.");
     }
 
+    function check_username_column_if_postgre_if_this_app_is_sipa($param){
+        $this->CI->load->database();
+        
+        /* 
+        echo 
+        "<pre>\n" . 
+        $this->CI->db->hostname . "\n" . 
+        $this->CI->db->username . "\n" . 
+        $this->CI->db->password . "\n" . 
+        $this->CI->db->database . "\n" . 
+        $this->CI->db->dbdriver . "\n" . 
+        "</pre>\n"; 
+        */
+        
+        if($this->CI->db->dbdriver == "postgre"){
+            $hasil = $this->model->db->query("SELECT column_name FROM information_schema.columns WHERE table_name='".$param['table']."' and column_name='username'");
+            $data_ = $hasil->result();
+            if(sizeof($data_) > 0){
+                $column_name = $data_[0]->column_name;
+                $param['column_value'][$column_name] = $_SESSION['username'];
+            }
+        }
+        return $param;
+    }
+    
     function process($param, $debug = false){
         if($debug){
             $this->model->debug = true;
@@ -100,12 +125,14 @@ class process_param {
             $this->model->debug = true;
         }
         if($param['action'] == "insert"){
+            $param = $this->check_username_column_if_postgre_if_this_app_is_sipa($param);
             $this->insert($param);
         }
         if($param['action'] == "select"){
             $this->select($param);
         }
         if($param['action'] == "update"){
+            $param = $this->check_username_column_if_postgre_if_this_app_is_sipa($param);
             $this->update($param, $debug);
         }
         if($param['action'] == "delete"){

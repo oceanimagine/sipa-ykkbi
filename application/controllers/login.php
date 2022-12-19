@@ -42,6 +42,7 @@ class login extends CI_Controller {
                 }
                 $_SESSION['PRI'] = "SUPERADMIN";
                 $_SESSION['nomor_admin'] = "AS1";
+                $_SESSION['username'] = $username;
                 $_SESSION['data_satker'] = $data_satker;
                 $_SESSION['data_satker_comma'] = $data_satker_session;
                 $this->layout->render_alert("Welcome Admin Super.");

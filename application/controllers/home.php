@@ -9,6 +9,10 @@ class home extends CI_Controller {
     }
     public function index(){
         /* 
+        echo "<pre>\n";
+        print_r($_SESSION);
+        echo "</pre>\n"; */
+        /* 
         $this->layout->loadView(array(
             "set_custom_view" => $this
         ), array(

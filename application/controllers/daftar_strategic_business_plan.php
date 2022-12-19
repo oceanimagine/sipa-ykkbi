@@ -106,6 +106,9 @@ class Daftar_strategic_business_plan extends CI_Controller {
             
             $param_baru = $id;
             $masuk_update = 0;
+            
+            $this->db->trans_start();
+            $this->db->trans_strict(FALSE);
             if($kode_ps != "" && $jenis_entri == "PS"){
                 $data = array();
                 if($kode_ps != $this->sbpkode){
@@ -171,6 +174,12 @@ class Daftar_strategic_business_plan extends CI_Controller {
                 } else {
                     Message::set("Kode PKS PKNS sudah tersedia.");
                 }
+            }
+            
+            if($masuk_update){
+                $this->db->trans_commit();
+            } else {
+                $this->db->trans_rollback();
             }
             
             if(!$masuk_update){
@@ -255,6 +264,9 @@ class Daftar_strategic_business_plan extends CI_Controller {
             $sbp_nourut = $this->input->post('sbp_nourut');
             $keterangan = $this->input->post('keterangan');
             
+            $this->db->trans_start();
+            $this->db->trans_strict(FALSE);
+            $do_insert = 0;
             if($kode_ps != "" && $jenis_entri == "PS"){
                 $this->get_daftar_strategic_business_plan->process(array(
                     'action' => 'select',
@@ -293,6 +305,9 @@ class Daftar_strategic_business_plan extends CI_Controller {
                             'sbpdesc' => $keterangan
                         )
                     ));
+                    if($this->affected){
+                        $do_insert = 1;
+                    }
                 } else {
                     Message::set("Kode PS sudah tersedia.");
                 }
@@ -340,6 +355,9 @@ class Daftar_strategic_business_plan extends CI_Controller {
                             'sbpdesc' => $keterangan
                         )
                     ));
+                    if($this->affected){
+                        $do_insert = 1;
+                    }
                 } else {
                     Message::set("Kode PKS PKNS sudah tersedia.");
                 }
@@ -347,6 +365,12 @@ class Daftar_strategic_business_plan extends CI_Controller {
             
             if($kode_ps == ""){
                 Message::set("Kode PS tidak boleh kosong.");
+            }
+            
+            if($do_insert){
+                $this->db->trans_commit();
+            } else {
+                $this->db->trans_rollback();
             }
             
             redirect('daftar-strategic-business-plan/add');
