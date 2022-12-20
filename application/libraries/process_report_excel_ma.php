@@ -613,7 +613,7 @@ class process_report_excel_ma {
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('G'.$begin_row, $spreadsheet->getSheetByName($sheetname)->getCell('G8')->getValue());
                 
             }
-            else if($all_data[$i]->lvl == "2"){
+            else if($all_data[$i]->lvl == "3"){
                 $spreadsheet->getSheetByName($sheetname)->mergeCells('K'.$begin_row.':M'.$begin_row);
                 $wrap_kata = wordwrap($isi_kata, 95, " ----- ");
                 $wrap_explode = explode(" ----- ", $wrap_kata);
@@ -623,7 +623,7 @@ class process_report_excel_ma {
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('K'.$begin_row, $isi_kata);
                 
             }
-            else if($all_data[$i]->lvl == "3"){
+            else if($all_data[$i]->lvl == "4"){
                 $spreadsheet->getSheetByName($sheetname)->mergeCells('L'.$begin_row.':M'.$begin_row);
                 $wrap_kata = wordwrap($isi_kata, 95, " ----- ");
                 $wrap_explode = explode(" ----- ", $wrap_kata);
@@ -633,13 +633,13 @@ class process_report_excel_ma {
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('L'.$begin_row, $isi_kata);
                 
             }
-            else if($all_data[$i]->lvl == "4"){
+            else if($all_data[$i]->lvl == "5"){
                 $spreadsheet->getSheetByName($sheetname)->setCellValue('M'.$begin_row, $isi_kata);
                 
             }
             
-            else if($all_data[$i]->lvl == "5"){
-                $spreadsheet->getSheetByName($sheetname)->setCellValue('M'.$begin_row, $isi_kata);
+            else if($all_data[$i]->lvl == "5"){/*
+                $spreadsheet->getSheetByName($sheetname)->setCellValue('M'.$begin_row, $isi_kata); */
                 
             }
             

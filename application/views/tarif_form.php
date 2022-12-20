@@ -40,6 +40,11 @@
         }
     }
     
+    $disabled_select = "";
+    if(isset($tarifnama) && $tarifnama == "Tarif"){
+        $disabled_select = " disabled=''";
+    }
+    
     ?>
     <form class="form-horizontal" method="POST" enctype="multipart/form-data">
         <div class="box-body">
@@ -66,12 +71,12 @@
             </div>
             
             <div class="form-group">
-                <label for="tarifid" class="col-lg-2 control-label">Tipe Tarif</label>
+                <label for="tarifid" class="col-lg-2 control-label">Jenis Tarif</label>
                 <div class="col-lg-10">
-                    <select <?php echo $disabled; ?> name="tarifid" id="tarifid" class="form-control">
-                        <option value="">Pilih Tarif</option>
-                        <option value="0000"<?php echo isset($tarifid) && $tarifid == "0000" ? " selected='selected'" : ""; ?>>Non Tarif</option>
-                        <option value="1111"<?php echo isset($tarifid) && $tarifid == "1111" ? " selected='selected'" : ""; ?>>Tarif</option>
+                    <select <?php echo $disabled . $disabled_select; ?> name="tarifid" id="tarifid" class="form-control">
+                        <option value="Tarif"<?php echo isset($tarifnama) && $tarifnama == "Tarif" ? " selected='selected'" : ""; ?>>Tarif</option>
+                        <option value="Non Tarif"<?php echo isset($tarifnama) && $tarifnama == "Non Tarif" ? " selected='selected'" : ""; ?>>Non Tarif</option>
+                        <?php /* 
                         <option value="0001"<?php echo isset($tarifid) && $tarifid == "0001" ? " selected='selected'" : ""; ?>>Akomodasi Perjalan Dinas Menginap Kadiv</option>
                         <option value="0002"<?php echo isset($tarifid) && $tarifid == "0002" ? " selected='selected'" : ""; ?>>Akomodasi Perjalan Dinas Menginap DepKadiv</option>
                         <option value="0003"<?php echo isset($tarifid) && $tarifid == "0003" ? " selected='selected'" : ""; ?>>Akomodasi Perjalan Dinas Menginap Kasie</option>
@@ -79,9 +84,9 @@
                         <option value="0005"<?php echo isset($tarifid) && $tarifid == "0005" ? " selected='selected'" : ""; ?>>Akomodasi Perjalan Dinas Menginap PTU</option>
                         <option value="0006"<?php echo isset($tarifid) && $tarifid == "0006" ? " selected='selected'" : ""; ?>>Transportasi Pesawat Perjalan Dinas Menginap</option>
                         <option value="0007"<?php echo isset($tarifid) && $tarifid == "0007" ? " selected='selected'" : ""; ?>>Transportasi Kereta Perjalan Dinas Menginap</option>
-                        <option value="0008"<?php echo isset($tarifid) && $tarifid == "0008" ? " selected='selected'" : ""; ?>>Transportasi Taxi Perjalan Dinas Menginap</option>
+                        <option value="0008"<?php echo isset($tarifid) && $tarifid == "0008" ? " selected='selected'" : ""; ?>>Transportasi Taxi Perjalan Dinas Menginap</option> */ ?>
                     </select>
-                    <input type="hidden" name="tarifnama" id="tarifnama" value="<?php echo isset($tarifnama) ? $tarifnama : ""; ?>" />
+                    <input type="hidden" name="tarifnama" id="tarifnama" value="<?php echo isset($tarifnama) ? $tarifnama : "Tarif"; ?>" />
                 </div>
             </div>
             

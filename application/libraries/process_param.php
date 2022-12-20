@@ -24,8 +24,14 @@ class process_param {
         $result_column = "";
         $result_values = "";
         for($i = 0; $i < sizeof($keyss); $i++){
-            $result_column = $result_column . $comma . $keyss[$i];
-            $result_values = $result_values . $comma . "'" . $this->CI->test->db->escape_str($param['column_value'][$keyss[$i]]) . "'";
+            $explode_dots = explode("::", $keyss[$i]);
+            $column = $explode_dots[0];
+            $result_column = $result_column . $comma . $column;
+            if(isset($explode_dots[1]) && $explode_dots[1] == "subquery"){
+                $result_values = $result_values . $comma . $param['column_value'][$keyss[$i]];
+            } else {
+                $result_values = $result_values . $comma . "'" . $this->CI->test->db->escape_str($param['column_value'][$keyss[$i]]) . "'";
+            }
             $comma = ",";
         }
         $query = "insert into " . $table . "(".$result_column.") values (".$result_values.")";
@@ -106,7 +112,7 @@ class process_param {
         "</pre>\n"; 
         */
         
-        if($this->CI->db->dbdriver == "postgre"){
+        if($this->CI->db->dbdriver == "postgre" && !isset($GLOBALS['nousername'])){
             $hasil = $this->model->db->query("SELECT column_name FROM information_schema.columns WHERE table_name='".$param['table']."' and column_name='username'");
             $data_ = $hasil->result();
             if(sizeof($data_) > 0){

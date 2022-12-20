@@ -15,7 +15,7 @@
                             <th style="white-space: nowrap;">Kode</th>
                             <th style="white-space: nowrap;">Satker</th>
                             <th style="white-space: nowrap;">ID Tarif</th>
-                            <th style="white-space: nowrap;">Nama</th>
+                            <th style="white-space: nowrap;">Jenis Tarif</th>
                             <th style="white-space: nowrap;">Nominal</th>
                             <th style="white-space: nowrap;">Deskripsi</th>
                         </tr>

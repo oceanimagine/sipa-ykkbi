@@ -63,7 +63,7 @@
                                 <th>id</th>
                                 <th>Kode</th>
                                 <th>Satker</th>
-                                <th>Nama Tarif</th>
+                                <th>Jenis Tarif</th>
                                 <th>Nominal</th>
                                 <th>Deskripsi</th>
                                 <th>Action</th>

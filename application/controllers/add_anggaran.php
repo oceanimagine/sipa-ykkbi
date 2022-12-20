@@ -45,7 +45,7 @@ class add_anggaran extends CI_Controller {
                 'b.tarifdesc'
             ),
             'where' => 'b.kode = \''.$this->kode_project_scope_controller.'\' and b.satkerid::int in ('.$this->aplikasi->data->satker_string.')',
-            'order' => 'satkerid asc'
+            'order' => 'satkerid asc, b.tarifid asc'
         ));
         $this->load->view("regular/data_master_anggaran", array(
             "data_search" => $this->all

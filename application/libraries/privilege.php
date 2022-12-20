@@ -20,6 +20,9 @@ class privilege {
         if(sizeof($explode_get) == 1 && sizeof($explode_check) == 1 && sizeof($explode_report) == 1 && sizeof($explode_add) == 1 && sizeof($explode_edit) == 1){
             $_SESSION['URL_CURRENT'] = str_replace("?","/",current_url());
         }
+        if($_SESSION['data_satker_comma'] == ""){
+            $_SESSION['data_satker_comma'] = '0';
+        }
 	$same = 0;
         for($i = 0; $i < sizeof($jenis_privilege); $i++){
 	    if((isset($_SESSION['PRI']) && $_SESSION['PRI'] == $jenis_privilege[$i])){

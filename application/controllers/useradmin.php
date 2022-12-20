@@ -130,6 +130,7 @@ class Useradmin extends CI_Controller {
                 }
             }
             upload_file("photo_user_admin");
+            $GLOBALS['nousername'] = true;
             $this->get_useradmin->process(array(
                 'action' => 'update',
                 'table' => 'tbl_user_admin',
@@ -153,7 +154,7 @@ class Useradmin extends CI_Controller {
                 ));
             }
             $this->add_privilege($id);
-            redirect('useradmin');
+            redirect('useradmin/edit/' . $id);
         }
         $this->get_useradmin->process(array(
             'action' => 'select',
@@ -229,6 +230,7 @@ class Useradmin extends CI_Controller {
                     $comma = ",";
                 }
             }
+            $GLOBALS['nousername'] = true;
             $this->get_useradmin->process(array(
                 'action' => 'insert',
                 'table' => 'tbl_user_admin',

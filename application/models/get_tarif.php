@@ -13,7 +13,6 @@ class get_tarif extends CI_Model {
     }
 
     function get_data(){
-        
         $CI =& get_instance();
         $edit_link = "../../../index.php/tarif/edit";
         $delete_link = "../../../index.php/tarif/hapus";

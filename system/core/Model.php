@@ -35,6 +35,10 @@ class CI_Model {
         protected $where_project = "";
         function __construct()
 	{
+            if(isset($_GET["sSearch"]) && $_GET["sSearch"] != ""){
+                $_GET["sSearch"] = strtolower($_GET["sSearch"]);
+            }
+            
 		log_message('debug', "Model Class Initialized");
 	}
         

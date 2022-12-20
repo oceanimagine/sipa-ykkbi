@@ -76,7 +76,7 @@ class tarif extends CI_Controller {
 
                     'kode' => $kode,
                     'satkerid' => $satkerid,
-                    'tarifid' => $tarifid,
+                    'tarifid' => $this->tarifid,
                     'tarifnama' => $tarifnama,
                     'tarifnom' => $tarifnom,
                     'tarifdesc' => $tarifdesc
@@ -84,7 +84,7 @@ class tarif extends CI_Controller {
                 'where' => 'tarifid = \''.$this->tarifid.'\' and satkerid = \''.$this->satkerid.'\' and kode = \''.$this->kode.'\''
             ));
             
-            redirect('tarif/edit/'.$kode."-".$satkerid."-".$tarifid.'');
+            redirect('tarif/edit/'.$kode."-".$satkerid."-".$this->tarifid.'');
         }
         
         $this->get_tarif->process(array(
@@ -138,23 +138,69 @@ class tarif extends CI_Controller {
             }
             $kode = $this->input->post('kode');
             $satkerid = $this->input->post('satkerid');
-            $tarifid = $this->input->post('tarifid');
+            
             $tarifnama = $this->input->post('tarifnama');
             $tarifnom = $this->input->post('tarifnom');
             $tarifdesc = $this->input->post('tarifdesc');
+            
+            /* 
+            $tarifid = $this->input->post('tarifid');
+            print_query();
             $this->get_tarif->process(array(
-                'action' => 'insert',
+                'action' => 'select',
                 'table' => 'tblmastertarif',
                 'column_value' => array(
-                    
-                    'kode' => $kode,
-                    'satkerid' => $satkerid,
-                    'tarifid' => $tarifid,
-                    'tarifnama' => $tarifnama,
-                    'tarifnom' => $tarifnom,
-                    'tarifdesc' => $tarifdesc
-                )
+                    'tarifid'
+                ),
+                'where' => 'satkerid = \''.$satkerid.'\' and kode = \''.$kode.'\'',
+                'order' => 'tarifid desc'
             ));
+            
+            $urutan = '0000';
+            if($tarifnama == "Tarif"){
+                $urutan = '0001';
+                $hasil_tarifid = $this->all;
+                if(sizeof($hasil_tarifid) > 0){
+                    $urutan = samakan((str_replace("0","",$hasil_tarifid[0]->tarifid) + 1), '0000');
+                }
+            } */
+            
+            /*
+            echo "<pre>\n";
+            print_r($_POST);
+            print_r($hasil_tarifid);
+            echo "</pre>\n";
+            print_query(); */
+            
+            if($tarifnama == "Tarif"){
+                $this->get_tarif->process(array(
+                    'action' => 'insert',
+                    'table' => 'tblmastertarif',
+                    'column_value' => array(
+
+                        'kode' => $kode,
+                        'satkerid' => $satkerid,
+                        'tarifid::subquery' => "(SELECT RIGHT('0000' || (MAX(tarifid)::int + 1)::varchar,4) FROM tblmastertarif where kode = '".$kode."' and satkerid = '".$satkerid."')",
+                        'tarifnama' => $tarifnama,
+                        'tarifnom' => $tarifnom,
+                        'tarifdesc' => $tarifdesc
+                    )
+                ));
+            } else if($tarifnama == "Non Tarif") {
+                $this->get_tarif->process(array(
+                    'action' => 'insert',
+                    'table' => 'tblmastertarif',
+                    'column_value' => array(
+
+                        'kode' => $kode,
+                        'satkerid' => $satkerid,
+                        'tarifid' => "0000",
+                        'tarifnama' => $tarifnama,
+                        'tarifnom' => $tarifnom,
+                        'tarifdesc' => $tarifdesc
+                    )
+                ));
+            }
             redirect('tarif/add');
         }
         
