@@ -671,6 +671,7 @@ function check_percent_nom_baris(object_input){
     
 }
 
+window.check_merah = false;
 function check_nom_per_baris(object_input){
     var get_td = object_input.parentNode;
     var get_tr = get_td.parentNode;
@@ -680,6 +681,7 @@ function check_nom_per_baris(object_input){
     var get_tbody = get_tr.parentNode;
     var get_all_tr = get_tbody.getElementsByTagName("tr");
     
+    window.check_merah = false;
     var tambah_anakan = 0;
     var temp_tr = {"undefined":true};
     for(var i = 0; i < get_all_tr.length; i++){
@@ -744,6 +746,7 @@ function check_nom_per_baris(object_input){
             for(var k = 0; k < get_input_.length; k++){
                 if(get_input_[k].getAttribute("name").substr(0, "tw1_".length) === "tw1_"){
                     if(jumlah_tw_perbandingan !== jumlah_tw){
+                        window.check_merah = true;
                         get_input_[k].style.borderTop = "red 1px solid";
                         get_input_[k].style.borderRight = "red 1px solid";
                         get_input_[k].style.borderLeft = "red 1px solid";
@@ -756,6 +759,7 @@ function check_nom_per_baris(object_input){
                 }
                 if(get_input_[k].getAttribute("name").substr(0, "tw2_".length) === "tw2_"){
                     if(jumlah_tw_perbandingan !== jumlah_tw){
+                        window.check_merah = true;
                         get_input_[k].style.borderTop = "red 1px solid";
                         get_input_[k].style.borderRight = "red 1px solid";
                         get_input_[k].style.borderLeft = "red 1px solid";
@@ -768,6 +772,7 @@ function check_nom_per_baris(object_input){
                 }
                 if(get_input_[k].getAttribute("name").substr(0, "tw3_".length) === "tw3_"){
                     if(jumlah_tw_perbandingan !== jumlah_tw){
+                        window.check_merah = true;
                         get_input_[k].style.borderTop = "red 1px solid";
                         get_input_[k].style.borderRight = "red 1px solid";
                         get_input_[k].style.borderLeft = "red 1px solid";
@@ -780,6 +785,7 @@ function check_nom_per_baris(object_input){
                 }
                 if(get_input_[k].getAttribute("name").substr(0, "tw4_".length) === "tw4_"){
                     if(jumlah_tw_perbandingan !== jumlah_tw){
+                        window.check_merah = true;
                         get_input_[k].style.borderTop = "red 1px solid";
                         get_input_[k].style.borderRight = "red 1px solid";
                         get_input_[k].style.borderLeft = "red 1px solid";

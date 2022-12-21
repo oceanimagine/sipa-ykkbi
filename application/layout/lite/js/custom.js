@@ -714,9 +714,65 @@ $(function () {
                                 if(get_input_anakan[j].value === ""){
                                     check_kosong_anak_number = 1;
                                 }
+                                if(get_input_anakan[j].getAttribute("name").substr(0,"subtotal_".length) === "subtotal_"){
+                                    if(get_input_anakan[j].value[0] === "0"){
+                                        check_kosong_anak_number = 1;
+                                    }
+                                }
                             }
                         }
                     }
+                }
+                
+                for(var ll = 2; ll <= 100; ll++){
+                    if(document.getElementById("table-anggaran-tahunan" + convert_number_alphabet(ll))){
+                        var table_anggaran_tahunan = document.getElementById("table-anggaran-tahunan" + convert_number_alphabet(ll));
+                        var get_tbody = table_anggaran_tahunan.getElementsByTagName("tbody");
+                        var get_tr = get_tbody[0].getElementsByTagName("tr");
+                        var kesamman_group = [];
+                        var check_kosong_anak = 0;
+                        var check_kosong_anak_number = 0;
+                        var check_kosong_group = 0;
+                        var lewat_kesamaan_group = 0;
+                        var lewat_check_kosong = 0;
+                        var lewat_check_number_kosong = 0;
+                        var pesan_modal = {};
+                        for(var i = 0; i < get_tr.length; i++){
+                            if(get_tr[i].getAttribute("class").substr(0,"induk_group_".length) === "induk_group_"){
+                                var get_input_group = get_tr[i].getElementsByTagName("input");
+                                if(get_input_group[0].value === ""){
+                                    check_kosong_group = 1;
+                                }
+                                if(typeof kesamman_group[get_input_group[0].value] === "undefined"){
+                                    kesamman_group[get_input_group[0].value] = 0;
+                                } else {
+                                    kesamman_group[get_input_group[0].value]++;
+                                }
+                            }
+                            if(get_tr[i].getAttribute("class").substr(0,"anakan_group_".length) === "anakan_group_"){
+                                var get_input_anakan = get_tr[i].getElementsByTagName("input");
+                                if(get_input_anakan[0].value === ""){
+                                    check_kosong_anak = 1;
+                                }
+                                for(var j = 1; j < get_input_anakan.length; j++){
+                                    if(get_input_anakan[j].getAttribute("class") === "numberonly"){
+                                        if(get_input_anakan[j].value === ""){
+                                            check_kosong_anak_number = 1;
+                                        }
+                                        if(get_input_anakan[j].getAttribute("name").substr(0,"subtotal_".length) === "subtotal_"){
+                                            if(get_input_anakan[j].value[0] === "0"){
+                                                check_kosong_anak_number = 1;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                if(window.check_merah){
+                    check_kosong_anak_number = 1;
                 }
                 
                 if(check_kosong_anak_number){
