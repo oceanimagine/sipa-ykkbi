@@ -6,7 +6,7 @@ $list_server = array(
         "host" => "200.60.4.93",
         "user" => "postgres",
         "pass" => "Ykkbi@2021",
-        "data" => "dbsiang_dev",
+        "data" => "dbsiang_2022",
         "base" => "/project-ykkbi-sipa/",
         "port" => "5431"
     ),

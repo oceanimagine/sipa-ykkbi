@@ -5,6 +5,10 @@ ini_set('display_errors', 'On');
 include_once __DIR__ . "/config/connect-list.php";
 include_once __DIR__ . "/config/connect.php";
 
+// print_r($_GET);
+
+// $_GET['sSearch'] = "AAAAAA";
+
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
