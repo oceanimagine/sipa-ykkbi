@@ -1522,18 +1522,31 @@ function show_master_tarif(object_input){
         $('#modal-success').modal('show');
         return false;
     }
-    temporary_object_input_master_anggaran = object_input;
-    set_loading();
-    $.get("../../../index.php/add-anggaran/get_master_anggaran", function(data, status){
-        if(status === "success"){
-            if(check_session(data)){
-                // var mata_anggaran = document.getElementById("mata_anggaran");
-                var tbody_hasil_data_master_tarif = document.getElementById("tbody_hasil_data_master_tarif");
-                tbody_hasil_data_master_tarif.innerHTML = data;
-                $('#modal-master-tarif').modal('show');
-                set_tr_click_inside_tbody(tbody_hasil_data_master_tarif,object_input,'modal-master-tarif','4');
-                removeLoading_regular();
+    
+    var satuan_kerja = document.getElementById("satuan_kerja");
+    var satker_active = satuan_kerja.value
+        .split("(").join("KURUNGBUKA")
+        .split(")").join("KURUNGTUTUP")
+        .split(" ").join("SEPASI");
+    
+    if(satker_active !== ""){
+        temporary_object_input_master_anggaran = object_input;
+        set_loading();
+        $.get("../../../index.php/add-anggaran/get_master_anggaran/" + satker_active, function(data, status){
+            if(status === "success"){
+                if(check_session(data)){
+                    // var mata_anggaran = document.getElementById("mata_anggaran");
+                    var tbody_hasil_data_master_tarif = document.getElementById("tbody_hasil_data_master_tarif");
+                    tbody_hasil_data_master_tarif.innerHTML = data;
+                    $('#modal-master-tarif').modal('show');
+                    set_tr_click_inside_tbody(tbody_hasil_data_master_tarif,object_input,'modal-master-tarif','4');
+                    removeLoading_regular();
+                }
             }
-        }
-    });
+        });
+    } else {
+        var pesan_modal = document.getElementById("pesan_modal");
+        pesan_modal.innerHTML = "Choose Satker.";
+        $('#modal-success').modal('show');
+    }
 }

@@ -30,23 +30,41 @@ class add_anggaran extends CI_Controller {
         return $this->layout->loadjs("add_anggaran/get_add_anggaran");
     }
     
-    public function get_master_anggaran(){
+    public function get_master_anggaran($satker_active = ""){
         // print_query();
-        $this->get_add_anggaran->process(array(
-            'action' => 'select',
-            'table' => 'tblmastertarif b',
-            'column_value' => array(
-                'b.kode',
-                '(select a.nama1 from tblmastersatker a where a.satkerid = b.satkerid) satkernama',
-                'satkerid',
-                'b.tarifid',
-                'b.tarifnama',
-                'b.tarifnom',
-                'b.tarifdesc'
-            ),
-            'where' => 'b.kode = \''.$this->kode_project_scope_controller.'\' and b.satkerid::int in ('.$this->aplikasi->data->satker_string.')',
-            'order' => 'satkerid asc, b.tarifid asc'
-        ));
+        if($satker_active == ""){
+            $this->get_add_anggaran->process(array(
+                'action' => 'select',
+                'table' => 'tblmastertarif b',
+                'column_value' => array(
+                    'b.kode',
+                    '(select a.nama1 from tblmastersatker a where a.satkerid = b.satkerid) satkernama',
+                    'satkerid',
+                    'b.tarifid',
+                    'b.tarifnama',
+                    'b.tarifnom',
+                    'b.tarifdesc'
+                ),
+                'where' => 'b.kode = \''.$this->kode_project_scope_controller.'\' and b.satkerid::int in ('.$this->aplikasi->data->satker_string.')',
+                'order' => 'satkerid asc, b.tarifid asc'
+            ));
+        } else {
+            $this->get_add_anggaran->process(array(
+                'action' => 'select',
+                'table' => 'tblmastertarif b',
+                'column_value' => array(
+                    'b.kode',
+                    '(select a.nama1 from tblmastersatker a where a.satkerid = b.satkerid) satkernama',
+                    'satkerid',
+                    'b.tarifid',
+                    'b.tarifnama',
+                    'b.tarifnom',
+                    'b.tarifdesc'
+                ),
+                'where' => 'b.kode = \''.$this->kode_project_scope_controller.'\' and b.satkerid::int in ('.explode(" ",str_replace(array("SEPASI","KURUNGBUKA","KURUNGTUTUP"), array(" ","",""), $satker_active))[0].')',
+                'order' => 'satkerid asc, b.tarifid asc'
+            ));
+        }
         $this->load->view("regular/data_master_anggaran", array(
             "data_search" => $this->all
         ));
