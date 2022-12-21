@@ -137,9 +137,9 @@
                     ");
                 }
                 ?>
-                <div class="form-group" style="min-width: 1300px;">
+                <div class="form-group" style="min-width: 1350px;">
                     <div class="col-md-12">
-                        <div style="border: #f1f1f1 1px solid; box-shadow: 0 0 20px rgb(0 0 0 / 15%); padding: 12px 15px; margin-top: 15px; min-width: 1300px;">
+                        <div style="border: #f1f1f1 1px solid; box-shadow: 0 0 20px rgb(0 0 0 / 15%); padding: 12px 15px; margin-top: 15px; min-width: 1350px;">
                             <?php /* <i class="fa fa-file" onclick="tambah_table();" style="cursor: pointer;"></i>&nbsp;&nbsp;Form Anggaran */ ?>
                             <div class="form-group">
                                 <div class="col-xs-12">
@@ -209,7 +209,7 @@
             
                 <div class="form-group">
                     <div class="col-md-12" id="tempat_utama_table">
-                        <div style="border: #f1f1f1 1px solid; box-shadow: 0 0 20px rgb(0 0 0 / 15%); padding: 12px 15px; /* margin-bottom: 15px; */ min-width: 1300px;">
+                        <div style="border: #f1f1f1 1px solid; box-shadow: 0 0 20px rgb(0 0 0 / 15%); padding: 12px 15px; /* margin-bottom: 15px; */ min-width: 1350px;">
                             <?php /* <i class="fa fa-plus" onclick="tambah_table();" style="cursor: pointer;"></i>&nbsp;&nbsp;Add Table */ ?>
                             <div class="form-group" style="margin-bottom: 0px;">
                                 <div class="col-xs-12" style="padding-left: 0px;">
@@ -228,7 +228,7 @@
                             </div>
                             <input type="hidden" id="kumpulan_alphabet" name="kumpulan_alphabet" value="<?php echo $kumpulan_alphabet; ?>" />
                         </div>
-                        <table class="styled-table" style="border: #f1f1f1 1px solid; min-width: 1300px;" id="table-anggaran-tahunan">
+                        <table class="styled-table" style="border: #f1f1f1 1px solid; min-width: 1350px;" id="table-anggaran-tahunan">
                             <thead>
                                 <tr>
                                     <th colspan="7" style="text-align: center; border-right: #f1f1f1 1px solid; border-bottom: #f1f1f1 1px solid; white-space: nowrap;">Rincian Mata Anggaran</th>
@@ -248,7 +248,8 @@
                                     <th style="border-bottom: #f1f1f1 1px solid; text-align: center; white-space: nowrap; border-right: #f1f1f1 1px solid;" colspan="2">TW IV</th>
                                 </tr>
                                 <tr>
-                                    <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;" colspan="2">Nom</th><?php /*
+                                    <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">Rp</th>
+                                    <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">Rp</th><?php /*
                                     <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">Nom</th>*/ ?>
                                     <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">%</th>
                                     <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">Rp</th>
@@ -385,7 +386,7 @@
                                     choosen_ma['<?php echo $alphabet_lanjutan[$keys_ma[$i]]; ?>'] = '<?php echo $nilai_ma; ?>';
                                 </script>
                                 
-                                <div style="border: #f1f1f1 1px solid; box-shadow: 0 0 20px rgb(0 0 0 / 15%); padding: 12px 15px; /* margin-bottom: 15px; */ margin-top: 15px; min-width: 1300px;">
+                                <div style="border: #f1f1f1 1px solid; box-shadow: 0 0 20px rgb(0 0 0 / 15%); padding: 12px 15px; /* margin-bottom: 15px; */ margin-top: 15px; min-width: 1350px;">
                                     <?php /* <i class="fa fa-minus" onclick="kurangi_table('<?php echo ($i + 2); ?>',this);" style="cursor: pointer;"></i>&nbsp;&nbsp;Remove Table */ ?>
                                     <div class="form-group" style="margin-bottom: 0px;">
                                         <div class="col-xs-12" style="padding-left: 0px;">
@@ -404,7 +405,7 @@
                                     </div>
                                 </div>
                                 
-                                <table class="styled-table" style="border: #f1f1f1 1px solid; min-width: 1300px;" id="table-anggaran-tahunan<?php echo $alphabet_lanjutan[$keys_ma[$i]]; ?>">
+                                <table class="styled-table" style="border: #f1f1f1 1px solid; min-width: 1350px;" id="table-anggaran-tahunan<?php echo $alphabet_lanjutan[$keys_ma[$i]]; ?>">
                                     <thead>
                                         <tr>
                                             <th colspan="7" style="text-align: center; border-right: #f1f1f1 1px solid; border-bottom: #f1f1f1 1px solid; white-space: nowrap;">Rincian Mata Anggaran</th>
@@ -424,7 +425,8 @@
                                             <th style="border-bottom: #f1f1f1 1px solid; text-align: center; white-space: nowrap; border-right: #f1f1f1 1px solid;" colspan="2">TW IV</th>
                                         </tr>
                                         <tr>
-                                            <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;" colspan="2">Nom</th><?php /*
+                                            <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">Rp</th>
+                                            <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">Rp</th><?php /*
                                             <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">Nom</th>*/ ?>
                                             <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">%</th>
                                             <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">Rp</th>
@@ -577,7 +579,7 @@
                         
                         ?>
                         
-                        <div class="form-group" id="footer_utama_table" style="min-width: 1300px;">
+                        <div class="form-group" id="footer_utama_table" style="min-width: 1350px;">
                             <div class="col-xs-6" style="padding-left: 0px; padding-right: 4px;">
                                 <?php if(isset($konfirmasi_hapus) && $konfirmasi_hapus){ ?>
                                 <button <?php echo $disabled; ?> style="width: 100%; background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f1f1f1), color-stop(1, #ffffff)) !important; color: black; border-color: #adadad; margin-top: 15px; border-radius: 0px;" type="submit" class="btn btn-info pull-right bg-light-blue-gradient" name="hapus_anggaran" id="hapus_anggaran" value="Hapus Anggaran">Hapus Anggaran</button>
@@ -596,7 +598,7 @@
             </div>
         </form>
         <div id="duplikasi_table_raw" style="display: none;">
-            <table class="styled-table" style="border: #f1f1f1 1px solid; min-width: 1300px;" id="table-anggaran-tahunan{newname}">
+            <table class="styled-table" style="border: #f1f1f1 1px solid; min-width: 1350px;" id="table-anggaran-tahunan{newname}">
                 <thead>
                     <tr>
                         <th colspan="7" style="text-align: center; border-right: #f1f1f1 1px solid; border-bottom: #f1f1f1 1px solid; white-space: nowrap;">Rincian Mata Anggaran</th>
@@ -616,7 +618,8 @@
                         <th style="border-bottom: #f1f1f1 1px solid; text-align: center; white-space: nowrap; border-right: #f1f1f1 1px solid;" colspan="2">TW IV</th>
                     </tr>
                     <tr>
-                        <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;" colspan="2">Nom</th><?php /*
+                        <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">Rp</th>
+                        <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">Rp</th><?php /*
                         <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">Nom</th>*/ ?>
                         <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">%</th>
                         <th style="border-right: #f1f1f1 1px solid; text-align: center; white-space: nowrap;">Rp</th>

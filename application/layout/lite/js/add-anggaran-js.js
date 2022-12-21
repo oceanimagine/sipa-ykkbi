@@ -1435,7 +1435,9 @@ function set_tr_click_inside_tbody(tbody_active,input_active,id_dialog,display_a
                             var get_input_tr = get_tr.getElementsByTagName("input");
                             for(var i = 0; i < get_input_tr.length; i++){
                                 if(get_input_tr[i].getAttribute("name").substr(0, "nama_".length) === "nama_" && get_input_tr[i].getAttribute("class") === "textinput"){
-                                    get_input_tr[i].value = typeof get_attr_data[3] !== "undefined" && get_attr_data[3] !== "" ? get_attr_data[3] : "Anggaran Default.";
+                                    if(typeof window.masukkan_deskripsi !== "undefined" && window.masukkan_deskripsi){
+                                        get_input_tr[i].value = typeof get_attr_data[5] !== "undefined" && get_attr_data[5] !== "" ? get_attr_data[5] : "Anggaran Default.";
+                                    }
                                 }
                             }
                         }
