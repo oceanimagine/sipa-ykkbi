@@ -1423,34 +1423,56 @@ function set_tr_click_inside_tbody(tbody_active,input_active,id_dialog,display_a
                     hasil_concate_display = hasil_concate_display + pemisah_display + (detect_ma(get_attr_data[Number(get_address[i])]) ? (get_attr_data[Number(get_address[i])].substr(0,3) + "." + get_attr_data[Number(get_address[i])].substr(3,3) + "." + get_attr_data[Number(get_address[i])].substring(6)) : get_attr_data[Number(get_address[i])]);
                     pemisah_display = " # ";
                 }
-
-                removeLoading();
-                setTimeout(function(){
-                    var get_id = input_active.getAttribute("id");
-                    if(get_id !== null){
-                        var hidden_id = get_id + "_hidden";
-                        var hidden_active = document.getElementById(hidden_id);
-                        hidden_active.value = hasil_concate;
-                        /* console.log(hasil_concate); */
-                    }
-                    input_active.value = hasil_concate_display;
-                    if(get_id === null){
-                        if(input_active.getAttribute("name") !== null && input_active.getAttribute("name").substr(0, "tarif_".length) === "tarif_" && input_active.getAttribute("class") !== null && input_active.getAttribute("class") === "numberonly"){
-                            var get_tr = input_active.parentNode.parentNode;
-                            // console.log(get_tr);
-                            var get_input_tr = get_tr.getElementsByTagName("input");
-                            for(var i = 0; i < get_input_tr.length; i++){
-                                if(get_input_tr[i].getAttribute("name").substr(0, "nama_".length) === "nama_" && get_input_tr[i].getAttribute("class") === "textinput"){
-                                    if(typeof window.masukkan_deskripsi !== "undefined" && window.masukkan_deskripsi){
-                                        get_input_tr[i].value = typeof get_attr_data[5] !== "undefined" && get_attr_data[5] !== "" ? get_attr_data[5] : "Anggaran Default.";
+                
+                if(id_dialog === 'modal-rincian-kegiatan'){
+                    $.get("../../../index.php/add-anggaran/cek_rincian_kegiatan/" + get_attr_data[3], function(data, status){
+                        if(status === "success"){
+                            console.log("Masuk Ajax Modal Rincian Kegiatan")
+                            console.log(data);
+                            removeLoading();
+                            setTimeout(function(){
+                                var get_id = input_active.getAttribute("id");
+                                if(get_id !== null){
+                                    var hidden_id = get_id + "_hidden";
+                                    var hidden_active = document.getElementById(hidden_id);
+                                    hidden_active.value = hasil_concate;
+                                    /* console.log(hasil_concate); */
+                                }
+                                input_active.value = hasil_concate_display;
+                                $('#'+id_dialog).modal('hide');
+                            },500);
+                        }
+                    });
+                } else {
+                
+                    removeLoading();
+                    setTimeout(function(){
+                        var get_id = input_active.getAttribute("id");
+                        if(get_id !== null){
+                            var hidden_id = get_id + "_hidden";
+                            var hidden_active = document.getElementById(hidden_id);
+                            hidden_active.value = hasil_concate;
+                            /* console.log(hasil_concate); */
+                        }
+                        input_active.value = hasil_concate_display;
+                        if(get_id === null){
+                            if(input_active.getAttribute("name") !== null && input_active.getAttribute("name").substr(0, "tarif_".length) === "tarif_" && input_active.getAttribute("class") !== null && input_active.getAttribute("class") === "numberonly"){
+                                var get_tr = input_active.parentNode.parentNode;
+                                // console.log(get_tr);
+                                var get_input_tr = get_tr.getElementsByTagName("input");
+                                for(var i = 0; i < get_input_tr.length; i++){
+                                    if(get_input_tr[i].getAttribute("name").substr(0, "nama_".length) === "nama_" && get_input_tr[i].getAttribute("class") === "textinput"){
+                                        if(typeof window.masukkan_deskripsi !== "undefined" && window.masukkan_deskripsi){
+                                            get_input_tr[i].value = typeof get_attr_data[5] !== "undefined" && get_attr_data[5] !== "" ? get_attr_data[5] : "Anggaran Default.";
+                                        }
                                     }
                                 }
                             }
+                            input_active.focus();
                         }
-                        input_active.focus();
-                    }
-                    $('#'+id_dialog).modal('hide');
-                },2000);
+                        $('#'+id_dialog).modal('hide');
+                    },2000);
+                }
             }
             
         };

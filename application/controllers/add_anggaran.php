@@ -20,6 +20,28 @@ class add_anggaran extends CI_Controller {
     public function get_add_anggaran() {
         $this->get_add_anggaran->get_data();
     }
+    
+    public function cek_rincian_kegiatan($rincian_kegiatan_kode){
+        $this->get_add_anggaran->process(array(
+            'action' => 'select',
+            'table' => 'tbldaftarat',
+            'column_value' => array(
+                'kode',
+                'sbpkode',
+                'pktkode',
+                'rekmakode'
+            ),
+            'where' => 'pktkode = \''.$rincian_kegiatan_kode.'\'',
+            'order' => 'pktkode asc'
+        ));
+        $data = $this->all;
+        if(sizeof($data) > 0){
+            echo "url:" . $data[0]->kode . "-" . $data[0]->sbpkode . "-" . $data[0]->pktkode . "-" . $data[0]->rekmakode;
+        } else {
+            echo "url:none";
+        }
+        
+    }
 
     public function get_style(){
         $process_report_excel = new process_report_excel();
@@ -736,7 +758,7 @@ class add_anggaran extends CI_Controller {
             'action' => 'select',
             'table' => 'tbldaftaratrincian',
             'column_value' => array('*'),
-            'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and rekmakode = \''.$this->rekmakode_at .'\''
+            'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and pktkode =  \''.$this->pktkode_at .'\' and rekmakode = \''.$this->rekmakode_at .'\''
         ));
         $this->data_rincian_edit = $this->all;
         
@@ -794,11 +816,13 @@ class add_anggaran extends CI_Controller {
         $this->process_param($param_id);
         
         // Get Group
+        // print_query();
         $this->get_add_anggaran->process(array(
             'action' => 'select',
             'table' => 'tbldaftaratgroup',
             'column_value' => array('*'),
-            'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and pktkode = \''.$this->pktkode_at .'\' and rekmakode != \''.$this->rekmakode_at .'\''
+            'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and pktkode = \''.$this->pktkode_at .'\' and rekmakode != \''.$this->rekmakode_at .'\'',
+            'order' => 'rekmakode asc'
         ));
         $group_lanjutan = $this->all;
         for($i = 0; $i < sizeof($group_lanjutan); $i++){
@@ -833,7 +857,7 @@ class add_anggaran extends CI_Controller {
             'action' => 'select',
             'table' => 'tbldaftaratrincian',
             'column_value' => array('*'),
-            'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and rekmakode != \''.$this->rekmakode_at .'\''
+            'where' => 'kode = \''.$this->kode_at .'\' and sbpkode = \''.$this->sbpkode_at .'\' and pktkode =  \''.$this->pktkode_at .'\' and rekmakode != \''.$this->rekmakode_at .'\''
         ));
         $rincian_lanjutan = $this->all;
         for($i = 0; $i < sizeof($rincian_lanjutan); $i++){
@@ -847,6 +871,10 @@ class add_anggaran extends CI_Controller {
                 $address_rincian_lanjutan++;
             }
         }
+        
+        // echo "<pre>\n";
+        // print_r($this->rincian_lanjutan);
+        // echo "</pre>\n";
         
         // echo "<div style='display: none;'>\n";
         // print_r($this->group_lanjutan);

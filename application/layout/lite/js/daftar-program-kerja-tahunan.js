@@ -100,8 +100,8 @@ function auto_set_satker_and_nokegiatan(nomor_kegiatan){
     var explode_titik = nomor_kegiatan.split(".");
     var satker = explode_titik[0];
     var kegiatan = explode_titik[1];
-    console.log(satker);
-    console.log(kegiatan);
+    console.log("SATKER : " + satker);
+    console.log("KEGIATAN : " + kegiatan);
     var satker_pkt_kode = document.getElementById("satker_pkt_kode");
     var nokegiatan_pkt_kode = document.getElementById("nokegiatan_pkt_kode");
     var get_option_satker = satker_pkt_kode.getElementsByTagName("option");
@@ -171,7 +171,7 @@ function set_tr_click_inside_tbody(tbody_active,input_active,id_dialog,display_a
     }
 }
 
-var get_filter_sbp = false;
+var get_filter_sbp = true;
 function set_click_checkbox(div_container){
     var get_span = div_container.getElementsByTagName("span");
     var get_div = get_span[0].parentNode.parentNode;
@@ -241,7 +241,7 @@ function set_handler_rk(){
         $('#modal-success').modal('show');
     }
     filter_sbp_container.style.display = "";
-    set_click_checkbox(filter_sbp_container);
+    // set_click_checkbox(filter_sbp_container);
 }
 
 function unset_click_checkbox(div_container){
@@ -339,7 +339,7 @@ window.addEventListener("load", function () {
             pesan_modal.innerHTML = "Pilih Kode Kegiatan Untuk Melanjutkan.";
             $('#modal-success').modal('show');
             filter_sbp_container.style.display = "";
-            set_click_checkbox(filter_sbp_container);
+            // set_click_checkbox(filter_sbp_container);
         }
         if(this.value === "K"){
             tempat_satker_pkt_kode.setAttribute("class","col-xs-5");
@@ -354,13 +354,13 @@ window.addEventListener("load", function () {
             pktnama.value = "";
             pktoutput.value = "";
             filter_sbp_container.style.display = "none";
-            unset_click_checkbox(filter_sbp_container);
+            // unset_click_checkbox(filter_sbp_container);
             reset_satker_and_nokegiatan();
         }
     });
     var pktkrk = document.getElementById("pktkrk");
-    var sbpps_kode_filter = document.getElementById("sbpps_kode_filter");
-    sbpps_kode_filter.checked = false;
+    // var sbpps_kode_filter = document.getElementById("sbpps_kode_filter");
+    // sbpps_kode_filter.checked = false;
     if(pktkrk.value === "RK"){
         set_handler_rk();
     }

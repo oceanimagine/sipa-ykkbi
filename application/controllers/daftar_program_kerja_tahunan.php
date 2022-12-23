@@ -18,7 +18,7 @@ class daftar_program_kerja_tahunan extends CI_Controller {
     
     public function get_kegiatan_only($sbpkode = ""){
         
-        $sbpkode_where = $sbpkode != "" ? " and sbpkode = '".$sbpkode."'" : "";
+        $sbpkode_where = $sbpkode != "" ? " and sbpkode = '".$sbpkode."'" : " and sbpkode = '".$sbpkode."'";
         $explode_comma = explode(",", $this->aplikasi->data->satker_string);
         $result_satker = "";
         $comma = "";

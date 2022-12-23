@@ -10,4 +10,17 @@ if(isset($data_search)){
         </tr>
         <?php     
     } 
+    if(sizeof($data_search) == 0){
+        ?>
+        <tr info="kegiatan">
+            <td colspan="4">No Data Please Select SBP.</td>
+        </tr> 
+        <?php
+    }
+} else {
+    ?>
+    <tr info="kegiatan">
+        <td colspan="4">No Data Please Select SBP.</td>
+    </tr> 
+    <?php
 }

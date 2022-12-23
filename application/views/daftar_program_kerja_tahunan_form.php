@@ -77,7 +77,7 @@
                     <input required="" type="hidden" id="sbpps_kode_hidden" name="sbpps_kode_hidden" value="<?php echo isset($sbpkode_hidden) ? $sbpkode_hidden : ""; ?>">
                     <div style="display: table; width: 100%; margin-top: 15px; display: none;" id="filter_sbp_container">
                         <div style="width: 2.5%; float: left;">
-                            <input <?php echo $disabled; ?> type="checkbox" name="sbpps_kode_filter" id="sbpps_kode_filter" style="width: 20px; margin: 0px !important; padding: 0px; display: block; overflow: hidden; height: 18px;">
+                            <input <?php echo $disabled; ?> disabled checked type="checkbox" name="sbpps_kode_filter" id="sbpps_kode_filter" style="width: 20px; margin: 0px !important; padding: 0px; display: block; overflow: hidden; height: 18px;">
                         </div>
                         <div style="display: table;height: 18px;">
                             <span style="display: table-cell; vertical-align: middle;font-size: 14px;">Filter Kegiatan Berdasarkan SBP.</span>

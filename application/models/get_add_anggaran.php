@@ -65,7 +65,7 @@ class get_add_anggaran extends CI_Model {
                 a.kode='".$GLOBALS['kode_project']."'
                 and c.kode='".$GLOBALS['kode_project']."'
                 and d.kode='".$GLOBALS['kode_project']."'
-                and b.satkerid::int in (".$_SESSION['data_satker_comma'].")
+                and left(c.pktkode,1)::int in (".$_SESSION['data_satker_comma'].") 
             ".$clouse." 
         ";
 
@@ -114,7 +114,7 @@ class get_add_anggaran extends CI_Model {
                 a.kode='".$GLOBALS['kode_project']."'
                 and c.kode='".$GLOBALS['kode_project']."'
                 and d.kode='".$GLOBALS['kode_project']."'
-                and b.satkerid::int in (".$_SESSION['data_satker_comma'].")
+                and left(c.pktkode,1)::int in (".$_SESSION['data_satker_comma'].") 
             ".$clouse." 
             order by a.pktkode asc 
             offset $iDisplayStart limit $iDisplayLength";
