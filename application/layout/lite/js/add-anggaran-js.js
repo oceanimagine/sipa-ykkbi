@@ -1366,6 +1366,12 @@ function detect_ma(value){
     return false;
 }
 
+function ask_close(){
+    window.onbeforeunload = function () {
+        return true;
+    };
+}
+
 var choosen_ma = typeof choosen_ma !== "undefined" ? choosen_ma : [];
 function set_tr_click_inside_tbody(tbody_active,input_active,id_dialog,display_address,inisial){
     // console.log(choosen_ma);

@@ -241,6 +241,7 @@ function re_trigger_numberonly_input(){
         }
         if(charCode === 27 && typeof detect_address_input_delete === "function"){
             detect_address_input_delete(this);
+            ask_close();
         }
     });
     $(".numberonly").off('keypress');
@@ -284,6 +285,7 @@ function re_trigger_numberonly_input(){
         } else {
             this.value = this.value.split(".").length > 1 && this.value.split(".")[1] !== "" ? this.value : (this.value !== "" ? this.value + ".00" : ((this.value === "" ? "0" : this.value) + ".00"));
         }
+        ask_close();
         set_comma_view_all_all("");
     });
 }
@@ -323,6 +325,9 @@ function re_trigger_input_with_class(classname){
         }
         if(charCode === 27 && typeof detect_address_input_delete === "function"){
             detect_address_input_delete(this);
+        }
+        if(typeof detect_address_input_delete === "function"){
+            ask_close();
         }
     });
 }
@@ -645,6 +650,16 @@ $(function () {
         };
     }
     
+    if(document.getElementById("show_data_form_anggaran")){
+        document.getElementById("show_data_form_anggaran").onclick = function(){
+            var pesan_modal = document.getElementById("isi-pesan-modal-default");
+            pesan_modal.innerHTML = "Apakah anda ingin berpindah halaman ?";
+            $('#modal-default').modal('show');
+            var button_confirm = document.getElementById("button-confirm");
+            button_confirm.setAttribute("onclick", "window.onbeforeunload = function(){};move_url('add-anggaran');");
+        };
+    }
+    
     if(document.getElementById("form-anggaran-tahunan")){
         var form_anggaran_tahunan = document.getElementById("form-anggaran-tahunan");
         /* console.log(form_anggaran_tahunan); */
@@ -813,6 +828,7 @@ $(function () {
                     } else {
                         unset_comma_view_all_all("");
                         unset_tiga_titik_all();
+                        window.onbeforeunload = function(){};
                         this.submit();
                     }
                 }
@@ -899,6 +915,7 @@ $(function () {
         }
         if(charCode === 27 && typeof detect_address_input_delete === "function"){
             detect_address_input_delete(this);
+            ask_close();
         }
     });
     $('.numberonly').keypress(function (e) {    
@@ -934,6 +951,7 @@ $(function () {
             jumlahkan_nom(this);
             check_nom_per_baris(this);
             set_tiga_titik_all();
+            ask_close();
             
         } 
         

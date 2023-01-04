@@ -50,6 +50,10 @@ function rename_file($name_file){
     return $name_file;
 }
 
+function change_empty_to_zero($value){
+    return $value == "" ? 0 : $value;
+}
+
 function upload_file($key_folder){
     $CI =& get_instance();
     $CI->name_file = "";
