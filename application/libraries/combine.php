@@ -235,7 +235,11 @@ class combine {
         if (sizeof($search) > 0) {
             $isi_body = str_replace($search, $replace, $isi_body);
         }
+        $menu_li_oreo = array("");
         $menu_li = $this->menu->select_menu(0);
+        if(isset($GLOBALS['host_mysql'])){
+            $menu_li_oreo = $this->menu->select_menu_mysql(0);
+        }
         $array_search = array(
             "{replace_body}", 
             "{user}", 
@@ -245,6 +249,7 @@ class combine {
             $left_menu_under_logo_search,
             "<!-- </add_more_dialog> -->",
             "<!-- script no collapse inside body -->",
+            "<!-- MENU OREO -->",
             $search_flex
         );
         $array_replace = array(
@@ -256,6 +261,7 @@ class combine {
             $left_menu_under_logo_replace,
             $replace_more_dialog,
             $script_no_collapse,
+            $menu_li_oreo[0],
             $replace_flex
         );
         

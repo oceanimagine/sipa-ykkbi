@@ -1,4 +1,4 @@
-<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#user">Doctor</a></li>
+<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#user">Admin</a></li>
 <!-- SPLIT -->
 <div class="tab-pane stretchLeft" id="user">
     <div class="menu">

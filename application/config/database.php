@@ -68,6 +68,24 @@ $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
+if(isset($GLOBALS['host_mysql'])){
+    $db['mysql_db']['hostname'] = $GLOBALS['host_mysql'];
+    $db['mysql_db']['username'] = $GLOBALS['user_mysql'];
+    $db['mysql_db']['password'] = $GLOBALS['pass_mysql'];
+    $db['mysql_db']['database'] = $GLOBALS['data_mysql'];
+    $db['mysql_db']['port'] = (int) $GLOBALS['port_mysql'];
+    $db['mysql_db']['dbdriver'] = 'mysqli';
+    $db['mysql_db']['dbprefix'] = '';
+    $db['mysql_db']['pconnect'] = TRUE;
+    $db['mysql_db']['db_debug'] = TRUE;
+    $db['mysql_db']['cache_on'] = FALSE;
+    $db['mysql_db']['cachedir'] = '';
+    $db['mysql_db']['char_set'] = 'utf8';
+    $db['mysql_db']['dbcollat'] = 'utf8_general_ci';
+    $db['mysql_db']['swap_pre'] = '';
+    $db['mysql_db']['autoinit'] = TRUE;
+    $db['mysql_db']['stricton'] = FALSE;
+}
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */

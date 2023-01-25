@@ -24,6 +24,20 @@ $pass = $list_server[$_SERVER['SERVER_NAME']]['pass'];
 $data = $list_server[$_SERVER['SERVER_NAME']]['data'];
 $base = $list_server[$_SERVER['SERVER_NAME']]['base'];
 $port = $list_server[$_SERVER['SERVER_NAME']]['port'];
+
+if(isset($list_server[$_SERVER['SERVER_NAME']."::mysql"])){
+    $host_mysql = $list_server[$_SERVER['SERVER_NAME']."::mysql"]['host'];
+    $user_mysql = $list_server[$_SERVER['SERVER_NAME']."::mysql"]['user'];
+    $pass_mysql = $list_server[$_SERVER['SERVER_NAME']."::mysql"]['pass'];
+    $data_mysql = $list_server[$_SERVER['SERVER_NAME']."::mysql"]['data'];
+    $port_mysql = $list_server[$_SERVER['SERVER_NAME']."::mysql"]['port'];
+    $GLOBALS['host_mysql'] = $host_mysql;
+    $GLOBALS['user_mysql'] = $user_mysql;
+    $GLOBALS['pass_mysql'] = $pass_mysql;
+    $GLOBALS['data_mysql'] = $data_mysql;
+    $GLOBALS['port_mysql'] = $port_mysql;
+}
+
 $get_info_server = false;
 $GLOBALS['base_administrator'] = $base;
 $GLOBALS['host'] = $host;

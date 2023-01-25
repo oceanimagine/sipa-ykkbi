@@ -9,6 +9,14 @@ $list_server = array(
         "data" => "dbsiang_2022",
         "base" => "/project-ykkbi-sipa/",
         "port" => "5431"
+    ),
+    "localhost::mysql" => array(
+        "host" => "localhost",
+        "user" => "root",
+        "pass" => "YKKBI@2021",
+        "data" => "website_ykkbi",
+        "base" => "/project-ykkbi-sipa/",
+        "port" => "3306"
     ),/* 
     "200.60.4.93" => array(
         "host" => "200.60.4.93",

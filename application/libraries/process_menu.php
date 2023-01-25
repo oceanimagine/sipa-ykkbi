@@ -13,7 +13,9 @@ class process_menu {
     function __construct(){
         $this->CI =& get_instance();
         $this->CI->load->model('test');
+        $this->CI->load->model('testmysql');
         $this->model = $this->CI->test;
+        $this->model_mysql = $this->CI->testmysql;
         if(isset($_SESSION['PRI']) && $_SESSION['PRI'] == "SUPERADMIN"){
             $this->set_privilege_all();
         }
@@ -89,6 +91,86 @@ class process_menu {
             $_SESSION['MENU'][$row->id] = true;
         }
     }
+    
+    
+    function check_child_active_mysql($id_parent){
+        $query = "select id, nama_menu, module from tbl_menu where parent_id = '".$id_parent."' order by id asc";
+        $hasil = $this->model_mysql->kueri($query);
+        if ($hasil->num_rows() > 0){
+            foreach ($hasil->result() as $row){
+                if(isset($this->id_child[$row->id]) && $this->id_child[$row->id]){
+                    $this->boolean = true;
+                    break;
+                }
+                $this->check_child_active_mysql($row->id);
+            }
+        }
+        return $this->boolean;
+    }
+    function select_menu_mysql($id_parent){
+        $query = "select id, nama_menu, module, parent_id, icon from tbl_menu where parent_id = '".$id_parent."' order by id asc";
+        $hasil = $this->model_mysql->kueri($query);
+        $menu_ = "";
+	$ada_sub = 0;
+        
+        if ($hasil->num_rows() > 0){
+            /*  menu-open */
+            $menu_ = $id_parent > 0 ? "<ul class=\"ml-menu\">\n" : "";
+            foreach ($hasil->result() as $row){
+                
+                if(isset($this->session_menu[$row->id]) && $this->session_menu[$row->id]){
+		    $active = "";
+		    if($this->CI->uri->segment(1) == $row->module){
+                        $this->id_child[$row->id] = true;
+			$ada_sub = 1;
+			$active = "class=\"active\"";
+		    } else if(isset($this->CI->menu_yang_aktif) && $this->CI->menu_yang_aktif != "" && $this->CI->menu_yang_aktif == $row->module){
+                        $this->id_child[$row->id] = true;
+			$ada_sub = 1;
+			$active = "class=\"active\"";
+		    }
+		    $subs_ = $this->select_menu_mysql($row->id);
+		    if($subs_[1] || $this->check_child_active_mysql($row->id)){
+                        $this->boolean = false;
+                        $this->id_child[$row->id] = true;
+			$active = "class=\"active\"";
+		    }
+                    if($row->module == "" || $row->module == "#"){
+                        $menu_ = $menu_ . '
+                        <li '.$active.'>
+                            <a href="javascript:void(0);" class="menu-toggle"><i class="'.($id_parent > 0 ? '' : (isset($row->icon) ? 'zmdi ' . $row->icon : "zmdi zmdi-label-alt")).'"></i>'.($id_parent == 0 ? "<span>" . $row->nama_menu . "</span>" : $row->nama_menu).'</a>
+                            '.$subs_[0].'
+                        </li>';
+                    } else {
+                        if($row->parent_id == 0 && $row->module != "#"){
+                            $menu_ = $menu_ . '
+                            <li '.$active.'>
+                                <a href="javascript:void(0);" class="menu-toggle"><i class="'.($id_parent > 0 ? '' : (isset($row->icon) ? 'zmdi ' . $row->icon : "zmdi zmdi-label-alt")).'"></i> '.$row->nama_menu.'</a>
+                                '.$subs_[0].'
+                            </li>';
+                        } else {
+                            $menu_ = $menu_ . '
+                            <li '.$active.'>
+                                <a href="../../../index.php/'.$row->module.'"> <i class="'.($id_parent > 0 ? '' : (isset($row->icon) ? 'zmdi ' . $row->icon : "zmdi zmdi-label-alt")).'"></i>'.$row->nama_menu.'</a>
+                                '.$subs_[0].'
+                            </li>';
+                        }
+                    }
+                }
+            }
+            $menu_ = $menu_ . ($id_parent > 0 ? "
+                </ul>\n" : "");
+            
+	    if($ada_sub || (isset($subs_) && is_array($subs_) && isset($subs_[1]) && $subs_[1]) || $this->check_child_active_mysql($id_parent)){
+                $this->boolean = false;
+		$menu_ = str_replace(array('replace_open', 'replace_style'), array('menu-open', 'style="display: block;"'), $menu_);
+	    } else {
+		$menu_ = str_replace(array('replace_open', 'replace_style'), array('', '', ''), $menu_);
+	    }
+        }
+        return array($menu_, $ada_sub);
+    }
+    
     
     function check_child_active($id_parent){
         $query = "select id, nama_menu, module from tbl_menu where parent_id = '".$id_parent."' order by id asc";
