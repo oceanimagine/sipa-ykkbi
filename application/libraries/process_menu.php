@@ -6,6 +6,7 @@ class process_menu {
     public $address_checkbox = 0;
     public $keterangan_parent = "- Tidak Ada";
     private $session_menu = array();
+    private $session_menu_mysql = array();
     private $id_user = "0";
     private $id_child = array();
     private $boolean = false;
@@ -25,6 +26,7 @@ class process_menu {
             }
         }
         $this->session_menu = isset($_SESSION['MENU']) && is_array($_SESSION['MENU']) ? $_SESSION['MENU'] : array();
+        // print_r($_SESSION['MENU']);
         $array_keys_menu = array_keys($this->session_menu);
         for($i = 0; $i < sizeof($array_keys_menu); $i++){
             $query_parent = "select parent_id from tbl_menu where id = '".$array_keys_menu[$i]."' order by id asc";
@@ -39,6 +41,30 @@ class process_menu {
             }
         }
         $this->id_user = isset($_GET['id']) && $_GET['id'] != "" && is_numeric($_GET['id']) ? $_GET['id'] : "0";
+        
+        if(isset($_SESSION['PRI']) && $_SESSION['PRI'] == "SUPERADMIN"){
+            if(isset($GLOBALS['host_mysql'])){
+                $this->set_privilege_all_mysql();
+            }
+        }
+        
+        if(isset($GLOBALS['host_mysql'])){
+            $this->session_menu_mysql = isset($_SESSION['MENU_MYSQL']) && is_array($_SESSION['MENU_MYSQL']) ? $_SESSION['MENU_MYSQL'] : array();
+            // print_r($_SESSION['MENU_MYSQL']);
+            $array_keys_menu = array_keys($this->session_menu_mysql);
+            for($i = 0; $i < sizeof($array_keys_menu); $i++){
+                $query_parent = "select parent_id from tbl_menu where id = '".$array_keys_menu[$i]."' order by id asc";
+                $hasil_parent = $this->model_mysql->kueri($query_parent);
+                if ($hasil_parent->num_rows() > 0){
+                    foreach ($hasil_parent->result() as $row_id){
+                        if(!isset($this->session_menu_mysql[$row_id->parent_id])){
+                            $this->session_menu_mysql[$row_id->parent_id] = true;
+                            $this->get_all_menu_parent($row_id->parent_id);
+                        }
+                    }
+                }
+            }
+        }
     }
     
     public function get_all_menu_parent($id_menu){
@@ -49,6 +75,19 @@ class process_menu {
                 if(!isset($this->session_menu[$row_id->parent_id])){
                     $this->session_menu[$row_id->parent_id] = true;
                     $this->get_all_menu_parent($row_id->parent_id);
+                }
+            }
+        }
+    }
+    
+    public function get_all_menu_parent_mysql($id_menu){
+        $query_parent = "select parent_id from tbl_menu where id = '".$id_menu."' order by id asc";
+        $hasil_parent = $this->model_mysql->kueri($query_parent);
+        if ($hasil_parent->num_rows() > 0){
+            foreach ($hasil_parent->result() as $row_id){
+                if(!isset($this->session_menu_mysql[$row_id->parent_id])){
+                    $this->session_menu_mysql[$row_id->parent_id] = true;
+                    $this->get_all_menu_parent_mysql($row_id->parent_id);
                 }
             }
         }
@@ -92,6 +131,13 @@ class process_menu {
         }
     }
     
+    public function set_privilege_all_mysql(){
+        $hasil = $this->model_mysql->kueri("select id from tbl_menu");
+        foreach($hasil->result() as $row){
+            $_SESSION['MENU_MYSQL'][$row->id] = true;
+        }
+    }
+    
     
     function check_child_active_mysql($id_parent){
         $query = "select id, nama_menu, module from tbl_menu where parent_id = '".$id_parent."' order by id asc";
@@ -118,7 +164,7 @@ class process_menu {
             $menu_ = $id_parent > 0 ? "<ul class=\"ml-menu\">\n" : "";
             foreach ($hasil->result() as $row){
                 
-                if(isset($this->session_menu[$row->id]) && $this->session_menu[$row->id]){
+                if(isset($this->session_menu_mysql[$row->id]) && $this->session_menu_mysql[$row->id]){
 		    $active = "";
 		    if($this->CI->uri->segment(1) == $row->module){
                         $this->id_child[$row->id] = true;
