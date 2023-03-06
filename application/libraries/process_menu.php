@@ -42,11 +42,11 @@ class process_menu {
         }
         $this->id_user = isset($_GET['id']) && $_GET['id'] != "" && is_numeric($_GET['id']) ? $_GET['id'] : "0";
         
-        if(isset($_SESSION['PRI']) && $_SESSION['PRI'] == "SUPERADMIN"){
+        // if(isset($_SESSION['PRI']) && $_SESSION['PRI'] == "SUPERADMIN"){
             if(isset($GLOBALS['host_mysql'])){
                 $this->set_privilege_all_mysql();
             }
-        }
+        // }
         
         if(isset($GLOBALS['host_mysql'])){
             $this->session_menu_mysql = isset($_SESSION['MENU_MYSQL']) && is_array($_SESSION['MENU_MYSQL']) ? $_SESSION['MENU_MYSQL'] : array();

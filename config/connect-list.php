@@ -17,6 +17,14 @@ $list_server = array(
         "data" => "website_ykkbi",
         "base" => "/project-ykkbi-sipa/",
         "port" => "3306"
+    ),
+    "200.60.4.93::mysql" => array(
+        "host" => "localhost",
+        "user" => "root",
+        "pass" => "Ykkbi@2021",
+        "data" => "project_oreo",
+        "base" => "/oreodev/",
+        "port" => "3306"
     ),/* 
     "200.60.4.93" => array(
         "host" => "200.60.4.93",
